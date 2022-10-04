@@ -1,0 +1,7 @@
+{
+  "name": "dance-studio-front",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
