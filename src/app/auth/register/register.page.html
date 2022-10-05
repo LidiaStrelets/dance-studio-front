@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <div>
+      <ion-button class="small-text" shape="round" size="small" color="tertiary"
+        >Log in</ion-button
+      >
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="showForm">
+  <form (ngSubmit)="handleSubmit()" [formGroup]="registrationForm">
+    <ion-item
+      [ngStyle]="registrationForm.get('email')?.invalid&&registrationForm.get('email')?.untouched?inputStyles:{}"
+    >
+      <ion-label position="floating">Email</ion-label>
+      <ion-input
+        [class.invalidCustom]="registrationForm.get('email')?.invalid&&registrationForm.get('email')?.touched"
+        formControlName="email"
+        type="email"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input formControlName="password" type="password"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Firstname</ion-label>
+      <ion-input formControlName="firstname" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Lastname</ion-label>
+      <ion-input formControlName="lastname" type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Role</ion-label>
+      <ion-select
+        formControlName="role"
+        interface="popover"
+        placeholder="Select role"
+      >
+        <ion-select-option *ngFor="let role of roles"
+          >{{role}}</ion-select-option
+        >
+      </ion-select>
+    </ion-item>
+    <ion-item *ngIf="true">
+      <ion-label position="floating">Admin key</ion-label>
+      <ion-input formControlName="key" type="password"></ion-input>
+    </ion-item>
+    <div class="button-container"></div>
+    <ion-button
+      class="ion-margin-top ion-margin-horizontal padding-custom"
+      expand="block"
+      fill="outline"
+      type="submit"
+      >Register</ion-button
+    >
+  </form>
+</ion-content>
