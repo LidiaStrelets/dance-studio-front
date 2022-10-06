@@ -1,0 +1,9 @@
+<div *ngIf="showError">
+  <p *ngIf="errors['required']">Required!</p>
+  <p *ngIf="errors['email']">Enter valid email!</p>
+  <p *ngIf="errors['pattern']">
+    The password should be at least 8 symbols long, contain at least one capital
+    character and one digit!
+  </p>
+  <p *ngIf="errors['keyRequired']">Provide an admin key!</p>
+</div>

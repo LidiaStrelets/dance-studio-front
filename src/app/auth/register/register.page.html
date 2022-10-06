@@ -9,39 +9,46 @@
 </ion-header>
 
 <ion-content *ngIf="showForm">
-  {{getErrors(validationFormFields.password)|json}}
   <form (ngSubmit)="handleSubmit()" [formGroup]="registrationForm">
     <ion-item
       [ngStyle]="getValidation(validationFormFields.email).blockHighlight?inputStyles:{}"
     >
       <ion-label position="floating">Email</ion-label>
       <ion-input formControlName="email" type="email"></ion-input>
-      <div *ngIf="getValidation(validationFormFields.email).showMessage">
-        <p *ngIf="getErrors(validationFormFields.email)['required']">
-          Email required!
-        </p>
-        <p *ngIf="getErrors(validationFormFields.email)['email']">
-          Enter valid email!
-        </p>
-      </div>
+      <app-errors
+        [showError]="getValidation(validationFormFields.email).showMessage??false"
+        [errors]="getErrors(validationFormFields.email)"
+      ></app-errors>
     </ion-item>
     <ion-item
       [ngStyle]="getValidation(validationFormFields.password).blockHighlight?inputStyles:{}"
     >
       <ion-label position="floating">Password</ion-label>
       <ion-input formControlName="password" type="password"></ion-input>
+      <app-errors
+        [showError]="getValidation(validationFormFields.password).showMessage??false"
+        [errors]="getErrors(validationFormFields.password)"
+      ></app-errors>
     </ion-item>
     <ion-item
       [ngStyle]="getValidation(validationFormFields.firstname).blockHighlight?inputStyles:{}"
     >
       <ion-label position="floating">Firstname</ion-label>
       <ion-input formControlName="firstname" type="text"></ion-input>
+      <app-errors
+        [showError]="getValidation(validationFormFields.firstname).showMessage??false"
+        [errors]="getErrors(validationFormFields.firstname)"
+      ></app-errors>
     </ion-item>
     <ion-item
       [ngStyle]="getValidation(validationFormFields.lastname).blockHighlight?inputStyles:{}"
     >
       <ion-label position="floating">Lastname</ion-label>
       <ion-input formControlName="lastname" type="text"></ion-input>
+      <app-errors
+        [showError]="getValidation(validationFormFields.lastname).showMessage??false"
+        [errors]="getErrors(validationFormFields.lastname)"
+      ></app-errors>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Role</ion-label>
@@ -58,6 +65,10 @@
     <ion-item [ngStyle]="showKeyError()?keyInputStyles:{}" *ngIf="true">
       <ion-label position="floating">Admin key</ion-label>
       <ion-input formControlName="key" type="password"></ion-input>
+      <app-errors
+        [showError]="showKeyError()"
+        [errors]="registrationForm.errors??{}"
+      ></app-errors>
     </ion-item>
 
     <ion-button
