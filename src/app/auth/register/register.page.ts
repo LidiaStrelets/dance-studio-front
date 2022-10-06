@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from 'src/validation-functions';
-import { RegistrationForm } from 'src/types';
+import {
+  RegistrationForm,
+  Roles,
+  TValidationFormFields,
+  ValidationFormFields,
+} from 'src/types';
 
 @Component({
   selector: 'app-register',
@@ -9,12 +14,18 @@ import { RegistrationForm } from 'src/types';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage implements OnInit {
-  roles = ['admin', 'client', 'coach'];
+  roles = [Roles.admin, Roles.client, Roles.coach];
   registrationForm: RegistrationForm = {} as RegistrationForm;
   showForm = false;
   inputStyles = {
     '--highlight-background': 'none',
   };
+  keyInputStyles = {
+    color: 'var(--highlight-color-invalid)',
+    '--highlight-background': 'var(--highlight-color-invalid)',
+    'border-bottom': '1px solid var(--highlight-color-invalid)',
+  };
+  validationFormFields = ValidationFormFields;
 
   constructor(private customValidators: CustomValidators) {}
 
@@ -35,12 +46,38 @@ export class RegisterPage implements OnInit {
         ]),
         firstname: new FormControl('', Validators.required),
         lastname: new FormControl('', Validators.required),
-        role: new FormControl('', Validators.required),
-        key: new FormControl(''),
+        role: new FormControl(),
+        key: new FormControl(),
       },
       { validators: this.customValidators.keyValidator() }
     );
 
+    this.registrationForm.patchValue({ role: Roles.client });
     this.showForm = true;
   }
+
+  getValidation = (field: TValidationFormFields) => {
+    const fieldValue = this.registrationForm.get(field);
+
+    return {
+      blockHighlight: fieldValue?.invalid && fieldValue?.untouched,
+      showMessage: fieldValue?.invalid && fieldValue?.touched,
+    };
+  };
+
+  getErrors = (field: TValidationFormFields) => {
+    const fieldValue = this.registrationForm.get(field);
+
+    return fieldValue?.errors ?? {};
+  };
+
+  showKeyError = () => {
+    const key = this.registrationForm.get(this.validationFormFields.key);
+    const errors = this.registrationForm.errors;
+    if (!errors) {
+      return false;
+    }
+
+    return key?.touched && errors['keyRequired'];
+  };
 }

@@ -8,7 +8,12 @@ div {
   padding-right: 30px;
 }
 
-ion-button {
-  font-size: 10px;
+ion-button.padding-custom {
+  --padding-top: 20px;
+  --padding-bottom: 20px;
+}
+
+ion-item.highlight ion-label {
+  color: red;
 }
 /*# sourceMappingURL=register.page.css.map */
