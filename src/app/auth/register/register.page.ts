@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CustomValidators } from 'src/validation-functions';
 import {
+  RegistrationData,
   RegistrationForm,
   Roles,
   TValidationFormFields,
   ValidationFormFields,
 } from 'src/types';
+import { BeService } from './be.service';
+import { RegisterService } from './register.service';
 
 @Component({
   selector: 'app-register',
@@ -27,31 +28,27 @@ export class RegisterPage implements OnInit {
   };
   validationFormFields = ValidationFormFields;
 
-  constructor(private customValidators: CustomValidators) {}
+  constructor(private formService: RegisterService, private be: BeService) {}
 
   handleSubmit = () => {
-    console.log(this.registrationForm.value);
+    if (
+      Object.keys(this.registrationForm.value).some(
+        (key) =>
+          !this.registrationForm.get(key)?.value &&
+          key !== this.validationFormFields.key
+      )
+    ) {
+      return;
+    }
+
+    this.be.register(this.registrationForm.value as RegistrationData).subscribe(
+      (res) => console.log('success', res),
+      (err) => console.log('error', err)
+    );
   };
 
   ngOnInit() {
-    this.registrationForm = new FormGroup(
-      {
-        email: new FormControl('', [Validators.required, Validators.email]),
-        password: new FormControl('', [
-          Validators.required,
-          Validators.pattern(
-            '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{8,}'
-          ),
-        ]),
-        firstname: new FormControl('', Validators.required),
-        lastname: new FormControl('', Validators.required),
-        role: new FormControl(),
-        key: new FormControl(),
-      },
-      { validators: this.customValidators.keyValidator() }
-    );
-
-    this.registrationForm.patchValue({ role: Roles.client });
+    this.registrationForm = this.formService.getForm();
     this.showForm = true;
   }
 

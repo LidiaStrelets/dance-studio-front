@@ -9,6 +9,15 @@ export type RegistrationForm = FormGroup<{
   key: FormControl<string | null>;
 }>;
 
+export interface RegistrationData {
+  email: string;
+  password: string;
+  firstname: string;
+  lastname: string;
+  role: TRoles;
+  key?: string;
+}
+
 export type TRoles = 'admin' | 'client' | 'coach';
 
 export enum Roles {
