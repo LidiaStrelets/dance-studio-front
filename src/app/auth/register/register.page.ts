@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertService } from 'src/app/alert.service';
 import { Common } from 'src/common';
 import {
   RegistrationData,
@@ -30,7 +31,8 @@ export class RegisterPage implements OnInit {
   constructor(
     private formService: RegisterService,
     private be: BeService,
-    private common: Common
+    private common: Common,
+    private alertService: AlertService
   ) {
     this.inputStyles = this.common.inputStyles;
     this.keyInputStyles = this.common.keyInputStyles;
@@ -49,7 +51,7 @@ export class RegisterPage implements OnInit {
 
     this.be.register(this.registrationForm.value as RegistrationData).subscribe(
       (res) => console.log('success', res),
-      (err) => console.log('error', err)
+      (err) => this.alertService.presentAlertConfirm(err.error[0].message)
     );
   };
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertService } from 'src/app/alert.service';
 import { Common } from 'src/common';
 import {
   LoginData,
@@ -26,7 +27,8 @@ export class LoginPage implements OnInit {
   constructor(
     private common: Common,
     private formService: LoginService,
-    private be: BeService
+    private be: BeService,
+    private alertService: AlertService
   ) {
     this.inputStyles = this.common.inputStyles;
   }
@@ -42,7 +44,7 @@ export class LoginPage implements OnInit {
 
     this.be.register(this.loginForm.value as LoginData).subscribe(
       (res) => console.log('success', res),
-      (err) => console.log('error', err)
+      (err) => this.alertService.presentAlertConfirm(err.error[0].message)
     );
   };
 

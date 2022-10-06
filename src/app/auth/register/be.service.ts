@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RegistrationData } from 'src/types';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +12,10 @@ export class BeService {
   constructor(private http: HttpClient) {}
 
   register(data: RegistrationData) {
-    return this.http.post(this.url, data);
+    return this.http.post(this.url, data).pipe(
+      catchError((err) => {
+        throw err;
+      })
+    );
   }
 }
