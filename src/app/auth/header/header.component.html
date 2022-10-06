@@ -1,8 +1,13 @@
 <ion-header>
   <ion-toolbar>
     <div>
-      <ion-button class="small-text" shape="round" size="small" color="tertiary"
-        >Log in</ion-button
+      <ion-button
+        [routerLink]="link"
+        class="small-text"
+        shape="round"
+        size="small"
+        color="tertiary"
+        >{{ linkName }}</ion-button
       >
     </div>
   </ion-toolbar>

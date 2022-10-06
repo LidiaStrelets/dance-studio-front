@@ -1,44 +1,44 @@
-<app-header></app-header>
+<app-header [link]="routerLink" linkName="Log in"></app-header>
 <ion-content *ngIf="showForm">
   <form (ngSubmit)="handleSubmit()" [formGroup]="registrationForm">
     <ion-item
-      [ngStyle]="getValidation(validationFormFields.email).blockHighlight?inputStyles:{}"
+      [ngStyle]="getValidation(registrationFormFields.email).blockHighlight?inputStyles:{}"
     >
       <ion-label position="floating">Email</ion-label>
       <ion-input formControlName="email" type="email"></ion-input>
       <app-errors
-        [showError]="getValidation(validationFormFields.email).showMessage??false"
-        [errors]="getErrors(validationFormFields.email)"
+        [showError]="getValidation(registrationFormFields.email).showMessage??false"
+        [errors]="getErrors(registrationFormFields.email)"
       ></app-errors>
     </ion-item>
     <ion-item
-      [ngStyle]="getValidation(validationFormFields.password).blockHighlight?inputStyles:{}"
+      [ngStyle]="getValidation(registrationFormFields.password).blockHighlight?inputStyles:{}"
     >
       <ion-label position="floating">Password</ion-label>
       <ion-input formControlName="password" type="password"></ion-input>
       <app-errors
-        [showError]="getValidation(validationFormFields.password).showMessage??false"
-        [errors]="getErrors(validationFormFields.password)"
+        [showError]="getValidation(registrationFormFields.password).showMessage??false"
+        [errors]="getErrors(registrationFormFields.password)"
       ></app-errors>
     </ion-item>
     <ion-item
-      [ngStyle]="getValidation(validationFormFields.firstname).blockHighlight?inputStyles:{}"
+      [ngStyle]="getValidation(registrationFormFields.firstname).blockHighlight?inputStyles:{}"
     >
       <ion-label position="floating">Firstname</ion-label>
       <ion-input formControlName="firstname" type="text"></ion-input>
       <app-errors
-        [showError]="getValidation(validationFormFields.firstname).showMessage??false"
-        [errors]="getErrors(validationFormFields.firstname)"
+        [showError]="getValidation(registrationFormFields.firstname).showMessage??false"
+        [errors]="getErrors(registrationFormFields.firstname)"
       ></app-errors>
     </ion-item>
     <ion-item
-      [ngStyle]="getValidation(validationFormFields.lastname).blockHighlight?inputStyles:{}"
+      [ngStyle]="getValidation(registrationFormFields.lastname).blockHighlight?inputStyles:{}"
     >
       <ion-label position="floating">Lastname</ion-label>
       <ion-input formControlName="lastname" type="text"></ion-input>
       <app-errors
-        [showError]="getValidation(validationFormFields.lastname).showMessage??false"
-        [errors]="getErrors(validationFormFields.lastname)"
+        [showError]="getValidation(registrationFormFields.lastname).showMessage??false"
+        [errors]="getErrors(registrationFormFields.lastname)"
       ></app-errors>
     </ion-item>
     <ion-item>

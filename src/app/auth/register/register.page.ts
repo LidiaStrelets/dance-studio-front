@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Common } from 'src/common';
 import {
   RegistrationData,
   RegistrationForm,
+  RegistrationFormFields,
   Roles,
-  TValidationFormFields,
-  ValidationFormFields,
+  TRegistrationFormFields,
 } from 'src/types';
 import { BeService } from './be.service';
 import { RegisterService } from './register.service';
@@ -16,26 +17,31 @@ import { RegisterService } from './register.service';
 })
 export class RegisterPage implements OnInit {
   roles = [Roles.admin, Roles.client, Roles.coach];
+
+  registrationFormFields = RegistrationFormFields;
   registrationForm: RegistrationForm = {} as RegistrationForm;
   showForm = false;
-  inputStyles = {
-    '--highlight-background': 'none',
-  };
-  keyInputStyles = {
-    color: 'var(--highlight-color-invalid)',
-    '--highlight-background': 'var(--highlight-color-invalid)',
-    'border-bottom': '1px solid var(--highlight-color-invalid)',
-  };
-  validationFormFields = ValidationFormFields;
 
-  constructor(private formService: RegisterService, private be: BeService) {}
+  routerLink = ['../', 'login'];
+
+  inputStyles = {};
+  keyInputStyles = {};
+
+  constructor(
+    private formService: RegisterService,
+    private be: BeService,
+    private common: Common
+  ) {
+    this.inputStyles = this.common.inputStyles;
+    this.keyInputStyles = this.common.keyInputStyles;
+  }
 
   handleSubmit = () => {
     if (
       Object.keys(this.registrationForm.value).some(
         (key) =>
           !this.registrationForm.get(key)?.value &&
-          key !== this.validationFormFields.key
+          key !== this.registrationFormFields.key
       )
     ) {
       return;
@@ -52,7 +58,7 @@ export class RegisterPage implements OnInit {
     this.showForm = true;
   }
 
-  getValidation = (field: TValidationFormFields) => {
+  getValidation = (field: TRegistrationFormFields) => {
     const fieldValue = this.registrationForm.get(field);
 
     return {
@@ -61,14 +67,14 @@ export class RegisterPage implements OnInit {
     };
   };
 
-  getErrors = (field: TValidationFormFields) => {
+  getErrors = (field: TRegistrationFormFields) => {
     const fieldValue = this.registrationForm.get(field);
 
     return fieldValue?.errors ?? {};
   };
 
   showKeyError = () => {
-    const key = this.registrationForm.get(this.validationFormFields.key);
+    const key = this.registrationForm.get(this.registrationFormFields.key);
     const errors = this.registrationForm.errors;
     if (!errors) {
       return false;

@@ -1,5 +1,22 @@
 import { FormControl, FormGroup } from '@angular/forms';
 
+export type LoginForm = FormGroup<{
+  email: FormControl<string | null>;
+  password: FormControl<string | null>;
+}>;
+
+export interface LoginData {
+  email: string;
+  password: string;
+}
+
+export type TLoginFormFields = 'email' | 'password';
+
+export enum LoginFormFields {
+  email = 'email',
+  password = 'password',
+}
+
 export type RegistrationForm = FormGroup<{
   email: FormControl<string | null>;
   password: FormControl<string | null>;
@@ -9,9 +26,7 @@ export type RegistrationForm = FormGroup<{
   key: FormControl<string | null>;
 }>;
 
-export interface RegistrationData {
-  email: string;
-  password: string;
+export interface RegistrationData extends LoginData {
   firstname: string;
   lastname: string;
   role: TRoles;
@@ -26,7 +41,7 @@ export enum Roles {
   coach = 'coach',
 }
 
-export type TValidationFormFields =
+export type TRegistrationFormFields =
   | 'email'
   | 'password'
   | 'firstname'
@@ -34,7 +49,7 @@ export type TValidationFormFields =
   | 'role'
   | 'key';
 
-export enum ValidationFormFields {
+export enum RegistrationFormFields {
   email = 'email',
   password = 'password',
   firstname = 'firstname',
