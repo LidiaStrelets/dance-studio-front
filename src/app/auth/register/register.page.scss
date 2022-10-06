@@ -2,3 +2,7 @@ form {
   padding: 10px;
   border-radius: 5px;
 }
+ion-button.padding-custom {
+  --padding-top: 25px;
+  --padding-bottom: 25px;
+}

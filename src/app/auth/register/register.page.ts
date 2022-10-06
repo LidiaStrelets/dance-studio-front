@@ -30,7 +30,7 @@ export class RegisterPage implements OnInit {
   constructor(private customValidators: CustomValidators) {}
 
   handleSubmit = () => {
-    console.log(this.registrationForm);
+    console.log(this.registrationForm.value);
   };
 
   ngOnInit() {
