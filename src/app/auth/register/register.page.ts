@@ -8,6 +8,7 @@ import {
   Roles,
   TRegistrationFormFields,
 } from 'src/types';
+import { AuthService } from '../auth.service';
 import { BeService } from './be.service';
 import { RegisterService } from './register.service';
 
@@ -32,7 +33,8 @@ export class RegisterPage implements OnInit {
     private formService: RegisterService,
     private be: BeService,
     private common: Common,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private authService: AuthService
   ) {
     this.inputStyles = this.common.inputStyles;
     this.keyInputStyles = this.common.keyInputStyles;
@@ -50,8 +52,8 @@ export class RegisterPage implements OnInit {
     }
 
     this.be.register(this.registrationForm.value as RegistrationData).subscribe(
-      (res) => console.log('success', res),
-      (err) => this.alertService.presentAlertConfirm(err.error[0].message)
+      (res) => this.authService.authenticate(res.data.token),
+      (err) => this.alertService.presentAlertError(err.error[0].message)
     );
   };
 

@@ -57,3 +57,14 @@ export enum RegistrationFormFields {
   role = 'role',
   key = 'key',
 }
+
+export interface TokenResponce {
+  data: { token: string };
+}
+
+export interface Hall {
+  id: string;
+  name: string;
+  description: string;
+  polesAmount: number;
+}

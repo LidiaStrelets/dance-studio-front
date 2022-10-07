@@ -7,6 +7,7 @@ import {
   LoginFormFields,
   TLoginFormFields,
 } from 'src/types';
+import { AuthService } from '../auth.service';
 import { BeService } from './be.service';
 import { LoginService } from './login.service';
 
@@ -28,7 +29,8 @@ export class LoginPage implements OnInit {
     private common: Common,
     private formService: LoginService,
     private be: BeService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private authService: AuthService
   ) {
     this.inputStyles = this.common.inputStyles;
   }
@@ -43,8 +45,10 @@ export class LoginPage implements OnInit {
     }
 
     this.be.register(this.loginForm.value as LoginData).subscribe(
-      (res) => console.log('success', res),
-      (err) => this.alertService.presentAlertConfirm(err.error[0].message)
+      (res) => {
+        this.authService.authenticate(res.data.token);
+      },
+      (err) => this.alertService.presentAlertError(err.error[0].message)
     );
   };
 

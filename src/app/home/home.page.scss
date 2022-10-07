@@ -1,0 +1,19 @@
+span {
+  font-size: 15px;
+  padding-right: 20px;
+}
+ion-toolbar.page-header {
+  text-align: end;
+}
+div.title-container {
+  display: flex;
+  flex-direction: column;
+}
+ion-item,
+ion-list {
+  --background: transparent;
+}
+ion-list {
+  padding-top: 60px;
+  background: transparent;
+}

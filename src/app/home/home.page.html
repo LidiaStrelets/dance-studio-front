@@ -1,0 +1,59 @@
+<ion-menu type="push" content-id="main-content">
+  <ion-content class="ion-padding">
+    <ion-list [inset]="false" lines="none">
+      <ion-item *ngFor="let item of menuItems">
+        <ion-label>{{item}}</ion-label>
+      </ion-item>
+    </ion-list></ion-content
+  >
+</ion-menu>
+
+<ion-header>
+  <ion-toolbar class="ion-padding-top page-header"
+    ><ion-buttons class="ion-padding-bottom" slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <!-- <div class="title-container"> -->
+    <ion-title class="ion-text-end">Euphoria</ion-title>
+    <span>exotic pole dance studio</span>
+    <!-- </div> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content id="main-content">
+  <ion-card>
+    <ion-item>
+      <ion-img
+        src="./assets/images/9a0fdfcbcab71a6dc70c97bf08ded1ab.png"
+      ></ion-img>
+    </ion-item>
+    <ion-card-header>
+      <ion-card-title>Our studio</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+      est laborum.
+    </ion-card-content></ion-card
+  >
+
+  <ion-card *ngFor="let hall of halls">
+    <ion-item>
+      <ion-img
+        src="./assets/images/9a0fdfcbcab71a6dc70c97bf08ded1ab.png"
+      ></ion-img>
+    </ion-item>
+    <ion-card-header>
+      <ion-card-title class="ion-text-capitalize"
+        >{{hall.name }}</ion-card-title
+      >
+    </ion-card-header>
+
+    <ion-card-content> {{hall.description}} </ion-card-content></ion-card
+  >
+</ion-content>
