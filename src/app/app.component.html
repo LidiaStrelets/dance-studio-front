@@ -1,3 +1,14 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-menu type="push" content-id="main-content">
+    <ion-content class="ion-padding">
+      <ion-list [inset]="false" lines="none">
+        <ion-menu-toggle *ngFor="let item of getMenu()"
+          ><ion-item [routerLink]="item.link">
+            <ion-label>{{ item.name }}</ion-label>
+          </ion-item></ion-menu-toggle
+        >
+      </ion-list></ion-content
+    >
+  </ion-menu>
+  <ion-router-outlet id="main-content"></ion-router-outlet>
 </ion-app>

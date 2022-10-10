@@ -29,4 +29,10 @@ export class AuthService {
   }
 
   isAuthenticated = () => !!this.getToken();
+
+  redirectAuthenticated = () => {
+    if (this.isAuthenticated()) {
+      this.router.navigate(['home']);
+    }
+  };
 }

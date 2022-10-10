@@ -12,15 +12,6 @@ import { HallService } from './hall.service';
 export class HomePage implements OnInit {
   halls: Hall[] = [];
 
-  menuItems = [
-    'My profile',
-    'My payments',
-    'Schedules',
-    'Coaches',
-    'Classes',
-    'Prices',
-  ];
-
   constructor(
     private hallService: HallService,
     private authService: AuthService,

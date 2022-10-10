@@ -32,9 +32,15 @@ const routes: Routes = [
       import('./home/home.module').then((m) => m.HomePageModule),
   },
   {
-    path: '**',
-    redirectTo: 'welcome',
+    path: 'user',
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./user/user.module').then((m) => m.UserPageModule),
   },
+  // {
+  //   path: '**',
+  //   redirectTo: 'welcome',
+  // },
 ];
 
 @NgModule({
