@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { routesPaths } from 'src/app/app-routing.module';
 import { AlertService } from 'src/app/services/alert.service';
 import { Common } from 'src/common';
 import {
@@ -24,7 +25,7 @@ export class RegisterPage implements OnInit {
   registrationForm: RegistrationForm = {} as RegistrationForm;
   showForm = false;
 
-  routerLink = ['../', 'login'];
+  routerLink = ['../', routesPaths.login];
 
   inputStyles = {};
   keyInputStyles = {};

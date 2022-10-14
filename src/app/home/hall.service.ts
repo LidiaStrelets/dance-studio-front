@@ -14,8 +14,6 @@ export class HallService {
   get(): Observable<Hall[]> {
     return this.httpClient.get<Hall[]>(this.url).pipe(
       catchError((err) => {
-        console.log('catch hall service', err);
-
         throw err;
       })
     );

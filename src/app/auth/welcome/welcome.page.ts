@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { routesPaths } from 'src/app/app-routing.module';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -8,6 +9,7 @@ import { AuthService } from '../auth.service';
 })
 export class WelcomePage implements OnInit {
   show = false;
+  link = routesPaths.login;
 
   constructor(private authService: AuthService) {}
 

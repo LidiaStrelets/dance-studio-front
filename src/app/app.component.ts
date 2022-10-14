@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 
 import { TranslateService } from '@ngx-translate/core';
+import { MenuItem } from 'src/types';
 
 @Component({
   selector: 'app-root',
@@ -9,21 +9,31 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  menuItems = [
-    { name: 'Home page', link: ['../', 'home'] },
-    { name: 'My profile', link: ['../', 'user'] },
-    { name: 'My payments', link: ['./', 'payments'] },
-    { name: 'Schedules', link: ['./', 'schedules'] },
-    { name: 'Coaches', link: ['./', 'coaches'] },
-    { name: 'Classes', link: ['./', 'classes'] },
-    { name: 'Prices', link: ['./', 'prices'] },
+  test = '';
+  menuItems: MenuItem[] = [
+    { name: 'Home page', translatedName: 'Home page', link: ['../', 'home'] },
+    { name: 'My profile', translatedName: 'My profile', link: ['../', 'user'] },
+    {
+      name: 'My payments',
+      translatedName: 'My payments',
+      link: ['./', 'payments'],
+    },
+    {
+      name: 'Schedules',
+      translatedName: 'Schedules',
+      link: ['./', 'schedules'],
+    },
+    { name: 'Coaches', translatedName: 'Coaches', link: ['./', 'coaches'] },
+    { name: 'Classes', translatedName: 'Classes', link: ['./', 'classes'] },
+    { name: 'Prices', translatedName: 'Prices', link: ['./', 'prices'] },
   ];
 
-  constructor(
-    private router: Router,
-    private translateService: TranslateService
-  ) {
-    this.translateService.setDefaultLang('EN');
-    this.translateService.addLangs(['EN', 'UK']);
-  }
+  constructor(private translateService: TranslateService) {}
+
+  getTranslation = (i: number) => {
+    this.translateService
+      .get(`menu.${this.menuItems[i].name}`)
+      .subscribe((res) => (this.menuItems[i].translatedName = res));
+    return this.menuItems[i].translatedName;
+  };
 }

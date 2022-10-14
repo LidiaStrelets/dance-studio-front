@@ -85,3 +85,14 @@ export enum ELanguages {
   en = 'EN',
   uk = 'UK',
 }
+
+export interface MenuItem {
+  name: string;
+  translatedName: string;
+  link: string[];
+}
+
+export enum LocalStorageKeys {
+  language = 'language',
+  token = 'token',
+}

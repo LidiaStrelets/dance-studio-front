@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { routesPaths } from '../app-routing.module';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,6 @@ export class AlertService {
 
   async presentAlertError(message: string) {
     const alert = await this.alertCtrl.create({
-      cssClass: 'my-custom-class',
       header: 'Oops :( Something went wrong',
       message,
       buttons: [
@@ -26,14 +26,13 @@ export class AlertService {
 
   async presentAlertUnauthorized() {
     const alert = await this.alertCtrl.create({
-      cssClass: 'my-custom-class',
       header: 'Unauthorized!',
       message: 'Your session has expired, please log in',
       buttons: [
         {
           text: 'Okay',
           handler: () => {
-            this.router.navigate(['login']);
+            this.router.navigate([routesPaths.login]);
           },
         },
       ],

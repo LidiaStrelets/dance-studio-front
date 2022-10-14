@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
+import { routesPaths } from '../app-routing.module';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -14,7 +15,7 @@ export class AuthGuard implements CanActivate {
     | boolean
     | UrlTree {
     if (!this.authService.isAuthenticated()) {
-      this.router.navigate(['./welcome']);
+      this.router.navigate([routesPaths.default]);
       return false;
     }
     return true;

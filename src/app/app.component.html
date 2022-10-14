@@ -2,12 +2,13 @@
   <ion-menu type="push" content-id="main-content">
     <ion-content class="ion-padding">
       <ion-list [inset]="false" lines="none">
-        <ion-menu-toggle *ngFor="let item of menuItems"
+        <ion-menu-toggle *ngFor="let item of menuItems; let i = index"
           ><ion-item [routerLink]="item.link">
-            <ion-label>{{ item.name }}</ion-label>
+            <ion-label>{{ getTranslation(i) }}</ion-label>
           </ion-item></ion-menu-toggle
         >
-      </ion-list></ion-content
+      </ion-list>
+      {{ test }}</ion-content
     >
   </ion-menu>
   <ion-router-outlet id="main-content"></ion-router-outlet>

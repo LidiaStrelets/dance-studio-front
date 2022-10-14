@@ -26,14 +26,7 @@ export class HomePage implements OnInit {
     this.hallService.get().subscribe(
       (res) => {
         this.halls = res;
-        this.translatedHalls = this.halls.map(
-          ({ name, description, id, picture }) => ({
-            name,
-            description,
-            id,
-            picture,
-          })
-        );
+        this.translate();
       },
       (err) => {
         if (err.status === 401) {
@@ -53,6 +46,10 @@ export class HomePage implements OnInit {
     if (this.showLanguages) {
       return;
     }
+    this.translate();
+  };
+
+  private translate = () => {
     if (this.languageService.getLanguage() === ELanguages.en) {
       this.translatedHalls = this.halls.map(
         ({ name, description, id, picture }) => ({

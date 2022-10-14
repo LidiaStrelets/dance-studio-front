@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { routesPaths } from 'src/app/app-routing.module';
 import { AlertService } from 'src/app/services/alert.service';
 import { Common } from 'src/common';
 import {
@@ -17,7 +18,7 @@ import { LoginService } from './login.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  routerLink = ['../', 'register'];
+  routerLink = ['../', routesPaths.register];
 
   loginFormFields = LoginFormFields;
   loginForm: LoginForm = {} as LoginForm;
