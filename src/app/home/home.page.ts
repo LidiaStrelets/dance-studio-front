@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Hall } from 'src/types';
+import { ELanguages, Hall, TranslatedHall } from 'src/types';
 import { AuthService } from '../auth/auth.service';
 import { AlertService } from '../services/alert.service';
+import { LanguageService } from '../services/language.service';
 import { HallService } from './hall.service';
 
 @Component({
@@ -11,17 +12,29 @@ import { HallService } from './hall.service';
 })
 export class HomePage implements OnInit {
   halls: Hall[] = [];
+  translatedHalls: TranslatedHall[] = [];
   showLanguages = false;
 
   constructor(
     private hallService: HallService,
     private authService: AuthService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private languageService: LanguageService
   ) {}
 
   ngOnInit() {
     this.hallService.get().subscribe(
-      (res) => (this.halls = res),
+      (res) => {
+        this.halls = res;
+        this.translatedHalls = this.halls.map(
+          ({ name, description, id, picture }) => ({
+            name,
+            description,
+            id,
+            picture,
+          })
+        );
+      },
       (err) => {
         if (err.status === 401) {
           this.authService.deauthenticate();
@@ -34,5 +47,30 @@ export class HomePage implements OnInit {
     );
   }
 
-  toggleLanguages = () => (this.showLanguages = !this.showLanguages);
+  toggleLanguages = () => {
+    this.showLanguages = !this.showLanguages;
+
+    if (this.showLanguages) {
+      return;
+    }
+    if (this.languageService.getLanguage() === ELanguages.en) {
+      this.translatedHalls = this.halls.map(
+        ({ name, description, id, picture }) => ({
+          name,
+          description,
+          id,
+          picture,
+        })
+      );
+    } else {
+      this.translatedHalls = this.halls.map(
+        ({ nameUk, descriptionUk, id, picture }) => ({
+          name: nameUk,
+          description: descriptionUk,
+          id,
+          picture,
+        })
+      );
+    }
+  };
 }

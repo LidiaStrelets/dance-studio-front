@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -17,5 +19,11 @@ export class AppComponent {
     { name: 'Prices', link: ['./', 'prices'] },
   ];
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private translateService: TranslateService
+  ) {
+    this.translateService.setDefaultLang('EN');
+    this.translateService.addLangs(['EN', 'UK']);
+  }
 }

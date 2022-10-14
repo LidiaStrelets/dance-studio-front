@@ -1,10 +1,10 @@
 div {
-  position: absolute;
+  position: fixed;
   right: 0;
 
   background-color: var(--ion-item-background);
   z-index: 2;
-  width: 40%;
+  width: 20%;
 
   border-radius: 10px;
 
@@ -25,5 +25,9 @@ ul {
 li {
   &:not(:last-child) {
     margin-bottom: 10px;
+  }
+
+  &.current {
+    color: var(--ion-color-step-450);
   }
 }

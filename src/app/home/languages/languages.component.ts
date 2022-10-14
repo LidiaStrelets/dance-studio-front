@@ -11,14 +11,18 @@ export class LanguagesComponent implements OnInit {
   @Input() showLanguagesMenu = false;
   @Output() closeMenu = new EventEmitter();
 
-  languages: Languages[] = ['EN', 'UK'];
+  languages: Languages[] = [];
 
   constructor(private languageService: LanguageService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.languages = this.languageService.getLanguages();
+  }
 
   setLanguage = (language: Languages) => {
     this.languageService.setLanguage(language);
     this.closeMenu.emit();
   };
+
+  getCurrentLanguage = () => this.languageService.getLanguage();
 }

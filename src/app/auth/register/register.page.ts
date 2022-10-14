@@ -58,6 +58,7 @@ export class RegisterPage implements OnInit {
   };
 
   ngOnInit() {
+    this.authService.redirectAuthenticated();
     this.registrationForm = this.formService.getForm();
     this.showForm = true;
   }

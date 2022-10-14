@@ -53,6 +53,7 @@ export class LoginPage implements OnInit {
   };
 
   ngOnInit() {
+    this.authService.redirectAuthenticated();
     this.loginForm = this.formService.getForm();
     this.showForm = true;
   }

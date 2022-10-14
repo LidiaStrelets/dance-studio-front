@@ -1,6 +1,10 @@
 <div [class.shown]="showLanguagesMenu">
   <ul>
-    <li (click)="setLanguage(language)" *ngFor="let language of languages">
+    <li
+      [class.current]="language === getCurrentLanguage()"
+      (click)="setLanguage(language)"
+      *ngFor="let language of languages"
+    >
       {{ language }}
     </li>
   </ul>

@@ -5,7 +5,7 @@
     </ion-buttons>
     <div class="title-container">
       <ion-title class="ion-text-center">Euphoria</ion-title>
-      <span>exotic pole dance studio</span>
+      <span>{{"homeSubtitle" | translate}}</span>
     </div>
     <ion-buttons slot="end" class="ion-padding-bottom"
       ><ion-button (click)="toggleLanguages()">
@@ -31,32 +31,22 @@
       ></ion-img>
     </ion-item>
     <ion-card-header>
-      <ion-card-title>Our studio</ion-card-title>
+      <ion-card-title>{{"homePageTitle" | translate}}</ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-      est laborum.
+      {{"homeMainDescription" | translate}}
     </ion-card-content></ion-card
   >
 
-  <ion-card *ngFor="let hall of halls">
+  <ion-card *ngFor="let hall of translatedHalls">
     <ion-item>
-      <ion-img
-        src="./assets/images/9a0fdfcbcab71a6dc70c97bf08ded1ab.png"
-      ></ion-img>
+      <ion-img [src]="hall.picture"></ion-img>
     </ion-item>
     <ion-card-header>
-      <ion-card-title class="ion-text-capitalize"
-        >{{hall.name }}</ion-card-title
-      >
+      <ion-card-title class="ion-text-capitalize">{{hall.name}}</ion-card-title>
     </ion-card-header>
 
-    <ion-card-content> {{hall.description}} </ion-card-content></ion-card
+    <ion-card-content>{{hall.description}} </ion-card-content></ion-card
   >
 </ion-content>

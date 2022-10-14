@@ -6,8 +6,17 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpClientModule,
+  HTTP_INTERCEPTORS,
+} from '@angular/common/http';
 import { TokenInterceptorService } from './services/token-interceptor.service';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+export const httpLoaderFactory = (httpClient: HttpClient) =>
+  new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,6 +25,13 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: httpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
