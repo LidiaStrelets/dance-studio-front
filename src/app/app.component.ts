@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
 import { MenuItem } from 'src/types';
+import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -28,7 +29,10 @@ export class AppComponent {
     { name: 'Prices', translatedName: 'Prices', link: ['./', 'prices'] },
   ];
 
-  constructor(private translateService: TranslateService) {}
+  constructor(
+    private translateService: TranslateService,
+    private authService: AuthService
+  ) {}
 
   getTranslation = (i: number) => {
     this.translateService
@@ -36,4 +40,6 @@ export class AppComponent {
       .subscribe((res) => (this.menuItems[i].translatedName = res));
     return this.menuItems[i].translatedName;
   };
+
+  handleLogout = () => this.authService.logout();
 }

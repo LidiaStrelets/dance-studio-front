@@ -31,6 +31,11 @@ export class AuthService {
     this.alertService.presentAlertUnauthorized();
   }
 
+  logout = () => {
+    localStorage.removeItem(this.tokenKey);
+    this.router.navigate([routesPaths.login]);
+  };
+
   isAuthenticated = () => !!this.getToken();
 
   redirectAuthenticated = () => {

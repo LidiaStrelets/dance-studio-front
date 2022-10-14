@@ -1,15 +1,21 @@
 <ion-app>
   <ion-menu type="push" content-id="main-content">
     <ion-content class="ion-padding">
-      <ion-list [inset]="false" lines="none">
-        <ion-menu-toggle *ngFor="let item of menuItems; let i = index"
-          ><ion-item [routerLink]="item.link">
-            <ion-label>{{ getTranslation(i) }}</ion-label>
-          </ion-item></ion-menu-toggle
-        >
-      </ion-list>
-      {{ test }}</ion-content
-    >
+      <div>
+        <ion-list [inset]="false" lines="none">
+          <ion-menu-toggle *ngFor="let item of menuItems; let i = index"
+            ><ion-item [routerLink]="item.link">
+              <ion-label>{{ getTranslation(i) }}</ion-label>
+            </ion-item></ion-menu-toggle
+          >
+        </ion-list>
+        <ion-menu-toggle>
+          <ion-button (click)="handleLogout()" fill="outline" shape="round">
+            {{ "app.logout" | translate }}
+          </ion-button>
+        </ion-menu-toggle>
+      </div>
+    </ion-content>
   </ion-menu>
   <ion-router-outlet id="main-content"></ion-router-outlet>
 </ion-app>
