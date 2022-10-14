@@ -18,10 +18,4 @@ export class AppComponent {
   ];
 
   constructor(private router: Router) {}
-
-  getMenu = () => {
-    console.log(this.router.url);
-
-    return this.menuItems;
-  };
 }

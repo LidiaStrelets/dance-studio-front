@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Hall } from 'src/types';
-import { AlertService } from '../alert.service';
 import { AuthService } from '../auth/auth.service';
+import { AlertService } from '../services/alert.service';
 import { HallService } from './hall.service';
 
 @Component({
@@ -11,6 +11,7 @@ import { HallService } from './hall.service';
 })
 export class HomePage implements OnInit {
   halls: Hall[] = [];
+  showLanguages = false;
 
   constructor(
     private hallService: HallService,
@@ -25,9 +26,13 @@ export class HomePage implements OnInit {
         if (err.status === 401) {
           this.authService.deauthenticate();
         } else {
-          this.alertService.presentAlertError(err.error[0].message);
+          this.alertService.presentAlertError(
+            err.error ? err.error[0].message : 'oops!'
+          );
         }
       }
     );
   }
+
+  toggleLanguages = () => (this.showLanguages = !this.showLanguages);
 }

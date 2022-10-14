@@ -68,3 +68,5 @@ export interface Hall {
   description: string;
   polesAmount: number;
 }
+
+export type Languages = 'EN' | 'UK';

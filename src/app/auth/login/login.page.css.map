@@ -2,8 +2,8 @@
     "version": 3,
     "mappings": "AAAA,AAAA,IAAI,CAAC;EACH,OAAO,EAAE,IAAI;EACb,aAAa,EAAE,GAAG;CACnB;;AACD,AAAA,UAAU,AAAA,eAAe,CAAC;EACxB,aAAa,CAAA,KAAC;EACd,gBAAgB,CAAA,KAAC;CAClB",
     "sources": [
-        "register.page.scss"
+        "login.page.scss"
     ],
     "names": [],
-    "file": "register.page.css"
+    "file": "login.page.css"
 }

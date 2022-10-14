@@ -2,7 +2,7 @@
   <ion-menu type="push" content-id="main-content">
     <ion-content class="ion-padding">
       <ion-list [inset]="false" lines="none">
-        <ion-menu-toggle *ngFor="let item of getMenu()"
+        <ion-menu-toggle *ngFor="let item of menuItems"
           ><ion-item [routerLink]="item.link">
             <ion-label>{{ item.name }}</ion-label>
           </ion-item></ion-menu-toggle

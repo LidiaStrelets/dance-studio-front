@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertService } from 'src/app/alert.service';
+import { AlertService } from 'src/app/services/alert.service';
 import { Common } from 'src/common';
 import {
   RegistrationData,

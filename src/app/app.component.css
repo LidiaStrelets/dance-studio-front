@@ -1,1 +1,10 @@
-/* No CSS *//*# sourceMappingURL=app.component.css.map */
+ion-item,
+ion-list {
+  --background: transparent;
+}
+
+ion-list {
+  padding-top: 60px;
+  background: transparent;
+}
+/*# sourceMappingURL=app.component.css.map */
