@@ -14,7 +14,8 @@
     "Prices": "Ціни"
   },
   "profile": {
-    "header": "Мій профіль"
+    "header": "Мій профіль",
+    "birthDate": "Дата народження"
   },
   "app": {
     "logout": "Вийти"

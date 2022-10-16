@@ -1,0 +1,35 @@
+div {
+  position: fixed;
+  right: 0;
+  background-color: var(--ion-item-background);
+  z-index: 2;
+  width: 20%;
+  border-radius: 10px;
+  -webkit-transform: translateY(-100px);
+          transform: translateY(-100px);
+  -webkit-transition: -webkit-transform 250ms ease;
+  transition: -webkit-transform 250ms ease;
+  transition: transform 250ms ease;
+  transition: transform 250ms ease, -webkit-transform 250ms ease;
+}
+
+div.shown {
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 20px;
+  width: 100%;
+}
+
+li:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+li.current {
+  color: var(--ion-color-step-450);
+}
+/*# sourceMappingURL=languages.component.css.map */

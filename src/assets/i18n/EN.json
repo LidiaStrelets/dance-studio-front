@@ -14,9 +14,10 @@
     "Prices": "Prices"
   },
   "profile": {
-    "header": "My profile"
+    "header": "My profile",
+    "birthDate": "Date of birth"
   },
-  "app":{
-    "logout":"Log out"
+  "app": {
+    "logout": "Log out"
   }
 }

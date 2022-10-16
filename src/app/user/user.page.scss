@@ -1,0 +1,36 @@
+p {
+  font-size: 20px;
+}
+ion-datetime {
+  --background: #e4e6e7;
+  --background-rgb: 228, 230, 231;
+}
+.date {
+  font-size: 25px;
+  text-transform: capitalize;
+  opacity: 0;
+  transition: opacity 250ms ease;
+  &.hidden {
+    opacity: 1;
+  }
+}
+.datePicker-container {
+  position: relative;
+  & > div {
+    position: absolute;
+    top: -270px;
+
+    transform: scale(0);
+    opacity: 0;
+
+    transition: transform 250ms ease, opacity 250ms ease;
+    &.shown {
+      z-index: 2;
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}
+ion-datetime {
+  border: 2px solid var(--ion-color-profile);
+}

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { routesPaths } from 'src/app/app-routing.module';
 import { AlertService } from 'src/app/services/alert.service';
+import { ErrorService } from 'src/app/services/error.service';
 import { Common } from 'src/common';
 import {
   LoginData,
@@ -31,7 +32,8 @@ export class LoginPage implements OnInit {
     private formService: LoginService,
     private be: BeService,
     private alertService: AlertService,
-    private authService: AuthService
+    private authService: AuthService,
+    private errorService: ErrorService
   ) {
     this.inputStyles = this.common.inputStyles;
   }
@@ -49,7 +51,10 @@ export class LoginPage implements OnInit {
       (res) => {
         this.authService.authenticate(res.data.token);
       },
-      (err) => this.alertService.presentAlertError(err.error[0].message)
+      (err) =>
+        this.alertService.presentAlertError(
+          this.errorService.generateMessage(err)
+        )
     );
   };
 

@@ -96,3 +96,36 @@ export enum LocalStorageKeys {
   language = 'language',
   token = 'token',
 }
+
+export interface User {
+  birth_date?: any;
+  email: string;
+  firstname: string;
+  id: string;
+  information?: string;
+  lastname: string;
+  photo?: string;
+  role: TRoles;
+}
+
+export interface UserChanges {
+  birth_date?: any;
+  email?: string;
+  firstname?: string;
+  id?: string;
+  information?: string;
+  lastname?: string;
+  photo?: string;
+}
+
+export interface Error {
+  error?: [{ message: string }];
+}
+
+// export type UserForm = FormGroup<{
+//   date: FormControl<string | null>;
+// }>;
+
+// export interface UserData {
+//   date: string;
+// }

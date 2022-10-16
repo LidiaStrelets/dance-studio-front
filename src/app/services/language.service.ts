@@ -11,9 +11,6 @@ export class LanguageService {
   private language: Languages = ELanguages.en;
 
   constructor(private translateService: TranslateService) {
-    this.translateService.setDefaultLang(
-      localStorage.getItem(this.languageKey) ?? ELanguages.en
-    );
     this.translateService.addLangs([ELanguages.en, ELanguages.uk]);
     this.languages = this.translateService.getLangs() as Languages[];
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { routesPaths } from 'src/app/app-routing.module';
 import { AlertService } from 'src/app/services/alert.service';
+import { ErrorService } from 'src/app/services/error.service';
 import { Common } from 'src/common';
 import {
   RegistrationData,
@@ -35,7 +36,8 @@ export class RegisterPage implements OnInit {
     private be: BeService,
     private common: Common,
     private alertService: AlertService,
-    private authService: AuthService
+    private authService: AuthService,
+    private errorService: ErrorService
   ) {
     this.inputStyles = this.common.inputStyles;
     this.keyInputStyles = this.common.keyInputStyles;
@@ -52,10 +54,15 @@ export class RegisterPage implements OnInit {
       return;
     }
 
-    this.be.register(this.registrationForm.value as RegistrationData).subscribe(
-      (res) => this.authService.authenticate(res.data.token),
-      (err) => this.alertService.presentAlertError(err.error[0].message)
-    );
+    this.be
+      .register(this.registrationForm.value as RegistrationData)
+      .subscribe({
+        next: (res) => this.authService.authenticate(res.data.token),
+        error: (err) =>
+          this.alertService.presentAlertError(
+            this.errorService.generateMessage(err)
+          ),
+      });
   };
 
   ngOnInit() {

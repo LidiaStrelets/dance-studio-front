@@ -7,4 +7,57 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content> </ion-content>
+<ion-content
+  ><ion-card color="light">
+    <ion-img
+      [src]="user.photo??'http://localhost:5555/no_photo.webp'"
+    ></ion-img>
+    <ion-card-header>
+      <ion-card-title>{{user.firstname+' '+user.lastname}}</ion-card-title>
+      <ion-card-subtitle>{{user.role}}</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div *ngIf="isBirthDate; then birthDate; else addDate"></div>
+      <ng-template #birthDate>
+        <p>
+          {{"profile.birthDate"|translate}} :
+          <span>{{user.birth_date}}</span>
+        </p>
+      </ng-template>
+      <ng-template #addDate
+        ><ion-button
+          class="date"
+          [class.hidden]="!showDate"
+          size="small"
+          (click)="toggleShowDate()"
+          >Add birth date</ion-button
+        ></ng-template
+      >
+
+      <div class="datePicker-container">
+        <div [class.shown]="showDate">
+          <ion-datetime
+            [(ngModel)]="date"
+            class="ion-margin-top"
+            color="profile"
+            presentation="date"
+            [preferWheel]="true"
+            placeholder="Select Date"
+          >
+          </ion-datetime>
+          <ion-button (click)="handleDate(date)">
+            <ion-icon slot="icon-only" name="checkmark"></ion-icon> </ion-button
+          ><ion-button (click)="toggleShowDate()">
+            <ion-icon slot="icon-only" name="close"></ion-icon>
+          </ion-button>
+        </div>
+      </div>
+
+      <p>{{user.information}}</p>
+      <ion-button (click)="submitPatch()" color="danger" *ngIf="isDirty"
+        >Apply changes</ion-button
+      >
+    </ion-card-content>
+  </ion-card>
+</ion-content>

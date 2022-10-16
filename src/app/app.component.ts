@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 
 import { TranslateService } from '@ngx-translate/core';
-import { MenuItem } from 'src/types';
+import { ELanguages, LocalStorageKeys, MenuItem } from 'src/types';
 import { AuthService } from './auth/auth.service';
+import { AlertService } from './services/alert.service';
+import { ErrorService } from './services/error.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +12,6 @@ import { AuthService } from './auth/auth.service';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  test = '';
   menuItems: MenuItem[] = [
     { name: 'Home page', translatedName: 'Home page', link: ['../', 'home'] },
     { name: 'My profile', translatedName: 'My profile', link: ['../', 'user'] },
@@ -28,11 +29,25 @@ export class AppComponent {
     { name: 'Classes', translatedName: 'Classes', link: ['./', 'classes'] },
     { name: 'Prices', translatedName: 'Prices', link: ['./', 'prices'] },
   ];
+  languageKey = LocalStorageKeys.language;
 
   constructor(
     private translateService: TranslateService,
-    private authService: AuthService
-  ) {}
+    private authService: AuthService,
+    private alertService: AlertService,
+    private errorService: ErrorService
+  ) {
+    this.translateService.setDefaultLang(
+      localStorage.getItem(this.languageKey) ?? ELanguages.en
+    );
+    authService.getUserIdFromToken()?.subscribe({
+      next: (res) => this.authService.setUserId(res.data.id),
+      error: (err) =>
+        this.alertService.presentAlertError(
+          this.errorService.generateMessage(err)
+        ),
+    });
+  }
 
   getTranslation = (i: number) => {
     this.translateService

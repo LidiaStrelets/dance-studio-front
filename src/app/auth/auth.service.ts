@@ -1,20 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { LocalStorageKeys } from 'src/types';
 import { routesPaths } from '../app-routing.module';
 import { AlertService } from '../services/alert.service';
+import { catchError } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   tokenKey = LocalStorageKeys.token;
-  constructor(private router: Router, private alertService: AlertService) {}
+  private url = 'http://localhost:5555/auth/currentId';
+  private userId = '';
+
+  constructor(
+    private router: Router,
+    private alertService: AlertService,
+    private http: HttpClient
+  ) {}
 
   authenticate(token: string) {
     const existingToken = localStorage.getItem(this.tokenKey);
     if (existingToken) {
-      console.log('error!');
       return;
     }
 
@@ -43,4 +52,23 @@ export class AuthService {
       this.router.navigate([routesPaths.home]);
     }
   };
+
+  getUserIdFromToken(): Observable<{ data: { id: string } }> | null {
+    if (!this.getToken()) {
+      this.deauthenticate();
+      return null;
+    }
+
+    return this.http.get<{ data: { id: string } }>(this.url).pipe(
+      catchError((err) => {
+        throw err;
+      })
+    );
+  }
+
+  setUserId(id: string) {
+    this.userId = id;
+  }
+
+  getCurrentUserId = () => this.userId;
 }

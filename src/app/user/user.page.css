@@ -1,1 +1,14 @@
-/* No CSS *//*# sourceMappingURL=user.page.css.map */
+p {
+  font-size: 20px;
+}
+
+ion-datetime {
+  --background: #e4e6e7;
+  --background-rgb: 228, 230, 231;
+}
+
+.date {
+  font-size: 25px;
+  text-transform: capitalize;
+}
+/*# sourceMappingURL=user.page.css.map */

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ELanguages, Hall, TranslatedHall } from 'src/types';
 import { AuthService } from '../auth/auth.service';
 import { AlertService } from '../services/alert.service';
+import { ErrorService } from '../services/error.service';
 import { LanguageService } from '../services/language.service';
 import { HallService } from './hall.service';
 
@@ -19,7 +20,8 @@ export class HomePage implements OnInit {
     private hallService: HallService,
     private authService: AuthService,
     private alertService: AlertService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private errorService: ErrorService
   ) {}
 
   ngOnInit() {
@@ -33,7 +35,7 @@ export class HomePage implements OnInit {
           this.authService.deauthenticate();
         } else {
           this.alertService.presentAlertError(
-            err.error ? err.error[0].message : 'oops!'
+            this.errorService.generateMessage(err)
           );
         }
       }

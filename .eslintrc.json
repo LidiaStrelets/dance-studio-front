@@ -17,7 +17,9 @@
         "@angular-eslint/component-class-suffix": [
           "error",
           {
-            "suffixes": ["Page", "Component"]
+            "suffixes": ["Page", "Component"],
+            "leadingUnderscore": "allow",
+            "trailingUnderscore": "allow"
           }
         ],
         "@angular-eslint/component-selector": [
