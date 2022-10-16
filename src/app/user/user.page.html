@@ -129,6 +129,7 @@
 
         <p>{{user.information}}</p>
         <ion-button
+          [disabled]="!userForm.dirty || userForm.invalid"
           (click)="submitPatch()"
           color="danger"
           *ngIf="userForm.dirty"

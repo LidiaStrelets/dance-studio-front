@@ -7,7 +7,7 @@ import { CustomValidators } from 'src/validation-functions';
   providedIn: 'root',
 })
 export class RegisterService {
-  registrationForm: RegistrationForm = {} as RegistrationForm;
+  private registrationForm: RegistrationForm = {} as RegistrationForm;
 
   constructor(private customValidators: CustomValidators) {
     this.registrationForm = new FormGroup(

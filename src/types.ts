@@ -98,7 +98,7 @@ export enum LocalStorageKeys {
 }
 
 export interface User {
-  birth_date?: any;
+  birth_date?: string;
   email: string;
   firstname: string;
   id: string;
@@ -126,12 +126,16 @@ export type UserForm = FormGroup<{
   birth_date: FormControl<string | null>;
   firstname: FormControl<string | null>;
   lastname: FormControl<string | null>;
+  information: FormControl<string | null>;
+  photo: FormControl<string | null>;
 }>;
 
 export interface UserData {
   birth_date: string;
   firstname: string;
   lastname: string;
+  information: string;
+  photo: string;
 }
 
 export type ValidationFunction = (

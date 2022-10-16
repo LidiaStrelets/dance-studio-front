@@ -6,7 +6,7 @@ import { LoginForm } from 'src/types';
   providedIn: 'root',
 })
 export class LoginService {
-  loginForm: LoginForm = {} as LoginForm;
+  private loginForm: LoginForm = {} as LoginForm;
 
   constructor() {
     this.loginForm = new FormGroup({

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth/auth.service';
-import { User, UserChanges } from 'src/types';
+import { User, UserForm } from 'src/types';
 
 @Injectable({
   providedIn: 'root',
@@ -23,22 +23,13 @@ export class UsersService {
     );
   }
 
-  patch(id: string, updatedUser: UserChanges) {
-    const { email, firstname, lastname, birth_date, photo, information } =
-      updatedUser;
-    return this.http
-      .patch<User>(this.coreUrl + id, {
-        email,
-        firstname,
-        lastname,
-        birth_date,
-        information,
-        photo,
+  patch(id: string, updatedUser: UserForm) {
+    const values = updatedUser.value;
+
+    return this.http.patch<User>(this.coreUrl + id, values).pipe(
+      catchError((err) => {
+        throw err;
       })
-      .pipe(
-        catchError((err) => {
-          throw err;
-        })
-      );
+    );
   }
 }

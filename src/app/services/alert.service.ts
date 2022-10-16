@@ -24,6 +24,21 @@ export class AlertService {
     await alert.present();
   }
 
+  async presentAlertSuccess(message: string) {
+    const alert = await this.alertCtrl.create({
+      header: 'Request completed!',
+      message,
+      buttons: [
+        {
+          text: 'Okay',
+          role: 'cancel',
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
   async presentAlertUnauthorized() {
     const alert = await this.alertCtrl.create({
       header: 'Unauthorized!',

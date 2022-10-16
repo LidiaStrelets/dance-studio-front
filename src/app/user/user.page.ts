@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User, UserForm } from 'src/types';
 import { AuthService } from '../auth/auth.service';
 import { AlertService } from '../services/alert.service';
@@ -7,6 +6,7 @@ import { ErrorService } from '../services/error.service';
 import { FormService } from '../services/form.service';
 import { DateService } from './services/date.service';
 import { UsersService } from './services/users.service';
+import { FormService as UserFormService } from './services/form.service';
 
 @Component({
   selector: 'app-user',
@@ -27,15 +27,10 @@ export class UserPage implements OnInit {
     private alertService: AlertService,
     private errorService: ErrorService,
     private dateService: DateService,
-    private formFunctionsServise: FormService
+    private formFunctionsServise: FormService,
+    private formService: UserFormService
   ) {
-    this.userForm = new FormGroup({
-      birth_date: new FormControl(
-        this.dateService.convertForPicker(new Date('2000-12-12'))
-      ),
-      firstname: new FormControl('', Validators.required),
-      lastname: new FormControl('', Validators.required),
-    });
+    this.userForm = formService.getForm();
     this.showForm = true;
   }
 
@@ -50,10 +45,7 @@ export class UserPage implements OnInit {
           );
         }
 
-        this.userForm.patchValue({
-          firstname: this.user.firstname,
-          lastname: this.user.lastname,
-        });
+        this.formService.setInitialValues(this.user);
       },
       error: (err) =>
         this.alertService.presentAlertError(
@@ -81,15 +73,21 @@ export class UserPage implements OnInit {
   };
 
   submitPatch = () => {
-    // this.usersService
-    //   .patch(this.authService.getCurrentUserId(), this.user)
-    //   .subscribe({
-    //     next: () => (this.isDirty = false),
-    //     error: (err) =>
-    //       this.alertService.presentAlertError(
-    //         this.errorService.generateMessage(err)
-    //       ),
-    //   });
+    if (!this.userForm.dirty || this.userForm.invalid) {
+      return;
+    }
+    this.showDate = false;
+    this.showName = false;
+
+    this.usersService
+      .patch(this.authService.getCurrentUserId(), this.userForm)
+      .subscribe({
+        next: () => this.alertService.presentAlertSuccess('User was updated!'),
+        error: (err) =>
+          this.alertService.presentAlertError(
+            this.errorService.generateMessage(err)
+          ),
+      });
   };
 
   getValidation = this.formFunctionsServise.getValidation;
