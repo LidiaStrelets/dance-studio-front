@@ -20,31 +20,10 @@
             >{{userForm.get('firstname')?.value+'
             '+userForm.get('lastname')?.value}}</ion-card-title
           >
-          <div *ngIf="showName; then nameDone;else nameEdit"></div>
-          <ng-template #nameEdit
-            ><ion-button
-              class="icon-button"
-              color="primary"
-              fill="clear"
-              (click)="toggleName()"
-            >
-              <ion-icon
-                slot="icon-only"
-                name="pencil-outline"
-              ></ion-icon> </ion-button
-          ></ng-template>
-          <ng-template #nameDone
-            ><ion-button
-              class="icon-button"
-              color="primary"
-              fill="clear"
-              (click)="toggleName()"
-            >
-              <ion-icon
-                slot="icon-only"
-                name="checkmark"
-              ></ion-icon> </ion-button
-          ></ng-template>
+          <app-icon-button
+            [toggle]="toggleName"
+            [show]="showName"
+          ></app-icon-button>
         </div>
         <div *ngIf="showName">
           <ion-item
@@ -83,35 +62,14 @@
               *ngIf="!!getBirthDate(); then birthday; else noData"
             ></span>
           </p>
-          <div
-            *ngIf="!!user.birth_date || !showDate; then editDate; else doneDate"
-          ></div>
-
           <ng-template #birthday>{{getBirthDate()}}</ng-template>
           <ng-template #noData>{{"profile.noData"|translate}}</ng-template>
-        </div>
 
-        <ng-template #editDate>
-          <ion-button
-            class="icon-button"
-            color="primary"
-            fill="clear"
-            (click)="toggleShowDate()"
-          >
-            <ion-icon
-              slot="icon-only"
-              name="pencil-outline"
-            ></ion-icon> </ion-button
-        ></ng-template>
-        <ng-template #doneDate>
-          <ion-button
-            class="icon-button"
-            color="primary"
-            fill="clear"
-            (click)="toggleShowDate()"
-          >
-            <ion-icon slot="icon-only" name="checkmark"></ion-icon> </ion-button
-        ></ng-template>
+          <app-icon-button
+            [toggle]="toggleShowDate"
+            [show]="showDate"
+          ></app-icon-button>
+        </div>
 
         <div class="datePicker-container">
           <div [class.shown]="showDate">

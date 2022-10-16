@@ -1,0 +1,19 @@
+<div *ngIf="show; then done; else edit"></div>
+<ng-template #edit
+  ><ion-button
+    class="icon-button"
+    color="primary"
+    fill="clear"
+    (click)="toggle()"
+  >
+    <ion-icon slot="icon-only" name="pencil-outline"></ion-icon> </ion-button
+></ng-template>
+<ng-template #done
+  ><ion-button
+    class="icon-button"
+    color="primary"
+    fill="clear"
+    (click)="toggle()"
+  >
+    <ion-icon slot="icon-only" name="checkmark"></ion-icon> </ion-button
+></ng-template>

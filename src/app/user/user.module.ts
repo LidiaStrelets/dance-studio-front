@@ -9,6 +9,7 @@ import { UserPageRoutingModule } from './user-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { UserPage } from './user.page';
 import { ErrorsModule } from '../auth/errors/errors.module';
+import { IconButtonComponent } from './components/icon-button/icon-button.component';
 
 @NgModule({
   imports: [
@@ -20,6 +21,6 @@ import { ErrorsModule } from '../auth/errors/errors.module';
     ReactiveFormsModule,
     ErrorsModule,
   ],
-  declarations: [UserPage],
+  declarations: [UserPage, IconButtonComponent],
 })
 export class UserPageModule {}
