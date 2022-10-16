@@ -1,4 +1,4 @@
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, ValidationErrors } from '@angular/forms';
 
 export type LoginForm = FormGroup<{
   email: FormControl<string | null>;
@@ -122,10 +122,27 @@ export interface Error {
   error?: [{ message: string }];
 }
 
-// export type UserForm = FormGroup<{
-//   date: FormControl<string | null>;
-// }>;
+export type UserForm = FormGroup<{
+  birth_date: FormControl<string | null>;
+  firstname: FormControl<string | null>;
+  lastname: FormControl<string | null>;
+}>;
 
-// export interface UserData {
-//   date: string;
-// }
+export interface UserData {
+  birth_date: string;
+  firstname: string;
+  lastname: string;
+}
+
+export type ValidationFunction = (
+  field: TRegistrationFormFields,
+  form: FormGroup
+) => {
+  blockHighlight: boolean | undefined;
+  showMessage: boolean | undefined;
+};
+
+export type ErrorFunction = (
+  field: TRegistrationFormFields,
+  form: FormGroup
+) => ValidationErrors;

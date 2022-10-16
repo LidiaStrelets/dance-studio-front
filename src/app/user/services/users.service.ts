@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { AuthService } from 'src/app/auth/auth.service';
 import { User, UserChanges } from 'src/types';
-import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,13 +14,13 @@ export class UsersService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
   getById(): Observable<User> {
-    return this.http
-      .get<User>(this.coreUrl + this.authService.getCurrentUserId())
-      .pipe(
-        catchError((err) => {
-          throw err;
-        })
-      );
+    const userId = this.authService.getCurrentUserId();
+
+    return this.http.get<User>(this.coreUrl + userId).pipe(
+      catchError((err) => {
+        throw err;
+      })
+    );
   }
 
   patch(id: string, updatedUser: UserChanges) {

@@ -1,7 +1,8 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
-
 import { TranslateService } from '@ngx-translate/core';
 import { ELanguages, LocalStorageKeys, MenuItem } from 'src/types';
+import { routesPaths } from './app-routing.module';
 import { AuthService } from './auth/auth.service';
 import { AlertService } from './services/alert.service';
 import { ErrorService } from './services/error.service';
@@ -35,18 +36,26 @@ export class AppComponent {
     private translateService: TranslateService,
     private authService: AuthService,
     private alertService: AlertService,
-    private errorService: ErrorService
+    private errorService: ErrorService,
+    private location: Location
   ) {
     this.translateService.setDefaultLang(
       localStorage.getItem(this.languageKey) ?? ELanguages.en
     );
-    authService.getUserIdFromToken()?.subscribe({
-      next: (res) => this.authService.setUserId(res.data.id),
-      error: (err) =>
-        this.alertService.presentAlertError(
-          this.errorService.generateMessage(err)
-        ),
-    });
+
+    if (
+      this.location.path().split('/')[1] !== routesPaths.login &&
+      this.location.path().split('/')[1] !== routesPaths.register &&
+      this.location.path().split('/')[1] !== routesPaths.default
+    ) {
+      authService.getUserIdFromToken()?.subscribe({
+        next: (res) => this.authService.setUserId(res.data.id),
+        error: (err) =>
+          this.alertService.presentAlertError(
+            this.errorService.generateMessage(err)
+          ),
+      });
+    }
   }
 
   getTranslation = (i: number) => {

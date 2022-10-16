@@ -34,3 +34,11 @@ ion-datetime {
 ion-datetime {
   border: 2px solid var(--ion-color-profile);
 }
+.edit-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.icon-button {
+  --padding-end: 0;
+}

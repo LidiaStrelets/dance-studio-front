@@ -2,16 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { routesPaths } from 'src/app/app-routing.module';
 import { AlertService } from 'src/app/services/alert.service';
 import { ErrorService } from 'src/app/services/error.service';
-import { Common } from 'src/common';
-import {
-  LoginData,
-  LoginForm,
-  LoginFormFields,
-  TLoginFormFields,
-} from 'src/types';
+import { FormService } from 'src/app/services/form.service';
+import { LoginData, LoginForm, LoginFormFields } from 'src/types';
 import { AuthService } from '../auth.service';
-import { BeService } from './be.service';
-import { LoginService } from './login.service';
+import { BeService } from './services/be.service';
+import { LoginService } from './services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -25,18 +20,14 @@ export class LoginPage implements OnInit {
   loginForm: LoginForm = {} as LoginForm;
   showForm = false;
 
-  inputStyles = {};
-
   constructor(
-    private common: Common,
     private formService: LoginService,
     private be: BeService,
     private alertService: AlertService,
     private authService: AuthService,
-    private errorService: ErrorService
-  ) {
-    this.inputStyles = this.common.inputStyles;
-  }
+    private errorService: ErrorService,
+    private formFunctionsServise: FormService
+  ) {}
 
   handleSubmit = () => {
     if (
@@ -64,18 +55,8 @@ export class LoginPage implements OnInit {
     this.showForm = true;
   }
 
-  getValidation = (field: TLoginFormFields) => {
-    const fieldValue = this.loginForm.get(field);
+  getValidation = this.formFunctionsServise.getValidation;
+  getErrors = this.formFunctionsServise.getErrors;
 
-    return {
-      blockHighlight: fieldValue?.invalid && fieldValue?.untouched,
-      showMessage: fieldValue?.invalid && fieldValue?.touched,
-    };
-  };
-
-  getErrors = (field: TLoginFormFields) => {
-    const fieldValue = this.loginForm.get(field);
-
-    return fieldValue?.errors ?? {};
-  };
+  inputStyles = this.formFunctionsServise.inputStyles;
 }

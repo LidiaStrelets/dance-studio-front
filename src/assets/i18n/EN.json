@@ -15,9 +15,15 @@
   },
   "profile": {
     "header": "My profile",
-    "birthDate": "Date of birth"
+    "birthDate": "Date of birth",
+    "noData": "No information"
   },
   "app": {
     "logout": "Log out"
+  },
+  "roles": {
+    "client": "client",
+    "coach": "coach",
+    "admin": "admin"
   }
 }

@@ -2,23 +2,23 @@
 <ion-content *ngIf="showForm">
   <form (ngSubmit)="handleSubmit()" [formGroup]="loginForm">
     <ion-item
-      [ngStyle]="getValidation(loginFormFields.email).blockHighlight?inputStyles:{}"
+      [ngStyle]="getValidation(loginFormFields.email, loginForm)?.blockHighlight?inputStyles:{}"
     >
       <ion-label position="floating">Email</ion-label>
       <ion-input formControlName="email" type="email"></ion-input>
       <app-errors
-        [showError]="getValidation(loginFormFields.email).showMessage??false"
-        [errors]="getErrors(loginFormFields.email)"
+        [showError]="getValidation(loginFormFields.email, loginForm)?.showMessage??false"
+        [errors]="getErrors(loginFormFields.email, loginForm)??[]"
       ></app-errors>
     </ion-item>
     <ion-item
-      [ngStyle]="getValidation(loginFormFields.password).blockHighlight?inputStyles:{}"
+      [ngStyle]="getValidation(loginFormFields.password, loginForm)?.blockHighlight?inputStyles:{}"
     >
       <ion-label position="floating">Password</ion-label>
       <ion-input formControlName="password" type="password"></ion-input>
       <app-errors
-        [showError]="getValidation(loginFormFields.password).showMessage??false"
-        [errors]="getErrors(loginFormFields.password)"
+        [showError]="getValidation(loginFormFields.password, loginForm)?.showMessage??false"
+        [errors]="getErrors(loginFormFields.password, loginForm)??[]"
       ></app-errors>
     </ion-item>
 

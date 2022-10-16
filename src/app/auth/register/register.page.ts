@@ -2,17 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { routesPaths } from 'src/app/app-routing.module';
 import { AlertService } from 'src/app/services/alert.service';
 import { ErrorService } from 'src/app/services/error.service';
-import { Common } from 'src/common';
+import { FormService } from 'src/app/services/form.service';
 import {
   RegistrationData,
   RegistrationForm,
   RegistrationFormFields,
   Roles,
-  TRegistrationFormFields,
 } from 'src/types';
 import { AuthService } from '../auth.service';
-import { BeService } from './be.service';
-import { RegisterService } from './register.service';
+import { BeService } from './services/be.service';
+import { RegisterService } from './services/register.service';
 
 @Component({
   selector: 'app-register',
@@ -28,20 +27,14 @@ export class RegisterPage implements OnInit {
 
   routerLink = ['../', routesPaths.login];
 
-  inputStyles = {};
-  keyInputStyles = {};
-
   constructor(
     private formService: RegisterService,
     private be: BeService,
-    private common: Common,
     private alertService: AlertService,
     private authService: AuthService,
-    private errorService: ErrorService
-  ) {
-    this.inputStyles = this.common.inputStyles;
-    this.keyInputStyles = this.common.keyInputStyles;
-  }
+    private errorService: ErrorService,
+    private formFunctionsServise: FormService
+  ) {}
 
   handleSubmit = () => {
     if (
@@ -71,20 +64,11 @@ export class RegisterPage implements OnInit {
     this.showForm = true;
   }
 
-  getValidation = (field: TRegistrationFormFields) => {
-    const fieldValue = this.registrationForm.get(field);
+  getValidation = this.formFunctionsServise.getValidation;
+  getErrors = this.formFunctionsServise.getErrors;
 
-    return {
-      blockHighlight: fieldValue?.invalid && fieldValue?.untouched,
-      showMessage: fieldValue?.invalid && fieldValue?.touched,
-    };
-  };
-
-  getErrors = (field: TRegistrationFormFields) => {
-    const fieldValue = this.registrationForm.get(field);
-
-    return fieldValue?.errors ?? {};
-  };
+  inputStyles = this.formFunctionsServise.inputStyles;
+  keyInputStyles = this.formFunctionsServise.keyInputStyles;
 
   showKeyError = () => {
     const key = this.registrationForm.get(this.registrationFormFields.key);

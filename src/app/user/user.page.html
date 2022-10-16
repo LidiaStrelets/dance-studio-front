@@ -7,57 +7,134 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content
-  ><ion-card color="light">
-    <ion-img
-      [src]="user.photo??'http://localhost:5555/no_photo.webp'"
-    ></ion-img>
-    <ion-card-header>
-      <ion-card-title>{{user.firstname+' '+user.lastname}}</ion-card-title>
-      <ion-card-subtitle>{{user.role}}</ion-card-subtitle>
-    </ion-card-header>
+<ion-content *ngIf="showForm">
+  <form [formGroup]="userForm">
+    <ion-card color="light">
+      <ion-img
+        [src]="user.photo??'http://localhost:5555/no_photo.webp'"
+      ></ion-img>
 
-    <ion-card-content>
-      <div *ngIf="isBirthDate; then birthDate; else addDate"></div>
-      <ng-template #birthDate>
-        <p>
-          {{"profile.birthDate"|translate}} :
-          <span>{{user.birth_date}}</span>
-        </p>
-      </ng-template>
-      <ng-template #addDate
-        ><ion-button
-          class="date"
-          [class.hidden]="!showDate"
-          size="small"
-          (click)="toggleShowDate()"
-          >Add birth date</ion-button
-        ></ng-template
-      >
-
-      <div class="datePicker-container">
-        <div [class.shown]="showDate">
-          <ion-datetime
-            [(ngModel)]="date"
-            class="ion-margin-top"
-            color="profile"
-            presentation="date"
-            [preferWheel]="true"
-            placeholder="Select Date"
+      <ion-card-header>
+        <div class="edit-container">
+          <ion-card-title
+            >{{userForm.get('firstname')?.value+'
+            '+userForm.get('lastname')?.value}}</ion-card-title
           >
-          </ion-datetime>
-          <ion-button (click)="handleDate(date)">
-            <ion-icon slot="icon-only" name="checkmark"></ion-icon> </ion-button
-          ><ion-button (click)="toggleShowDate()">
-            <ion-icon slot="icon-only" name="close"></ion-icon>
-          </ion-button>
+          <div *ngIf="showName; then nameDone;else nameEdit"></div>
+          <ng-template #nameEdit
+            ><ion-button
+              class="icon-button"
+              color="primary"
+              fill="clear"
+              (click)="toggleName()"
+            >
+              <ion-icon
+                slot="icon-only"
+                name="pencil-outline"
+              ></ion-icon> </ion-button
+          ></ng-template>
+          <ng-template #nameDone
+            ><ion-button
+              class="icon-button"
+              color="primary"
+              fill="clear"
+              (click)="toggleName()"
+            >
+              <ion-icon
+                slot="icon-only"
+                name="checkmark"
+              ></ion-icon> </ion-button
+          ></ng-template>
         </div>
-      </div>
+        <div *ngIf="showName">
+          <ion-item
+            [ngStyle]="getValidation('firstname', userForm)?.blockHighlight?inputStyles:{}"
+            color="light"
+          >
+            <ion-label position="floating">Firstname</ion-label>
+            <ion-input formControlName="firstname" type="text"></ion-input>
+            <app-errors
+              [showError]="getValidation('firstname', userForm)?.showMessage??false"
+              [errors]="getErrors('firstname', userForm)??[]"
+            ></app-errors>
+          </ion-item>
+          <ion-item
+            [ngStyle]="getValidation('lastname', userForm)?.blockHighlight?inputStyles:{}"
+            color="light"
+          >
+            <ion-label position="floating">Lastname</ion-label>
+            <ion-input formControlName="lastname" type="text"></ion-input>
+            <app-errors
+              [showError]="getValidation('lastname', userForm)?.showMessage??false"
+              [errors]="getErrors('lastname', userForm)??[]"
+            ></app-errors>
+          </ion-item>
+        </div>
 
-      <p>{{user.information}}</p>
-      <ion-button (click)="submitPatch()" color="danger" *ngIf="isDirty"
-        >Apply changes</ion-button
-      >
-    </ion-card-content>
-  </ion-card>
+        <ion-card-subtitle
+          >{{"roles"+'.'+ user.role|translate}}</ion-card-subtitle
+        >
+      </ion-card-header>
+
+      <ion-card-content>
+        <div class="edit-container">
+          <p>
+            {{"profile.birthDate"|translate}} :<span
+              *ngIf="!!getBirthDate(); then birthday; else noData"
+            ></span>
+          </p>
+          <div
+            *ngIf="!!user.birth_date || !showDate; then editDate; else doneDate"
+          ></div>
+
+          <ng-template #birthday>{{getBirthDate()}}</ng-template>
+          <ng-template #noData>{{"profile.noData"|translate}}</ng-template>
+        </div>
+
+        <ng-template #editDate>
+          <ion-button
+            class="icon-button"
+            color="primary"
+            fill="clear"
+            (click)="toggleShowDate()"
+          >
+            <ion-icon
+              slot="icon-only"
+              name="pencil-outline"
+            ></ion-icon> </ion-button
+        ></ng-template>
+        <ng-template #doneDate>
+          <ion-button
+            class="icon-button"
+            color="primary"
+            fill="clear"
+            (click)="toggleShowDate()"
+          >
+            <ion-icon slot="icon-only" name="checkmark"></ion-icon> </ion-button
+        ></ng-template>
+
+        <div class="datePicker-container">
+          <div [class.shown]="showDate">
+            <ion-datetime
+              formControlName="birth_date"
+              class="ion-margin-top"
+              color="profile"
+              presentation="date"
+              [preferWheel]="true"
+              placeholder="Select Date"
+            >
+            </ion-datetime>
+          </div>
+        </div>
+
+        <p>{{user.information}}</p>
+        <ion-button
+          (click)="submitPatch()"
+          color="danger"
+          *ngIf="userForm.dirty"
+          >Apply changes</ion-button
+        >
+      </ion-card-content>
+    </ion-card>
+  </form>
 </ion-content>
