@@ -16,7 +16,9 @@
   "profile": {
     "header": "Мій профіль",
     "birthDate": "Дата народження",
-    "noData": "Відсутня"
+    "noData": "Відсутня",
+    "information": "Інформація",
+    "infoPlaceholder": "Розкажи нам про себе"
   },
   "app": {
     "logout": "Вийти"

@@ -16,7 +16,9 @@
   "profile": {
     "header": "My profile",
     "birthDate": "Date of birth",
-    "noData": "No information"
+    "noData": "No information",
+    "information": "Information",
+    "infoPlaceholder": "Tell us about yourself"
   },
   "app": {
     "logout": "Log out"

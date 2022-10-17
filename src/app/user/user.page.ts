@@ -18,6 +18,7 @@ export class UserPage implements OnInit {
   showDate = false;
   showForm = false;
   showName = false;
+  showInfo = false;
 
   userForm: UserForm = {} as UserForm;
 
@@ -72,6 +73,10 @@ export class UserPage implements OnInit {
     this.showName = !this.showName;
   };
 
+  toggleInfo = () => {
+    this.showInfo = !this.showInfo;
+  };
+
   handlePhoto = (event: Event) => {
     const files = (event.target as HTMLInputElement).files;
     if (files && files.length > 0) {
@@ -91,13 +96,18 @@ export class UserPage implements OnInit {
     }
     this.showDate = false;
     this.showName = false;
+    this.showInfo = false;
 
     this.usersService
       .patch(this.authService.getCurrentUserId(), this.userForm)
       .subscribe({
-        next: () => {
+        next: (res) => {
           this.alertService.presentAlertSuccess('User was updated!');
+
+          this.user = res.user;
+
           this.userForm.reset();
+          this.formService.setInitialValues(this.user);
         },
         error: (err) =>
           this.alertService.presentAlertError(

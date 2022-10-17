@@ -99,7 +99,21 @@
           </div>
         </div>
 
-        <p>{{user.information}}</p>
+        <div class="edit-container">
+          <ion-label>{{"profile.information"|translate}} </ion-label>
+          <app-icon-button
+            [toggle]="toggleInfo"
+            [show]="showInfo"
+          ></app-icon-button>
+        </div>
+
+        <ion-textarea
+          [class.bordered]="showInfo"
+          formControlName="information"
+          [readonly]="!showInfo"
+          [placeholder]="'profile.infoPlaceholder'|translate"
+        ></ion-textarea>
+
         <ion-button
           [disabled]="!formHasChanges() || userForm.invalid"
           (click)="submitPatch()"

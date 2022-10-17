@@ -69,3 +69,6 @@ ion-datetime {
     top: 2px;
   }
 }
+ion-textarea.bordered {
+  border: 2px solid var(--ion-color-profile);
+}
