@@ -26,10 +26,42 @@ export class UsersService {
   patch(id: string, updatedUser: UserForm) {
     const values = updatedUser.value;
 
-    return this.http.patch<User>(this.coreUrl + id, values).pipe(
+    if (values.photo) {
+      const req = this.sendPhoto(values.photo, id);
+      if (!updatedUser.dirty) {
+        return req;
+      }
+      req.subscribe({
+        next: (res) => console.log('result', res),
+        error: (err) => {
+          throw err;
+        },
+      });
+    }
+
+    return this.http
+      .patch<User>(this.coreUrl + id, {
+        firstname: values.firstname,
+        lastname: values.lastname,
+        information: values.information,
+        birth_date: values.birth_date,
+      })
+      .pipe(
+        catchError((err) => {
+          throw err;
+        })
+      );
+  }
+
+  sendPhoto = (file: File, id: string) => {
+    const formData = new FormData();
+
+    formData.append('thumbnail', file);
+
+    return this.http.post<any>(this.coreUrl + id + '/photo', formData).pipe(
       catchError((err) => {
         throw err;
       })
     );
-  }
+  };
 }

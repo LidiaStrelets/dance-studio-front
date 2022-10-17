@@ -31,7 +31,6 @@ export class FormService {
         user.birth_date ??
         this.dateService.convertForPicker(new Date('2000-12-12')),
       information: user.information,
-      photo: user.photo,
     });
   }
 }

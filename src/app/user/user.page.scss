@@ -39,3 +39,33 @@ ion-datetime {
   justify-content: space-between;
   align-items: center;
 }
+.file-upload {
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.avatar-container {
+  position: relative;
+}
+.avatar-button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+
+  width: 50px;
+  height: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 2px solid var(--ion-color-profile);
+  border-radius: 50%;
+  background-color: #e4e6e7;
+
+  & ion-icon {
+    position: relative;
+    top: 2px;
+  }
+}

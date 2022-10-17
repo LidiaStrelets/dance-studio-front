@@ -4,7 +4,7 @@
       <div>
         <ion-list [inset]="false" lines="none">
           <ion-menu-toggle *ngFor="let item of menuItems; let i = index"
-            ><ion-item [routerLink]="item.link">
+            ><ion-item routerLinkActive="active-link" [routerLink]="item.link">
               <ion-label>{{ getTranslation(i) }}</ion-label>
             </ion-item></ion-menu-toggle
           >

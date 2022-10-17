@@ -72,8 +72,21 @@ export class UserPage implements OnInit {
     this.showName = !this.showName;
   };
 
+  handlePhoto = (event: Event) => {
+    const files = (event.target as HTMLInputElement).files;
+    if (files && files.length > 0) {
+      const avatar = files[0];
+
+      this.user.photo = URL.createObjectURL(avatar);
+      this.userForm.patchValue({ photo: avatar });
+    }
+  };
+
+  formHasChanges = () =>
+    this.userForm.dirty || this.userForm.get('photo')?.value;
+
   submitPatch = () => {
-    if (!this.userForm.dirty || this.userForm.invalid) {
+    if (!this.formHasChanges() || this.userForm.invalid) {
       return;
     }
     this.showDate = false;
@@ -82,7 +95,10 @@ export class UserPage implements OnInit {
     this.usersService
       .patch(this.authService.getCurrentUserId(), this.userForm)
       .subscribe({
-        next: () => this.alertService.presentAlertSuccess('User was updated!'),
+        next: () => {
+          this.alertService.presentAlertSuccess('User was updated!');
+          this.userForm.reset();
+        },
         error: (err) =>
           this.alertService.presentAlertError(
             this.errorService.generateMessage(err)

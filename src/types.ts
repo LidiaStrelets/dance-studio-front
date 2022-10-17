@@ -108,16 +108,6 @@ export interface User {
   role: TRoles;
 }
 
-export interface UserChanges {
-  birth_date?: any;
-  email?: string;
-  firstname?: string;
-  id?: string;
-  information?: string;
-  lastname?: string;
-  photo?: string;
-}
-
 export interface Error {
   error?: [{ message: string }];
 }
@@ -127,16 +117,8 @@ export type UserForm = FormGroup<{
   firstname: FormControl<string | null>;
   lastname: FormControl<string | null>;
   information: FormControl<string | null>;
-  photo: FormControl<string | null>;
+  photo: FormControl<File | null>;
 }>;
-
-export interface UserData {
-  birth_date: string;
-  firstname: string;
-  lastname: string;
-  information: string;
-  photo: string;
-}
 
 export type ValidationFunction = (
   field: TRegistrationFormFields,
