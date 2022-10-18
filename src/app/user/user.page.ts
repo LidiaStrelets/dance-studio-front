@@ -102,7 +102,9 @@ export class UserPage implements OnInit {
       .patch(this.authService.getCurrentUserId(), this.userForm)
       .subscribe({
         next: (res) => {
-          this.alertService.presentAlertSuccess('User was updated!');
+          this.alertService.presentAlertSuccess(
+            this.alertService.getTranslations().userSuccessMessage
+          );
 
           this.user = res.user;
 

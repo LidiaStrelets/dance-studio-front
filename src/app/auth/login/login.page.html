@@ -1,10 +1,13 @@
-<app-header [link]="routerLink" linkName="Registrate"></app-header>
+<app-header
+  [link]="routerLink"
+  [linkName]="'register.button'|translate"
+></app-header>
 <ion-content *ngIf="showForm">
   <form (ngSubmit)="handleSubmit()" [formGroup]="loginForm">
     <ion-item
       [ngStyle]="getValidation(loginFormFields.email, loginForm)?.blockHighlight?inputStyles:{}"
     >
-      <ion-label position="floating">Email</ion-label>
+      <ion-label position="floating">{{"login.email"|translate}}</ion-label>
       <ion-input formControlName="email" type="email"></ion-input>
       <app-errors
         [showError]="getValidation(loginFormFields.email, loginForm)?.showMessage??false"
@@ -14,7 +17,7 @@
     <ion-item
       [ngStyle]="getValidation(loginFormFields.password, loginForm)?.blockHighlight?inputStyles:{}"
     >
-      <ion-label position="floating">Password</ion-label>
+      <ion-label position="floating">{{"login.password"|translate}}</ion-label>
       <ion-input formControlName="password" type="password"></ion-input>
       <app-errors
         [showError]="getValidation(loginFormFields.password, loginForm)?.showMessage??false"
@@ -28,7 +31,7 @@
       expand="block"
       fill="outline"
       type="submit"
-      >Log in</ion-button
+      >{{"login.button"|translate}}</ion-button
     >
   </form>
 </ion-content>

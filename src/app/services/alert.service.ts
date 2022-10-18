@@ -1,21 +1,39 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
+import { AlertTranslation, EAlertTranslation } from 'src/types';
 import { routesPaths } from '../app-routing.module';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AlertService {
-  constructor(private alertCtrl: AlertController, private router: Router) {}
+  translations: AlertTranslation = {} as AlertTranslation;
+
+  constructor(
+    private alertCtrl: AlertController,
+    private router: Router,
+    private translate: TranslateService
+  ) {}
+
+  getTranslations = () => {
+    Object.values(EAlertTranslation).forEach((value) => {
+      this.translate
+        .get(`alert.${value}`)
+        .subscribe((res) => (this.translations[value] = res));
+    });
+
+    return this.translations;
+  };
 
   async presentAlertError(message: string) {
     const alert = await this.alertCtrl.create({
-      header: 'Oops :( Something went wrong',
+      header: this.getTranslations().oopsHeader,
       message,
       buttons: [
         {
-          text: 'Okay',
+          text: this.getTranslations().okButton,
           role: 'cancel',
         },
       ],
@@ -26,11 +44,11 @@ export class AlertService {
 
   async presentAlertSuccess(message: string) {
     const alert = await this.alertCtrl.create({
-      header: 'Request completed!',
+      header: this.getTranslations().completedHeader,
       message,
       buttons: [
         {
-          text: 'Okay',
+          text: this.getTranslations().okButton,
           role: 'cancel',
         },
       ],
@@ -41,8 +59,8 @@ export class AlertService {
 
   async presentAlertUnauthorized() {
     const alert = await this.alertCtrl.create({
-      header: 'Unauthorized!',
-      message: 'Your session has expired, please log in',
+      header: this.getTranslations().unauthorizedHeader,
+      message: this.getTranslations().unauthorizedMesage,
       buttons: [
         {
           text: 'Okay',

@@ -132,3 +132,23 @@ export type ErrorFunction = (
   field: TRegistrationFormFields,
   form: FormGroup
 ) => ValidationErrors;
+
+export interface AlertTranslation {
+  oopsHeader: string;
+  okButton: string;
+  completedHeader: string;
+  unauthorizedHeader: string;
+  unauthorizedMesage: string;
+  userSuccessMessage: string;
+  serverErrorMessage: string;
+}
+
+export enum EAlertTranslation {
+  oopsHeader = 'oopsHeader',
+  okButton = 'okButton',
+  completedHeader = 'completedHeader',
+  unauthorizedHeader = 'unauthorizedHeader',
+  unauthorizedMesage = 'unauthorizedMesage',
+  userSuccessMessage = 'userSuccessMessage',
+  serverErrorMessage = 'serverErrorMessage',
+}

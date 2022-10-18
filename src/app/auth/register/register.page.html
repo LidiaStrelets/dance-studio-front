@@ -1,10 +1,13 @@
-<app-header [link]="routerLink" linkName="Log in"></app-header>
+<app-header
+  [link]="routerLink"
+  [linkName]="'login.button'|translate"
+></app-header>
 <ion-content *ngIf="showForm">
   <form (ngSubmit)="handleSubmit()" [formGroup]="registrationForm">
     <ion-item
       [ngStyle]="getValidation(registrationFormFields.email, registrationForm)?.blockHighlight?inputStyles:{}"
     >
-      <ion-label position="floating">Email</ion-label>
+      <ion-label position="floating">{{"login.email"|translate}}</ion-label>
       <ion-input formControlName="email" type="email"></ion-input>
       <app-errors
         [showError]="getValidation(registrationFormFields.email, registrationForm)?.showMessage??false"
@@ -14,7 +17,7 @@
     <ion-item
       [ngStyle]="getValidation(registrationFormFields.password, registrationForm)?.blockHighlight?inputStyles:{}"
     >
-      <ion-label position="floating">Password</ion-label>
+      <ion-label position="floating">{{"login.password"|translate}}</ion-label>
       <ion-input formControlName="password" type="password"></ion-input>
       <app-errors
         [showError]="getValidation(registrationFormFields.password, registrationForm)?.showMessage??false"
@@ -24,7 +27,9 @@
     <ion-item
       [ngStyle]="getValidation(registrationFormFields.firstname, registrationForm)?.blockHighlight?inputStyles:{}"
     >
-      <ion-label position="floating">Firstname</ion-label>
+      <ion-label position="floating"
+        >{{"register.firstname"|translate}}</ion-label
+      >
       <ion-input formControlName="firstname" type="text"></ion-input>
       <app-errors
         [showError]="getValidation(registrationFormFields.firstname, registrationForm)?.showMessage??false"
@@ -34,7 +39,9 @@
     <ion-item
       [ngStyle]="getValidation(registrationFormFields.lastname, registrationForm)?.blockHighlight?inputStyles:{}"
     >
-      <ion-label position="floating">Lastname</ion-label>
+      <ion-label position="floating"
+        >{{"register.lastname"|translate}}</ion-label
+      >
       <ion-input formControlName="lastname" type="text"></ion-input>
       <app-errors
         [showError]="getValidation(registrationFormFields.lastname, registrationForm)?.showMessage??false"
@@ -42,19 +49,21 @@
       ></app-errors>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Role</ion-label>
+      <ion-label position="floating">{{"register.role"|translate}}</ion-label>
       <ion-select
         formControlName="role"
         interface="popover"
-        placeholder="Select role"
+        [placeholder]="'register.selectPlaceholder'|translate"
       >
         <ion-select-option *ngFor="let role of roles"
-          >{{role}}</ion-select-option
+          >{{"roles"+'.'+ role|translate}}</ion-select-option
         >
       </ion-select>
     </ion-item>
     <ion-item [ngStyle]="showKeyError()?keyInputStyles:{}" *ngIf="true">
-      <ion-label position="floating">Admin key</ion-label>
+      <ion-label position="floating"
+        >{{"register.adminKey"|translate}}</ion-label
+      >
       <ion-input formControlName="key" type="password"></ion-input>
       <app-errors
         [showError]="showKeyError()"
@@ -68,7 +77,7 @@
       expand="block"
       fill="outline"
       type="submit"
-      >Register</ion-button
+      >{{"register.button"|translate}}</ion-button
     >
   </form>
 </ion-content>

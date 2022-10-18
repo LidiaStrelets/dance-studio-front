@@ -9,6 +9,7 @@ import { LoginPageRoutingModule } from './login-routing.module';
 import { LoginPage } from './login.page';
 import { HeaderModule } from '../header/header.module';
 import { ErrorsModule } from '../errors/errors.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { ErrorsModule } from '../errors/errors.module';
     HeaderModule,
     ReactiveFormsModule,
     ErrorsModule,
+    TranslateModule,
   ],
   declarations: [LoginPage],
 })

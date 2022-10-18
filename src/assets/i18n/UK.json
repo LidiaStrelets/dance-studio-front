@@ -1,4 +1,17 @@
 {
+  "login": {
+    "email": "Пошта",
+    "password": "Пароль",
+    "button": "Увійти"
+  },
+  "register": {
+    "button": "Зареєструватися",
+    "firstname": "Імʼя",
+    "lastname": "Прізвище",
+    "role": "Роль",
+    "adminKey": "Ключ адміністратора",
+    "selectPlaceholder": "Оберіть роль"
+  },
   "home": {
     "subtitle": "студія танцю на пілоні",
     "pageTitle": "Наша студія",
@@ -18,7 +31,8 @@
     "birthDate": "Дата народження",
     "noData": "Відсутня",
     "information": "Інформація",
-    "infoPlaceholder": "Розкажи нам про себе"
+    "infoPlaceholder": "Розкажи нам про себе",
+    "apply": "Застосувати"
   },
   "app": {
     "logout": "Вийти"
@@ -27,5 +41,14 @@
     "client": "клієнт",
     "coach": "тренер",
     "admin": "адміністратор"
+  },
+  "alert": {
+    "oopsHeader": "Ой, шось пішло не так...",
+    "okButton": "Добре",
+    "completedHeader": "Запит успішний!",
+    "unauthorizedHeader": "Неавторизовано!",
+    "unauthorizedMesage": "Ваша сесія закінчиласяб будь ласкаб увійдіть!",
+    "userSuccessMessage": "Дані користувача оновлено!",
+    "serverErrorMessage": "Помилка на сервері"
   }
 }

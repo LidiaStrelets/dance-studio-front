@@ -59,11 +59,15 @@ export class AuthService {
       return null;
     }
 
-    return this.http.get<{ data: { id: string } }>(this.url).pipe(
+    const query = this.http.get<{ data: { id: string } }>(this.url).pipe(
       catchError((err) => {
         throw err;
       })
     );
+
+    query.subscribe({ next: (res) => (this.userId = res.data.id) });
+
+    return query;
   }
 
   setUserId(id: string) {

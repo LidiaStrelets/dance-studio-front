@@ -1,4 +1,17 @@
 {
+  "login": {
+    "email": "Email",
+    "password": "Password",
+    "button": "Log in"
+  },
+  "register": {
+    "button": "Registrate",
+    "firstname": "Firstname",
+    "lastname": "Lastname",
+    "role": "Role",
+    "adminKey": "Admin key",
+    "selectPlaceholder": "Select role"
+  },
   "home": {
     "subtitle": "exotic pole dance studio",
     "pageTitle": "Our studio",
@@ -18,7 +31,8 @@
     "birthDate": "Date of birth",
     "noData": "No information",
     "information": "Information",
-    "infoPlaceholder": "Tell us about yourself"
+    "infoPlaceholder": "Tell us about yourself",
+    "apply": "Apply changes"
   },
   "app": {
     "logout": "Log out"
@@ -27,5 +41,14 @@
     "client": "client",
     "coach": "coach",
     "admin": "admin"
+  },
+  "alert": {
+    "oopsHeader": "Oops :( Something went wrong",
+    "okButton": "Okay",
+    "completedHeader": "Request completed!",
+    "unauthorizedHeader": "Unauthorized!",
+    "unauthorizedMesage": "Your session has expired, please log in",
+    "userSuccessMessage": "User was updated!",
+    "serverErrorMessage": "'Server error'"
   }
 }

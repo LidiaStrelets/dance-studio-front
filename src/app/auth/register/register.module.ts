@@ -9,6 +9,7 @@ import { RegisterPageRoutingModule } from './register-routing.module';
 import { RegisterPage } from './register.page';
 import { HeaderModule } from '../header/header.module';
 import { ErrorsModule } from '../errors/errors.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { ErrorsModule } from '../errors/errors.module';
     RegisterPageRoutingModule,
     HeaderModule,
     ErrorsModule,
+    TranslateModule,
   ],
   declarations: [RegisterPage],
 })

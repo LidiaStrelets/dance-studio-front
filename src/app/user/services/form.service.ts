@@ -27,9 +27,9 @@ export class FormService {
     this.userForm.patchValue({
       firstname: user.firstname,
       lastname: user.lastname,
-      birth_date:
-        user.birth_date ??
-        this.dateService.convertForPicker(new Date('2000-12-12')),
+      birth_date: user.birth_date
+        ? this.dateService.convertForPicker(new Date(user.birth_date))
+        : this.dateService.convertForPicker(new Date('2000-12-12')),
       information: user.information,
     });
   }
