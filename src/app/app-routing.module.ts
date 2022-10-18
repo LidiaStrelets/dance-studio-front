@@ -8,6 +8,11 @@ export const routesPaths = {
   login: 'login',
   home: 'home',
   user: 'user',
+  schedule: 'schedule',
+  payments: 'payments',
+  coaches: 'coaches',
+  classes: 'classes',
+  prices: 'prices',
 };
 
 const routes: Routes = [
@@ -44,6 +49,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () =>
       import('./user/user.module').then((m) => m.UserPageModule),
+  },
+  {
+    path: routesPaths.schedule,
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./schedule/schedule.module').then((m) => m.SchedulePageModule),
   },
   // {
   //   path: '**',

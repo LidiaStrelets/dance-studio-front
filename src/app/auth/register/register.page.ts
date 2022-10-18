@@ -41,7 +41,7 @@ export class RegisterPage implements OnInit {
       Object.keys(this.registrationForm.value).some(
         (key) =>
           !this.registrationForm.get(key)?.value &&
-          key !== this.registrationFormFields.key
+          key !== this.registrationFormFields.adminKey
       )
     ) {
       return;
@@ -71,7 +71,7 @@ export class RegisterPage implements OnInit {
   keyInputStyles = this.formFunctionsServise.keyInputStyles;
 
   showKeyError = () => {
-    const key = this.registrationForm.get(this.registrationFormFields.key);
+    const key = this.registrationForm.get(this.registrationFormFields.adminKey);
     const errors = this.registrationForm.errors;
     if (!errors) {
       return false;

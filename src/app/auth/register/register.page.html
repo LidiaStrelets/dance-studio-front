@@ -55,7 +55,7 @@
         interface="popover"
         [placeholder]="'register.selectPlaceholder'|translate"
       >
-        <ion-select-option *ngFor="let role of roles"
+        <ion-select-option *ngFor="let role of roles" [value]="role"
           >{{"roles"+'.'+ role|translate}}</ion-select-option
         >
       </ion-select>
@@ -64,7 +64,7 @@
       <ion-label position="floating"
         >{{"register.adminKey"|translate}}</ion-label
       >
-      <ion-input formControlName="key" type="password"></ion-input>
+      <ion-input formControlName="adminKey" type="password"></ion-input>
       <app-errors
         [showError]="showKeyError()"
         [errors]="registrationForm.errors??{}"

@@ -12,20 +12,20 @@ export class RegisterService {
   constructor(private customValidators: CustomValidators) {
     this.registrationForm = new FormGroup(
       {
-        email: new FormControl('testemail@i.ua', [
+        email: new FormControl('marina@i.ua', [
           Validators.required,
           Validators.email,
         ]),
-        password: new FormControl('hhhhhhH6', [
+        password: new FormControl('qwertyQ1', [
           Validators.required,
           Validators.pattern(
             '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{8,}'
           ),
         ]),
-        firstname: new FormControl('Name', Validators.required),
-        lastname: new FormControl('Lastname', Validators.required),
+        firstname: new FormControl('Marina', Validators.required),
+        lastname: new FormControl('Gerasimenia', Validators.required),
         role: new FormControl(),
-        key: new FormControl(),
+        adminKey: new FormControl('x0E7q04QJa3o'),
       },
       { validators: this.customValidators.keyValidator() }
     );

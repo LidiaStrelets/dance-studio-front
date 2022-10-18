@@ -23,14 +23,14 @@ export type RegistrationForm = FormGroup<{
   firstname: FormControl<string | null>;
   lastname: FormControl<string | null>;
   role: FormControl<TRoles | null>;
-  key: FormControl<string | null>;
+  adminKey: FormControl<string | null>;
 }>;
 
 export interface RegistrationData extends LoginData {
   firstname: string;
   lastname: string;
   role: TRoles;
-  key?: string;
+  adminKey?: string;
 }
 
 export type TRoles = 'admin' | 'client' | 'coach';
@@ -47,7 +47,7 @@ export type TRegistrationFormFields =
   | 'firstname'
   | 'lastname'
   | 'role'
-  | 'key';
+  | 'adminKey';
 
 export enum RegistrationFormFields {
   email = 'email',
@@ -55,7 +55,7 @@ export enum RegistrationFormFields {
   firstname = 'firstname',
   lastname = 'lastname',
   role = 'role',
-  key = 'key',
+  adminKey = 'adminKey',
 }
 
 export interface TokenResponce {

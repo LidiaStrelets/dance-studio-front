@@ -50,5 +50,8 @@
     "unauthorizedMesage": "Your session has expired, please log in",
     "userSuccessMessage": "User was updated!",
     "serverErrorMessage": "'Server error'"
+  },
+  "schedule": {
+    "header": "Schedule"
   }
 }

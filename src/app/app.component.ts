@@ -14,21 +14,41 @@ import { ErrorService } from './services/error.service';
 })
 export class AppComponent {
   menuItems: MenuItem[] = [
-    { name: 'Home page', translatedName: 'Home page', link: ['../', 'home'] },
-    { name: 'My profile', translatedName: 'My profile', link: ['../', 'user'] },
+    {
+      name: 'Home page',
+      translatedName: 'Home page',
+      link: ['../', routesPaths.home],
+    },
+    {
+      name: 'My profile',
+      translatedName: 'My profile',
+      link: ['../', routesPaths.user],
+    },
     {
       name: 'My payments',
       translatedName: 'My payments',
-      link: ['./', 'payments'],
+      link: ['../', routesPaths.payments],
     },
     {
       name: 'Schedules',
       translatedName: 'Schedules',
-      link: ['./', 'schedules'],
+      link: ['../', routesPaths.schedule],
     },
-    { name: 'Coaches', translatedName: 'Coaches', link: ['./', 'coaches'] },
-    { name: 'Classes', translatedName: 'Classes', link: ['./', 'classes'] },
-    { name: 'Prices', translatedName: 'Prices', link: ['./', 'prices'] },
+    {
+      name: 'Coaches',
+      translatedName: 'Coaches',
+      link: ['../', routesPaths.coaches],
+    },
+    {
+      name: 'Classes',
+      translatedName: 'Classes',
+      link: ['../', routesPaths.classes],
+    },
+    {
+      name: 'Prices',
+      translatedName: 'Prices',
+      link: ['../', routesPaths.prices],
+    },
   ];
   languageKey = LocalStorageKeys.language;
 

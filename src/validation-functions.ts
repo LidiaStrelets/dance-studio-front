@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
-import { Roles } from './types';
+import { RegistrationFormFields, Roles } from './types';
 
 @Injectable({
   providedIn: 'root',
@@ -8,8 +8,8 @@ import { Roles } from './types';
 export class CustomValidators {
   keyValidator(): ValidatorFn {
     return (control: AbstractControl) => {
-      const role = control.get('role');
-      const key = control.get('key');
+      const role = control.get(RegistrationFormFields.role);
+      const key = control.get(RegistrationFormFields.adminKey);
 
       if (
         (role?.value === Roles.admin || role?.value === Roles.coach) &&

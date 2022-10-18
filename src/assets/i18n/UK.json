@@ -50,5 +50,8 @@
     "unauthorizedMesage": "Ваша сесія закінчиласяб будь ласкаб увійдіть!",
     "userSuccessMessage": "Дані користувача оновлено!",
     "serverErrorMessage": "Помилка на сервері"
+  },
+  "schedule": {
+    "header": "Розклад"
   }
 }
