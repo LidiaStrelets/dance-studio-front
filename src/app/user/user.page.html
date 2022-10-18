@@ -1,11 +1,4 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>{{"profile.header"|translate}}</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header [header]="'profile.header' | translate "></app-header>
 
 <ion-content *ngIf="showForm">
   <form [formGroup]="userForm">
@@ -60,7 +53,6 @@
       <ion-card-content>
         <div class="edit-container end">
           <p>{{"profile.birthDate"|translate}}:</p>
-
           <app-icon-button
             (cleanItem)="clean($event)"
             cleanAllowed="birth_date"
