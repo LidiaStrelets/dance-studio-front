@@ -1,9 +1,12 @@
-p {
+p,
+span {
   font-size: 20px;
 }
 ion-datetime {
   --background: #e4e6e7;
   --background-rgb: 228, 230, 231;
+
+  border: 2px solid var(--ion-color-profile);
 }
 .date {
   font-size: 25px;
@@ -15,10 +18,12 @@ ion-datetime {
   }
 }
 .datePicker-container {
-  position: relative;
+  position: absolute;
+  left: 3px;
+
   & > div {
     position: absolute;
-    top: -270px;
+    top: -290px;
 
     transform: scale(0);
     opacity: 0;
@@ -31,44 +36,22 @@ ion-datetime {
     }
   }
 }
-ion-datetime {
-  border: 2px solid var(--ion-color-profile);
-}
 .edit-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-.file-upload {
-  width: 0;
-  height: 0;
-  opacity: 0;
-  pointer-events: none;
-}
-.avatar-container {
-  position: relative;
-}
-.avatar-button {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
 
-  width: 50px;
-  height: 50px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border: 2px solid var(--ion-color-profile);
-  border-radius: 50%;
-  background-color: #e4e6e7;
-
-  & ion-icon {
-    position: relative;
-    top: 2px;
+  &.end {
+    align-items: end;
   }
 }
-ion-textarea.bordered {
-  border: 2px solid var(--ion-color-profile);
+ion-textarea {
+  border: 2px solid transparent;
+  &.bordered {
+    border-color: var(--ion-color-profile);
+  }
+}
+ion-card-subtitle {
+  font-size: 15px;
+  --margin-top: 0;
 }

@@ -45,6 +45,7 @@ export class UsersService {
         lastname: values.lastname,
         information: values.information,
         birth_date: values.birth_date,
+        photo: null,
       })
       .pipe(
         catchError((err) => {

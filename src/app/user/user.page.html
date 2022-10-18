@@ -10,23 +10,11 @@
 <ion-content *ngIf="showForm">
   <form [formGroup]="userForm">
     <ion-card color="light">
-      <div class="avatar-container">
-        <ion-img
-          [src]="user.photo??'http://localhost:5555/no_photo.webp'"
-        ></ion-img>
-        <div class="avatar-button">
-          <label for="avatar"
-            ><ion-icon name="camera-outline"></ion-icon>
-          </label>
-          <input
-            accept=".jpeg, .jpg, .png, .webp"
-            id="avatar"
-            type="file"
-            class="file-upload"
-            (change)="handlePhoto($event)"
-          />
-        </div>
-      </div>
+      <app-avatar
+        [userPhoto]="user.photo"
+        (onPhoto)="handlePhoto($event)"
+        (onClear)="clean($event)"
+      ></app-avatar>
 
       <ion-card-header>
         <div class="edit-container">
@@ -70,26 +58,28 @@
       </ion-card-header>
 
       <ion-card-content>
-        <div class="edit-container">
-          <p>
-            {{"profile.birthDate"|translate}} :<span
-              *ngIf="!!getBirthDate(); then birthday; else noData"
-            ></span>
-          </p>
-          <ng-template #birthday>{{getBirthDate()}}</ng-template>
-          <ng-template #noData>{{"profile.noData"|translate}}</ng-template>
+        <div class="edit-container end">
+          <p>{{"profile.birthDate"|translate}}:</p>
 
           <app-icon-button
+            (cleanItem)="clean($event)"
+            cleanAllowed="birth_date"
             [toggle]="toggleShowDate"
             [show]="showDate"
           ></app-icon-button>
         </div>
+        <span>
+          <ng-template
+            *ngIf="!!getBirthDate(); then birthday; else noData"
+          ></ng-template
+        ></span>
+        <ng-template #birthday>{{getBirthDate()}}</ng-template>
+        <ng-template #noData>{{"profile.noData"|translate}}</ng-template>
 
         <div class="datePicker-container">
           <div [class.shown]="showDate">
             <ion-datetime
               formControlName="birth_date"
-              class="ion-margin-top"
               color="profile"
               presentation="date"
               [preferWheel]="true"
@@ -99,11 +89,13 @@
           </div>
         </div>
 
-        <div class="edit-container">
-          <ion-label>{{"profile.information"|translate}} </ion-label>
+        <div class="edit-container end">
+          <ion-label>{{"profile.information"|translate}}:</ion-label>
           <app-icon-button
             [toggle]="toggleInfo"
             [show]="showInfo"
+            (cleanItem)="clean($event)"
+            cleanAllowed="information"
           ></app-icon-button>
         </div>
 

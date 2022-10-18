@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-icon-button',
@@ -8,8 +8,15 @@ import { Component, Input, OnInit } from '@angular/core';
 export class IconButtonComponent implements OnInit {
   @Input() toggle: VoidFunction = () => {};
   @Input() show = false;
+  @Input() cleanAllowed?: string;
+
+  @Output() cleanItem = new EventEmitter<string>();
 
   constructor() {}
 
   ngOnInit() {}
+
+  onClean = () => {
+    this.cleanItem.emit(this.cleanAllowed);
+  };
 }

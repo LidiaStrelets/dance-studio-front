@@ -21,6 +21,7 @@ export class UserPage implements OnInit {
   showInfo = false;
 
   userForm: UserForm = {} as UserForm;
+  cleanedField = false;
 
   constructor(
     private usersService: UsersService,
@@ -77,26 +78,37 @@ export class UserPage implements OnInit {
     this.showInfo = !this.showInfo;
   };
 
-  handlePhoto = (event: Event) => {
-    const files = (event.target as HTMLInputElement).files;
-    if (files && files.length > 0) {
-      const avatar = files[0];
-
-      this.user.photo = URL.createObjectURL(avatar);
-      this.userForm.patchValue({ photo: avatar });
+  clean(field: string) {
+    if (field === 'photo') {
+      this.user.photo = null;
     }
+
+    this.userForm.patchValue({ [field]: null });
+    this.cleanedField = true;
+    this.closeAll();
+  }
+
+  closeAll = () => {
+    this.showDate = false;
+    this.showInfo = false;
+    this.showName = false;
+  };
+
+  handlePhoto = (avatar: File) => {
+    this.user.photo = URL.createObjectURL(avatar);
+    this.userForm.patchValue({ photo: avatar });
   };
 
   formHasChanges = () =>
-    this.userForm.dirty || this.userForm.get('photo')?.value;
+    this.userForm.dirty ||
+    this.userForm.get('photo')?.value ||
+    this.cleanedField;
 
   submitPatch = () => {
     if (!this.formHasChanges() || this.userForm.invalid) {
       return;
     }
-    this.showDate = false;
-    this.showName = false;
-    this.showInfo = false;
+    this.closeAll();
 
     this.usersService
       .patch(this.authService.getCurrentUserId(), this.userForm)
@@ -107,7 +119,7 @@ export class UserPage implements OnInit {
           );
 
           this.user = res.user;
-
+          this.cleanedField = false;
           this.userForm.reset();
           this.formService.setInitialValues(this.user);
         },

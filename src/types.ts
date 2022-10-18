@@ -104,7 +104,7 @@ export interface User {
   id: string;
   information?: string;
   lastname: string;
-  photo?: string;
+  photo?: string | null;
   role: TRoles;
 }
 
