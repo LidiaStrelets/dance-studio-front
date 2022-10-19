@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoginData, TokenResponce } from 'src/types';
-import { catchError } from 'rxjs/operators';
+import { catchError, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -17,7 +17,8 @@ export class BeService {
     return this.http.post<TokenResponce>(this.url, data).pipe(
       catchError((err) => {
         throw err;
-      })
+      }),
+      take(1)
     );
   }
 }

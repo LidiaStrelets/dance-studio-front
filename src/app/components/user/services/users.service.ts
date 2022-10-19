@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, take } from 'rxjs/operators';
 import { AuthService } from 'src/app/components/auth/services/auth.service';
 import { environment } from 'src/environments/environment';
 import { User, UserForm } from 'src/types';
@@ -27,7 +27,8 @@ export class UsersService {
     return this.http.get<User>(this.coreUrl + this.userId).pipe(
       catchError((err) => {
         throw err;
-      })
+      }),
+      take(1)
     );
   }
 
@@ -52,7 +53,8 @@ export class UsersService {
     return this.http.patch<{ user: User }>(this.coreUrl + id, formData).pipe(
       catchError((err) => {
         throw err;
-      })
+      }),
+      take(1)
     );
   }
 }

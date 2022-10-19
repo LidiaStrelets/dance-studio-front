@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LocalStorageKeys } from 'src/types';
-import { catchError } from 'rxjs/operators';
+import { catchError, take } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { AlertService } from 'src/app/services/alert.service';
 import { routesPaths } from 'src/app/app-routing.module';
@@ -66,7 +66,8 @@ export class AuthService {
     const query = this.http.get<{ data: { id: string } }>(this.url).pipe(
       catchError((err) => {
         throw err;
-      })
+      }),
+      take(1)
     );
 
     query.subscribe({ next: (res) => (this.userId = res.data.id) });

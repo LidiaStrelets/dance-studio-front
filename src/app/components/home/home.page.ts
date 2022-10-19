@@ -27,12 +27,12 @@ export class HomePage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.hallService.get().subscribe(
-      (res) => {
+    this.hallService.get().subscribe({
+      next: (res) => {
         this.halls = res;
         this.translate();
       },
-      (err) => {
+      error: (err) => {
         if (err.status === 401) {
           this.authService.deauthenticate();
         } else {
@@ -40,8 +40,8 @@ export class HomePage implements OnInit {
             this.errorService.generateMessage(err)
           );
         }
-      }
-    );
+      },
+    });
   }
 
   toggleLanguages = () => {

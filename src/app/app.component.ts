@@ -6,6 +6,7 @@ import { routesPaths } from './app-routing.module';
 import { ErrorService } from './services/error.service';
 import { AuthService } from './components/auth/services/auth.service';
 import { AlertService } from './services/alert.service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -81,6 +82,7 @@ export class AppComponent {
   getTranslation = (i: number) => {
     this.translateService
       .get(`menu.${this.menuItems[i].name}`)
+      .pipe(take(1))
       .subscribe((res) => (this.menuItems[i].translatedName = res));
     return this.menuItems[i].translatedName;
   };
