@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-avatar',
@@ -9,6 +10,8 @@ export class AvatarComponent implements OnInit {
   @Input() userPhoto?: string | null;
   @Output() onPhoto = new EventEmitter<File>();
   @Output() onClear = new EventEmitter<string>();
+
+  avatar = `${environment.basicUrl}no_photo.webp`;
 
   constructor() {}
 

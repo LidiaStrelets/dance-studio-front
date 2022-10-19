@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AuthService } from 'src/app/components/auth/services/auth.service';
+import { environment } from 'src/environments/environment';
 import { User, UserForm } from 'src/types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsersService {
-  private coreUrl = 'http://localhost:5555/users/';
+  private coreUrl = `${environment}users/`;
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 

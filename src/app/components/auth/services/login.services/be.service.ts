@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { LoginData, TokenResponce } from 'src/types';
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BeService {
-  private url = 'http://localhost:5555/auth/login';
+  private url = `${environment.basicUrl}auth/login`;
 
   constructor(private http: HttpClient) {}
 

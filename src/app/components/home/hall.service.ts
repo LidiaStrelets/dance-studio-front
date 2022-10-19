@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Hall } from 'src/types';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HallService {
-  url = 'http://localhost:5555/halls';
+  url = `${environment.basicUrl}halls`;
   constructor(private httpClient: HttpClient) {}
 
   get(): Observable<Hall[]> {

@@ -6,13 +6,15 @@ import { catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { AlertService } from 'src/app/services/alert.service';
 import { routesPaths } from 'src/app/app-routing.module';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   tokenKey = LocalStorageKeys.token;
-  private url = 'http://localhost:5555/auth/currentId';
+
+  private url = `${environment.basicUrl}auth/currentId`;
   private userId = '';
 
   constructor(

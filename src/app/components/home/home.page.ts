@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
 import { ErrorService } from 'src/app/services/error.service';
 import { LanguageService } from 'src/app/services/language.service';
+import { environment } from 'src/environments/environment';
 import { ELanguages, Hall, TranslatedHall } from 'src/types';
 import { AuthService } from '../auth/services/auth.service';
 import { HallService } from './hall.service';
@@ -15,6 +16,7 @@ export class HomePage implements OnInit {
   halls: Hall[] = [];
   translatedHalls: TranslatedHall[] = [];
   showLanguages = false;
+  mainImage = `${environment.basicUrl}main.png`;
 
   constructor(
     private hallService: HallService,
