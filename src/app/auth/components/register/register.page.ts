@@ -9,9 +9,9 @@ import {
   RegistrationFormFields,
   Roles,
 } from 'src/types';
-import { AuthService } from '../auth.service';
-import { BeService } from './services/be.service';
-import { RegisterService } from './services/register.service';
+import { AuthService } from '../../services/auth.service';
+import { BeService } from '../../services/services/be.service';
+import { RegisterService } from '../../services/services/register.service';
 
 @Component({
   selector: 'app-register',

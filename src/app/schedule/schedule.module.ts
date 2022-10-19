@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { SchedulePageRoutingModule } from './schedule-routing.module';
 
 import { SchedulePage } from './schedule.page';
-import { HeaderModule } from '../header/header.module';
+import { HeaderModule } from '../commonComponents/header/header.module';
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({

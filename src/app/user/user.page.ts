@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { User, UserForm } from 'src/types';
-import { AuthService } from '../auth/auth.service';
 import { AlertService } from '../services/alert.service';
 import { ErrorService } from '../services/error.service';
 import { FormService } from '../services/form.service';
 import { DateService } from './services/date.service';
 import { UsersService } from './services/users.service';
 import { FormService as UserFormService } from './services/form.service';
+import { AuthService } from '../auth/services/auth.service';
 
 @Component({
   selector: 'app-user',

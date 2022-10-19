@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ELanguages, Hall, TranslatedHall } from 'src/types';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../auth/services/auth.service';
 import { AlertService } from '../services/alert.service';
 import { ErrorService } from '../services/error.service';
 import { LanguageService } from '../services/language.service';

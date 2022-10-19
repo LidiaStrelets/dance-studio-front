@@ -8,10 +8,10 @@ import { UserPageRoutingModule } from './user-routing.module';
 
 import { TranslateModule } from '@ngx-translate/core';
 import { UserPage } from './user.page';
-import { ErrorsModule } from '../auth/errors/errors.module';
+import { ErrorsModule } from '../auth/components/errors/errors.module';
 import { IconButtonComponent } from './components/icon-button/icon-button.component';
 import { AvatarComponent } from './components/avatar/avatar.component';
-import { HeaderModule } from '../header/header.module';
+import { HeaderModule } from '../commonComponents/header/header.module';
 
 @NgModule({
   imports: [

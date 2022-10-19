@@ -4,9 +4,9 @@ import { AlertService } from 'src/app/services/alert.service';
 import { ErrorService } from 'src/app/services/error.service';
 import { FormService } from 'src/app/services/form.service';
 import { LoginData, LoginForm, LoginFormFields } from 'src/types';
-import { AuthService } from '../auth.service';
-import { BeService } from './services/be.service';
-import { LoginService } from './services/login.service';
+import { AuthService } from '../../services/auth.service';
+import { BeService } from '../../services/login.services/be.service';
+import { LoginService } from '../../services/login.services/login.service';
 
 @Component({
   selector: 'app-login',

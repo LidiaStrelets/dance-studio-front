@@ -8,7 +8,7 @@ import { HomePageRoutingModule } from './home-routing.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { HomePage } from './home.page';
 import { LanguagesComponent } from './languages/languages.component';
-import { HeaderModule } from '../header/header.module';
+import { HeaderModule } from '../commonComponents/header/header.module';
 
 @NgModule({
   imports: [

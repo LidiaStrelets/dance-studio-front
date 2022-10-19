@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './auth/auth.guard';
+import { AuthGuard } from './auth/guards/auth.guard';
 
 export const routesPaths = {
   default: 'welcome',
@@ -24,19 +24,23 @@ const routes: Routes = [
   {
     path: routesPaths.default,
     loadChildren: () =>
-      import('./auth/welcome/welcome.module').then((m) => m.WelcomePageModule),
+      import('./auth/components/welcome/welcome.module').then(
+        (m) => m.WelcomePageModule
+      ),
   },
   {
     path: routesPaths.register,
     loadChildren: () =>
-      import('./auth/register/register.module').then(
+      import('./auth/components/register/register.module').then(
         (m) => m.RegisterPageModule
       ),
   },
   {
     path: routesPaths.login,
     loadChildren: () =>
-      import('./auth/login/login.module').then((m) => m.LoginPageModule),
+      import('./auth/components/login/login.module').then(
+        (m) => m.LoginPageModule
+      ),
   },
   {
     path: routesPaths.home,

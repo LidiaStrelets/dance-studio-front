@@ -10,11 +10,11 @@ export class LoginService {
 
   constructor() {
     this.loginForm = new FormGroup({
-      email: new FormControl('testemail@i.ua', [
+      email: new FormControl('marina@i.ua', [
         Validators.required,
         Validators.email,
       ]),
-      password: new FormControl('hhhhhhH6', [Validators.required]),
+      password: new FormControl('qwertyQ1', [Validators.required]),
     });
   }
 
