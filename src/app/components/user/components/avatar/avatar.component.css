@@ -1,0 +1,57 @@
+.avatar-container {
+  position: relative;
+}
+
+.delete-photo {
+  position: absolute;
+  right: 10px;
+  width: 50px;
+  height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border: 2px solid var(--ion-color-profile);
+  border-radius: 50%;
+  background-color: #e4e6e7;
+  bottom: 70px;
+  color: var(--ion-color-danger);
+}
+
+.avatar-button {
+  position: absolute;
+  right: 10px;
+  width: 50px;
+  height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border: 2px solid var(--ion-color-profile);
+  border-radius: 50%;
+  background-color: #e4e6e7;
+  bottom: 10px;
+}
+
+.avatar-button ion-icon {
+  position: relative;
+  top: 2px;
+}
+
+.file-upload {
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+/*# sourceMappingURL=avatar.component.css.map */

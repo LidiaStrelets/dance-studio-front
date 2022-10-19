@@ -1,0 +1,111 @@
+<app-header [header]="'profile.header' | translate "></app-header>
+
+<ion-content>
+  <form [formGroup]="userForm">
+    <ion-card color="light">
+      <app-avatar
+        [userPhoto]="user.photo"
+        (onPhoto)="handlePhoto($event)"
+        (onClear)="clean($event)"
+      ></app-avatar>
+
+      <ion-card-header>
+        <div class="edit-container">
+          <ion-card-title
+            >{{userForm.get('firstname')?.value+'
+            '+userForm.get('lastname')?.value}}</ion-card-title
+          >
+          <app-icon-button
+            [toggle]="toggleName"
+            [show]="showName"
+          ></app-icon-button>
+        </div>
+        <div *ngIf="showName">
+          <ion-item
+            [ngStyle]="getValidation('firstname', userForm)?.blockHighlight?inputStyles:{}"
+            color="light"
+          >
+            <ion-label position="floating">Firstname</ion-label>
+            <ion-input formControlName="firstname" type="text"></ion-input>
+            <app-errors
+              [showError]="getValidation('firstname', userForm)?.showMessage??false"
+              [errors]="getErrors('firstname', userForm)??[]"
+            ></app-errors>
+          </ion-item>
+          <ion-item
+            [ngStyle]="getValidation('lastname', userForm)?.blockHighlight?inputStyles:{}"
+            color="light"
+          >
+            <ion-label position="floating">Lastname</ion-label>
+            <ion-input formControlName="lastname" type="text"></ion-input>
+            <app-errors
+              [showError]="getValidation('lastname', userForm)?.showMessage??false"
+              [errors]="getErrors('lastname', userForm)??[]"
+            ></app-errors>
+          </ion-item>
+        </div>
+
+        <ion-card-subtitle
+          >{{"roles"+'.'+ user.role|translate}}</ion-card-subtitle
+        >
+      </ion-card-header>
+
+      <ion-card-content>
+        <div class="edit-container end">
+          <p>{{"profile.birthDate"|translate}}:</p>
+          <app-icon-button
+            (cleanItem)="clean($event)"
+            cleanAllowed="birth_date"
+            [toggle]="toggleShowDate"
+            [show]="showDate"
+          ></app-icon-button>
+        </div>
+        <span>
+          <ng-template
+            *ngIf="!!getBirthDate(); then birthday; else noData"
+          ></ng-template
+        ></span>
+        <ng-template #birthday>{{getBirthDate()}}</ng-template>
+        <ng-template #noData>{{"profile.noData"|translate}}</ng-template>
+
+        <div class="datePicker-container">
+          <div [class.shown]="showDate">
+            <ion-datetime
+              formControlName="birth_date"
+              color="profile"
+              presentation="date"
+              [preferWheel]="true"
+              placeholder="Select Date"
+            >
+            </ion-datetime>
+          </div>
+        </div>
+
+        <div class="edit-container end">
+          <ion-label>{{"profile.information"|translate}}:</ion-label>
+          <app-icon-button
+            [toggle]="toggleInfo"
+            [show]="showInfo"
+            (cleanItem)="clean($event)"
+            cleanAllowed="information"
+          ></app-icon-button>
+        </div>
+
+        <ion-textarea
+          [class.bordered]="showInfo"
+          formControlName="information"
+          [readonly]="!showInfo"
+          [placeholder]="'profile.infoPlaceholder'|translate"
+        ></ion-textarea>
+
+        <ion-button
+          [disabled]="!formHasChanges() || userForm.invalid"
+          (click)="submitPatch()"
+          color="danger"
+          *ngIf="formHasChanges()"
+          >{{"profile.apply"|translate}}</ion-button
+        >
+      </ion-card-content>
+    </ion-card>
+  </form>
+</ion-content>

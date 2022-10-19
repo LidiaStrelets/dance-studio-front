@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ELanguages, LocalStorageKeys, MenuItem } from 'src/types';
 import { routesPaths } from './app-routing.module';
-import { AuthService } from './auth/services/auth.service';
-import { AlertService } from './services/alert.service';
 import { ErrorService } from './services/error.service';
+import { AuthService } from './components/auth/services/auth.service';
+import { AlertService } from './services/alert.service';
 
 @Component({
   selector: 'app-root',

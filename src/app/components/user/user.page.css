@@ -1,0 +1,78 @@
+p,
+span {
+  font-size: 20px;
+}
+
+ion-datetime {
+  --background: #e4e6e7;
+  --background-rgb: 228, 230, 231;
+  border: 2px solid var(--ion-color-profile);
+}
+
+.date {
+  font-size: 25px;
+  text-transform: capitalize;
+  opacity: 0;
+  -webkit-transition: opacity 250ms ease;
+  transition: opacity 250ms ease;
+}
+
+.date.hidden {
+  opacity: 1;
+}
+
+.datePicker-container {
+  position: absolute;
+  left: 3px;
+}
+
+.datePicker-container > div {
+  position: absolute;
+  top: -290px;
+  -webkit-transform: scale(0);
+          transform: scale(0);
+  opacity: 0;
+  -webkit-transition: opacity 250ms ease, -webkit-transform 250ms ease;
+  transition: opacity 250ms ease, -webkit-transform 250ms ease;
+  transition: transform 250ms ease, opacity 250ms ease;
+  transition: transform 250ms ease, opacity 250ms ease, -webkit-transform 250ms ease;
+}
+
+.datePicker-container > div.shown {
+  z-index: 2;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+  opacity: 1;
+}
+
+.edit-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.edit-container.end {
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: end;
+}
+
+ion-textarea {
+  border: 2px solid transparent;
+}
+
+ion-textarea.bordered {
+  border-color: var(--ion-color-profile);
+}
+
+ion-card-subtitle {
+  font-size: 15px;
+  --margin-top: 0;
+}
+/*# sourceMappingURL=user.page.css.map */

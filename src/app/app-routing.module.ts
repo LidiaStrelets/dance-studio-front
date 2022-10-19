@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './auth/guards/auth.guard';
+import { AuthGuard } from './components/auth/guards/auth.guard';
 
 export const routesPaths = {
   default: 'welcome',
@@ -24,21 +24,21 @@ const routes: Routes = [
   {
     path: routesPaths.default,
     loadChildren: () =>
-      import('./auth/components/welcome/welcome.module').then(
+      import('./components/auth/components/welcome/welcome.module').then(
         (m) => m.WelcomePageModule
       ),
   },
   {
     path: routesPaths.register,
     loadChildren: () =>
-      import('./auth/components/register/register.module').then(
+      import('./components/auth/components/register/register.module').then(
         (m) => m.RegisterPageModule
       ),
   },
   {
     path: routesPaths.login,
     loadChildren: () =>
-      import('./auth/components/login/login.module').then(
+      import('./components/auth/components/login/login.module').then(
         (m) => m.LoginPageModule
       ),
   },
@@ -46,19 +46,21 @@ const routes: Routes = [
     path: routesPaths.home,
     canActivate: [AuthGuard],
     loadChildren: () =>
-      import('./home/home.module').then((m) => m.HomePageModule),
+      import('./components/home/home.module').then((m) => m.HomePageModule),
   },
   {
     path: routesPaths.user,
     canActivate: [AuthGuard],
     loadChildren: () =>
-      import('./user/user.module').then((m) => m.UserPageModule),
+      import('./components/user/user.module').then((m) => m.UserPageModule),
   },
   {
     path: routesPaths.schedule,
     canActivate: [AuthGuard],
     loadChildren: () =>
-      import('./schedule/schedule.module').then((m) => m.SchedulePageModule),
+      import('./components/schedule/schedule.module').then(
+        (m) => m.SchedulePageModule
+      ),
   },
   // {
   //   path: '**',
