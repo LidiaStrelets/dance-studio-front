@@ -60,7 +60,10 @@
         >
       </ion-select>
     </ion-item>
-    <ion-item [ngStyle]="showKeyError()?keyInputStyles:{}" *ngIf="true">
+    <ion-item
+      [ngStyle]="showKeyError()?keyInputStyles:{}"
+      *ngIf="registrationForm.get('role')?.value!=='client'"
+    >
       <ion-label position="floating"
         >{{"register.adminKey"|translate}}</ion-label
       >

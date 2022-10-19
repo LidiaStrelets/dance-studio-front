@@ -37,13 +37,7 @@ export class RegisterPage implements OnInit {
   ) {}
 
   handleSubmit = () => {
-    if (
-      Object.keys(this.registrationForm.value).some(
-        (key) =>
-          !this.registrationForm.get(key)?.value &&
-          key !== this.registrationFormFields.adminKey
-      )
-    ) {
+    if (this.registrationForm.invalid || !this.registrationForm.dirty) {
       return;
     }
 
