@@ -37,7 +37,7 @@ export class RegisterPage implements OnInit {
   ) {}
 
   handleSubmit = () => {
-    if (this.registrationForm.invalid || !this.registrationForm.dirty) {
+    if (this.registrationForm.invalid) {
       return;
     }
 
@@ -56,20 +56,26 @@ export class RegisterPage implements OnInit {
     this.authService.redirectAuthenticated();
     this.registrationForm = new FormGroup(
       {
-        email: new FormControl('marina@i.ua', [
+        [RegistrationFormFields.email]: new FormControl('marina@i.ua', [
           Validators.required,
           Validators.email,
         ]),
-        password: new FormControl('qwertyQ1', [
+        [RegistrationFormFields.password]: new FormControl('qwertyQ1', [
           Validators.required,
           Validators.pattern(
             '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{8,}'
           ),
         ]),
-        firstname: new FormControl('Marina', Validators.required),
-        lastname: new FormControl('Gerasimenia', Validators.required),
-        role: new FormControl(),
-        adminKey: new FormControl('x0E7q04QJa3o'),
+        [RegistrationFormFields.firstname]: new FormControl(
+          'Marina',
+          Validators.required
+        ),
+        [RegistrationFormFields.lastname]: new FormControl(
+          'Gerasimenia',
+          Validators.required
+        ),
+        [RegistrationFormFields.role]: new FormControl(),
+        [RegistrationFormFields.adminKey]: new FormControl('x0E7q04QJa3o'),
       },
       { validators: this.customValidators.keyValidator() }
     );

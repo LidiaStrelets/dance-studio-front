@@ -10,14 +10,21 @@ import { User, UserForm } from 'src/types';
   providedIn: 'root',
 })
 export class UsersService {
-  private coreUrl = `${environment}users/`;
+  private userId = '';
+  private coreUrl = `${environment.basicUrl}users/`;
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService) {
+    this.userId = this.authService.getCurrentUserId();
+  }
 
   getById(): Observable<User> {
-    const userId = this.authService.getCurrentUserId();
+    if (!this.userId) {
+      this.authService.getUserIdFromToken()?.subscribe({
+        next: (res) => (this.userId = res.data.id),
+      });
+    }
 
-    return this.http.get<User>(this.coreUrl + userId).pipe(
+    return this.http.get<User>(this.coreUrl + this.userId).pipe(
       catchError((err) => {
         throw err;
       })
@@ -25,45 +32,27 @@ export class UsersService {
   }
 
   patch(id: string, updatedUser: UserForm) {
+    const formData = new FormData();
     const values = updatedUser.value;
 
     if (values.photo) {
-      const req = this.sendPhoto(values.photo, id);
-      if (!updatedUser.dirty) {
-        return req;
-      }
-      req.subscribe({
-        next: (res) => console.log('result', res),
-        error: (err) => {
-          throw err;
-        },
-      });
+      formData.append('thumbnail', values.photo);
     }
-
-    return this.http
-      .patch<User>(this.coreUrl + id, {
+    formData.append(
+      'userForm',
+      JSON.stringify({
         firstname: values.firstname,
         lastname: values.lastname,
         information: values.information,
         birth_date: values.birth_date,
         photo: null,
       })
-      .pipe(
-        catchError((err) => {
-          throw err;
-        })
-      );
-  }
+    );
 
-  sendPhoto = (file: File, id: string) => {
-    const formData = new FormData();
-
-    formData.append('thumbnail', file);
-
-    return this.http.post<any>(this.coreUrl + id + '/photo', formData).pipe(
+    return this.http.patch<{ user: User }>(this.coreUrl + id, formData).pipe(
       catchError((err) => {
         throw err;
       })
     );
-  };
+  }
 }

@@ -8,7 +8,10 @@
       [ngStyle]="getValidation(loginFormFields.email, loginForm)?.blockHighlight?inputStyles:{}"
     >
       <ion-label position="floating">{{"login.email"|translate}}</ion-label>
-      <ion-input formControlName="email" type="email"></ion-input>
+      <ion-input
+        [formControlName]="loginFormFields.email"
+        type="email"
+      ></ion-input>
       <app-errors
         [showError]="getValidation(loginFormFields.email, loginForm)?.showMessage??false"
         [errors]="getErrors(loginFormFields.email, loginForm)??[]"
@@ -18,7 +21,10 @@
       [ngStyle]="getValidation(loginFormFields.password, loginForm)?.blockHighlight?inputStyles:{}"
     >
       <ion-label position="floating">{{"login.password"|translate}}</ion-label>
-      <ion-input formControlName="password" type="password"></ion-input>
+      <ion-input
+        [formControlName]="loginFormFields.password"
+        type="password"
+      ></ion-input>
       <app-errors
         [showError]="getValidation(loginFormFields.password, loginForm)?.showMessage??false"
         [errors]="getErrors(loginFormFields.password, loginForm)??[]"

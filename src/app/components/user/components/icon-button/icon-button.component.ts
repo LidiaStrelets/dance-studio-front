@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { UserDeletedFields } from 'src/types';
 
 @Component({
   selector: 'app-icon-button',
@@ -8,9 +9,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class IconButtonComponent implements OnInit {
   @Input() toggle: VoidFunction = () => {};
   @Input() show = false;
-  @Input() cleanAllowed?: string;
+  @Input() cleanAllowed?: UserDeletedFields;
 
-  @Output() cleanItem = new EventEmitter<string>();
+  @Output() cleanItem = new EventEmitter<UserDeletedFields>();
 
   constructor() {}
 

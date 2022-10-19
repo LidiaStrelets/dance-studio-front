@@ -120,6 +120,19 @@ export type UserForm = FormGroup<{
   photo: FormControl<File | null>;
 }>;
 
+export enum UserFormFields {
+  birth_date = 'birth_date',
+  firstname = 'firstname',
+  lastname = 'lastname',
+  information = 'information',
+  photo = 'photo',
+}
+
+export type UserDeletedFields =
+  | UserFormFields.birth_date
+  | UserFormFields.information
+  | UserFormFields.photo;
+
 export type ValidationFunction = (
   field: TRegistrationFormFields,
   form: FormGroup

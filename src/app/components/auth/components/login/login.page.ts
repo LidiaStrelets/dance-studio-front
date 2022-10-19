@@ -28,33 +28,31 @@ export class LoginPage implements OnInit {
   ) {}
 
   handleSubmit = () => {
-    if (
-      Object.keys(this.loginForm.value).some(
-        (key) => !this.loginForm.get(key)?.value
-      )
-    ) {
+    if (this.loginForm.invalid) {
       return;
     }
 
-    this.be.register(this.loginForm.value as LoginData).subscribe(
-      (res) => {
+    this.be.register(this.loginForm.value as LoginData).subscribe({
+      next: (res) => {
         this.authService.authenticate(res.data.token);
       },
-      (err) =>
+      error: (err) =>
         this.alertService.presentAlertError(
           this.errorService.generateMessage(err)
-        )
-    );
+        ),
+    });
   };
 
   ngOnInit() {
     this.authService.redirectAuthenticated();
     this.loginForm = new FormGroup({
-      email: new FormControl('marina@i.ua', [
+      [LoginFormFields.email]: new FormControl('marina@i.ua', [
         Validators.required,
         Validators.email,
       ]),
-      password: new FormControl('qwertyQ1', [Validators.required]),
+      [LoginFormFields.password]: new FormControl('qwertyQ1', [
+        Validators.required,
+      ]),
     });
   }
 

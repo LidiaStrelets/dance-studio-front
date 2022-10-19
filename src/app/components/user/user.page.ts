@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User, UserForm } from 'src/types';
+import { User, UserDeletedFields, UserForm, UserFormFields } from 'src/types';
 import { DateService } from './services/date.service';
 import { UsersService } from './services/users.service';
 import { AuthService } from '../auth/services/auth.service';
@@ -15,12 +15,13 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class UserPage implements OnInit {
   user: User = {} as User;
+  userForm: UserForm = {} as UserForm;
+  userFormFields = UserFormFields;
 
   showDate = false;
   showName = false;
   showInfo = false;
 
-  userForm: UserForm = {} as UserForm;
   cleanedField = false;
 
   constructor(
@@ -32,13 +33,13 @@ export class UserPage implements OnInit {
     private formFunctionsServise: FormService
   ) {
     this.userForm = new FormGroup({
-      birth_date: new FormControl(
-        this.dateService.convertForPicker(new Date('2000-12-12'))
+      [UserFormFields.birth_date]: new FormControl(
+        this.dateService.convertForPicker(this.dateService.defaultDate)
       ),
-      firstname: new FormControl('', Validators.required),
-      lastname: new FormControl('', Validators.required),
-      information: new FormControl(),
-      photo: new FormControl(),
+      [UserFormFields.firstname]: new FormControl('', Validators.required),
+      [UserFormFields.lastname]: new FormControl('', Validators.required),
+      [UserFormFields.information]: new FormControl(),
+      [UserFormFields.photo]: new FormControl(),
     });
   }
 
@@ -64,24 +65,31 @@ export class UserPage implements OnInit {
 
   setInitialValues(user: User) {
     this.userForm.patchValue({
-      firstname: user.firstname,
-      lastname: user.lastname,
-      birth_date: user.birth_date
+      [UserFormFields.firstname]: user.firstname,
+      [UserFormFields.lastname]: user.lastname,
+      [UserFormFields.birth_date]: user.birth_date
         ? this.dateService.convertForPicker(new Date(user.birth_date))
-        : this.dateService.convertForPicker(new Date('2000-12-12')),
-      information: user.information,
+        : this.dateService.convertForPicker(this.dateService.defaultDate),
+      [UserFormFields.information]: user.information,
     });
   }
 
   getBirthDate = () => {
-    const date = this.userForm.get('birth_date')?.value;
+    const date = this.userForm.get(UserFormFields.birth_date)?.value;
 
-    if (date === this.dateService.convertForPicker(new Date('2000-12-12'))) {
+    if (
+      date === this.dateService.convertForPicker(this.dateService.defaultDate)
+    ) {
       return null;
     }
 
     return date;
   };
+
+  getUserName = () =>
+    `${this.userForm.get(UserFormFields.firstname)?.value} ${
+      this.userForm.get(UserFormFields.lastname)?.value
+    }`;
 
   toggleShowDate = () => {
     this.showDate = !this.showDate;
@@ -95,12 +103,12 @@ export class UserPage implements OnInit {
     this.showInfo = !this.showInfo;
   };
 
-  clean(field: string) {
-    if (field === 'photo') {
+  clean(field: UserDeletedFields) {
+    if (field === UserFormFields.photo) {
       this.user.photo = null;
     }
 
-    this.userForm.patchValue({ [field]: null });
+    this.userForm.controls[field].reset();
     this.cleanedField = true;
     this.closeAll();
   }
@@ -118,7 +126,7 @@ export class UserPage implements OnInit {
 
   formHasChanges = () =>
     this.userForm.dirty ||
-    this.userForm.get('photo')?.value ||
+    this.userForm.get(UserFormFields.photo)?.value ||
     this.cleanedField;
 
   submitPatch = () => {

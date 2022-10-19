@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { UserDeletedFields, UserFormFields } from 'src/types';
 
 @Component({
   selector: 'app-avatar',
@@ -9,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class AvatarComponent implements OnInit {
   @Input() userPhoto?: string | null;
   @Output() onPhoto = new EventEmitter<File>();
-  @Output() onClear = new EventEmitter<string>();
+  @Output() onClear = new EventEmitter<UserDeletedFields>();
 
   avatar = `${environment.basicUrl}no_photo.webp`;
 
@@ -27,8 +28,6 @@ export class AvatarComponent implements OnInit {
   };
 
   handleClear = () => {
-    console.log('kuku');
-
-    this.onClear.emit('photo');
+    this.onClear.emit(UserFormFields.photo);
   };
 }
