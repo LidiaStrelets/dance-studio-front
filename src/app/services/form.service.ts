@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { TRegistrationFormFields } from 'src/types';
+import { TranslateService } from '@ngx-translate/core';
+import { take } from 'rxjs';
+import {
+  ErrorMessages,
+  RegistrationFormFields,
+  TRegistrationFormFields,
+} from 'src/types';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +21,8 @@ export class FormService {
     'border-bottom': '1px solid var(--highlight-color-invalid)',
   };
 
-  constructor() {}
+  constructor(private translateService: TranslateService) {}
+
   getValidation = (field: TRegistrationFormFields, form: FormGroup) => {
     if (!form) return;
     const fieldValue = form.get(field);
@@ -26,10 +33,46 @@ export class FormService {
     };
   };
 
-  getErrors = (field: TRegistrationFormFields, form: FormGroup) => {
-    if (!form) return;
+  getErrors = (
+    field: TRegistrationFormFields,
+    form: FormGroup
+  ): ErrorMessages => {
+    if (!form) return {} as ErrorMessages;
     const fieldValue = form.get(field);
+    const errors = fieldValue?.errors;
 
-    return fieldValue?.errors ?? {};
+    const customErrors: ErrorMessages = {} as ErrorMessages;
+
+    if (errors?.['required']) {
+      this.translateService
+        .get('errors.required')
+        .pipe(take(1))
+        .subscribe((res) => (customErrors.required = res));
+    }
+    if (errors?.['pattern']) {
+      this.translateService
+        .get('errors.pattern')
+        .pipe(take(1))
+        .subscribe((res) => (customErrors.pattern = res));
+    }
+    if (errors?.['email']) {
+      this.translateService
+        .get('errors.email')
+        .pipe(take(1))
+        .subscribe((res) => (customErrors.email = res));
+    }
+    if (
+      (field =
+        RegistrationFormFields.adminKey &&
+        form.errors &&
+        form.errors['keyRequired'])
+    ) {
+      this.translateService
+        .get('errors.keyRequired')
+        .pipe(take(1))
+        .subscribe((res) => (customErrors.keyRequired = res));
+    }
+
+    return customErrors;
   };
 }

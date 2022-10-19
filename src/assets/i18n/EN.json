@@ -53,5 +53,11 @@
   },
   "schedule": {
     "header": "Schedule"
+  },
+  "errors": {
+    "required": "Required field!",
+    "email": "Enter valid email address!",
+    "keyRequired": "Provide an admin key!",
+    "pattern": "A password should be at least 8 symbols long, contain a capital letter and a digit"
   }
 }

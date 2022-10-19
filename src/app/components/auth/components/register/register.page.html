@@ -14,7 +14,7 @@
       ></ion-input>
       <app-errors
         [showError]="getValidation(registrationFormFields.email, registrationForm)?.showMessage??false"
-        [errors]="getErrors(registrationFormFields.email, registrationForm)??[]"
+        [errors]="getErrors(registrationFormFields.email, registrationForm)"
       ></app-errors>
     </ion-item>
     <ion-item
@@ -27,7 +27,7 @@
       ></ion-input>
       <app-errors
         [showError]="getValidation(registrationFormFields.password, registrationForm)?.showMessage??false"
-        [errors]="getErrors(registrationFormFields.password, registrationForm)??[]"
+        [errors]="getErrors(registrationFormFields.password, registrationForm)"
       ></app-errors>
     </ion-item>
     <ion-item
@@ -42,7 +42,7 @@
       ></ion-input>
       <app-errors
         [showError]="getValidation(registrationFormFields.firstname, registrationForm)?.showMessage??false"
-        [errors]="getErrors(registrationFormFields.firstname, registrationForm)??[]"
+        [errors]="getErrors(registrationFormFields.firstname, registrationForm)"
       ></app-errors>
     </ion-item>
     <ion-item
@@ -57,7 +57,7 @@
       ></ion-input>
       <app-errors
         [showError]="getValidation(registrationFormFields.lastname, registrationForm)?.showMessage??false"
-        [errors]="getErrors(registrationFormFields.lastname, registrationForm)??[]"
+        [errors]="getErrors(registrationFormFields.lastname, registrationForm)"
       ></app-errors>
     </ion-item>
     <ion-item>
@@ -85,7 +85,7 @@
       ></ion-input>
       <app-errors
         [showError]="showKeyError()"
-        [errors]="registrationForm.errors??{}"
+        [errors]="getErrors(registrationFormFields.adminKey, registrationForm)"
       ></app-errors>
     </ion-item>
 

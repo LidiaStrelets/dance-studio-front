@@ -165,3 +165,10 @@ export enum EAlertTranslation {
   userSuccessMessage = 'userSuccessMessage',
   serverErrorMessage = 'serverErrorMessage',
 }
+
+export interface ErrorMessages {
+  required: string;
+  pattern: string;
+  email: string;
+  keyRequired: string;
+}

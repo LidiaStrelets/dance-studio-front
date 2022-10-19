@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ErrorMessages } from 'src/types';
 
 @Component({
   selector: 'app-errors',
@@ -7,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ErrorsComponent implements OnInit {
   @Input() showError = false;
-  @Input() errors: { [key: string]: boolean } = {};
+  @Input() errors: ErrorMessages = {} as ErrorMessages;
   constructor() {}
 
   ngOnInit() {}

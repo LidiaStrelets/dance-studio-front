@@ -29,7 +29,7 @@
             ></ion-input>
             <app-errors
               [showError]="getValidation(userFormFields.firstname, userForm)?.showMessage??false"
-              [errors]="getErrors(userFormFields.firstname, userForm)??[]"
+              [errors]="getErrors(userFormFields.firstname, userForm)"
             ></app-errors>
           </ion-item>
           <ion-item
@@ -43,7 +43,7 @@
             ></ion-input>
             <app-errors
               [showError]="getValidation(userFormFields.lastname, userForm)?.showMessage??false"
-              [errors]="getErrors(userFormFields.lastname, userForm)??[]"
+              [errors]="getErrors(userFormFields.lastname, userForm)"
             ></app-errors>
           </ion-item>
         </div>

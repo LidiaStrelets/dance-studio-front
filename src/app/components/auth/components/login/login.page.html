@@ -14,7 +14,7 @@
       ></ion-input>
       <app-errors
         [showError]="getValidation(loginFormFields.email, loginForm)?.showMessage??false"
-        [errors]="getErrors(loginFormFields.email, loginForm)??[]"
+        [errors]="getErrors(loginFormFields.email, loginForm)"
       ></app-errors>
     </ion-item>
     <ion-item
@@ -27,7 +27,7 @@
       ></ion-input>
       <app-errors
         [showError]="getValidation(loginFormFields.password, loginForm)?.showMessage??false"
-        [errors]="getErrors(loginFormFields.password, loginForm)??[]"
+        [errors]="getErrors(loginFormFields.password, loginForm)"
       ></app-errors>
     </ion-item>
 
