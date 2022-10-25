@@ -32,6 +32,8 @@ export class AuthService {
     localStorage.setItem(this.tokenKey, JSON.stringify(token));
 
     this.router.navigate(['./', routesPaths.home]);
+
+    this.getUserIdFromToken();
   }
 
   getToken = () => localStorage.getItem(this.tokenKey);
@@ -50,29 +52,26 @@ export class AuthService {
   isAuthenticated = () => !!this.getToken();
 
   redirectAuthenticated = () => {
-    console.log('check');
-
     if (this.isAuthenticated()) {
       this.router.navigate([routesPaths.home]);
     }
   };
 
-  getUserIdFromToken(): Observable<{ data: { id: string } }> | null {
+  getUserIdFromToken() {
     if (!this.getToken()) {
       this.deauthenticate();
-      return null;
+      return;
     }
 
-    const query = this.http.get<{ data: { id: string } }>(this.url).pipe(
-      catchError((err) => {
-        throw err;
-      }),
-      take(1)
-    );
-
-    query.subscribe({ next: (res) => (this.userId = res.data.id) });
-
-    return query;
+    this.http
+      .get<{ data: { id: string } }>(this.url)
+      .pipe(
+        catchError((err) => {
+          throw err;
+        }),
+        take(1)
+      )
+      .subscribe({ next: (res) => this.setUserId(res.data.id) });
   }
 
   setUserId(id: string) {

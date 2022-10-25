@@ -1,12 +1,8 @@
-import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ELanguages, LocalStorageKeys, MenuItem } from 'src/types';
 import { routesPaths } from './app-routing.module';
-import { ErrorService } from './services/error.service';
 import { AuthService } from './components/auth/services/auth.service';
-import { AlertService } from './services/alert.service';
-import { take } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -55,34 +51,20 @@ export class AppComponent {
 
   constructor(
     private translateService: TranslateService,
-    private authService: AuthService,
-    private alertService: AlertService,
-    private errorService: ErrorService,
-    private location: Location
+    private authService: AuthService
   ) {
     this.translateService.setDefaultLang(
       localStorage.getItem(this.languageKey) ?? ELanguages.en
     );
 
-    if (
-      this.location.path().split('/')[1] !== routesPaths.login &&
-      this.location.path().split('/')[1] !== routesPaths.register &&
-      this.location.path().split('/')[1] !== routesPaths.default
-    ) {
-      authService.getUserIdFromToken()?.subscribe({
-        next: (res) => this.authService.setUserId(res.data.id),
-        error: (err) =>
-          this.alertService.presentAlertError(
-            this.errorService.generateMessage(err)
-          ),
-      });
+    if (authService.isAuthenticated()) {
+      this.authService.getUserIdFromToken();
     }
   }
 
   getTranslation = (i: number) => {
     this.translateService
       .get(`menu.${this.menuItems[i].name}`)
-      .pipe(take(1))
       .subscribe((res) => (this.menuItems[i].translatedName = res));
     return this.menuItems[i].translatedName;
   };
