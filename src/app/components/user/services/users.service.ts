@@ -18,12 +18,6 @@ export class UsersService {
   }
 
   getById(): Observable<User> {
-    if (!this.userId) {
-      this.authService.getUserIdFromToken()?.subscribe({
-        next: (res) => (this.userId = res.data.id),
-      });
-    }
-
     return this.http.get<User>(this.coreUrl + this.userId).pipe(
       catchError((err) => {
         throw err;
@@ -57,4 +51,13 @@ export class UsersService {
       take(1)
     );
   }
+
+  getCoaches = (): Observable<User[]> => {
+    return this.http.get<User[]>(this.coreUrl + 'coaches').pipe(
+      catchError((err) => {
+        throw err;
+      }),
+      take(1)
+    );
+  };
 }

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
-import { take } from 'rxjs';
 import {
   ErrorMessages,
   RegistrationFormFields,
@@ -46,19 +45,16 @@ export class FormService {
     if (errors?.['required']) {
       this.translateService
         .get('errors.required')
-        .pipe(take(1))
         .subscribe((res) => (customErrors.required = res));
     }
     if (errors?.['pattern']) {
       this.translateService
         .get('errors.pattern')
-        .pipe(take(1))
         .subscribe((res) => (customErrors.pattern = res));
     }
     if (errors?.['email']) {
       this.translateService
         .get('errors.email')
-        .pipe(take(1))
         .subscribe((res) => (customErrors.email = res));
     }
     if (
@@ -69,7 +65,6 @@ export class FormService {
     ) {
       this.translateService
         .get('errors.keyRequired')
-        .pipe(take(1))
         .subscribe((res) => (customErrors.keyRequired = res));
     }
 

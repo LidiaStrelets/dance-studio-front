@@ -23,7 +23,8 @@ export class LanguageService {
     localStorage.setItem(this.languageKey, language);
   };
 
-  getLanguage = () => this.language;
+  getLanguage = () =>
+    (localStorage.getItem('language') as Languages) || this.language;
 
   getLanguages = () => this.languages;
 }

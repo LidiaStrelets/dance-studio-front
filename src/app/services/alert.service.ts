@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { take } from 'rxjs';
 import { AlertTranslation, EAlertTranslation } from 'src/types';
 import { routesPaths } from '../app-routing.module';
 
@@ -22,7 +21,6 @@ export class AlertService {
     Object.values(EAlertTranslation).forEach((value) => {
       this.translate
         .get(`alert.${value}`)
-        .pipe(take(1))
         .subscribe((res) => (this.translations[value] = res));
     });
 
@@ -65,7 +63,7 @@ export class AlertService {
       message: this.getTranslations().unauthorizedMesage,
       buttons: [
         {
-          text: 'Okay',
+          text: this.getTranslations().okButton,
           handler: () => {
             this.router.navigate([routesPaths.login]);
           },

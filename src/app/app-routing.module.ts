@@ -62,6 +62,14 @@ const routes: Routes = [
         (m) => m.SchedulePageModule
       ),
   },
+  {
+    path: routesPaths.classes,
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./components/classes/classes.module').then(
+        (m) => m.ClassesPageModule
+      ),
+  },
   // {
   //   path: '**',
   //   redirectTo: 'welcome',

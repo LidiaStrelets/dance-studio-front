@@ -1,3 +1,24 @@
 <app-header [header]="'schedule.header'|translate"></app-header>
 
-<ion-content> </ion-content>
+<ion-content>
+  <swiper [config]="config" #slides>
+    <ng-template swiperSlide
+      ><app-date-schedule
+        [items]="getByDate()"
+        (setDate)="setDate($event)"
+      ></app-date-schedule
+    ></ng-template>
+    <ng-template swiperSlide
+      ><app-coach-schedule
+        [items]="getByCoach()"
+        (setCoach)="setCoach($event)"
+      ></app-coach-schedule
+    ></ng-template>
+    <ng-template swiperSlide
+      ><app-class-schedule
+        [items]="getByClass()"
+        (setClass)="setClass($event)"
+      ></app-class-schedule
+    ></ng-template>
+  </swiper>
+</ion-content>

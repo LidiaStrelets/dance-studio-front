@@ -51,8 +51,22 @@
     "userSuccessMessage": "Дані користувача оновлено!",
     "serverErrorMessage": "Помилка на сервері"
   },
+  "buttons": { "cancel": "Відмінити", "ok": "застосувати" },
   "schedule": {
-    "header": "Розклад"
+    "header": "Розклад",
+    "dateText": "Оберіть дату",
+    "coachText": "Оберіть тренера",
+    "classText": "Оберіть тренування",
+    "week": "На цей тиждень",
+    "month": "На цей місяць",
+    "monday": "понеділок",
+    "tuesday": "вівторок",
+    "wednesday": "середа",
+    "thursday": "четвер",
+    "friday": "пʼятниця",
+    "saturday": "субота",
+    "sunday": "неділя",
+    "selectDays": "Оберіть дні"
   },
   "errors": {
     "required": "Обовʼязкове поле!",

@@ -51,8 +51,22 @@
     "userSuccessMessage": "User was updated!",
     "serverErrorMessage": "'Server error'"
   },
+  "buttons": { "cancel": "Cancel", "ok": "apply" },
   "schedule": {
-    "header": "Schedule"
+    "header": "Schedule",
+    "dateText": "Pick the date",
+    "coachText": "Pick the coach",
+    "classText": "Pick the class",
+    "week": "For current week",
+    "month": "For current month",
+    "monday": "monday",
+    "tuesday": "tuesday",
+    "wednesday": "wednesday",
+    "thursday": "thursday",
+    "friday": "friday",
+    "saturday": "saturday",
+    "sunday": "sunday",
+    "selectDays": "Select days"
   },
   "errors": {
     "required": "Required field!",

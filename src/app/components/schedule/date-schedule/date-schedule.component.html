@@ -1,0 +1,34 @@
+<ion-content [scrollEvents]="true" (ionScroll)="closeDate()">
+  <div class="container">
+    <ion-label (click)="toggleDate()"
+      >{{ "schedule.dateText" | translate }}
+      <ion-icon name="calendar-outline"></ion-icon>: {{ getDate() }}</ion-label
+    >
+    <div [class.shown]="showDate" class="date-container">
+      <form [formGroup]="dateForm">
+        <ion-datetime
+          [min]="getMinDate()"
+          [locale]="isUk() ? 'uk-UK' : 'en-GB'"
+          formControlName="date"
+          #date
+          color="schedule"
+          presentation="date"
+          [preferWheel]="true"
+        ></ion-datetime>
+      </form>
+    </div>
+  </div>
+  <div>
+    <ion-list>
+      <ion-item color="light" *ngFor="let item of items">
+        <div>
+          <p>{{ item.coach }} {{ item.class }}</p>
+          <p>
+            {{ getTimePart(item.date_time) }}
+            {{ item.hall }}
+          </p>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

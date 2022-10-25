@@ -1,0 +1,46 @@
+<ion-content>
+  <ion-item color="light">
+    <ion-select
+      [(ngModel)]="selectedClass"
+      (ngModelChange)="selectClass($event)"
+      interface="popover"
+      [placeholder]="'schedule.classText' | translate"
+    >
+      <ion-select-option
+        *ngFor="let class of getClasses()"
+        [value]="class.id"
+        >{{ class.name }}</ion-select-option
+      >
+    </ion-select>
+  </ion-item>
+  <ion-list>
+    <ion-item color="light">
+      <ion-select
+        [okText]="'buttons.ok' | translate"
+        [cancelText]="'buttons.cancel' | translate"
+        (ngModelChange)="setSelectedDays($event)"
+        [(ngModel)]="selectValue"
+        [placeholder]="'schedule.selectDays' | translate"
+        [multiple]="true"
+      >
+        <ion-select-option *ngFor="let item of radioItems" [value]="item.id">{{
+          item.day | translate
+        }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <div *ngIf="filteredItems">
+    <ion-list>
+      <ion-item color="light" *ngFor="let item of filteredItems">
+        <div>
+          <p>
+            {{ getWeekDay(item.date_time).day | translate }}
+            {{ getTime(item.date_time) }}
+          </p>
+          <p>{{ item.coach }} {{ item.hall }}</p>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

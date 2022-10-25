@@ -172,3 +172,56 @@ export interface ErrorMessages {
   email: string;
   keyRequired: string;
 }
+
+export interface Schedule {
+  coach_id: string;
+  hall_id: string;
+  class_id: string;
+  coach: string;
+  hall: string;
+  class: string;
+  date_time: string;
+  id: string;
+  duration: number;
+}
+export interface ScheduleFull {
+  coach_id: string;
+  hall_id: string;
+  class_id: string;
+  coach: string;
+  hall: string;
+  class: string;
+  hallUk: string;
+  classUk: string;
+  date_time: string;
+  id: string;
+  duration: number;
+}
+
+export interface ClassItem {
+  name: TClass;
+  description: string;
+  id: string;
+}
+
+export interface ClassItemFull {
+  name: TClass;
+  description: string;
+  nameUk: TClassUk;
+  descriptionUk: string;
+  id: string;
+}
+
+export type TClass =
+  | 'stretching'
+  | 'pole sport'
+  | 'pole exotic'
+  | 'stripplastic'
+  | 'pole exotic beginners';
+
+export type TClassUk =
+  | 'розтяжка'
+  | 'пілон спорт'
+  | 'пілон танець'
+  | 'стріппластика'
+  | 'пілон танець початківці';

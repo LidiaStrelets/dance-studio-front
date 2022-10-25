@@ -3,6 +3,10 @@
 
 /** Ionic CSS Variables **/
 :root {
+  --swiper-pagination-bullet-inactive-opacity:0.5;
+  --swiper-pagination-bullet-inactive-color:#a6a6a6;
+  --swiper-pagination-color:#ffb3bd;
+
   /** primary **/
   --ion-color-primary: #3880ff;
   --ion-color-primary-rgb: 56, 128, 255;
@@ -248,6 +252,13 @@ body.dark {
   --ion-color-profile-shade: #aeb4b8;
   --ion-color-profile-tint:#aeb4b8;
 
+   --ion-color-schedule: #fff;
+  --ion-color-schedule-rgb: 255,255,255;
+  --ion-color-schedule-contrast: #bfc3c5;
+  --ion-color-schedule-contrast-rgb: 191, 195, 197;
+  --ion-color-schedule-shade: #909598;
+  --ion-color-schedule-tint:#7d8184;
+
   --ion-color-secondary: #50c8ff;
   --ion-color-secondary-rgb: 80, 200, 255;
   --ion-color-secondary-contrast: #ffffff;
@@ -303,6 +314,7 @@ body.dark {
   --ion-color-light-contrast-rgb: 34, 36, 40;
   --ion-color-light-shade: #1e2023;
   --ion-color-light-tint: #383a3e;
+
 }
 
 /*
@@ -401,4 +413,13 @@ body.dark {
 	--ion-color-contrast-rgb: var(--ion-color-profile-contrast-rgb);
 	--ion-color-shade: var(--ion-color-profile-shade);
 	--ion-color-tint: var(--ion-color-profile-tint);
+}
+
+.ion-color-schedule {
+	--ion-color-base: var(--ion-color-schedule);
+	--ion-color-base-rgb: var(--ion-color-schedule-rgb);
+	--ion-color-contrast: var(--ion-color-schedule-contrast);
+	--ion-color-contrast-rgb: var(--ion-color-schedule-contrast-rgb);
+	--ion-color-shade: var(--ion-color-schedule-shade);
+	--ion-color-tint: var(--ion-color-schedule-tint);
 }
