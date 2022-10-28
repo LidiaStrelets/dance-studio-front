@@ -12,6 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { DateScheduleComponent } from './date-schedule/date-schedule.component';
 import { CoachScheduleComponent } from './coach-schedule/coach-schedule.component';
 import { ClassScheduleComponent } from './class-schedule/class-schedule.component';
+import { ItemButtonsComponent } from './item-buttons/item-buttons.component';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { ClassScheduleComponent } from './class-schedule/class-schedule.componen
     DateScheduleComponent,
     CoachScheduleComponent,
     ClassScheduleComponent,
+    ItemButtonsComponent,
   ],
 })
 export class SchedulePageModule {}

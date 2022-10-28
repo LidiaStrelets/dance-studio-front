@@ -8,7 +8,12 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ELanguages, Registration, Schedule } from 'src/types';
+import {
+  CancellEnrollmentEvent,
+  ELanguages,
+  Registration,
+  Schedule,
+} from 'src/types';
 import { LanguageService } from 'src/app/services/language.service';
 import { DateService } from '../../user/services/date.service';
 import { EnrollmentsService } from '../../enrollments/services/enrollments.service';
@@ -93,47 +98,14 @@ export class DateScheduleComponent implements OnInit, OnChanges {
   getTimePart = this.dateService.getTime;
   getMinDate = () => new Date('2021-10-01').toISOString();
 
-  canEnroll = (date: string) =>
-    new Date(Date.now() + 7200000).toISOString() < date;
-  canCancell = (date: string) =>
-    new Date(Date.now() + 7200000 + 86400000).toISOString() < date;
-
-  enroll = (scheduleId: string) => {
-    this.enrollmentService.enroll(scheduleId).subscribe({
-      next: (res) => {
-        this.alertService.presentAlertSuccess(
-          this.alertService.getTranslations().enrollmentSuccessMessage
-        );
-        this.enrollments.push(res);
-        this.items = this.addEnrolled(this.items, this.enrollments);
-      },
-      error: catchError,
-    });
+  enroll = (item: Registration) => {
+    this.enrollments.push(item);
+    this.items = this.addEnrolled(this.items, this.enrollments);
   };
-  cancell = (scheduleId: string) => {
-    const enrollmentId = this.enrollments.find(
-      (enr) => enr.schedule_id === scheduleId
-    )?.id;
-    if (!enrollmentId) {
-      this.alertService.presentAlertError(
-        this.errorService.generateMessage('', 1)
-      );
-      return;
-    }
-
-    this.enrollmentService.cancell(enrollmentId).subscribe({
-      next: (res) => {
-        this.alertService.presentAlertSuccess(
-          this.alertService.getTranslations().enrollmentCancellMessage
-        );
-        this.enrollments = res;
-        this.items = this.addEnrolled(this.items, res);
-      },
-      error: catchError,
-    });
+  cancell = ({ scheduleId }: CancellEnrollmentEvent) => {
+    this.enrollments = this.enrollments.filter(
+      (enr) => enr.schedule_id !== scheduleId
+    );
+    this.items = this.addEnrolled(this.items, this.enrollments);
   };
-
-  showModal(id: string) {
-    console.log('info', id);
-  }
 }

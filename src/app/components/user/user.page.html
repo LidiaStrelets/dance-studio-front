@@ -74,6 +74,7 @@
         <div class="datePicker-container">
           <div [class.shown]="showDate">
             <ion-datetime
+              [locale]="isUk() ? 'uk-UK' : 'en-GB'"
               [formControlName]="userFormFields.birth_date"
               color="profile"
               presentation="date"

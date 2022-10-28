@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { User, UserDeletedFields, UserForm, UserFormFields } from 'src/types';
+import {
+  ELanguages,
+  User,
+  UserDeletedFields,
+  UserForm,
+  UserFormFields,
+} from 'src/types';
 import { DateService } from './services/date.service';
 import { UsersService } from './services/users.service';
 import { AuthService } from '../auth/services/auth.service';
@@ -7,6 +13,7 @@ import { AlertService } from 'src/app/services/alert.service';
 import { FormService } from 'src/app/services/form.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { catchError } from 'rxjs/operators';
+import { LanguageService } from 'src/app/services/language.service';
 
 @Component({
   selector: 'app-user',
@@ -29,7 +36,8 @@ export class UserPage implements OnInit {
     private authService: AuthService,
     private alertService: AlertService,
     private dateService: DateService,
-    private formFunctionsServise: FormService
+    private formFunctionsServise: FormService,
+    private languageService: LanguageService
   ) {
     this.userForm = new FormGroup({
       [UserFormFields.birth_date]: new FormControl(
@@ -152,4 +160,6 @@ export class UserPage implements OnInit {
   getErrors = this.formFunctionsServise.getErrors;
 
   inputStyles = this.formFunctionsServise.inputStyles;
+
+  isUk = () => this.languageService.getLanguage() === ELanguages.uk;
 }

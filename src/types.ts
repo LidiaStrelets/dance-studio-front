@@ -230,3 +230,7 @@ export interface Registration {
   client_id: string;
   id: string;
 }
+
+export interface CancellEnrollmentEvent {
+  scheduleId: string;
+}
