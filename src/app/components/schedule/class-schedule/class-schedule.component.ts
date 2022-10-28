@@ -8,13 +8,12 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { AlertService } from 'src/app/services/alert.service';
-import { ErrorService } from 'src/app/services/error.service';
+import { catchError } from 'rxjs/operators';
 import { LanguageService } from 'src/app/services/language.service';
 import { ClassItemFull, ELanguages, Schedule, TClass } from 'src/types';
 import { ClassesService } from '../../classes/services/classes.service';
 import { DateService } from '../../user/services/date.service';
-import { CommonService } from '../servvices/common.service';
+import { CommonService } from '../services/common.service';
 
 @Component({
   selector: 'app-class-schedule',
@@ -39,18 +38,13 @@ export class ClassScheduleComponent implements OnInit, OnChanges {
     private classesService: ClassesService,
     private dateService: DateService,
     private languageService: LanguageService,
-    private alertService: AlertService,
-    private errorService: ErrorService,
     private common: CommonService
   ) {}
 
   ngOnInit() {
     this.classesService.getClasses().subscribe({
       next: (res) => (this.classItems = res),
-      error: (err) =>
-        this.alertService.presentAlertError(
-          this.errorService.generateMessage(err)
-        ),
+      error: catchError,
     });
 
     this.selectedDays.subscribe((res) => {

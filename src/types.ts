@@ -108,10 +108,6 @@ export interface User {
   role: TRoles;
 }
 
-export interface Error {
-  error?: [{ message: string }];
-}
-
 export type UserForm = FormGroup<{
   birth_date: FormControl<string | null>;
   firstname: FormControl<string | null>;
@@ -153,7 +149,8 @@ export interface AlertTranslation {
   unauthorizedHeader: string;
   unauthorizedMesage: string;
   userSuccessMessage: string;
-  serverErrorMessage: string;
+  enrollmentSuccessMessage: string;
+  enrollmentCancellMessage: string;
 }
 
 export enum EAlertTranslation {
@@ -163,7 +160,8 @@ export enum EAlertTranslation {
   unauthorizedHeader = 'unauthorizedHeader',
   unauthorizedMesage = 'unauthorizedMesage',
   userSuccessMessage = 'userSuccessMessage',
-  serverErrorMessage = 'serverErrorMessage',
+  enrollmentSuccessMessage = 'enrollmentSuccessMessage',
+  enrollmentCancellMessage = 'enrollmentCancellMessage',
 }
 
 export interface ErrorMessages {
@@ -183,6 +181,7 @@ export interface Schedule {
   date_time: string;
   id: string;
   duration: number;
+  enrolled?: boolean;
 }
 export interface ScheduleFull {
   coach_id: string;
@@ -225,3 +224,9 @@ export type TClassUk =
   | 'пілон танець'
   | 'стріппластика'
   | 'пілон танець початківці';
+
+export interface Registration {
+  schedule_id: string;
+  client_id: string;
+  id: string;
+}

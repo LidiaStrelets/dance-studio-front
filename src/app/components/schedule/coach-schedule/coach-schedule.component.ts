@@ -8,12 +8,11 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { AlertService } from 'src/app/services/alert.service';
-import { ErrorService } from 'src/app/services/error.service';
+import { catchError } from 'rxjs/operators';
 import { Schedule, User } from 'src/types';
 import { DateService } from '../../user/services/date.service';
 import { UsersService } from '../../user/services/users.service';
-import { CommonService } from '../servvices/common.service';
+import { CommonService } from '../services/common.service';
 
 @Component({
   selector: 'app-coach-schedule',
@@ -37,18 +36,13 @@ export class CoachScheduleComponent implements OnInit, OnChanges {
   constructor(
     private usersService: UsersService,
     private dateService: DateService,
-    private errorService: ErrorService,
-    private alertService: AlertService,
     private common: CommonService
   ) {}
 
   ngOnInit() {
     this.usersService.getCoaches().subscribe({
       next: (res) => (this.coaches = res),
-      error: (err) =>
-        this.alertService.presentAlertError(
-          this.errorService.generateMessage(err)
-        ),
+      error: catchError,
     });
 
     this.selectedDays.subscribe((res) => {

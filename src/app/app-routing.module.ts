@@ -13,6 +13,7 @@ export const routesPaths = {
   coaches: 'coaches',
   classes: 'classes',
   prices: 'prices',
+  enrollments: 'enrollments',
 };
 
 const routes: Routes = [
@@ -69,6 +70,10 @@ const routes: Routes = [
       import('./components/classes/classes.module').then(
         (m) => m.ClassesPageModule
       ),
+  },
+  {
+    path: 'enrollments',
+    loadChildren: () => import('./components/enrollments/enrollments.module').then( m => m.EnrollmentsPageModule)
   },
   // {
   //   path: '**',

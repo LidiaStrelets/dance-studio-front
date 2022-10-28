@@ -28,4 +28,22 @@ ion-icon {
   position: relative;
   top: 3px;
 }
+
+p {
+  margin-bottom: 0;
+}
+
+.button-container {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: end;
+}
+
+.item-container {
+  width: 100%;
+}
 /*# sourceMappingURL=date-schedule.component.css.map */

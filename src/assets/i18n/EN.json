@@ -24,7 +24,8 @@
     "Schedules": "Schedules",
     "Coaches": "Coaches",
     "Classes": "Classes",
-    "Prices": "Prices"
+    "Prices": "Prices",
+    "Enrollments": "Enrollments"
   },
   "profile": {
     "header": "My profile",
@@ -49,7 +50,13 @@
     "unauthorizedHeader": "Unauthorized!",
     "unauthorizedMesage": "Your session has expired, please log in",
     "userSuccessMessage": "User was updated!",
-    "serverErrorMessage": "'Server error'"
+    "enrollmentSuccessMessage": "You successfully enrolled for this class!",
+    "enrollmentCancellMessage": "You successfully cancelled the enrollment",
+    "errors": {
+      "500": "Server error",
+      "403": "You don't have access to this resource",
+      "1":"Enrollment you're trying to cancell doesn't exist"
+    }
   },
   "buttons": { "cancel": "Cancel", "ok": "apply" },
   "schedule": {
@@ -66,7 +73,8 @@
     "friday": "friday",
     "saturday": "saturday",
     "sunday": "sunday",
-    "selectDays": "Select days"
+    "selectDays": "Select days",
+    "basicSchedule": "Here you will see the basic schedule for a week. Pay attention - the schedule could be changed for different reasons (the coach can't give class, this is a holiday, etc.). Check the current schedule on the first schedule slide by selecting a date you are interested in."
   },
   "errors": {
     "required": "Required field!",

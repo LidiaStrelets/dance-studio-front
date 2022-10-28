@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertService } from 'src/app/services/alert.service';
-import { ErrorService } from 'src/app/services/error.service';
+import { catchError } from 'rxjs/operators';
 import { LanguageService } from 'src/app/services/language.service';
 import { environment } from 'src/environments/environment';
 import { ELanguages, Hall, TranslatedHall } from 'src/types';
-import { AuthService } from '../auth/services/auth.service';
 import { HallService } from './hall.service';
 
 @Component({
@@ -20,10 +18,7 @@ export class HomePage implements OnInit {
 
   constructor(
     private hallService: HallService,
-    private authService: AuthService,
-    private alertService: AlertService,
-    private languageService: LanguageService,
-    private errorService: ErrorService
+    private languageService: LanguageService
   ) {}
 
   ngOnInit() {
@@ -32,15 +27,7 @@ export class HomePage implements OnInit {
         this.halls = res;
         this.translate();
       },
-      error: (err) => {
-        if (err.status === 401) {
-          this.authService.deauthenticate();
-        } else {
-          this.alertService.presentAlertError(
-            this.errorService.generateMessage(err)
-          );
-        }
-      },
+      error: catchError,
     });
   }
 

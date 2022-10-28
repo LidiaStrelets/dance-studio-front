@@ -12,8 +12,7 @@ import { SchedulesService } from './services/schedules.service';
 import { BehaviorSubject } from 'rxjs';
 import { DateService } from '../user/services/date.service';
 import { LanguageService } from 'src/app/services/language.service';
-import { AlertService } from 'src/app/services/alert.service';
-import { ErrorService } from 'src/app/services/error.service';
+import { catchError } from 'rxjs/operators';
 
 Swiper.use([Pagination]);
 
@@ -41,9 +40,7 @@ export class SchedulePage implements OnInit, AfterContentChecked {
   constructor(
     private schedulesService: SchedulesService,
     private dateService: DateService,
-    private languageService: LanguageService,
-    private alertService: AlertService,
-    private errorService: ErrorService
+    private languageService: LanguageService
   ) {}
 
   ngOnInit() {
@@ -91,10 +88,7 @@ export class SchedulePage implements OnInit, AfterContentChecked {
             this.dateService.getDate(this.dateService.baseScheduleDate)
         );
       },
-      error: (err) =>
-        this.alertService.presentAlertError(
-          this.errorService.generateMessage(err)
-        ),
+      error: catchError,
     });
   }
 

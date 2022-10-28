@@ -4,9 +4,9 @@ import { DateService } from './services/date.service';
 import { UsersService } from './services/users.service';
 import { AuthService } from '../auth/services/auth.service';
 import { AlertService } from 'src/app/services/alert.service';
-import { ErrorService } from 'src/app/services/error.service';
 import { FormService } from 'src/app/services/form.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user',
@@ -28,7 +28,6 @@ export class UserPage implements OnInit {
     private usersService: UsersService,
     private authService: AuthService,
     private alertService: AlertService,
-    private errorService: ErrorService,
     private dateService: DateService,
     private formFunctionsServise: FormService
   ) {
@@ -56,10 +55,7 @@ export class UserPage implements OnInit {
 
         this.setInitialValues(this.user);
       },
-      error: (err) =>
-        this.alertService.presentAlertError(
-          this.errorService.generateMessage(err)
-        ),
+      error: catchError,
     });
   }
 
@@ -148,10 +144,7 @@ export class UserPage implements OnInit {
           this.userForm.reset();
           this.setInitialValues(this.user);
         },
-        error: (err) =>
-          this.alertService.presentAlertError(
-            this.errorService.generateMessage(err)
-          ),
+        error: catchError,
       });
   };
 

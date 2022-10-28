@@ -14,6 +14,9 @@ import {
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { ErrorCatchingInterceptor } from './interceptors/httpError.interceptor';
+import { AlertService } from './services/alert.service';
+import { ErrorService } from './services/error.service';
 
 export const httpLoaderFactory = (httpClient: HttpClient) =>
   new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
@@ -39,6 +42,12 @@ export const httpLoaderFactory = (httpClient: HttpClient) =>
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorCatchingInterceptor,
+      multi: true,
+      deps: [AlertService, ErrorService],
     },
   ],
   bootstrap: [AppComponent],

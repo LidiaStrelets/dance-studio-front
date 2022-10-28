@@ -21,12 +21,46 @@
   <div>
     <ion-list>
       <ion-item color="light" *ngFor="let item of items">
-        <div>
+        <div class="item-container">
           <p>{{ item.coach }} {{ item.class }}</p>
           <p>
             {{ getTimePart(item.date_time) }}
             {{ item.hall }}
           </p>
+
+          <div
+            *ngIf="canEnroll(item.date_time)"
+            class="ion-margin-top ion-margin-bottom button-container"
+          >
+            <ion-buttons>
+              <ion-button
+                class="button-info"
+                (click)="showModal(item.id)"
+                size="small"
+                fill="outline"
+                >info</ion-button
+              >
+              <ion-button
+                color="secondary"
+                (click)="enroll(item.id)"
+                size="small"
+                fill="outline"
+                *ngIf="!item.enrolled"
+                class="button-reg"
+                >enroll</ion-button
+              >
+              <ion-button
+                color="danger"
+                [disabled]="!canCancell(item.date_time)"
+                (click)="cancell(item.id)"
+                size="small"
+                fill="outline"
+                *ngIf="item.enrolled"
+                class="button-reg"
+                >cancell</ion-button
+              ></ion-buttons
+            >
+          </div>
         </div>
       </ion-item>
     </ion-list>

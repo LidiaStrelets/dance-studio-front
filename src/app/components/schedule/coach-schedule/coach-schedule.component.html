@@ -28,8 +28,9 @@
       </ion-select>
     </ion-item>
   </ion-list>
+  <div *ngIf="filteredItems.length > 0; then list; else text"></div>
 
-  <div *ngIf="filteredItems">
+  <ng-template #list>
     <ion-list>
       <ion-item color="light" *ngFor="let item of filteredItems">
         <div>
@@ -40,6 +41,11 @@
           <p>{{ item.class }} {{ item.hall }}</p>
         </div>
       </ion-item>
-    </ion-list>
-  </div>
+    </ion-list></ng-template
+  >
+  <ng-template #text
+    ><p class="basic-text ion-padding-horizontal">
+      {{ "schedule.basicSchedule" | translate }}
+    </p></ng-template
+  >
 </ion-content>

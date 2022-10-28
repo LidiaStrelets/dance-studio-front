@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { LocalStorageKeys } from 'src/types';
 import { catchError, take } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';

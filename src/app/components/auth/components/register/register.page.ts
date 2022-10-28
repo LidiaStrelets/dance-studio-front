@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { catchError } from 'rxjs/operators';
 import { routesPaths } from 'src/app/app-routing.module';
-import { AlertService } from 'src/app/services/alert.service';
-import { ErrorService } from 'src/app/services/error.service';
 import { FormService } from 'src/app/services/form.service';
 import {
   RegistrationData,
@@ -30,9 +29,7 @@ export class RegisterPage implements OnInit {
   constructor(
     private customValidators: CustomValidators,
     private be: BeService,
-    private alertService: AlertService,
     private authService: AuthService,
-    private errorService: ErrorService,
     private formFunctionsServise: FormService
   ) {}
 
@@ -45,10 +42,7 @@ export class RegisterPage implements OnInit {
       .register(this.registrationForm.value as RegistrationData)
       .subscribe({
         next: (res) => this.authService.authenticate(res.data.token),
-        error: (err) =>
-          this.alertService.presentAlertError(
-            this.errorService.generateMessage(err)
-          ),
+        error: catchError,
       });
   };
 

@@ -1,22 +1,32 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { EAlertTranslation, Error } from 'src/types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ErrorService {
-  constructor(private translate: TranslateService) {}
+  translatedMessages = { '500': '', '403': '', '1': '' };
 
-  getTranslation = () => {
-    let message = '';
-    this.translate
-      .get(`alert.${EAlertTranslation.serverErrorMessage}`)
-      .subscribe((res) => (message = res));
+  constructor(private translate: TranslateService) {
+    Object.keys(this.translatedMessages).forEach((message) => {
+      this.translate.get(`alert.errors.${message}`).subscribe((res) => {
+        this.translatedMessages[
+          message as keyof { '500': ''; '403': ''; '1': '' }
+        ] = res;
+      });
+    });
+  }
 
+  generateMessage(message: string, status: number) {
+    if (status === 403) {
+      return this.translatedMessages[status.toString() as '403'];
+    }
+    if (status === 500) {
+      return this.translatedMessages[status.toString() as '500'];
+    }
+    if (status === 1) {
+      return this.translatedMessages[status.toString() as '1'];
+    }
     return message;
-  };
-  generateMessage(err: Error) {
-    return err.error ? err.error[0].message : this.getTranslation();
   }
 }

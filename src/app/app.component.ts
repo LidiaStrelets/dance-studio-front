@@ -32,6 +32,11 @@ export class AppComponent {
       link: ['../', routesPaths.schedule],
     },
     {
+      name: 'Enrollments',
+      translatedName: 'Enrollments',
+      link: ['../', routesPaths.enrollments],
+    },
+    {
       name: 'Coaches',
       translatedName: 'Coaches',
       link: ['../', routesPaths.coaches],
