@@ -24,4 +24,5 @@ export class DateService {
     day: `schedule.${WeekDay[new Date(date).getDay()].toLowerCase()}`,
     id: new Date(date).getDay(),
   });
+  getMinScheduleDate = () => new Date('2021-10-01').toISOString();
 }

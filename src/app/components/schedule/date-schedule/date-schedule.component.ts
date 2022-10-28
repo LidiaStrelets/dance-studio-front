@@ -17,9 +17,7 @@ import {
 import { LanguageService } from 'src/app/services/language.service';
 import { DateService } from '../../user/services/date.service';
 import { EnrollmentsService } from '../../enrollments/services/enrollments.service';
-import { AlertService } from 'src/app/services/alert.service';
 import { catchError } from 'rxjs/operators';
-import { ErrorService } from 'src/app/services/error.service';
 
 @Component({
   selector: 'app-date-schedule',
@@ -31,7 +29,6 @@ export class DateScheduleComponent implements OnInit, OnChanges {
   @Input() items: Schedule[] = [];
 
   dateForm: FormGroup = {} as FormGroup;
-
   showDate = false;
 
   enrollments: Registration[] = [];
@@ -39,9 +36,7 @@ export class DateScheduleComponent implements OnInit, OnChanges {
   constructor(
     private languageService: LanguageService,
     private dateService: DateService,
-    private enrollmentService: EnrollmentsService,
-    private alertService: AlertService,
-    private errorService: ErrorService
+    private enrollmentService: EnrollmentsService
   ) {
     this.dateForm = new FormGroup({
       date: new FormControl(this.dateService.baseScheduleDate),
@@ -96,7 +91,7 @@ export class DateScheduleComponent implements OnInit, OnChanges {
 
   getDate = () => this.dateService.getDate(this.dateForm.get('date')?.value);
   getTimePart = this.dateService.getTime;
-  getMinDate = () => new Date('2021-10-01').toISOString();
+  getMinDate = () => this.dateService.getMinScheduleDate();
 
   enroll = (item: Registration) => {
     this.enrollments.push(item);
