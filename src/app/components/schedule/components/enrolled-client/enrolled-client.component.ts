@@ -9,29 +9,13 @@ import { UsersService } from '../../../user/services/users.service';
   styleUrls: ['./enrolled-client.component.scss'],
 })
 export class EnrolledClientComponent implements OnInit {
-  @Input() userId = '';
-  client?: User;
+  @Input() client?: User;
 
   avatar = `${environment.basicUrl}no_photo.webp`;
 
-  test = false;
-
-  constructor(private usersService: UsersService) {
-    this.usersService.getById(this.userId).subscribe({
-      next: (res) => {
-        this.client = res;
-        this.test = true;
-        console.log(this.test, this.client);
-      },
-      error: (err) => console.log('error', err),
-    });
-  }
+  constructor() {}
 
   ngOnInit() {}
 
-  getName = () => {
-    console.log('get name', this.client);
-
-    return `${this.client?.firstname} ${this.client?.lastname}`;
-  };
+  getName = () => `${this.client?.firstname} ${this.client?.lastname}`;
 }

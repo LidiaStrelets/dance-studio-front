@@ -16,6 +16,7 @@ export class InfoModalComponent implements OnInit {
   coach: User = {} as User;
   classItem: ClassItemFull = {} as ClassItemFull;
   enrollments: Registration[] = [];
+  allUsers: User[] = [];
 
   constructor(
     private userService: UsersService,
@@ -27,10 +28,18 @@ export class InfoModalComponent implements OnInit {
   ngOnInit() {
     this.presentingElement = document.querySelector('.ion-page');
 
-    this.userService.getById(this.item.coach_id).subscribe({
-      next: (res) => (this.coach = res),
-      error: (err) => console.log('error', err),
-    });
+    this.allUsers = this.userService.getUsers();
+    this.coach =
+      this.allUsers.find((user) => user.id === this.item.coach_id) ??
+      ({} as User);
+    // this.userService.get().subscribe({
+    //   next: (res) => {
+    //     this.coach =
+    //       res.find((user) => user.id === this.item.coach_id) ?? ({} as User);
+    //     this.allUsers = res;
+    //   },
+    //   error: (err) => console.log('error', err),
+    // });
 
     this.classesService.getById(this.item.class_id).subscribe({
       next: (res) => (this.classItem = res),
@@ -44,4 +53,6 @@ export class InfoModalComponent implements OnInit {
   }
 
   isUk = this.languageService.isUk;
+
+  findUser = (id: string) => this.allUsers.find((user) => user.id === id);
 }

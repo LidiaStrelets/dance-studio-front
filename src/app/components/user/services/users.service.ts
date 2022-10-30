@@ -12,9 +12,11 @@ import { User, UserForm } from 'src/types';
 export class UsersService {
   private userId = '';
   private coreUrl = `${environment.basicUrl}users/`;
+  private users: User[] = [];
 
   constructor(private http: HttpClient, private authService: AuthService) {
     this.userId = this.authService.getCurrentUserId();
+    this.get();
   }
 
   getById(id?: string): Observable<User> {
@@ -25,6 +27,18 @@ export class UsersService {
       }),
       take(1)
     );
+  }
+
+  get() {
+    this.http
+      .get<User[]>(this.coreUrl)
+      .pipe(
+        catchError((err) => {
+          throw err;
+        }),
+        take(1)
+      )
+      .subscribe({ next: (res) => (this.users = res) });
   }
 
   patch(id: string, updatedUser: UserForm) {
@@ -61,4 +75,6 @@ export class UsersService {
       take(1)
     );
   };
+
+  getUsers = () => this.users;
 }

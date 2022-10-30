@@ -41,7 +41,7 @@
           <p>{{ "infoModal.enrolled" | translate }}:</p>
           <ion-list>
             <app-enrolled-client
-              [userId]="enrollment.client_id"
+              [client]="findUser(enrollment.client_id)"
               *ngFor="let enrollment of enrollments"
             ></app-enrolled-client>
           </ion-list>
