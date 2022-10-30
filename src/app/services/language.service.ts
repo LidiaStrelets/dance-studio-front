@@ -27,4 +27,6 @@ export class LanguageService {
     (localStorage.getItem('language') as Languages) || this.language;
 
   getLanguages = () => this.languages;
+
+  isUk = () => this.getLanguage() === ELanguages.uk;
 }

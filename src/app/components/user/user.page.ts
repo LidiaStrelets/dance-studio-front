@@ -161,5 +161,5 @@ export class UserPage implements OnInit {
 
   inputStyles = this.formFunctionsServise.inputStyles;
 
-  isUk = () => this.languageService.getLanguage() === ELanguages.uk;
+  isUk = this.languageService.isUk;
 }
