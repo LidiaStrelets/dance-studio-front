@@ -1,9 +1,9 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>enrollments</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header [header]="'menu.Enrollments'|translate"></app-header>
 
 <ion-content>
-
+  <swiper [config]="config" #slides>
+    <ng-template swiperSlide>1</ng-template>
+    <ng-template swiperSlide>2</ng-template>
+    <ng-template swiperSlide>3</ng-template>
+  </swiper>
 </ion-content>

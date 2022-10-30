@@ -25,4 +25,5 @@ export class DateService {
     id: new Date(date).getDay(),
   });
   getMinScheduleDate = () => new Date('2021-10-01').toISOString();
+  getMinEnrollmentsDate = () => new Date(Date.now()).toISOString();
 }

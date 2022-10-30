@@ -1,0 +1,20 @@
+<div *ngIf="toggleDate && getDate" class="container">
+  <ion-label (click)="toggleDate(dateForm)"
+    >{{ "schedule.dateText" | translate }}
+    <ion-icon name="calendar-outline"></ion-icon>:
+    {{ getDate(dateForm) }}</ion-label
+  >
+  <div [class.shown]="showDate" class="date-container">
+    <form [formGroup]="dateForm">
+      <ion-datetime
+        [min]="getMinDate()"
+        [locale]="isUk() ? 'uk-UK' : 'en-GB'"
+        formControlName="date"
+        #date
+        color="schedule"
+        presentation="date"
+        [preferWheel]="true"
+      ></ion-datetime>
+    </form>
+  </div>
+</div>

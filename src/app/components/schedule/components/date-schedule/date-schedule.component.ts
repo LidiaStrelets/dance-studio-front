@@ -7,9 +7,8 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { CancellEnrollmentEvent, Registration, Schedule } from 'src/types';
-import { LanguageService } from 'src/app/services/language.service';
 import { catchError } from 'rxjs/operators';
 import { DateService } from 'src/app/components/user/services/date.service';
 import { EnrollmentsService } from 'src/app/components/enrollments/services/enrollments.service';
@@ -23,20 +22,14 @@ export class DateScheduleComponent implements OnInit, OnChanges {
   @Output() setDate = new EventEmitter<string>();
   @Input() items: Schedule[] = [];
 
-  dateForm: FormGroup = {} as FormGroup;
   showDate = false;
 
   enrollments: Registration[] = [];
 
   constructor(
-    private languageService: LanguageService,
     private dateService: DateService,
     private enrollmentService: EnrollmentsService
-  ) {
-    this.dateForm = new FormGroup({
-      date: new FormControl(this.dateService.baseScheduleDate),
-    });
-  }
+  ) {}
 
   ngOnInit() {
     this.setDate.emit(this.dateService.baseScheduleDate);
@@ -69,10 +62,10 @@ export class DateScheduleComponent implements OnInit, OnChanges {
         : { ...item, enrolled: false }
     );
 
-  toggleDate = () => {
+  toggleDate = (form: FormGroup) => {
     this.showDate = !this.showDate;
     if (!this.showDate) {
-      this.setDate.emit(this.dateForm.get('date')?.value ?? '');
+      this.setDate.emit(form.get('date')?.value ?? '');
     }
   };
   closeDate = () => {
@@ -82,11 +75,9 @@ export class DateScheduleComponent implements OnInit, OnChanges {
     this.showDate = !this.showDate;
   };
 
-  isUk = this.languageService.isUk;
-
-  getDate = () => this.dateService.getDate(this.dateForm.get('date')?.value);
+  getDate = (form: FormGroup) =>
+    this.dateService.getDate(form.get('date')?.value);
   getTimePart = this.dateService.getTime;
-  getMinDate = () => this.dateService.getMinScheduleDate();
 
   enroll = (item: Registration) => {
     this.enrollments.push(item);

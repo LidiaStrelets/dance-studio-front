@@ -32,14 +32,6 @@ export class InfoModalComponent implements OnInit {
     this.coach =
       this.allUsers.find((user) => user.id === this.item.coach_id) ??
       ({} as User);
-    // this.userService.get().subscribe({
-    //   next: (res) => {
-    //     this.coach =
-    //       res.find((user) => user.id === this.item.coach_id) ?? ({} as User);
-    //     this.allUsers = res;
-    //   },
-    //   error: (err) => console.log('error', err),
-    // });
 
     this.classesService.getById(this.item.class_id).subscribe({
       next: (res) => (this.classItem = res),

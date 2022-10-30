@@ -7,14 +7,20 @@ import { IonicModule } from '@ionic/angular';
 import { EnrollmentsPageRoutingModule } from './enrollments-routing.module';
 
 import { EnrollmentsPage } from './enrollments.page';
+import { HeaderModule } from '../commonComponents/header/header.module';
+import { TranslateModule } from '@ngx-translate/core';
+import { SwiperModule } from 'swiper/angular';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    EnrollmentsPageRoutingModule
+    EnrollmentsPageRoutingModule,
+    TranslateModule,
+    HeaderModule,
+    SwiperModule,
   ],
-  declarations: [EnrollmentsPage]
+  declarations: [EnrollmentsPage],
 })
 export class EnrollmentsPageModule {}

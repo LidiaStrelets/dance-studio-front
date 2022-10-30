@@ -1,26 +1,3 @@
-.date-container {
-  color: var(--ion-color-step-400);
-
-  position: absolute;
-  z-index: 10;
-
-  transform: translateY(-250px);
-  transition: transform 250ms ease;
-  &.shown {
-    transform: translateY(15px);
-  }
-}
-.container {
-  padding: 10px;
-}
-ion-datetime {
-  border: 3px solid white;
-  border-radius: 5px;
-}
-ion-icon {
-  position: relative;
-  top: 3px;
-}
 p {
   margin-bottom: 0;
 }

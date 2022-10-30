@@ -87,5 +87,6 @@
     "coach": "Coach",
     "class": "Class",
     "enrolled": "Enrolled"
-  }
+  },
+  "enrollments": {}
 }

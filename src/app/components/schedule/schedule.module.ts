@@ -15,6 +15,7 @@ import { ClassScheduleComponent } from './components/class-schedule/class-schedu
 import { ItemButtonsComponent } from './components/item-buttons/item-buttons.component';
 import { InfoModalComponent } from './components/info-modal/info-modal.component';
 import { EnrolledClientComponent } from './components/enrolled-client/enrolled-client.component';
+import { CalendarModule } from '../commonComponents/calendar/calendar.module';
 
 @NgModule({
   imports: [
@@ -25,7 +26,7 @@ import { EnrolledClientComponent } from './components/enrolled-client/enrolled-c
     HeaderModule,
     TranslateModule,
     SwiperModule,
-    ReactiveFormsModule,
+    CalendarModule,
   ],
   declarations: [
     SchedulePage,
