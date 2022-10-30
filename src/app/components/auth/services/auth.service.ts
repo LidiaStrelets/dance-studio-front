@@ -46,6 +46,7 @@ export class AuthService {
   logout = () => {
     localStorage.removeItem(this.tokenKey);
     this.router.navigate([routesPaths.login]);
+    window.location.reload();
   };
 
   isAuthenticated = () => !!this.getToken();
@@ -70,7 +71,9 @@ export class AuthService {
         }),
         take(1)
       )
-      .subscribe({ next: (res) => this.setUserId(res.data.id) });
+      .subscribe({
+        next: (res) => this.setUserId(res.data.id),
+      });
   }
 
   setUserId(id: string) {
