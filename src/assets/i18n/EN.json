@@ -55,7 +55,7 @@
     "errors": {
       "500": "Server error",
       "403": "You don't have access to this resource",
-      "1":"Enrollment you're trying to cancell doesn't exist"
+      "1": "Enrollment you're trying to cancell doesn't exist"
     }
   },
   "buttons": { "cancel": "Cancel", "ok": "apply" },
@@ -81,5 +81,11 @@
     "email": "Enter valid email address!",
     "keyRequired": "Provide an admin key!",
     "pattern": "A password should be at least 8 symbols long, contain a capital letter and a digit"
+  },
+  "infoModal": {
+    "header": "Class information",
+    "coach": "Coach",
+    "class": "Class",
+    "enrolled": "Enrolled"
   }
 }

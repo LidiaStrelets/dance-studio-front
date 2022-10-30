@@ -1,0 +1,30 @@
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: revert;
+  padding: 10px;
+}
+ion-title {
+  position: initial;
+  text-align: start;
+  padding: 0;
+}
+ion-buttons {
+  position: initial;
+}
+ion-modal {
+  --ion-background-color: #faf2e2;
+  --ion-toolbar-background: #e6b629;
+  --ion-toolbar-border-color: #ffeaac;
+}
+.item-container {
+  padding: 20px;
+
+  p {
+    margin-bottom: 0;
+
+    &:not(:last-child) {
+      margin-top: 0;
+    }
+  }
+}

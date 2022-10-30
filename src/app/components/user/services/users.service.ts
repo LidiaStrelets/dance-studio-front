@@ -17,8 +17,9 @@ export class UsersService {
     this.userId = this.authService.getCurrentUserId();
   }
 
-  getById(): Observable<User> {
-    return this.http.get<User>(this.coreUrl + this.userId).pipe(
+  getById(id?: string): Observable<User> {
+    const requestId = id || this.userId;
+    return this.http.get<User>(this.coreUrl + requestId).pipe(
       catchError((err) => {
         throw err;
       }),
