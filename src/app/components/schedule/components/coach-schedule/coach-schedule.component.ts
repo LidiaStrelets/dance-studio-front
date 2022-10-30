@@ -9,10 +9,10 @@ import {
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { DateService } from 'src/app/components/user/services/date.service';
+import { UsersService } from 'src/app/components/user/services/users.service';
 import { Schedule, User } from 'src/types';
-import { DateService } from '../../user/services/date.service';
-import { UsersService } from '../../user/services/users.service';
-import { CommonService } from '../services/common.service';
+import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'app-coach-schedule',

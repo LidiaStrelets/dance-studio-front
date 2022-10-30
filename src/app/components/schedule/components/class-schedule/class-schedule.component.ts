@@ -11,9 +11,9 @@ import { BehaviorSubject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { LanguageService } from 'src/app/services/language.service';
 import { ClassItemFull, ELanguages, Schedule, TClass } from 'src/types';
-import { ClassesService } from '../../classes/services/classes.service';
-import { DateService } from '../../user/services/date.service';
-import { CommonService } from '../services/common.service';
+import { ClassesService } from '../../../classes/services/classes.service';
+import { DateService } from '../../../user/services/date.service';
+import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'app-class-schedule',

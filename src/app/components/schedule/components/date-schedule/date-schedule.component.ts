@@ -8,16 +8,11 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import {
-  CancellEnrollmentEvent,
-  ELanguages,
-  Registration,
-  Schedule,
-} from 'src/types';
+import { CancellEnrollmentEvent, Registration, Schedule } from 'src/types';
 import { LanguageService } from 'src/app/services/language.service';
-import { DateService } from '../../user/services/date.service';
-import { EnrollmentsService } from '../../enrollments/services/enrollments.service';
 import { catchError } from 'rxjs/operators';
+import { DateService } from 'src/app/components/user/services/date.service';
+import { EnrollmentsService } from 'src/app/components/enrollments/services/enrollments.service';
 
 @Component({
   selector: 'app-date-schedule',
@@ -87,7 +82,7 @@ export class DateScheduleComponent implements OnInit, OnChanges {
     this.showDate = !this.showDate;
   };
 
-  isUk = () => this.languageService.getLanguage() === ELanguages.uk;
+  isUk = this.languageService.isUk;
 
   getDate = () => this.dateService.getDate(this.dateForm.get('date')?.value);
   getTimePart = this.dateService.getTime;
