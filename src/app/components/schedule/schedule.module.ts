@@ -9,10 +9,12 @@ import { SwiperModule } from 'swiper/angular';
 import { SchedulePage } from './schedule.page';
 import { HeaderModule } from '../commonComponents/header/header.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { DateScheduleComponent } from './date-schedule/date-schedule.component';
-import { CoachScheduleComponent } from './coach-schedule/coach-schedule.component';
-import { ClassScheduleComponent } from './class-schedule/class-schedule.component';
-import { ItemButtonsComponent } from './item-buttons/item-buttons.component';
+import { DateScheduleComponent } from './components/date-schedule/date-schedule.component';
+import { CoachScheduleComponent } from './components/coach-schedule/coach-schedule.component';
+import { ClassScheduleComponent } from './components/class-schedule/class-schedule.component';
+import { ItemButtonsComponent } from './components/item-buttons/item-buttons.component';
+import { InfoModalComponent } from './components/info-modal/info-modal.component';
+import { EnrolledClientComponent } from './components/enrolled-client/enrolled-client.component';
 
 @NgModule({
   imports: [
@@ -31,6 +33,8 @@ import { ItemButtonsComponent } from './item-buttons/item-buttons.component';
     CoachScheduleComponent,
     ClassScheduleComponent,
     ItemButtonsComponent,
+    InfoModalComponent,
+    EnrolledClientComponent,
   ],
 })
 export class SchedulePageModule {}
