@@ -34,4 +34,10 @@ export class EnrollmentsService {
       .get<Registration[]>(this.coreUrl + this.authService.getCurrentUserId())
       .pipe(take(1));
   }
+
+  getBySchedule(id: string): Observable<Registration[]> {
+    return this.http
+      .get<Registration[]>(this.coreUrl + 'bySchedule/' + id)
+      .pipe(take(1));
+  }
 }

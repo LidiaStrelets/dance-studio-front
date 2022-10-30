@@ -20,4 +20,12 @@ export class ClassesService {
       }),
       take(1)
     );
+
+  getById = (id: string): Observable<ClassItemFull> =>
+    this.http.get<ClassItemFull>(this.coreUrl + id).pipe(
+      catchError((err) => {
+        throw err;
+      }),
+      take(1)
+    );
 }
