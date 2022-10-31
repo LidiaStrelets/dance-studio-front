@@ -1,0 +1,39 @@
+<ion-content [scrollEvents]="true" (ionScroll)="closeDate()">
+  <h1 *ngIf="archive; then archiveTitle; else currentTitle"></h1>
+  <ng-template #archiveTitle
+    ><h1>{{ "enrollments.archiveHeader" | translate }}</h1></ng-template
+  >
+  <ng-template #currentTitle
+    ><h1>{{ "enrollments.header" | translate }}</h1></ng-template
+  >
+  <app-calendar
+    [archive]="archive"
+    [showDate]="showDate"
+    [toggleDate]="toggleDate"
+    [getDate]="getDate"
+  ></app-calendar>
+
+  <div>
+    <ion-list>
+      <ion-item color="light" *ngFor="let item of items">
+        <div class="item-container">
+          <p>{{ item.coach }} {{ item.class }}</p>
+          <p>
+            {{ getTimePart(item.date_time) }}
+            {{ item.hall }}
+          </p>
+          <p
+            class="left"
+            *ngIf="
+              getTimeLeft(item.date_time) < 60 &&
+              getTimeLeft(item.date_time) > 0
+            "
+          >
+            {{ getTimeLeft(item.date_time) }}
+            {{ "enrollments.timeLeft" | translate }}
+          </p>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

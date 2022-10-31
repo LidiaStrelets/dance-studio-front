@@ -7,7 +7,7 @@
   position: absolute;
   z-index: 10;
 
-  transform: translateY(-250px);
+  transform: translateY(-280px);
   transition: transform 250ms ease;
   &.shown {
     transform: translateY(15px);

@@ -12,6 +12,7 @@ import { DateService } from '../../user/services/date.service';
 })
 export class CalendarComponent implements OnInit {
   @Input() showDate = false;
+  @Input() archive?: boolean;
   @Input() toggleDate?: (form: FormGroup) => void;
   @Input() getDate?: (form: FormGroup) => void;
 
@@ -30,10 +31,17 @@ export class CalendarComponent implements OnInit {
   ngOnInit() {}
 
   getMinDate = () => {
-    if (this.location.path().includes(routesPaths.schedule)) {
+    if (this.location.path().includes(routesPaths.schedule) || this.archive) {
       return this.dateService.getMinScheduleDate();
+    } else {
+      return this.dateService.getMinEnrollmentsDate();
     }
-    if (this.location.path().includes(routesPaths.schedule)) {
+  };
+
+  getMaxDate = () => {
+    if (this.location.path().includes(routesPaths.enrollments)) {
+      return this.dateService.getMaxEnrollmentsDate();
+    } else if (this.archive) {
       return this.dateService.getMinEnrollmentsDate();
     } else return null;
   };

@@ -7,7 +7,7 @@ import {
 import { SwiperOptions } from 'swiper';
 import { SwiperComponent } from 'swiper/angular';
 import Swiper, { Pagination } from 'swiper';
-import { ELanguages, Schedule, ScheduleFull } from 'src/types';
+import { Schedule, ScheduleFull } from 'src/types';
 import { SchedulesService } from './services/schedules.service';
 import { BehaviorSubject } from 'rxjs';
 import { DateService } from '../user/services/date.service';
@@ -45,42 +45,44 @@ export class SchedulePage implements OnInit, AfterContentChecked {
 
   ngOnInit() {
     this.selectedDate.subscribe((res) => {
-      this.byDateItems = this.translateSchedule(this.schedule).filter(
-        (item) =>
-          this.dateService.getDate(item.date_time) ===
-          this.dateService.getDate(res)
-      );
+      this.byDateItems = this.languageService
+        .translateSchedule(this.schedule)
+        .filter(
+          (item) =>
+            this.dateService.getDate(item.date_time) ===
+            this.dateService.getDate(res)
+        );
     });
 
     this.selectedCoach.subscribe((res) => {
-      this.byCoachItems = this.translateSchedule(this.schedule).filter(
-        (item) => {
+      this.byCoachItems = this.languageService
+        .translateSchedule(this.schedule)
+        .filter((item) => {
           return (
             item.coach_id === res &&
             item.date_time >= this.dateService.templateWeekStart &&
             item.date_time < this.dateService.templateWeekEnd
           );
-        }
-      );
+        });
     });
 
     this.selectedClass.subscribe((res) => {
-      this.byClassItems = this.translateSchedule(this.schedule).filter(
-        (item) => {
+      this.byClassItems = this.languageService
+        .translateSchedule(this.schedule)
+        .filter((item) => {
           return (
             item.class_id === res &&
             item.date_time >= this.dateService.templateWeekStart &&
             item.date_time < this.dateService.templateWeekEnd
           );
-        }
-      );
+        });
     });
 
     this.schedulesService.get().subscribe({
       next: (res) => {
         this.schedule = res;
 
-        this.scheduleItems = this.translateSchedule(res);
+        this.scheduleItems = this.languageService.translateSchedule(res);
 
         this.byDateItems = this.scheduleItems.filter(
           (item) =>
@@ -111,33 +113,4 @@ export class SchedulePage implements OnInit, AfterContentChecked {
   getByDate = () => this.byDateItems;
   getByCoach = () => this.byCoachItems;
   getByClass = () => this.byClassItems;
-
-  translateSchedule = (items: ScheduleFull[]) => {
-    if (this.languageService.getLanguage() === ELanguages.en) {
-      this.scheduleItems = items.map((item) => ({
-        coach_id: item.coach_id,
-        hall_id: item.hall_id,
-        class_id: item.class_id,
-        coach: item.coach,
-        hall: item.hall,
-        class: item.class,
-        date_time: item.date_time,
-        id: item.id,
-        duration: item.duration,
-      }));
-    } else {
-      this.scheduleItems = items.map((item) => ({
-        coach_id: item.coach_id,
-        hall_id: item.hall_id,
-        class_id: item.class_id,
-        coach: item.coach,
-        hall: item.hallUk,
-        class: item.classUk,
-        date_time: item.date_time,
-        id: item.id,
-        duration: item.duration,
-      }));
-    }
-    return this.scheduleItems;
-  };
 }

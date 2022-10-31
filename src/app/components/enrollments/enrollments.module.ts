@@ -10,6 +10,9 @@ import { EnrollmentsPage } from './enrollments.page';
 import { HeaderModule } from '../commonComponents/header/header.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { SwiperModule } from 'swiper/angular';
+import { CalendarModule } from '../commonComponents/calendar/calendar.module';
+import { CurrentComponent } from './components/current/current.component';
+import { StatsComponent } from './components/stats/stats.component';
 
 @NgModule({
   imports: [
@@ -20,7 +23,8 @@ import { SwiperModule } from 'swiper/angular';
     TranslateModule,
     HeaderModule,
     SwiperModule,
+    CalendarModule,
   ],
-  declarations: [EnrollmentsPage],
+  declarations: [EnrollmentsPage, CurrentComponent, StatsComponent],
 })
 export class EnrollmentsPageModule {}

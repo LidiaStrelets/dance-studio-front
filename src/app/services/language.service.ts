@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ELanguages, Languages, LocalStorageKeys } from 'src/types';
+import {
+  ELanguages,
+  Languages,
+  LocalStorageKeys,
+  ScheduleFull,
+} from 'src/types';
 import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
@@ -29,4 +34,34 @@ export class LanguageService {
   getLanguages = () => this.languages;
 
   isUk = () => this.getLanguage() === ELanguages.uk;
+
+  translateSchedule = (items: ScheduleFull[]) => {
+    let scheduleItems;
+    if (this.getLanguage() === ELanguages.en) {
+      scheduleItems = items.map((item) => ({
+        coach_id: item.coach_id,
+        hall_id: item.hall_id,
+        class_id: item.class_id,
+        coach: item.coach,
+        hall: item.hall,
+        class: item.class,
+        date_time: item.date_time,
+        id: item.id,
+        duration: item.duration,
+      }));
+    } else {
+      scheduleItems = items.map((item) => ({
+        coach_id: item.coach_id,
+        hall_id: item.hall_id,
+        class_id: item.class_id,
+        coach: item.coach,
+        hall: item.hallUk,
+        class: item.classUk,
+        date_time: item.date_time,
+        id: item.id,
+        duration: item.duration,
+      }));
+    }
+    return scheduleItems;
+  };
 }

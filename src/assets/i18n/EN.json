@@ -88,5 +88,19 @@
     "class": "Class",
     "enrolled": "Enrolled"
   },
-  "enrollments": {}
+  "enrollments": {
+    "timeLeft": "minutes left to class",
+    "header": "Active enrollments",
+    "archiveHeader": "Enrollments archive",
+    "stats": {
+      "title": "My statistics",
+      "totalVisited": "Visited classes total",
+      "totalHours": "Training hours",
+      "stretching": "Stretching",
+      "pole sport": "Pole sport",
+      "pole exotic": "Pole exotic",
+      "stripplastic": "Stripplastic",
+      "pole exotic beginners": "Pole exotic beginners"
+    }
+  }
 }

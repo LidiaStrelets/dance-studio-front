@@ -88,5 +88,19 @@
     "class": "Тренування",
     "enrolled": "зареєструвалися"
   },
-  "enrollments": {}
+  "enrollments": {
+    "timeLeft": "хвилин залишилося до тренування",
+    "header": "Активні записи",
+    "archiveHeader": "Архів записів",
+    "stats": {
+      "title": "Моя статистика",
+      "totalVisited": "Всього відвідано тренувань",
+      "totalHours": "Годин тренувань",
+      "stretching": "Розтяжка",
+      "pole sport": "Спорт",
+      "pole exotic": "Танець",
+      "stripplastic": "Стріппластика",
+      "pole exotic beginners": "Танець новачки"
+    }
+  }
 }

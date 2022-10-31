@@ -8,6 +8,7 @@
     <form [formGroup]="dateForm">
       <ion-datetime
         [min]="getMinDate()"
+        [max]="getMaxDate()"
         [locale]="isUk() ? 'uk-UK' : 'en-GB'"
         formControlName="date"
         #date

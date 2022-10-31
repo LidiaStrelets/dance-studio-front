@@ -1,9 +1,22 @@
 <app-header [header]="'menu.Enrollments'|translate"></app-header>
 
 <ion-content>
-  <swiper [config]="config" #slides>
-    <ng-template swiperSlide>1</ng-template>
-    <ng-template swiperSlide>2</ng-template>
-    <ng-template swiperSlide>3</ng-template>
+  <swiper (slideChange)="onSlideChange()" [config]="config" #slides>
+    <ng-template swiperSlide
+      ><app-current
+        [items]="getByDate()"
+        (setDate)="setDate($event)"
+      ></app-current
+    ></ng-template>
+    <ng-template swiperSlide
+      ><app-current
+        [archive]="true"
+        [items]="getByDateArchive()"
+        (setDate)="setDate($event)"
+      ></app-current
+    ></ng-template>
+    <ng-template swiperSlide
+      ><app-stats [items]="getByDateArchive()"></app-stats
+    ></ng-template>
   </swiper>
 </ion-content>

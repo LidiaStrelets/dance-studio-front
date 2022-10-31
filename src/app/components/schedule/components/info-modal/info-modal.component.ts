@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { catchError } from 'rxjs/operators';
 import { LanguageService } from 'src/app/services/language.service';
 import { ClassItemFull, Registration, Schedule, User } from 'src/types';
 import { ClassesService } from '../../../classes/services/classes.service';
@@ -35,12 +36,12 @@ export class InfoModalComponent implements OnInit {
 
     this.classesService.getById(this.item.class_id).subscribe({
       next: (res) => (this.classItem = res),
-      error: (err) => console.log('error', err),
+      error: (err) => catchError,
     });
 
     this.enrollmentsService.getBySchedule(this.item.id).subscribe({
       next: (res) => (this.enrollments = res),
-      error: (err) => console.log('error', err),
+      error: catchError,
     });
   }
 

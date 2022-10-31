@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { catchError, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { ScheduleFull } from 'src/types';
+import { AuthService } from '../../auth/services/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ import { ScheduleFull } from 'src/types';
 export class SchedulesService {
   private coreUrl = `${environment.basicUrl}schedules/`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   get(): Observable<ScheduleFull[]> {
     return this.http.get<ScheduleFull[]>(this.coreUrl).pipe(
@@ -20,5 +21,18 @@ export class SchedulesService {
       }),
       take(1)
     );
+  }
+
+  getEnrolled(): Observable<ScheduleFull[]> {
+    return this.http
+      .get<ScheduleFull[]>(
+        this.coreUrl + 'enrolled/' + this.authService.getCurrentUserId()
+      )
+      .pipe(
+        catchError((err) => {
+          throw err;
+        }),
+        take(1)
+      );
   }
 }
