@@ -3,11 +3,12 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscribable, Subscription } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { DateService } from 'src/app/components/user/services/date.service';
 import { UsersService } from 'src/app/components/user/services/users.service';
@@ -19,7 +20,7 @@ import { CommonService } from '../../services/common.service';
   templateUrl: './coach-schedule.component.html',
   styleUrls: ['./coach-schedule.component.scss'],
 })
-export class CoachScheduleComponent implements OnInit, OnChanges {
+export class CoachScheduleComponent implements OnInit, OnChanges, OnDestroy {
   @Output() setCoach = new EventEmitter<string>();
   @Input() items: Schedule[] = [];
   filteredItems: Schedule[] = [];
@@ -33,6 +34,8 @@ export class CoachScheduleComponent implements OnInit, OnChanges {
   });
   selectValue: number[] = [];
 
+  subscription: Subscription = {} as Subscription;
+
   constructor(
     private usersService: UsersService,
     private dateService: DateService,
@@ -45,7 +48,7 @@ export class CoachScheduleComponent implements OnInit, OnChanges {
       error: catchError,
     });
 
-    this.selectedDays.subscribe((res) => {
+    this.subscription = this.selectedDays.subscribe((res) => {
       this.filteredItems = this.items.filter((item) => {
         return res.days.some(
           (day) => day + 1 === this.dateService.getWeekDay(item.date_time).id
@@ -64,6 +67,10 @@ export class CoachScheduleComponent implements OnInit, OnChanges {
         this.selectedDays.next({ days: this.selectValue, items: value });
       }
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   radioItems = this.common.radioItems;

@@ -1,10 +1,11 @@
 import {
   AfterContentChecked,
   Component,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { LanguageService } from 'src/app/services/language.service';
 import { Schedule, ScheduleFull } from 'src/types';
@@ -20,7 +21,7 @@ Swiper.use([Pagination]);
   templateUrl: './enrollments.page.html',
   styleUrls: ['./enrollments.page.scss'],
 })
-export class EnrollmentsPage implements OnInit, AfterContentChecked {
+export class EnrollmentsPage implements OnInit, AfterContentChecked, OnDestroy {
   @ViewChild('slides') swiper?: SwiperComponent;
   config: SwiperOptions = {
     pagination: true,
@@ -32,6 +33,7 @@ export class EnrollmentsPage implements OnInit, AfterContentChecked {
   selectedDate = new BehaviorSubject('');
   byDateItems: Schedule[] = [];
   byDateArchiveItems: Schedule[] = [];
+  subscription: Subscription = {} as Subscription;
 
   constructor(
     private dateService: DateService,
@@ -65,7 +67,7 @@ export class EnrollmentsPage implements OnInit, AfterContentChecked {
       error: catchError,
     });
 
-    this.selectedDate.subscribe((res) => {
+    this.subscription = this.selectedDate.subscribe((res) => {
       this.byDateItems =
         this.schedule.length > 0
           ? this.languageService
@@ -98,6 +100,10 @@ export class EnrollmentsPage implements OnInit, AfterContentChecked {
     if (this.swiper) {
       this.swiper.updateSwiper({});
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   setDate = (date: string) => {

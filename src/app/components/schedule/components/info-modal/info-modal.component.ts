@@ -36,7 +36,7 @@ export class InfoModalComponent implements OnInit {
 
     this.classesService.getById(this.item.class_id).subscribe({
       next: (res) => (this.classItem = res),
-      error: (err) => catchError,
+      error: catchError,
     });
 
     this.enrollmentsService.getBySchedule(this.item.id).subscribe({

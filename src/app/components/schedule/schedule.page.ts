@@ -1,6 +1,7 @@
 import {
   AfterContentChecked,
   Component,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -9,7 +10,7 @@ import { SwiperComponent } from 'swiper/angular';
 import Swiper, { Pagination } from 'swiper';
 import { Schedule, ScheduleFull } from 'src/types';
 import { SchedulesService } from './services/schedules.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { DateService } from '../user/services/date.service';
 import { LanguageService } from 'src/app/services/language.service';
 import { catchError } from 'rxjs/operators';
@@ -21,7 +22,7 @@ Swiper.use([Pagination]);
   templateUrl: './schedule.page.html',
   styleUrls: ['./schedule.page.scss'],
 })
-export class SchedulePage implements OnInit, AfterContentChecked {
+export class SchedulePage implements OnInit, AfterContentChecked, OnDestroy {
   @ViewChild('slides') swiper?: SwiperComponent;
 
   schedule: ScheduleFull[] = [];
@@ -32,6 +33,8 @@ export class SchedulePage implements OnInit, AfterContentChecked {
   byCoachItems: Schedule[] = [];
   selectedClass = new BehaviorSubject('');
   byClassItems: Schedule[] = [];
+
+  subscriptions: Subscription[] = [];
 
   config: SwiperOptions = {
     pagination: true,
@@ -44,7 +47,7 @@ export class SchedulePage implements OnInit, AfterContentChecked {
   ) {}
 
   ngOnInit() {
-    this.selectedDate.subscribe((res) => {
+    const dateSubscription = this.selectedDate.subscribe((res) => {
       this.byDateItems = this.languageService
         .translateSchedule(this.schedule)
         .filter(
@@ -53,8 +56,9 @@ export class SchedulePage implements OnInit, AfterContentChecked {
             this.dateService.getDate(res)
         );
     });
+    this.subscriptions.push(dateSubscription);
 
-    this.selectedCoach.subscribe((res) => {
+    const coachSubscription = this.selectedCoach.subscribe((res) => {
       this.byCoachItems = this.languageService
         .translateSchedule(this.schedule)
         .filter((item) => {
@@ -65,8 +69,9 @@ export class SchedulePage implements OnInit, AfterContentChecked {
           );
         });
     });
+    this.subscriptions.push(coachSubscription);
 
-    this.selectedClass.subscribe((res) => {
+    const classSubscription = this.selectedClass.subscribe((res) => {
       this.byClassItems = this.languageService
         .translateSchedule(this.schedule)
         .filter((item) => {
@@ -77,6 +82,7 @@ export class SchedulePage implements OnInit, AfterContentChecked {
           );
         });
     });
+    this.subscriptions.push(classSubscription);
 
     this.schedulesService.get().subscribe({
       next: (res) => {
@@ -108,6 +114,10 @@ export class SchedulePage implements OnInit, AfterContentChecked {
     if (this.swiper) {
       this.swiper.updateSwiper({});
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
   getByDate = () => this.byDateItems;

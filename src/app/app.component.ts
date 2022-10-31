@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ELanguages, LocalStorageKeys, MenuItem } from 'src/types';
 import { routesPaths } from './app-routing.module';
