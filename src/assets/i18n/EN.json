@@ -105,5 +105,14 @@
   },
   "coaches": {
     "header": "Coaches of our studio"
+  },
+  "classes": {
+    "header": "We offer you"
+  },
+  "prices": {
+    "header": "Our prices",
+    "amount": "Classes amount",
+    "unlimited": "Unlimited subscription",
+    "price": "Price"
   }
 }

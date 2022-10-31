@@ -4,21 +4,21 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ClassesPageRoutingModule } from './classes-routing.module';
+import { PricesPageRoutingModule } from './prices-routing.module';
 
-import { ClassesPage } from './classes.page';
-import { TranslateModule } from '@ngx-translate/core';
+import { PricesPage } from './prices.page';
 import { HeaderModule } from '../commonComponents/header/header.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ClassesPageRoutingModule,
+    PricesPageRoutingModule,
     HeaderModule,
     TranslateModule,
   ],
-  declarations: [ClassesPage],
+  declarations: [PricesPage],
 })
-export class ClassesPageModule {}
+export class PricesPageModule {}

@@ -242,3 +242,9 @@ export interface Registration {
 export interface CancellEnrollmentEvent {
   scheduleId: string;
 }
+
+export interface Price {
+  id: string;
+  classes_amount: number;
+  price: number;
+}

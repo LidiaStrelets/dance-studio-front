@@ -1,0 +1,18 @@
+<app-header [header]="'prices.header'|translate"></app-header>
+
+<ion-content>
+  <ion-item *ngFor="let price of prices">
+    <div>
+      <p *ngIf="price.classes_amount===1000; then unlimited; else amount"></p>
+      <ng-template #amount
+        ><p>
+          {{"prices.amount"|translate}}: {{price.classes_amount}}
+        </p></ng-template
+      >
+      <ng-template #unlimited
+        ><p>{{"prices.unlimited"|translate}}</p></ng-template
+      >
+      <p>{{"prices.price"|translate}}: <span>{{price.price}}</span></p>
+    </div>
+  </ion-item>
+</ion-content>

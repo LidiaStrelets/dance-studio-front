@@ -1,9 +1,15 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>classes</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header [header]="'classes.header'|translate"></app-header>
 
 <ion-content>
+  <ion-list>
+    <ion-item *ngFor="let item of getClasses()">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>{{item.name}}</ion-card-title>
+        </ion-card-header>
 
+        <ion-card-content> {{item.description}} </ion-card-content>
+      </ion-card>
+    </ion-item>
+  </ion-list>
 </ion-content>

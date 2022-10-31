@@ -72,12 +72,25 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'enrollments',
-    loadChildren: () => import('./components/enrollments/enrollments.module').then( m => m.EnrollmentsPageModule)
+    path: routesPaths.enrollments,
+    loadChildren: () =>
+      import('./components/enrollments/enrollments.module').then(
+        (m) => m.EnrollmentsPageModule
+      ),
   },
   {
-    path: 'coaches',
-    loadChildren: () => import('./components/coaches/coaches.module').then( m => m.CoachesPageModule)
+    path: routesPaths.coaches,
+    loadChildren: () =>
+      import('./components/coaches/coaches.module').then(
+        (m) => m.CoachesPageModule
+      ),
+  },
+  {
+    path: routesPaths.prices,
+    loadChildren: () =>
+      import('./components/prices/prices.module').then(
+        (m) => m.PricesPageModule
+      ),
   },
   // {
   //   path: '**',
