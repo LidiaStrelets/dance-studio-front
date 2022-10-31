@@ -11,6 +11,7 @@ import {
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { LanguageService } from 'src/app/services/language.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { ClassItemFull, ELanguages, Schedule, TClass } from 'src/types';
 import { ClassesService } from '../../../classes/services/classes.service';
 import { DateService } from '../../../user/services/date.service';
@@ -41,12 +42,18 @@ export class ClassScheduleComponent implements OnInit, OnChanges, OnDestroy {
     private classesService: ClassesService,
     private dateService: DateService,
     private languageService: LanguageService,
-    private common: CommonService
+    private common: CommonService,
+    private loader: LoaderService
   ) {}
 
   ngOnInit() {
+    this.loader.showSpinner();
+
     this.classesService.getClasses().subscribe({
-      next: (res) => (this.classItems = res),
+      next: (res) => {
+        this.classItems = res;
+        this.loader.hideSpinner();
+      },
       error: catchError,
     });
 

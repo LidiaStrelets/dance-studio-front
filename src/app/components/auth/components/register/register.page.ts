@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { catchError } from 'rxjs/operators';
 import { routesPaths } from 'src/app/app-routing.module';
 import { FormService } from 'src/app/services/form.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import {
   RegistrationData,
   RegistrationForm,
@@ -30,18 +31,22 @@ export class RegisterPage implements OnInit {
     private customValidators: CustomValidators,
     private be: BeService,
     private authService: AuthService,
-    private formFunctionsServise: FormService
+    private formFunctionsServise: FormService,
+    private loader: LoaderService
   ) {}
 
   handleSubmit = () => {
     if (this.registrationForm.invalid) {
       return;
     }
-
+    this.loader.showSpinner();
     this.be
       .register(this.registrationForm.value as RegistrationData)
       .subscribe({
-        next: (res) => this.authService.authenticate(res.data.token),
+        next: (res) => {
+          this.authService.authenticate(res.data.token);
+          this.loader.hideSpinner();
+        },
         error: catchError,
       });
   };

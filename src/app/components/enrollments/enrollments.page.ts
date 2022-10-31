@@ -8,6 +8,7 @@ import {
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { LanguageService } from 'src/app/services/language.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { Schedule, ScheduleFull } from 'src/types';
 import Swiper, { Pagination, SwiperOptions } from 'swiper';
 import { SwiperComponent } from 'swiper/angular';
@@ -38,10 +39,12 @@ export class EnrollmentsPage implements OnInit, AfterContentChecked, OnDestroy {
   constructor(
     private dateService: DateService,
     private languageService: LanguageService,
-    private schedulesService: SchedulesService
+    private schedulesService: SchedulesService,
+    private loader: LoaderService
   ) {}
 
   ngOnInit() {
+    this.loader.showSpinner();
     this.schedulesService.getEnrolled().subscribe({
       next: (res) => {
         this.schedule = res;
@@ -63,6 +66,8 @@ export class EnrollmentsPage implements OnInit, AfterContentChecked, OnDestroy {
             this.dateService.getDate(item.date_time) ===
               this.dateService.getDate(this.dateService.baseScheduleDate)
         );
+
+        this.loader.hideSpinner();
       },
       error: catchError,
     });

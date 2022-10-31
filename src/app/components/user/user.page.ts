@@ -14,6 +14,7 @@ import { FormService } from 'src/app/services/form.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { catchError } from 'rxjs/operators';
 import { LanguageService } from 'src/app/services/language.service';
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-user',
@@ -37,7 +38,8 @@ export class UserPage implements OnInit {
     private alertService: AlertService,
     private dateService: DateService,
     private formFunctionsServise: FormService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private loader: LoaderService
   ) {
     this.userForm = new FormGroup({
       [UserFormFields.birth_date]: new FormControl(
@@ -51,6 +53,7 @@ export class UserPage implements OnInit {
   }
 
   ngOnInit() {
+    this.loader.showSpinner();
     this.usersService.getById().subscribe({
       next: (res) => {
         this.user = res;
@@ -62,6 +65,7 @@ export class UserPage implements OnInit {
         }
 
         this.setInitialValues(this.user);
+        this.loader.hideSpinner();
       },
       error: catchError,
     });
@@ -137,6 +141,7 @@ export class UserPage implements OnInit {
     if (!this.formHasChanges() || this.userForm.invalid) {
       return;
     }
+    this.loader.showSpinner();
     this.closeAll();
 
     this.usersService
@@ -151,6 +156,8 @@ export class UserPage implements OnInit {
           this.cleanedField = false;
           this.userForm.reset();
           this.setInitialValues(this.user);
+
+          this.loader.hideSpinner();
         },
         error: catchError,
       });

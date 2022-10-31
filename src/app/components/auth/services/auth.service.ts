@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { AlertService } from 'src/app/services/alert.service';
 import { routesPaths } from 'src/app/app-routing.module';
 import { environment } from 'src/environments/environment';
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +20,8 @@ export class AuthService {
   constructor(
     private router: Router,
     private alertService: AlertService,
-    private http: HttpClient
+    private http: HttpClient,
+    private loader: LoaderService
   ) {}
 
   authenticate(token: string) {
@@ -63,6 +65,7 @@ export class AuthService {
       return;
     }
 
+    this.loader.showSpinner();
     this.http
       .get<{ data: { id: string } }>(this.url)
       .pipe(
@@ -72,7 +75,10 @@ export class AuthService {
         take(1)
       )
       .subscribe({
-        next: (res) => this.setUserId(res.data.id),
+        next: (res) => {
+          this.setUserId(res.data.id);
+          this.loader.hideSpinner();
+        },
       });
   }
 

@@ -12,6 +12,7 @@ import { BehaviorSubject, Subscribable, Subscription } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { DateService } from 'src/app/components/user/services/date.service';
 import { UsersService } from 'src/app/components/user/services/users.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { Schedule, User } from 'src/types';
 import { CommonService } from '../../services/common.service';
 
@@ -39,12 +40,17 @@ export class CoachScheduleComponent implements OnInit, OnChanges, OnDestroy {
   constructor(
     private usersService: UsersService,
     private dateService: DateService,
-    private common: CommonService
+    private common: CommonService,
+    private loader: LoaderService
   ) {}
 
   ngOnInit() {
+    this.loader.showSpinner();
     this.usersService.getCoaches().subscribe({
-      next: (res) => (this.coaches = res),
+      next: (res) => {
+        this.coaches = res;
+        this.loader.hideSpinner();
+      },
       error: catchError,
     });
 

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { AlertService } from 'src/app/services/alert.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { CancellEnrollmentEvent, Registration, Schedule } from 'src/types';
 import { EnrollmentsService } from '../../../enrollments/services/enrollments.service';
 
@@ -16,7 +17,8 @@ export class ItemButtonsComponent implements OnInit {
 
   constructor(
     private enrollmentService: EnrollmentsService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private loader: LoaderService
   ) {}
 
   ngOnInit() {}
@@ -27,6 +29,7 @@ export class ItemButtonsComponent implements OnInit {
     new Date(Date.now() + 7200000 + 86400000).toISOString() < date;
 
   enroll = (scheduleId: string) => {
+    this.loader.showSpinner();
     this.enrollmentService.enroll(scheduleId).subscribe({
       next: (res) => {
         this.alertService.presentAlertSuccess(
@@ -34,12 +37,15 @@ export class ItemButtonsComponent implements OnInit {
         );
 
         this.newEnrollment.emit(res);
+
+        this.loader.hideSpinner();
       },
       error: catchError,
     });
   };
 
   cancell = (scheduleId: string) => {
+    this.loader.showSpinner();
     this.enrollmentService.cancell(scheduleId).subscribe({
       next: () => {
         this.alertService.presentAlertSuccess(
@@ -47,6 +53,7 @@ export class ItemButtonsComponent implements OnInit {
         );
 
         this.cancellEnrollment.emit({ scheduleId });
+        this.loader.hideSpinner();
       },
       error: catchError,
     });

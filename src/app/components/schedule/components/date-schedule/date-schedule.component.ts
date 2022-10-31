@@ -12,6 +12,7 @@ import { CancellEnrollmentEvent, Registration, Schedule } from 'src/types';
 import { catchError } from 'rxjs/operators';
 import { DateService } from 'src/app/components/user/services/date.service';
 import { EnrollmentsService } from 'src/app/components/enrollments/services/enrollments.service';
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-date-schedule',
@@ -28,16 +29,20 @@ export class DateScheduleComponent implements OnInit, OnChanges {
 
   constructor(
     private dateService: DateService,
-    private enrollmentService: EnrollmentsService
+    private enrollmentService: EnrollmentsService,
+    private loader: LoaderService
   ) {}
 
   ngOnInit() {
+    this.loader.showSpinner();
     this.setDate.emit(this.dateService.baseScheduleDate);
 
     this.enrollmentService.getEnrollments().subscribe({
       next: (res) => {
         this.enrollments = res;
         this.items = this.addEnrolled(this.items, res);
+
+        this.loader.hideSpinner();
       },
       error: catchError,
     });

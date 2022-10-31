@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { catchError } from 'rxjs/operators';
 import { routesPaths } from 'src/app/app-routing.module';
 import { FormService } from 'src/app/services/form.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { LoginData, LoginForm, LoginFormFields } from 'src/types';
 import { AuthService } from '../../services/auth.service';
 import { BeService } from '../../services/login.services/be.service';
@@ -21,17 +22,19 @@ export class LoginPage implements OnInit {
   constructor(
     private be: BeService,
     private authService: AuthService,
-    private formFunctionsServise: FormService
+    private formFunctionsServise: FormService,
+    private loader: LoaderService
   ) {}
 
   handleSubmit = () => {
     if (this.loginForm.invalid) {
       return;
     }
-
+    this.loader.showSpinner();
     this.be.register(this.loginForm.value as LoginData).subscribe({
       next: (res) => {
         this.authService.authenticate(res.data.token);
+        this.loader.hideSpinner();
       },
       error: catchError,
     });

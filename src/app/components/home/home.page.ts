@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { LanguageService } from 'src/app/services/language.service';
+import { LoaderService } from 'src/app/services/loader.service';
 import { environment } from 'src/environments/environment';
 import { ELanguages, Hall, TranslatedHall } from 'src/types';
 import { HallService } from './hall.service';
@@ -18,14 +19,17 @@ export class HomePage implements OnInit {
 
   constructor(
     private hallService: HallService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private spinner: LoaderService
   ) {}
 
   ngOnInit() {
+    this.spinner.showSpinner();
     this.hallService.get().subscribe({
       next: (res) => {
         this.halls = res;
         this.translate();
+        this.spinner.hideSpinner();
       },
       error: catchError,
     });

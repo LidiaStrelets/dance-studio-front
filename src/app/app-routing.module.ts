@@ -75,6 +75,10 @@ const routes: Routes = [
     path: 'enrollments',
     loadChildren: () => import('./components/enrollments/enrollments.module').then( m => m.EnrollmentsPageModule)
   },
+  {
+    path: 'coaches',
+    loadChildren: () => import('./components/coaches/coaches.module').then( m => m.CoachesPageModule)
+  },
   // {
   //   path: '**',
   //   redirectTo: 'welcome',

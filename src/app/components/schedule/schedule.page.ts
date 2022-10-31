@@ -14,6 +14,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 import { DateService } from '../user/services/date.service';
 import { LanguageService } from 'src/app/services/language.service';
 import { catchError } from 'rxjs/operators';
+import { LoaderService } from 'src/app/services/loader.service';
 
 Swiper.use([Pagination]);
 
@@ -43,10 +44,13 @@ export class SchedulePage implements OnInit, AfterContentChecked, OnDestroy {
   constructor(
     private schedulesService: SchedulesService,
     private dateService: DateService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private loader: LoaderService
   ) {}
 
   ngOnInit() {
+    this.loader.showSpinner();
+
     const dateSubscription = this.selectedDate.subscribe((res) => {
       this.byDateItems = this.languageService
         .translateSchedule(this.schedule)
@@ -95,6 +99,8 @@ export class SchedulePage implements OnInit, AfterContentChecked, OnDestroy {
             this.dateService.getDate(item.date_time) ===
             this.dateService.getDate(this.dateService.baseScheduleDate)
         );
+
+        this.loader.hideSpinner();
       },
       error: catchError,
     });

@@ -17,6 +17,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ErrorCatchingInterceptor } from './interceptors/httpError.interceptor';
 import { AlertService } from './services/alert.service';
 import { ErrorService } from './services/error.service';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export const httpLoaderFactory = (httpClient: HttpClient) =>
   new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
@@ -35,6 +37,8 @@ export const httpLoaderFactory = (httpClient: HttpClient) =>
         deps: [HttpClient],
       },
     }),
+    NgxSpinnerModule.forRoot({ type: 'ball-atom' }),
+    BrowserAnimationsModule,
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
