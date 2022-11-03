@@ -31,7 +31,9 @@ export class ErrorCatchingInterceptor implements HttpInterceptor {
           this.errorService.generateMessage(errorMessage, errorStatus)
         );
 
-        return throwError({ message: errorMessage, status: errorStatus });
+        const created: NodeJS.ErrnoException = new Error(errorMessage);
+        created.code = errorStatus.toString();
+        return throwError(() => created);
       })
     );
   }

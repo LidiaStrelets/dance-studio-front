@@ -8,7 +8,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { BehaviorSubject, Subscribable, Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { DateService } from 'src/app/components/user/services/date.service';
 import { UsersService } from 'src/app/components/user/services/users.service';
@@ -46,12 +46,15 @@ export class CoachScheduleComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit() {
     this.loader.showSpinner();
-    this.usersService.getCoaches().subscribe({
+    this.usersService.getCoaches()?.subscribe({
       next: (res) => {
         this.coaches = res;
         this.loader.hideSpinner();
       },
-      error: catchError,
+      error: (err) => {
+        this.loader.hideSpinner();
+        catchError(err);
+      },
     });
 
     this.subscription = this.selectedDays.subscribe((res) => {

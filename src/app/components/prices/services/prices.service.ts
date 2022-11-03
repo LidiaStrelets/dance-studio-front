@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, take } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Price } from 'src/types';
+import { AuthService } from '../../auth/services/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,9 +11,12 @@ import { Price } from 'src/types';
 export class PricesService {
   private coreUrl = `${environment.basicUrl}prices/`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
-  get(): Observable<Price[]> {
+  get(): Observable<Price[]> | null {
+    if (!this.authService.getCurrentUserId()) {
+      return null;
+    }
     return this.http.get<Price[]>(this.coreUrl).pipe(
       catchError((err) => {
         throw err;

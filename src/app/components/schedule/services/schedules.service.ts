@@ -14,7 +14,10 @@ export class SchedulesService {
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  get(): Observable<ScheduleFull[]> {
+  get(): Observable<ScheduleFull[]> | null {
+    if (!this.authService.getCurrentUserId()) {
+      return null;
+    }
     return this.http.get<ScheduleFull[]>(this.coreUrl).pipe(
       catchError((err) => {
         throw err;
@@ -23,7 +26,10 @@ export class SchedulesService {
     );
   }
 
-  getEnrolled(): Observable<ScheduleFull[]> {
+  getEnrolled(): Observable<ScheduleFull[]> | null {
+    if (!this.authService.getCurrentUserId()) {
+      return null;
+    }
     return this.http
       .get<ScheduleFull[]>(
         this.coreUrl + 'enrolled/' + this.authService.getCurrentUserId()

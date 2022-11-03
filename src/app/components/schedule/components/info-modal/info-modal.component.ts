@@ -38,21 +38,27 @@ export class InfoModalComponent implements OnInit {
       this.allUsers.find((user) => user.id === this.item.coach_id) ??
       ({} as User);
 
-    this.classesService.getById(this.item.class_id).subscribe({
+    this.classesService.getById(this.item.class_id)?.subscribe({
       next: (res) => {
         this.classItem = res;
         this.loader.hideSpinner();
       },
-      error: catchError,
+      error: (err) => {
+        this.loader.hideSpinner();
+        catchError(err);
+      },
     });
 
     this.loader.showSpinner();
-    this.enrollmentsService.getBySchedule(this.item.id).subscribe({
+    this.enrollmentsService.getBySchedule(this.item.id)?.subscribe({
       next: (res) => {
         this.enrollments = res;
         this.loader.hideSpinner();
       },
-      error: catchError,
+      error: (err) => {
+        this.loader.hideSpinner();
+        catchError(err);
+      },
     });
   }
 

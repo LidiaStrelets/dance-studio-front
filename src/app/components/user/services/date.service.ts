@@ -30,4 +30,8 @@ export class DateService {
     return new Date(today).toISOString();
   };
   getMaxEnrollmentsDate = () => new Date('2027-12-31').toISOString();
+
+  getEnrollmentValidity = () => 1000 * 60 * 60 * 24 * 28;
+
+  getAlmostExpired = () => 24 * 3 * 60 * 60 * 1000;
 }

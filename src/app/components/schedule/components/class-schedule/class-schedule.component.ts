@@ -49,12 +49,15 @@ export class ClassScheduleComponent implements OnInit, OnChanges, OnDestroy {
   ngOnInit() {
     this.loader.showSpinner();
 
-    this.classesService.getClasses().subscribe({
+    this.classesService.getClasses()?.subscribe({
       next: (res) => {
         this.classItems = res;
         this.loader.hideSpinner();
       },
-      error: catchError,
+      error: (err) => {
+        this.loader.hideSpinner()
+        catchError(err)
+      },
     });
 
     this.subscription = this.selectedDays.subscribe((res) => {

@@ -40,12 +40,15 @@ export class CoachesPage implements OnInit, AfterContentChecked {
 
   ngOnInit() {
     this.loader.showSpinner();
-    this.usersService.getCoaches().subscribe({
+    this.usersService.getCoaches()?.subscribe({
       next: (res) => {
         this.coaches = res;
         this.loader.hideSpinner();
       },
-      error: catchError,
+      error: (err) => {
+        this.loader.hideSpinner();
+        catchError(err);
+      },
     });
   }
 

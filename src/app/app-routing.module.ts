@@ -92,6 +92,13 @@ const routes: Routes = [
         (m) => m.PricesPageModule
       ),
   },
+  {
+    path: routesPaths.payments,
+    loadChildren: () =>
+      import('./components/payments/payments.module').then(
+        (m) => m.PaymentsPageModule
+      ),
+  },
   // {
   //   path: '**',
   //   redirectTo: 'welcome',

@@ -22,13 +22,16 @@ export class ClassesPage implements OnInit {
   ngOnInit() {
     this.loader.showSpinner();
 
-    this.classesService.getClasses().subscribe({
+    this.classesService.getClasses()?.subscribe({
       next: (res) => {
         this.classItems = res;
         this.loader.hideSpinner();
         console.log(this.classItems);
       },
-      error: catchError,
+      error: (err) => {
+        this.loader.hideSpinner();
+        catchError(err);
+      },
     });
   }
 

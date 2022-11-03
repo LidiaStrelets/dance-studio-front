@@ -88,7 +88,7 @@ export class SchedulePage implements OnInit, AfterContentChecked, OnDestroy {
     });
     this.subscriptions.push(classSubscription);
 
-    this.schedulesService.get().subscribe({
+    this.schedulesService.get()?.subscribe({
       next: (res) => {
         this.schedule = res;
 
@@ -102,7 +102,10 @@ export class SchedulePage implements OnInit, AfterContentChecked, OnDestroy {
 
         this.loader.hideSpinner();
       },
-      error: catchError,
+      error: (err) => {
+        this.loader.hideSpinner();
+        catchError(err);
+      },
     });
   }
 

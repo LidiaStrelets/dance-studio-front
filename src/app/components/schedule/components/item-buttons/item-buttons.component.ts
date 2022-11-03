@@ -30,7 +30,7 @@ export class ItemButtonsComponent implements OnInit {
 
   enroll = (scheduleId: string) => {
     this.loader.showSpinner();
-    this.enrollmentService.enroll(scheduleId).subscribe({
+    this.enrollmentService.enroll(scheduleId)?.subscribe({
       next: (res) => {
         this.alertService.presentAlertSuccess(
           this.alertService.getTranslations().enrollmentSuccessMessage
@@ -40,13 +40,16 @@ export class ItemButtonsComponent implements OnInit {
 
         this.loader.hideSpinner();
       },
-      error: catchError,
+      error: (err) => {
+        this.loader.hideSpinner();
+        catchError(err);
+      },
     });
   };
 
   cancell = (scheduleId: string) => {
     this.loader.showSpinner();
-    this.enrollmentService.cancell(scheduleId).subscribe({
+    this.enrollmentService.cancell(scheduleId)?.subscribe({
       next: () => {
         this.alertService.presentAlertSuccess(
           this.alertService.getTranslations().enrollmentCancellMessage
@@ -55,7 +58,10 @@ export class ItemButtonsComponent implements OnInit {
         this.cancellEnrollment.emit({ scheduleId });
         this.loader.hideSpinner();
       },
-      error: catchError,
+      error: (err) => {
+        this.loader.hideSpinner();
+        catchError(err);
+      },
     });
   };
 }

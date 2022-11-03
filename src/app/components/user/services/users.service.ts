@@ -19,7 +19,10 @@ export class UsersService {
     this.get();
   }
 
-  getById(id?: string): Observable<User> {
+  getById(id?: string): Observable<User> | null {
+    if (!this.authService.getCurrentUserId()) {
+      return null;
+    }
     const requestId = id || this.userId;
     return this.http.get<User>(this.coreUrl + requestId).pipe(
       catchError((err) => {
@@ -30,6 +33,9 @@ export class UsersService {
   }
 
   get() {
+    if (!this.authService.getCurrentUserId()) {
+      return;
+    }
     this.http
       .get<User[]>(this.coreUrl)
       .pipe(
@@ -42,6 +48,9 @@ export class UsersService {
   }
 
   patch(id: string, updatedUser: UserForm) {
+    if (!this.authService.getCurrentUserId()) {
+      return;
+    }
     const formData = new FormData();
     const values = updatedUser.value;
 
@@ -67,7 +76,10 @@ export class UsersService {
     );
   }
 
-  getCoaches = (): Observable<User[]> => {
+  getCoaches = (): Observable<User[]> | null => {
+    if (!this.authService.getCurrentUserId()) {
+      return null;
+    }
     return this.http.get<User[]>(this.coreUrl + 'coaches').pipe(
       catchError((err) => {
         throw err;

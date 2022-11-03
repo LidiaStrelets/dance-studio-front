@@ -52,6 +52,7 @@
     "userSuccessMessage": "User was updated!",
     "enrollmentSuccessMessage": "You successfully enrolled for this class!",
     "enrollmentCancellMessage": "You successfully cancelled the enrollment",
+    "paymentSuccessMessage": "You successfully payed your enrollment",
     "errors": {
       "500": "Server error",
       "403": "You don't have access to this resource",
@@ -114,5 +115,14 @@
     "amount": "Classes amount",
     "unlimited": "Unlimited subscription",
     "price": "Price"
+  },
+  "payments": {
+    "header": "My payments",
+    "selectPlaceholder": "Choose subscription",
+    "noPayments": "You have no active payments. Choose and pay your subscription to enjoy your classes with us",
+    "buy": "buy",
+    "subscription": "Subscription",
+    "classes": "Classes",
+    "expirationDate": "Valid until"
   }
 }

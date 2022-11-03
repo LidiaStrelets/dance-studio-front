@@ -45,7 +45,7 @@ export class EnrollmentsPage implements OnInit, AfterContentChecked, OnDestroy {
 
   ngOnInit() {
     this.loader.showSpinner();
-    this.schedulesService.getEnrolled().subscribe({
+    this.schedulesService.getEnrolled()?.subscribe({
       next: (res) => {
         this.schedule = res;
 
@@ -69,7 +69,10 @@ export class EnrollmentsPage implements OnInit, AfterContentChecked, OnDestroy {
 
         this.loader.hideSpinner();
       },
-      error: catchError,
+      error: (err) => {
+        this.loader.hideSpinner();
+        catchError(err);
+      },
     });
 
     this.subscription = this.selectedDate.subscribe((res) => {

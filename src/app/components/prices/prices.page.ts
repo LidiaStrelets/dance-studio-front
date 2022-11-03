@@ -20,12 +20,15 @@ export class PricesPage implements OnInit {
   ngOnInit() {
     this.loader.showSpinner();
 
-    this.pricesService.get().subscribe({
+    this.pricesService.get()?.subscribe({
       next: (res) => {
         this.prices = res;
         this.loader.hideSpinner();
       },
-      error: catchError,
+      error: (err) => {
+        this.loader.hideSpinner();
+        catchError(err);
+      },
     });
   }
 }

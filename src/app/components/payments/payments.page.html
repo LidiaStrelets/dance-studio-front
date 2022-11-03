@@ -1,0 +1,56 @@
+<app-header [header]="'payments.header'|translate"></app-header>
+
+<ion-content>
+  <div class="container">
+    <div *ngIf="payments.length>0; then info; else noPayment"></div>
+    <ng-template #info>
+      <ion-card
+        [class.danger]="payment.available_spots<2 || isExpiring(payment.createdAt)"
+        class="ion-padding"
+        *ngFor="let payment of payments"
+      >
+        <ion-card-title>{{"payments.subscription"|translate}}</ion-card-title>
+        <p>
+          {{"payments.classes"|translate}}:
+          <span>{{payment.available_spots}}</span>
+        </p>
+        <p>
+          {{"payments.expirationDate"|translate}}:
+          <span>{{getExpirationDate(payment.createdAt)}}</span>
+        </p>
+      </ion-card>
+    </ng-template>
+    <ng-template #noPayment>
+      <p>{{"payments.noPayments"|translate}}</p>
+    </ng-template>
+
+    <ion-list>
+      <ion-item>
+        <ion-select
+          [(ngModel)]="selectedSubscription"
+          [placeholder]="'payments.selectPlaceholder'| translate"
+          interface="popover"
+        >
+          <ion-select-option
+            *ngFor="let option of selectOptions"
+            [value]="option.value"
+            >{{option.option}}</ion-select-option
+          >
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <ion-item *ngIf="selectedSubscription">
+      <span
+        >{{showPrice(selectedSubscription) |
+        currency:"UAH":"symbol-narrow"}}</span
+      >
+      <ion-button
+        (click)="handleBuy(selectedSubscription)"
+        size="large"
+        slot="end"
+        fill="outline"
+        >{{"payments.buy"|translate}}</ion-button
+      >
+    </ion-item>
+  </div>
+</ion-content>

@@ -37,14 +37,17 @@ export class DateScheduleComponent implements OnInit, OnChanges {
     this.loader.showSpinner();
     this.setDate.emit(this.dateService.baseScheduleDate);
 
-    this.enrollmentService.getEnrollments().subscribe({
+    this.enrollmentService.getEnrollments()?.subscribe({
       next: (res) => {
         this.enrollments = res;
         this.items = this.addEnrolled(this.items, res);
 
         this.loader.hideSpinner();
       },
-      error: catchError,
+      error: (err) => {
+        this.loader.hideSpinner()
+        catchError(err)
+      },
     });
   }
 

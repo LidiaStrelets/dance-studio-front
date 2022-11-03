@@ -66,6 +66,7 @@ export class AlertService {
           text: this.getTranslations().okButton,
           handler: () => {
             this.router.navigate([routesPaths.login]);
+            window.location.reload();
           },
         },
       ],

@@ -31,7 +31,10 @@ export class HomePage implements OnInit {
         this.translate();
         this.spinner.hideSpinner();
       },
-      error: catchError,
+      error: (err) => {
+        this.spinner.hideSpinner();
+        catchError(err);
+      },
     });
   }
 

@@ -1,11 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  ELanguages,
-  User,
-  UserDeletedFields,
-  UserForm,
-  UserFormFields,
-} from 'src/types';
+import { User, UserDeletedFields, UserForm, UserFormFields } from 'src/types';
 import { DateService } from './services/date.service';
 import { UsersService } from './services/users.service';
 import { AuthService } from '../auth/services/auth.service';
@@ -54,7 +48,7 @@ export class UserPage implements OnInit {
 
   ngOnInit() {
     this.loader.showSpinner();
-    this.usersService.getById().subscribe({
+    this.usersService.getById()?.subscribe({
       next: (res) => {
         this.user = res;
 
@@ -67,7 +61,10 @@ export class UserPage implements OnInit {
         this.setInitialValues(this.user);
         this.loader.hideSpinner();
       },
-      error: catchError,
+      error: (err) => {
+        this.loader.hideSpinner();
+        catchError(err);
+      },
     });
   }
 
@@ -146,7 +143,7 @@ export class UserPage implements OnInit {
 
     this.usersService
       .patch(this.authService.getCurrentUserId(), this.userForm)
-      .subscribe({
+      ?.subscribe({
         next: (res) => {
           this.alertService.presentAlertSuccess(
             this.alertService.getTranslations().userSuccessMessage
@@ -159,7 +156,10 @@ export class UserPage implements OnInit {
 
           this.loader.hideSpinner();
         },
-        error: catchError,
+        error: (err) => {
+          this.loader.hideSpinner();
+          catchError(err);
+        },
       });
   };
 

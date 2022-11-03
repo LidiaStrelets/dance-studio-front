@@ -42,12 +42,16 @@ export class AuthService {
   deauthenticate() {
     localStorage.removeItem(this.tokenKey);
 
+    this.loader.hideSpinner();
     this.alertService.presentAlertUnauthorized();
   }
 
   logout = () => {
+    this.loader.showSpinner();
     localStorage.removeItem(this.tokenKey);
-    this.router.navigate([routesPaths.login]);
+    this.userId = '';
+    this.router.navigate([routesPaths.default]);
+    this.loader.hideSpinner();
     window.location.reload();
   };
 

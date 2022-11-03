@@ -151,6 +151,7 @@ export interface AlertTranslation {
   userSuccessMessage: string;
   enrollmentSuccessMessage: string;
   enrollmentCancellMessage: string;
+  paymentSuccessMessage: string;
 }
 
 export enum EAlertTranslation {
@@ -162,6 +163,7 @@ export enum EAlertTranslation {
   userSuccessMessage = 'userSuccessMessage',
   enrollmentSuccessMessage = 'enrollmentSuccessMessage',
   enrollmentCancellMessage = 'enrollmentCancellMessage',
+  paymentSuccessMessage = 'paymentSuccessMessage',
 }
 
 export interface ErrorMessages {
@@ -246,5 +248,19 @@ export interface CancellEnrollmentEvent {
 export interface Price {
   id: string;
   classes_amount: number;
+  price: number;
+}
+
+export interface Payment {
+  id: string;
+  price_id: string;
+  user_id: string;
+  createdAt: Date;
+  available_spots: number;
+}
+
+export interface SubscriptionOptions {
+  option: string;
+  value: number;
   price: number;
 }

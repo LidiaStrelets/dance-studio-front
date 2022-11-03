@@ -14,7 +14,11 @@ export class EnrollmentsService {
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  enroll(schedule_id: string): Observable<Registration> {
+  enroll(schedule_id: string): Observable<Registration> | null {
+    if (!this.authService.getCurrentUserId()) {
+      return null;
+    }
+
     return this.http
       .post<Registration>(this.coreUrl, {
         schedule_id,
@@ -23,19 +27,28 @@ export class EnrollmentsService {
       .pipe(take(1));
   }
 
-  cancell(enrollment_id: string): Observable<Registration[]> {
+  cancell(enrollment_id: string): Observable<Registration[]> | null {
+    if (!this.authService.getCurrentUserId()) {
+      return null;
+    }
     return this.http
       .delete<Registration[]>(this.coreUrl + enrollment_id)
       .pipe(take(1));
   }
 
-  getEnrollments(): Observable<Registration[]> {
+  getEnrollments(): Observable<Registration[]> | null {
+    if (!this.authService.getCurrentUserId()) {
+      return null;
+    }
     return this.http
       .get<Registration[]>(this.coreUrl + this.authService.getCurrentUserId())
       .pipe(take(1));
   }
 
-  getBySchedule(id: string): Observable<Registration[]> {
+  getBySchedule(id: string): Observable<Registration[]> | null {
+    if (!this.authService.getCurrentUserId()) {
+      return null;
+    }
     return this.http
       .get<Registration[]>(this.coreUrl + 'bySchedule/' + id)
       .pipe(take(1));

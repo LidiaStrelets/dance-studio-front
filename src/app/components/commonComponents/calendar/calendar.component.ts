@@ -39,7 +39,11 @@ export class CalendarComponent implements OnInit {
   };
 
   getMaxDate = () => {
-    if (this.location.path().includes(routesPaths.enrollments)) {
+    if (
+      (this.location.path().includes(routesPaths.enrollments) &&
+        !this.archive) ||
+      this.location.path().includes(routesPaths.schedule)
+    ) {
       return this.dateService.getMaxEnrollmentsDate();
     } else if (this.archive) {
       return this.dateService.getMinEnrollmentsDate();
