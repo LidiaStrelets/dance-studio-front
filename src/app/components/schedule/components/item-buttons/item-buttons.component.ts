@@ -48,6 +48,17 @@ export class ItemButtonsComponent implements OnInit {
   };
 
   cancell = (scheduleId: string) => {
+    if (!this.canCancell(this.item.date_time)) {
+      console.log('are you sure');
+      this.alertService.presentAreYouSure(
+        this.alertService.getTranslations().enrollmentCancellConfirmation,
+        this.handleCancel
+      );
+      return;
+    }
+    this.handleCancel(scheduleId);
+  };
+  handleCancel = (scheduleId: string) => {
     this.loader.showSpinner();
     this.enrollmentService.cancell(scheduleId)?.subscribe({
       next: () => {

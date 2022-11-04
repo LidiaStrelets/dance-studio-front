@@ -152,11 +152,16 @@ export interface AlertTranslation {
   enrollmentSuccessMessage: string;
   enrollmentCancellMessage: string;
   paymentSuccessMessage: string;
+  enrollmentCancellConfirmation: string;
+  cancellButton: string;
+  confirmationHeader: string;
 }
 
 export enum EAlertTranslation {
   oopsHeader = 'oopsHeader',
   okButton = 'okButton',
+  confirmationHeader = 'confirmationHeader',
+  cancellButton = 'cancellButton',
   completedHeader = 'completedHeader',
   unauthorizedHeader = 'unauthorizedHeader',
   unauthorizedMesage = 'unauthorizedMesage',
@@ -164,6 +169,7 @@ export enum EAlertTranslation {
   enrollmentSuccessMessage = 'enrollmentSuccessMessage',
   enrollmentCancellMessage = 'enrollmentCancellMessage',
   paymentSuccessMessage = 'paymentSuccessMessage',
+  enrollmentCancellConfirmation = 'enrollmentCancellConfirmation',
 }
 
 export interface ErrorMessages {

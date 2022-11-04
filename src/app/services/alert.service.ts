@@ -74,4 +74,26 @@ export class AlertService {
 
     await alert.present();
   }
+
+  async presentAreYouSure(
+    message: string,
+    handler: (scheduleId: string) => void
+  ) {
+    const alert = await this.alertCtrl.create({
+      header: this.getTranslations().confirmationHeader,
+      message,
+      buttons: [
+        {
+          text: this.getTranslations().cancellButton,
+          role: 'cancel',
+        },
+        {
+          text: this.getTranslations().okButton,
+          handler,
+        },
+      ],
+    });
+
+    await alert.present();
+  }
 }
