@@ -7,7 +7,20 @@
 .button-info {
   margin-right: 10px;
 }
-.button-reg {
-  width: 95px;
+
+@mixin enroll-btn {
+  width: 105px;
   text-align: center;
+}
+.button-reg {
+  @include enroll-btn();
+}
+
+span.enrolled {
+  @include enroll-btn();
+
+  display: inline-block;
+  padding: 2px 5px;
+  border: 2px solid green;
+  border-radius: 3px;
 }

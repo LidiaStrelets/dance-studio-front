@@ -15,15 +15,7 @@
       class="button-reg"
       >enroll</ion-button
     >
-    <ion-button
-      color="danger"
-      (click)="cancell(item.id)"
-      size="small"
-      fill="outline"
-      *ngIf="item.enrolled"
-      class="button-reg"
-      >cancell</ion-button
-    ></ion-buttons
-  >
+    <span class="enrolled" *ngIf="item.enrolled">enrolled</span>
+  </ion-buttons>
   <app-info-modal [item]="item"></app-info-modal>
 </div>

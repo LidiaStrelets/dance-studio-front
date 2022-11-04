@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { User, UserDeletedFields, UserForm, UserFormFields } from 'src/types';
-import { DateService } from './services/date.service';
 import { UsersService } from './services/users.service';
 import { AuthService } from '../auth/services/auth.service';
 import { AlertService } from 'src/app/services/alert.service';
@@ -9,6 +8,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { catchError } from 'rxjs/operators';
 import { LanguageService } from 'src/app/services/language.service';
 import { LoaderService } from 'src/app/services/loader.service';
+import { DateService } from 'src/app/services/date.service';
 
 @Component({
   selector: 'app-user',

@@ -73,6 +73,7 @@ const routes: Routes = [
   },
   {
     path: routesPaths.enrollments,
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./components/enrollments/enrollments.module').then(
         (m) => m.EnrollmentsPageModule
@@ -80,6 +81,7 @@ const routes: Routes = [
   },
   {
     path: routesPaths.coaches,
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./components/coaches/coaches.module').then(
         (m) => m.CoachesPageModule
@@ -87,6 +89,7 @@ const routes: Routes = [
   },
   {
     path: routesPaths.prices,
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./components/prices/prices.module').then(
         (m) => m.PricesPageModule
@@ -94,6 +97,7 @@ const routes: Routes = [
   },
   {
     path: routesPaths.payments,
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./components/payments/payments.module').then(
         (m) => m.PaymentsPageModule

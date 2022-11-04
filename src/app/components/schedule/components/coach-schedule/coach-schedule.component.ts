@@ -10,8 +10,8 @@ import {
 } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { DateService } from 'src/app/components/user/services/date.service';
 import { UsersService } from 'src/app/components/user/services/users.service';
+import { DateService } from 'src/app/services/date.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { Schedule, User } from 'src/types';
 import { CommonService } from '../../services/common.service';

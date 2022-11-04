@@ -13,7 +13,7 @@ import { Schedule, ScheduleFull } from 'src/types';
 import Swiper, { Pagination, SwiperOptions } from 'swiper';
 import { SwiperComponent } from 'swiper/angular';
 import { SchedulesService } from '../schedule/services/schedules.service';
-import { DateService } from '../user/services/date.service';
+import { DateService } from '../../services/date.service';
 
 Swiper.use([Pagination]);
 
@@ -54,7 +54,7 @@ export class EnrollmentsPage implements OnInit, AfterContentChecked, OnDestroy {
         this.byDateItems = this.scheduleItems.filter(
           (item) =>
             new Date(item.date_time).getTime() >
-              new Date(Date.now()).getTime() &&
+              new Date(Date.now() + this.dateService.hourInMs()).getTime() &&
             this.dateService.getDate(item.date_time) ===
               this.dateService.getDate(this.dateService.baseScheduleDate)
         );

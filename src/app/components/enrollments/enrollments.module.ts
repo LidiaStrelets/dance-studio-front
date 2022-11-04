@@ -13,6 +13,7 @@ import { SwiperModule } from 'swiper/angular';
 import { CalendarModule } from '../commonComponents/calendar/calendar.module';
 import { CurrentComponent } from './components/current/current.component';
 import { StatsComponent } from './components/stats/stats.component';
+import { CancellButtonComponent } from './components/cancell-button/cancell-button.component';
 
 @NgModule({
   imports: [
@@ -25,6 +26,11 @@ import { StatsComponent } from './components/stats/stats.component';
     SwiperModule,
     CalendarModule,
   ],
-  declarations: [EnrollmentsPage, CurrentComponent, StatsComponent],
+  declarations: [
+    EnrollmentsPage,
+    CurrentComponent,
+    StatsComponent,
+    CancellButtonComponent,
+  ],
 })
 export class EnrollmentsPageModule {}

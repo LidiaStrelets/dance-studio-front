@@ -26,7 +26,6 @@ export class ClassesPage implements OnInit {
       next: (res) => {
         this.classItems = res;
         this.loader.hideSpinner();
-        console.log(this.classItems);
       },
       error: (err) => {
         this.loader.hideSpinner();

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { DateService } from 'src/app/components/user/services/date.service';
-import { Schedule } from 'src/types';
+import { DateService } from 'src/app/services/date.service';
+import { CancellEnrollmentEvent, Schedule } from 'src/types';
 
 @Component({
   selector: 'app-current',
@@ -14,6 +14,8 @@ export class CurrentComponent implements OnInit {
   @Input() archive?: boolean;
 
   showDate = false;
+
+  fieldName = 'date';
 
   constructor(private dateService: DateService) {}
 
@@ -31,19 +33,24 @@ export class CurrentComponent implements OnInit {
   toggleDate = (form: FormGroup) => {
     this.showDate = !this.showDate;
     if (!this.showDate) {
-      this.setDate.emit(form.get('date')?.value ?? '');
+      this.setDate.emit(form.get(this.fieldName)?.value ?? '');
     }
   };
 
   getDate = (form: FormGroup) =>
-    this.dateService.getDate(form.get('date')?.value);
+    this.dateService.getDate(form.get(this.fieldName)?.value);
 
   getTimePart = this.dateService.getTime;
 
   getTimeLeft = (date: string) => {
-    const left = new Date(date).getTime() - Date.now() - 60 * 60 * 1000;
-    const minutes = left / 1000 / 60;
+    const left =
+      new Date(date).getTime() - Date.now() - this.dateService.hourInMs();
+    const minutes = this.dateService.convertIntoMinutes(left);
 
     return Math.round(minutes);
+  };
+
+  cancell = ({ scheduleId }: CancellEnrollmentEvent) => {
+    this.items = this.items.filter((item) => item.id !== scheduleId);
   };
 }

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { catchError } from 'rxjs';
 import { AlertService } from 'src/app/services/alert.service';
+import { DateService } from 'src/app/services/date.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { Payment, Price, SubscriptionOptions } from 'src/types';
 import { PricesService } from '../prices/services/prices.service';
-import { DateService } from '../user/services/date.service';
 import { PaymentsService } from './services/payments.service';
 
 @Component({

@@ -32,6 +32,11 @@
             {{ getTimeLeft(item.date_time) }}
             {{ "enrollments.timeLeft" | translate }}
           </p>
+          <app-cancell-button
+            *ngIf="!archive"
+            [item]="item"
+            (cancellEnrollment)="cancell($event)"
+          ></app-cancell-button>
         </div>
       </ion-item>
     </ion-list>

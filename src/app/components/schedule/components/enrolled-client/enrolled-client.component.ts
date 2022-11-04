@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { User } from 'src/types';
-import { UsersService } from '../../../user/services/users.service';
 
 @Component({
   selector: 'app-enrolled-client',

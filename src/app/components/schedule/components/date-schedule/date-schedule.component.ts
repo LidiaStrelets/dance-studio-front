@@ -8,11 +8,11 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { CancellEnrollmentEvent, Registration, Schedule } from 'src/types';
+import { Registration, Schedule } from 'src/types';
 import { catchError } from 'rxjs/operators';
-import { DateService } from 'src/app/components/user/services/date.service';
 import { EnrollmentsService } from 'src/app/components/enrollments/services/enrollments.service';
 import { LoaderService } from 'src/app/services/loader.service';
+import { DateService } from 'src/app/services/date.service';
 
 @Component({
   selector: 'app-date-schedule',
@@ -26,6 +26,8 @@ export class DateScheduleComponent implements OnInit, OnChanges {
   showDate = false;
 
   enrollments: Registration[] = [];
+
+  fieldName = 'date';
 
   constructor(
     private dateService: DateService,
@@ -45,8 +47,8 @@ export class DateScheduleComponent implements OnInit, OnChanges {
         this.loader.hideSpinner();
       },
       error: (err) => {
-        this.loader.hideSpinner()
-        catchError(err)
+        this.loader.hideSpinner();
+        catchError(err);
       },
     });
   }
@@ -73,7 +75,7 @@ export class DateScheduleComponent implements OnInit, OnChanges {
   toggleDate = (form: FormGroup) => {
     this.showDate = !this.showDate;
     if (!this.showDate) {
-      this.setDate.emit(form.get('date')?.value ?? '');
+      this.setDate.emit(form.get(this.fieldName)?.value ?? '');
     }
   };
   closeDate = () => {
@@ -84,17 +86,11 @@ export class DateScheduleComponent implements OnInit, OnChanges {
   };
 
   getDate = (form: FormGroup) =>
-    this.dateService.getDate(form.get('date')?.value);
+    this.dateService.getDate(form.get(this.fieldName)?.value);
   getTimePart = this.dateService.getTime;
 
   enroll = (item: Registration) => {
     this.enrollments.push(item);
-    this.items = this.addEnrolled(this.items, this.enrollments);
-  };
-  cancell = ({ scheduleId }: CancellEnrollmentEvent) => {
-    this.enrollments = this.enrollments.filter(
-      (enr) => enr.schedule_id !== scheduleId
-    );
     this.items = this.addEnrolled(this.items, this.enrollments);
   };
 }

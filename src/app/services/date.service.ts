@@ -34,4 +34,9 @@ export class DateService {
   getEnrollmentValidity = () => 1000 * 60 * 60 * 24 * 28;
 
   getAlmostExpired = () => 24 * 3 * 60 * 60 * 1000;
+
+  hourInMs = () => 60 * 60 * 1000;
+  dayInMs = () => this.hourInMs() * 24;
+  convertIntoMinutes = (time: number) => time / 60 / 1000;
+  convertIntoHours = (time: number) => time / 60;
 }

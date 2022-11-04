@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { DateService } from 'src/app/services/date.service';
 import { Classes, Schedule, TClass } from 'src/types';
 
 @Component({
@@ -12,7 +13,7 @@ export class StatsComponent implements OnInit {
   classes = Classes;
 
   classesNames: TClass[] = Object.keys(this.classes) as TClass[];
-  constructor() {}
+  constructor(private dateService: DateService) {}
 
   ngOnInit() {}
 
@@ -26,6 +27,6 @@ export class StatsComponent implements OnInit {
           : sum;
       }
     }, 0);
-    return Math.round(minutes / 60);
+    return Math.round(this.dateService.convertIntoHours(minutes));
   };
 }

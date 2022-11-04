@@ -11,10 +11,10 @@ import Swiper, { Pagination } from 'swiper';
 import { Schedule, ScheduleFull } from 'src/types';
 import { SchedulesService } from './services/schedules.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { DateService } from '../user/services/date.service';
 import { LanguageService } from 'src/app/services/language.service';
 import { catchError } from 'rxjs/operators';
 import { LoaderService } from 'src/app/services/loader.service';
+import { DateService } from 'src/app/services/date.service';
 
 Swiper.use([Pagination]);
 

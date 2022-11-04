@@ -10,11 +10,11 @@ import {
 } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { DateService } from 'src/app/services/date.service';
 import { LanguageService } from 'src/app/services/language.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { ClassItemFull, ELanguages, Schedule, TClass } from 'src/types';
 import { ClassesService } from '../../../classes/services/classes.service';
-import { DateService } from '../../../user/services/date.service';
 import { CommonService } from '../../services/common.service';
 
 @Component({
@@ -55,8 +55,8 @@ export class ClassScheduleComponent implements OnInit, OnChanges, OnDestroy {
         this.loader.hideSpinner();
       },
       error: (err) => {
-        this.loader.hideSpinner()
-        catchError(err)
+        this.loader.hideSpinner();
+        catchError(err);
       },
     });
 
