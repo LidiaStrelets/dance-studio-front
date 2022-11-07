@@ -1,8 +1,9 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ELanguages, LocalStorageKeys, MenuItem, Roles } from 'src/types';
 import { routesPaths } from './app-routing.module';
 import { AuthService } from './components/auth/services/auth.service';
+import { LoaderService } from './services/loader.service';
 
 @Component({
   selector: 'app-root',
@@ -64,7 +65,8 @@ export class AppComponent {
 
   constructor(
     private translateService: TranslateService,
-    private authService: AuthService
+    private authService: AuthService,
+    private loader: LoaderService
   ) {
     this.translateService.setDefaultLang(
       localStorage.getItem(this.languageKey) ?? ELanguages.en
@@ -91,5 +93,8 @@ export class AppComponent {
     return this.menuItems[i].translatedName;
   };
 
-  handleLogout = () => this.authService.logout();
+  handleLogout = () => {
+    this.loader.showSpinner();
+    this.authService.logout();
+  };
 }

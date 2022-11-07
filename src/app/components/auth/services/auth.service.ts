@@ -53,11 +53,8 @@ export class AuthService {
   }
 
   logout = () => {
-    this.loader.showSpinner();
     localStorage.removeItem(this.tokenKey);
 
-    this.router.navigate([routesPaths.default]);
-    this.loader.hideSpinner();
     window.location.reload();
   };
 
