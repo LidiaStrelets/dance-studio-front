@@ -2,8 +2,8 @@
     "version": 3,
     "mappings": "AAAA,AAAA,OAAO,CAAC;EACN,KAAK,EAAE,IAAI;EACX,MAAM,EAAE,IAAI;CACb",
     "sources": [
-        "enrollments.page.scss"
+        "coaches.page.scss"
     ],
     "names": [],
-    "file": "enrollments.page.css"
+    "file": "coaches.page.css"
 }

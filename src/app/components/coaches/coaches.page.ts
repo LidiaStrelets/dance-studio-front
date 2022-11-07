@@ -38,9 +38,11 @@ export class CoachesPage implements OnInit, AfterContentChecked {
     private loader: LoaderService
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.loader.showSpinner();
-    this.usersService.getCoaches()?.subscribe({
+    const observable = await this.usersService.getCoaches();
+
+    observable?.subscribe({
       next: (res) => {
         this.coaches = res;
         this.loader.hideSpinner();

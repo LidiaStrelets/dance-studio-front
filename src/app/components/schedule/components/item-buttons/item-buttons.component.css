@@ -1,0 +1,28 @@
+.button-container {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.button-info {
+  margin-right: 10px;
+}
+
+.button-reg {
+  width: 105px;
+  text-align: center;
+}
+
+span.enrolled {
+  width: 105px;
+  text-align: center;
+  display: inline-block;
+  padding: 2px 5px;
+  border: 2px solid green;
+  border-radius: 3px;
+}
+/*# sourceMappingURL=item-buttons.component.css.map */

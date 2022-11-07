@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,EAAE,CAAC;EACD,MAAM,EAAE,CAAC;EACT,UAAU,EAAE,MAAM;CACnB",
+    "sources": [
+        "stats.component.scss"
+    ],
+    "names": [],
+    "file": "stats.component.css"
+}

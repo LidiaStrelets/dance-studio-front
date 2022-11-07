@@ -13,6 +13,7 @@ import { catchError } from 'rxjs/operators';
 import { EnrollmentsService } from 'src/app/components/enrollments/services/enrollments.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { DateService } from 'src/app/services/date.service';
+import { AuthService } from 'src/app/components/auth/services/auth.service';
 
 @Component({
   selector: 'app-date-schedule',
@@ -32,7 +33,8 @@ export class DateScheduleComponent implements OnInit, OnChanges {
   constructor(
     private dateService: DateService,
     private enrollmentService: EnrollmentsService,
-    private loader: LoaderService
+    private loader: LoaderService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -93,4 +95,6 @@ export class DateScheduleComponent implements OnInit, OnChanges {
     this.enrollments.push(item);
     this.items = this.addEnrolled(this.items, this.enrollments);
   };
+
+  isCoach = this.authService.isCoach();
 }

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './components/auth/guards/auth.guard';
+import { IsCoachGuard } from './components/auth/guards/isCoach.guard';
 
 export const routesPaths = {
   default: 'welcome',
@@ -97,7 +98,7 @@ const routes: Routes = [
   },
   {
     path: routesPaths.payments,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, IsCoachGuard],
     loadChildren: () =>
       import('./components/payments/payments.module').then(
         (m) => m.PaymentsPageModule

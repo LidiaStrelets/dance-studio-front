@@ -1,46 +1,5 @@
-.date-container {
-  color: var(--ion-color-step-400);
-  position: absolute;
-  z-index: 10;
-  -webkit-transform: translateY(-250px);
-          transform: translateY(-250px);
-  -webkit-transition: -webkit-transform 250ms ease;
-  transition: -webkit-transform 250ms ease;
-  transition: transform 250ms ease;
-  transition: transform 250ms ease, -webkit-transform 250ms ease;
-}
-
-.date-container.shown {
-  -webkit-transform: translateY(15px);
-          transform: translateY(15px);
-}
-
-.container {
-  padding: 10px;
-}
-
-ion-datetime {
-  border: 3px solid white;
-  border-radius: 5px;
-}
-
-ion-icon {
-  position: relative;
-  top: 3px;
-}
-
 p {
   margin-bottom: 0;
-}
-
-.button-container {
-  width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: end;
 }
 
 .item-container {

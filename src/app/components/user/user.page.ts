@@ -135,14 +135,18 @@ export class UserPage implements OnInit {
     this.cleanedField;
 
   submitPatch = () => {
-    if (!this.formHasChanges() || this.userForm.invalid) {
+    if (
+      !this.formHasChanges() ||
+      this.userForm.invalid ||
+      !this.authService.getCurrentUserId()
+    ) {
       return;
     }
     this.loader.showSpinner();
     this.closeAll();
 
     this.usersService
-      .patch(this.authService.getCurrentUserId(), this.userForm)
+      .patch(this.authService.getCurrentUserId() ?? '', this.userForm)
       ?.subscribe({
         next: (res) => {
           this.alertService.presentAlertSuccess(

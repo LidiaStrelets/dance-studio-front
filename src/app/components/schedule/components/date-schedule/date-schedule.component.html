@@ -15,6 +15,7 @@
           </p>
 
           <app-item-buttons
+            *ngIf="!isCoach"
             [item]="item"
             (newEnrollment)="enroll($event)"
           ></app-item-buttons>

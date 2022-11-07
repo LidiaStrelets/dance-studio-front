@@ -62,6 +62,11 @@ export interface TokenResponce {
   data: { token: string };
 }
 
+export interface TokenData {
+  id?: string;
+  role?: TRoles;
+}
+
 export interface Hall {
   id: string;
   name: string;
@@ -90,6 +95,7 @@ export interface MenuItem {
   name: string;
   translatedName: string;
   link: string[];
+  id: number;
 }
 
 export enum LocalStorageKeys {

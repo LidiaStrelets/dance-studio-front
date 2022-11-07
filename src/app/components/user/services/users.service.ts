@@ -15,7 +15,7 @@ export class UsersService {
   private users: User[] = [];
 
   constructor(private http: HttpClient, private authService: AuthService) {
-    this.userId = this.authService.getCurrentUserId();
+    this.userId = this.authService.getCurrentUserId() ?? '';
     this.get();
   }
 
@@ -76,7 +76,8 @@ export class UsersService {
     );
   }
 
-  getCoaches = (): Observable<User[]> | null => {
+  getCoaches = async (): Promise<Observable<User[]> | null> => {
+    await setTimeout(() => {}, 1000);
     if (!this.authService.getCurrentUserId()) {
       return null;
     }

@@ -1,0 +1,31 @@
+.container {
+  padding: 10px;
+}
+
+.date-container {
+  color: var(--ion-color-step-400);
+  position: absolute;
+  z-index: 10;
+  -webkit-transform: translateY(-280px);
+          transform: translateY(-280px);
+  -webkit-transition: -webkit-transform 250ms ease;
+  transition: -webkit-transform 250ms ease;
+  transition: transform 250ms ease;
+  transition: transform 250ms ease, -webkit-transform 250ms ease;
+}
+
+.date-container.shown {
+  -webkit-transform: translateY(15px);
+          transform: translateY(15px);
+}
+
+ion-datetime {
+  border: 3px solid white;
+  border-radius: 5px;
+}
+
+ion-icon {
+  position: relative;
+  top: 3px;
+}
+/*# sourceMappingURL=calendar.component.css.map */

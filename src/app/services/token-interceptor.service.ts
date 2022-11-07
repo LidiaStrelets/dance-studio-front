@@ -1,7 +1,6 @@
 import { HttpHandler, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { AuthService } from '../components/auth/services/auth.service';
 
 @Injectable({
@@ -20,14 +19,6 @@ export class TokenInterceptorService {
       });
     }
 
-    return next.handle(request).pipe(
-      catchError((err) => {
-        if (err.status === 401) {
-          this.authService.deauthenticate();
-        }
-        const error = err.error.message || err.statusText;
-        return throwError(error);
-      })
-    );
+    return next.handle(request);
   }
 }

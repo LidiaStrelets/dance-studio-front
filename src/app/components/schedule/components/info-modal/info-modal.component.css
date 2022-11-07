@@ -1,0 +1,41 @@
+.modal-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: revert;
+      -ms-flex-align: revert;
+          align-items: revert;
+  padding: 10px;
+}
+
+ion-title {
+  position: initial;
+  text-align: start;
+  padding: 0;
+}
+
+ion-buttons {
+  position: initial;
+}
+
+ion-modal {
+  --ion-background-color: #faf2e2;
+  --ion-toolbar-background: #e6b629;
+  --ion-toolbar-border-color: #ffeaac;
+}
+
+.item-container {
+  padding: 20px;
+}
+
+.item-container p {
+  margin-bottom: 0;
+}
+
+.item-container p:not(:last-child) {
+  margin-top: 0;
+}
+/*# sourceMappingURL=info-modal.component.css.map */

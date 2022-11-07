@@ -1,0 +1,8 @@
+.container {
+  padding: 10px;
+}
+
+ion-card.danger {
+  background: rgba(255, 0, 0, 0.5);
+}
+/*# sourceMappingURL=payments.page.css.map */
