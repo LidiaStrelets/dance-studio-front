@@ -52,12 +52,6 @@ export class UserPage implements OnInit {
       next: (res) => {
         this.user = res;
 
-        if (!!this.user.birth_date) {
-          this.user.birth_date = this.dateService.convertForPicker(
-            new Date(this.user.birth_date)
-          );
-        }
-
         this.setInitialValues(this.user);
         this.loader.hideSpinner();
       },

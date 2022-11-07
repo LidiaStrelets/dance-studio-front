@@ -104,7 +104,7 @@ export enum LocalStorageKeys {
 }
 
 export interface User {
-  birth_date?: string;
+  birth_date?: Date;
   email: string;
   firstname: string;
   id: string;
