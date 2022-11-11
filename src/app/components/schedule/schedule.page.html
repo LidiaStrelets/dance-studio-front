@@ -3,21 +3,16 @@
 <ion-content>
   <swiper [config]="config" #slides>
     <ng-template swiperSlide
-      ><app-date-schedule
-        [items]="getByDate()"
-        (setDate)="setDate($event)"
-      ></app-date-schedule
+      ><app-date-schedule [isCurrent]="getActiveSlide()===0"></app-date-schedule
     ></ng-template>
     <ng-template swiperSlide
       ><app-coach-schedule
-        [items]="getByCoach()"
-        (setCoach)="setCoach($event)"
+        [isCurrent]="getActiveSlide()===1"
       ></app-coach-schedule
     ></ng-template>
     <ng-template swiperSlide
       ><app-class-schedule
-        [items]="getByClass()"
-        (setClass)="setClass($event)"
+        [isCurrent]="getActiveSlide()===2"
       ></app-class-schedule
     ></ng-template>
   </swiper>

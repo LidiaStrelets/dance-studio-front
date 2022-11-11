@@ -83,7 +83,7 @@ export class PaymentsPage implements OnInit {
 
   getExpirationDate = (createdAt: Date) => {
     const expDateMs =
-      new Date(createdAt).getTime() + this.dateService.getEnrollmentValidity();
+      createdAt.getTime() + this.dateService.getEnrollmentValidity();
 
     return this.dateService.convertForPicker(new Date(expDateMs));
   };
@@ -91,7 +91,7 @@ export class PaymentsPage implements OnInit {
   isExpiring = (createdAt: Date) => {
     return (
       new Date(this.getExpirationDate(createdAt)).getTime() -
-        new Date(createdAt).getTime() <
+        createdAt.getTime() <
       this.dateService.getAlmostExpired()
     );
   };

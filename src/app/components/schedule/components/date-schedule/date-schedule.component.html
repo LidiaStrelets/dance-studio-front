@@ -13,6 +13,9 @@
             {{ getTimePart(item.date_time) }}
             {{ item.hall }}
           </p>
+          <span *ngIf="item.duration !== 60" class="duration"
+            >{{ item.duration }} {{ "schedule.minutes" | translate }}</span
+          >
 
           <app-item-buttons
             *ngIf="!isCoach"

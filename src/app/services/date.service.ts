@@ -7,8 +7,8 @@ import { Injectable } from '@angular/core';
 export class DateService {
   defaultDate = new Date('2000-12-12');
   baseScheduleDate = new Date().toISOString();
-  templateWeekStart = '2022-10-17T00:00:00.000Z';
-  templateWeekEnd = '2022-10-24T00:00:00.000Z';
+  templateWeekStart = new Date('2022-10-17');
+  templateWeekEnd = new Date('2022-10-24');
 
   constructor() {}
 
@@ -17,12 +17,12 @@ export class DateService {
   };
 
   getDate = (date: string) => date.split('T')[0];
-  getTime = (date: string) => date.split('T')[1].slice(0, 5);
+  getTime = (date: Date) => date.toISOString().split('T')[1].slice(0, 5);
   getDateTime = (date: string) =>
     date.split('T')[0] + ' ' + date.split('T')[1].slice(0, 5);
-  getWeekDay = (date: string) => ({
-    day: `schedule.${WeekDay[new Date(date).getDay()].toLowerCase()}`,
-    id: new Date(date).getDay(),
+  getWeekDay = (date: Date) => ({
+    day: `schedule.${WeekDay[date.getDay()].toLowerCase()}`,
+    id: date.getDay(),
   });
   getMinScheduleDate = () => new Date('2021-10-01').toISOString();
   getMinEnrollmentsDate = () => {

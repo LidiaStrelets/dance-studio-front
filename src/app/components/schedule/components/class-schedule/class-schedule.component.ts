@@ -1,11 +1,9 @@
 import {
   Component,
-  EventEmitter,
   Input,
   OnChanges,
   OnDestroy,
   OnInit,
-  Output,
   SimpleChanges,
 } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
@@ -13,26 +11,27 @@ import { catchError } from 'rxjs/operators';
 import { DateService } from 'src/app/services/date.service';
 import { LanguageService } from 'src/app/services/language.service';
 import { LoaderService } from 'src/app/services/loader.service';
-import { ClassItemFull, ELanguages, Schedule, TClass } from 'src/types';
+import { ClassItemFull, ELanguages, Schedule, ScheduleFull } from 'src/types';
 import { ClassesService } from '../../../classes/services/classes.service';
 import { CommonService } from '../../services/common.service';
+import { SchedulesService } from '../../services/schedules.service';
 
 @Component({
   selector: 'app-class-schedule',
   templateUrl: './class-schedule.component.html',
   styleUrls: ['./class-schedule.component.scss'],
 })
-export class ClassScheduleComponent implements OnInit, OnChanges, OnDestroy {
-  @Output() setClass = new EventEmitter<string>();
-  @Input() items: Schedule[] = [];
+export class ClassScheduleComponent implements OnInit, OnDestroy, OnChanges {
+  @Input() isCurrent = false;
+
   filteredItems: Schedule[] = [];
+  weekSchedule: ScheduleFull[] = [];
 
   classItems: ClassItemFull[] = [];
-  selectedClass?: TClass;
 
-  selectedDays = new BehaviorSubject<{ days: number[]; items: Schedule[] }>({
+  filters = new BehaviorSubject<{ days: number[]; classItem: string }>({
     days: [],
-    items: this.items,
+    classItem: '',
   });
   selectValue: number[] = [];
 
@@ -43,31 +42,11 @@ export class ClassScheduleComponent implements OnInit, OnChanges, OnDestroy {
     private dateService: DateService,
     private languageService: LanguageService,
     private common: CommonService,
-    private loader: LoaderService
+    private loader: LoaderService,
+    private schedulesService: SchedulesService
   ) {}
 
-  ngOnInit() {
-    this.loader.showSpinner();
-
-    this.classesService.getClasses()?.subscribe({
-      next: (res) => {
-        this.classItems = res;
-        this.loader.hideSpinner();
-      },
-      error: (err) => {
-        this.loader.hideSpinner();
-        catchError(err);
-      },
-    });
-
-    this.subscription = this.selectedDays.subscribe((res) => {
-      this.filteredItems = this.items.filter((item) => {
-        return res.days.some(
-          (day) => day + 1 === this.dateService.getWeekDay(item.date_time).id
-        );
-      });
-    });
-  }
+  ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges) {
     for (let propName in changes) {
@@ -75,8 +54,46 @@ export class ClassScheduleComponent implements OnInit, OnChanges, OnDestroy {
 
       let value = change.currentValue;
 
-      if (propName === 'items') {
-        this.selectedDays.next({ days: this.selectValue, items: value });
+      if (propName === 'isCurrent') {
+        if (value) {
+          this.loader.showSpinner();
+
+          this.schedulesService.getWeek()?.subscribe({
+            next: (res) => (this.weekSchedule = res),
+            error: catchError,
+          });
+
+          this.classesService.getClasses()?.subscribe({
+            next: (res) => {
+              this.classItems = res;
+              this.loader.hideSpinner();
+            },
+            error: (err) => {
+              this.loader.hideSpinner();
+              catchError(err);
+            },
+          });
+
+          this.subscription = this.filters.subscribe((res) => {
+            this.filteredItems = this.languageService.translateSchedule(
+              this.weekSchedule
+            );
+
+            if (res.classItem) {
+              this.filteredItems = this.filteredItems.filter((item) => {
+                return item.class_id === res.classItem;
+              });
+            }
+            if (res.days) {
+              this.filteredItems = this.filteredItems.filter((item) => {
+                return res.days.some(
+                  (day) =>
+                    day + 1 === this.dateService.getWeekDay(item.date_time).id
+                );
+              });
+            }
+          });
+        }
       }
     }
   }
@@ -95,11 +112,11 @@ export class ClassScheduleComponent implements OnInit, OnChanges, OnDestroy {
     );
 
   selectClass = (id: string) => {
-    this.setClass.emit(id);
+    this.filters.next({ classItem: id, days: this.filters.value.days });
   };
 
   setSelectedDays = (days: number[]) => {
-    this.selectedDays.next({ days, items: this.items });
+    this.filters.next({ days, classItem: this.filters.value.classItem });
   };
 
   getWeekDay = this.dateService.getWeekDay;

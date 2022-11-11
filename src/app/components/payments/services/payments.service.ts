@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, take } from 'rxjs';
+import { catchError, map, Observable, take } from 'rxjs';
 import { LanguageService } from 'src/app/services/language.service';
 import { environment } from 'src/environments/environment';
 import { Payment, Price, SubscriptionOptions } from 'src/types';
@@ -28,7 +28,16 @@ export class PaymentsService {
         catchError((err) => {
           throw err;
         }),
-        take(1)
+        take(1),
+        map((data) => {
+          data.forEach((item) => {
+            if (item.createdAt) {
+              item.createdAt = new Date(item.createdAt);
+            }
+          });
+
+          return data;
+        })
       );
   }
 

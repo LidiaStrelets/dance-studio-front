@@ -78,7 +78,8 @@
     "saturday": "saturday",
     "sunday": "sunday",
     "selectDays": "Select days",
-    "basicSchedule": "Here you will see the basic schedule for a week. Pay attention - the schedule could be changed for different reasons (the coach can't give class, this is a holiday, etc.). Check the current schedule on the first schedule slide by selecting a date you are interested in."
+    "basicSchedule": "Here you will see the basic schedule for a week. Pay attention - the schedule could be changed for different reasons (the coach can't give class, this is a holiday, etc.). Check the current schedule on the first schedule slide by selecting a date you are interested in.",
+    "minutes": "minutes"
   },
   "errors": {
     "required": "Required field!",

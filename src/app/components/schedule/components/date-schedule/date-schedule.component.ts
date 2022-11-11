@@ -1,10 +1,9 @@
 import {
   Component,
-  EventEmitter,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
-  Output,
   SimpleChanges,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
@@ -14,15 +13,20 @@ import { EnrollmentsService } from 'src/app/components/enrollments/services/enro
 import { LoaderService } from 'src/app/services/loader.service';
 import { DateService } from 'src/app/services/date.service';
 import { AuthService } from 'src/app/components/auth/services/auth.service';
+import { BehaviorSubject, Subscription } from 'rxjs';
+import { SchedulesService } from '../../services/schedules.service';
+import { LanguageService } from 'src/app/services/language.service';
 
 @Component({
   selector: 'app-date-schedule',
   templateUrl: './date-schedule.component.html',
   styleUrls: ['./date-schedule.component.scss'],
 })
-export class DateScheduleComponent implements OnInit, OnChanges {
-  @Output() setDate = new EventEmitter<string>();
-  @Input() items: Schedule[] = [];
+export class DateScheduleComponent implements OnInit, OnDestroy, OnChanges {
+  @Input() isCurrent = false;
+
+  items: Schedule[] = [];
+  selectedDate = new BehaviorSubject('');
 
   showDate = false;
 
@@ -30,29 +34,20 @@ export class DateScheduleComponent implements OnInit, OnChanges {
 
   fieldName = 'date';
 
+  subscription?: Subscription;
+
   constructor(
     private dateService: DateService,
     private enrollmentService: EnrollmentsService,
     private loader: LoaderService,
-    private authService: AuthService
+    private authService: AuthService,
+    private schedulesService: SchedulesService,
+    private languageService: LanguageService
   ) {}
 
   ngOnInit() {
     this.loader.showSpinner();
-    this.setDate.emit(this.dateService.baseScheduleDate);
-
-    this.enrollmentService.getEnrollments()?.subscribe({
-      next: (res) => {
-        this.enrollments = res;
-        this.items = this.addEnrolled(this.items, res);
-
-        this.loader.hideSpinner();
-      },
-      error: (err) => {
-        this.loader.hideSpinner();
-        catchError(err);
-      },
-    });
+    this.selectedDate.next(this.dateService.baseScheduleDate);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -61,10 +56,41 @@ export class DateScheduleComponent implements OnInit, OnChanges {
 
       let value = change.currentValue;
 
-      if (propName === 'items') {
-        this.items = this.addEnrolled(value, this.enrollments);
+      if (propName === 'isCurrent') {
+        if (value) {
+          this.enrollmentService.getEnrollments()?.subscribe({
+            next: (res) => {
+              this.enrollments = res;
+              this.items = this.addEnrolled(this.items, res);
+
+              this.loader.hideSpinner();
+            },
+            error: (err) => {
+              this.loader.hideSpinner();
+              catchError(err);
+            },
+          });
+
+          this.subscription = this.selectedDate.subscribe((res) => {
+            this.schedulesService.get(res)?.subscribe({
+              next: (res) => {
+                this.items = this.languageService.translateSchedule(res);
+
+                this.loader.hideSpinner();
+              },
+              error: (err) => {
+                this.loader.hideSpinner();
+                catchError(err);
+              },
+            });
+          });
+        }
       }
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 
   private addEnrolled = (items: Schedule[], enrollments: Registration[]) =>
@@ -77,7 +103,7 @@ export class DateScheduleComponent implements OnInit, OnChanges {
   toggleDate = (form: FormGroup) => {
     this.showDate = !this.showDate;
     if (!this.showDate) {
-      this.setDate.emit(form.get(this.fieldName)?.value ?? '');
+      this.selectedDate.next(form.get(this.fieldName)?.value ?? '');
     }
   };
   closeDate = () => {

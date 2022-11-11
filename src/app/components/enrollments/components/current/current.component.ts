@@ -42,9 +42,8 @@ export class CurrentComponent implements OnInit {
 
   getTimePart = this.dateService.getTime;
 
-  getTimeLeft = (date: string) => {
-    const left =
-      new Date(date).getTime() - Date.now() - this.dateService.hourInMs();
+  getTimeLeft = (date: Date) => {
+    const left = date.getTime() - Date.now() - this.dateService.hourInMs();
     const minutes = this.dateService.convertIntoMinutes(left);
 
     return Math.round(minutes);

@@ -192,7 +192,7 @@ export interface Schedule {
   coach: string;
   hall: string;
   class: string;
-  date_time: string;
+  date_time: Date;
   id: string;
   duration: number;
   enrolled?: boolean;
@@ -206,7 +206,7 @@ export interface ScheduleFull {
   class: string;
   hallUk: string;
   classUk: string;
-  date_time: string;
+  date_time: Date;
   id: string;
   duration: number;
 }

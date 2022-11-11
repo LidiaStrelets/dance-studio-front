@@ -22,8 +22,7 @@ export class ItemButtonsComponent implements OnInit {
 
   ngOnInit() {}
 
-  canEnroll = (date: string) =>
-    new Date(Date.now() + 7200000).toISOString() < date;
+  canEnroll = (date: Date) => new Date(Date.now() + 7200000) < date;
 
   enroll = (scheduleId: string) => {
     this.loader.showSpinner();

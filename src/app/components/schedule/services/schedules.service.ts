@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { catchError, take } from 'rxjs/operators';
+import { catchError, map, take } from 'rxjs/operators';
+import { DateService } from 'src/app/services/date.service';
 import { environment } from 'src/environments/environment';
 import { ScheduleFull } from 'src/types';
 import { AuthService } from '../../auth/services/auth.service';
@@ -12,33 +13,88 @@ import { AuthService } from '../../auth/services/auth.service';
 export class SchedulesService {
   private coreUrl = `${environment.basicUrl}schedules/`;
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+    private dateService: DateService
+  ) {}
 
-  get(): Observable<ScheduleFull[]> | null {
-    if (!this.authService.getCurrentUserId()) {
+  get(date: string): Observable<ScheduleFull[]> | null {
+    if (!this.authService.getCurrentUserId() || !date) {
       return null;
     }
-    return this.http.get<ScheduleFull[]>(this.coreUrl).pipe(
+    return this.http.get<ScheduleFull[]>(this.coreUrl + date).pipe(
       catchError((err) => {
         throw err;
       }),
-      take(1)
+      take(1),
+      map((data) => {
+        data.forEach((item) => {
+          if (item.date_time) {
+            item.date_time = new Date(item.date_time);
+          }
+        });
+
+        return data;
+      })
     );
   }
 
-  getEnrolled(): Observable<ScheduleFull[]> | null {
+  getWeek(): Observable<ScheduleFull[]> | null {
     if (!this.authService.getCurrentUserId()) {
       return null;
     }
     return this.http
       .get<ScheduleFull[]>(
-        this.coreUrl + 'enrolled/' + this.authService.getCurrentUserId()
+        this.coreUrl +
+          'week/' +
+          this.dateService.templateWeekStart.toISOString() +
+          '/' +
+          this.dateService.templateWeekEnd.toISOString()
       )
       .pipe(
         catchError((err) => {
           throw err;
         }),
-        take(1)
+        take(1),
+        map((data) => {
+          data.forEach((item) => {
+            if (item.date_time) {
+              item.date_time = new Date(item.date_time);
+            }
+          });
+
+          return data;
+        })
+      );
+  }
+
+  getEnrolled(date: string): Observable<ScheduleFull[]> | null {
+    if (!this.authService.getCurrentUserId()) {
+      return null;
+    }
+    return this.http
+      .get<ScheduleFull[]>(
+        this.coreUrl +
+          'enrolled/' +
+          this.authService.getCurrentUserId() +
+          '/' +
+          date
+      )
+      .pipe(
+        catchError((err) => {
+          throw err;
+        }),
+        take(1),
+        map((data) => {
+          data.forEach((item) => {
+            if (item.date_time) {
+              item.date_time = new Date(item.date_time);
+            }
+          });
+
+          return data;
+        })
       );
   }
 }

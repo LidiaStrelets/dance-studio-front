@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { catchError, take } from 'rxjs/operators';
+import { catchError, map, take } from 'rxjs/operators';
 import { AuthService } from 'src/app/components/auth/services/auth.service';
 import { environment } from 'src/environments/environment';
 import { User, UserForm } from 'src/types';
@@ -28,7 +28,13 @@ export class UsersService {
       catchError((err) => {
         throw err;
       }),
-      take(1)
+      take(1),
+      map((data) => {
+        if (data.birth_date) {
+          data.birth_date = new Date(data.birth_date);
+        }
+        return data;
+      })
     );
   }
 
@@ -42,7 +48,16 @@ export class UsersService {
         catchError((err) => {
           throw err;
         }),
-        take(1)
+        take(1),
+        map((data) => {
+          data.forEach((item) => {
+            if (item.birth_date) {
+              item.birth_date = new Date(item.birth_date);
+            }
+          });
+
+          return data;
+        })
       )
       .subscribe({ next: (res) => (this.users = res) });
   }
@@ -63,7 +78,7 @@ export class UsersService {
         firstname: values.firstname,
         lastname: values.lastname,
         information: values.information,
-        birth_date: values.birth_date,
+        birth_date: values.birth_date ? new Date(values.birth_date) : null,
         photo: null,
       })
     );

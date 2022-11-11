@@ -51,7 +51,6 @@ export class UserPage implements OnInit {
     this.usersService.getById()?.subscribe({
       next: (res) => {
         this.user = res;
-
         this.setInitialValues(this.user);
         this.loader.hideSpinner();
       },
@@ -67,7 +66,7 @@ export class UserPage implements OnInit {
       [UserFormFields.firstname]: user.firstname,
       [UserFormFields.lastname]: user.lastname,
       [UserFormFields.birth_date]: user.birth_date
-        ? this.dateService.convertForPicker(new Date(user.birth_date))
+        ? this.dateService.convertForPicker(user.birth_date)
         : this.dateService.convertForPicker(this.dateService.defaultDate),
       [UserFormFields.information]: user.information,
     });
