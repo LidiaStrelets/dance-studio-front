@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { UsersService } from 'src/app/components/user/services/users.service';
+import { User } from 'src/app/components/user/types';
 import { environment } from 'src/environments/environment';
-import { User } from 'src/types';
 
 @Component({
   selector: 'app-enrolled-client',
@@ -12,9 +13,9 @@ export class EnrolledClientComponent implements OnInit {
 
   avatar = `${environment.basicUrl}no_photo.webp`;
 
-  constructor() {}
+  constructor(private usersServoce: UsersService) {}
 
   ngOnInit() {}
 
-  getName = () => `${this.client?.firstname} ${this.client?.lastname}`;
+  getName = this.client && this.usersServoce.getUserName(this.client);
 }

@@ -12,9 +12,10 @@ import { UsersService } from 'src/app/components/user/services/users.service';
 import { DateService } from 'src/app/services/date.service';
 import { LanguageService } from 'src/app/services/language.service';
 import { LoaderService } from 'src/app/services/loader.service';
-import { Schedule, ScheduleFull, User } from 'src/types';
+import { Schedule, ScheduleFull } from './../../types';
 import { CommonService } from '../../services/common.service';
 import { SchedulesService } from '../../services/schedules.service';
+import { User } from 'src/app/components/user/types';
 
 @Component({
   selector: 'app-coach-schedule',
@@ -109,7 +110,7 @@ export class CoachScheduleComponent implements OnInit, OnDestroy, OnChanges {
 
   getNames = () =>
     this.coaches.map((coach) => ({
-      name: coach.firstname + ' ' + coach.lastname,
+      name: this.usersService.getUserName(coach),
       id: coach.id,
     }));
 

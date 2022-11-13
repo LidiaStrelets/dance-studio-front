@@ -7,10 +7,10 @@ import {
 import { catchError } from 'rxjs/operators';
 import { LoaderService } from 'src/app/services/loader.service';
 import { environment } from 'src/environments/environment';
-import { User } from 'src/types';
 import Swiper, { EffectCube, Pagination, SwiperOptions } from 'swiper';
 import { SwiperComponent } from 'swiper/angular';
 import { UsersService } from '../user/services/users.service';
+import { User } from '../user/types';
 
 Swiper.use([Pagination, EffectCube]);
 
@@ -53,6 +53,8 @@ export class CoachesPage implements OnInit, AfterContentChecked {
       },
     });
   }
+
+  getName = this.usersService.getUserName;
 
   ngAfterContentChecked(): void {
     if (this.swiper) {

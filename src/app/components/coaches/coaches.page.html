@@ -6,9 +6,7 @@
       ><ion-card>
         <img alt="Silhouette of mountains" [src]="coach.photo??avatar" />
         <ion-card-header>
-          <ion-card-title
-            >{{coach.firstname}} {{coach.lastname}}</ion-card-title
-          >
+          <ion-card-title>{{getName(coach)}}</ion-card-title>
         </ion-card-header>
         <ion-card-content> {{coach.information}} </ion-card-content>
       </ion-card></ng-template

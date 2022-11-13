@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { catchError, map, take } from 'rxjs/operators';
 import { AuthService } from 'src/app/components/auth/services/auth.service';
 import { environment } from 'src/environments/environment';
-import { User, UserRequest } from 'src/types';
+import { User, UserRequest } from './../types';
 
 @Injectable({
   providedIn: 'root',
@@ -112,4 +112,6 @@ export class UsersService {
   };
 
   getUsers = () => this.users;
+
+  getUserName = ({ firstname, lastname }: User) => `${firstname} ${lastname}`;
 }
