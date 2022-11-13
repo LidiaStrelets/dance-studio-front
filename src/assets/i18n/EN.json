@@ -99,13 +99,13 @@
     "archiveHeader": "Enrollments archive",
     "stats": {
       "title": "My statistics",
-      "totalVisited": "Visited classes total",
-      "totalHours": "Training hours",
+      "totalClasses": "Visited classes total",
+      "totalMinutes": "Training hours",
       "stretching": "Stretching",
-      "pole sport": "Pole sport",
-      "pole exotic": "Pole exotic",
-      "stripplastic": "Stripplastic",
-      "pole exotic beginners": "Pole exotic beginners"
+      "poleSport": "Pole sport",
+      "poleExotic": "Pole exotic",
+      "stripPlastic": "Stripplastic",
+      "exoticBeginners": "Pole exotic beginners"
     }
   },
   "coaches": {

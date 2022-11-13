@@ -16,6 +16,7 @@ import { AuthService } from 'src/app/components/auth/services/auth.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { SchedulesService } from '../../services/schedules.service';
 import { LanguageService } from 'src/app/services/language.service';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-date-schedule',
@@ -36,18 +37,27 @@ export class DateScheduleComponent implements OnInit, OnDestroy, OnChanges {
 
   subscription?: Subscription;
 
+  modalId = new BehaviorSubject<string>('');
+  modalItem: Schedule = {} as Schedule;
+
   constructor(
     private dateService: DateService,
     private enrollmentService: EnrollmentsService,
     private loader: LoaderService,
     private authService: AuthService,
     private schedulesService: SchedulesService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private modalCtrl: ModalController
   ) {}
 
   ngOnInit() {
     this.loader.showSpinner();
     this.selectedDate.next(this.dateService.baseScheduleDate);
+
+    this.modalId.subscribe((res) => {
+      this.modalItem =
+        this.items.find(({ id }) => id === res) || ({} as Schedule);
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -58,31 +68,33 @@ export class DateScheduleComponent implements OnInit, OnDestroy, OnChanges {
 
       if (propName === 'isCurrent') {
         if (value) {
-          this.enrollmentService.getEnrollments()?.subscribe({
-            next: (res) => {
-              this.enrollments = res;
-              this.items = this.addEnrolled(this.items, res);
-
-              this.loader.hideSpinner();
-            },
-            error: (err) => {
-              this.loader.hideSpinner();
-              catchError(err);
-            },
-          });
-
           this.subscription = this.selectedDate.subscribe((res) => {
-            this.schedulesService.get(res)?.subscribe({
-              next: (res) => {
-                this.items = this.languageService.translateSchedule(res);
+            if (res) {
+              this.schedulesService.get(res)?.subscribe({
+                next: (res) => {
+                  this.items = this.languageService.translateSchedule(res);
 
-                this.loader.hideSpinner();
-              },
-              error: (err) => {
-                this.loader.hideSpinner();
-                catchError(err);
-              },
-            });
+                  this.loader.hideSpinner();
+                },
+                error: (err) => {
+                  this.loader.hideSpinner();
+                  catchError(err);
+                },
+              });
+
+              this.enrollmentService.getByDate(res)?.subscribe({
+                next: (res) => {
+                  this.enrollments = res;
+                  this.items = this.addEnrolled(this.items, res);
+
+                  this.loader.hideSpinner();
+                },
+                error: (err) => {
+                  this.loader.hideSpinner();
+                  catchError(err);
+                },
+              });
+            }
           });
         }
       }
@@ -123,4 +135,8 @@ export class DateScheduleComponent implements OnInit, OnDestroy, OnChanges {
   };
 
   isCoach = this.authService.isCoach();
+
+  test = async (schedule_id: string) => {
+    this.modalId.next(schedule_id);
+  };
 }

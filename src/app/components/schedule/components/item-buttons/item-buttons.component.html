@@ -3,7 +3,11 @@
   class="ion-margin-top ion-margin-bottom button-container"
 >
   <ion-buttons>
-    <ion-button [id]="item.id" class="button-info" size="small" fill="outline"
+    <ion-button
+      (click)="openClick(item.id)"
+      class="button-info"
+      size="small"
+      fill="outline"
       >info</ion-button
     >
     <ion-button
@@ -17,5 +21,4 @@
     >
     <span class="enrolled" *ngIf="item.enrolled">enrolled</span>
   </ion-buttons>
-  <app-info-modal [item]="item"></app-info-modal>
 </div>

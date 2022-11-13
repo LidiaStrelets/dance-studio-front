@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { catchError, map, take } from 'rxjs/operators';
 import { DateService } from 'src/app/services/date.service';
 import { environment } from 'src/environments/environment';
-import { ScheduleFull } from 'src/types';
+import { ScheduleFull, SingleScheduleFull } from 'src/types';
 import { AuthService } from '../../auth/services/auth.service';
 
 @Injectable({
@@ -38,6 +38,25 @@ export class SchedulesService {
         return data;
       })
     );
+  }
+
+  getById(id: string): Observable<SingleScheduleFull> | null {
+    if (!this.authService.getCurrentUserId() || !id) {
+      return null;
+    }
+    return this.http
+      .get<SingleScheduleFull>(this.coreUrl + 'schedule/' + id)
+      .pipe(
+        catchError((err) => {
+          throw err;
+        }),
+        take(1),
+        map((data) => {
+          data.date_time = new Date(data.date_time);
+
+          return data;
+        })
+      );
   }
 
   getWeek(): Observable<ScheduleFull[]> | null {

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { catchError, map, take } from 'rxjs/operators';
 import { AuthService } from 'src/app/components/auth/services/auth.service';
 import { environment } from 'src/environments/environment';
-import { User, UserForm } from 'src/types';
+import { User, UserRequest } from 'src/types';
 
 @Injectable({
   providedIn: 'root',
@@ -59,15 +59,19 @@ export class UsersService {
           return data;
         })
       )
-      .subscribe({ next: (res) => (this.users = res) });
+      .subscribe({
+        next: (res) => {
+          this.users = res;
+        },
+      });
   }
 
-  patch(id: string, updatedUser: UserForm) {
+  patch(id: string, updatedUser: UserRequest) {
     if (!this.authService.getCurrentUserId()) {
       return;
     }
     const formData = new FormData();
-    const values = updatedUser.value;
+    const values = updatedUser;
 
     if (values.photo) {
       formData.append('thumbnail', values.photo);
@@ -75,11 +79,7 @@ export class UsersService {
     formData.append(
       'userForm',
       JSON.stringify({
-        firstname: values.firstname,
-        lastname: values.lastname,
-        information: values.information,
-        birth_date: values.birth_date ? new Date(values.birth_date) : null,
-        photo: null,
+        ...updatedUser,
       })
     );
 
@@ -87,7 +87,14 @@ export class UsersService {
       catchError((err) => {
         throw err;
       }),
-      take(1)
+      take(1),
+      map((data) => {
+        if (data.user.birth_date) {
+          data.user.birth_date = new Date(data.user.birth_date);
+        }
+
+        return data;
+      })
     );
   }
 

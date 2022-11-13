@@ -7,13 +7,12 @@ import {
 } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { LanguageService } from 'src/app/services/language.service';
 import { LoaderService } from 'src/app/services/loader.service';
-import { Schedule, ScheduleFull } from 'src/types';
+import { Schedule } from 'src/types';
 import Swiper, { Pagination, SwiperOptions } from 'swiper';
 import { SwiperComponent } from 'swiper/angular';
-import { SchedulesService } from '../schedule/services/schedules.service';
 import { DateService } from '../../services/date.service';
+import { EnrollmentsService } from './services/enrollments.service';
 
 Swiper.use([Pagination]);
 
@@ -26,82 +25,35 @@ export class EnrollmentsPage implements OnInit, AfterContentChecked, OnDestroy {
   @ViewChild('slides') swiper?: SwiperComponent;
   config: SwiperOptions = {
     pagination: true,
+    initialSlide: 2,
   };
 
-  schedule: ScheduleFull[] = [];
-  scheduleItems: Schedule[] = [];
+  items: Schedule[] = [];
 
   selectedDate = new BehaviorSubject('');
-  byDateItems: Schedule[] = [];
-  byDateArchiveItems: Schedule[] = [];
   subscription: Subscription = {} as Subscription;
 
   constructor(
     private dateService: DateService,
-    private languageService: LanguageService,
-    private schedulesService: SchedulesService,
-    private loader: LoaderService
+    private loader: LoaderService,
+    private enrollmentsService: EnrollmentsService
   ) {}
 
   ngOnInit() {
     this.loader.showSpinner();
-    this.schedulesService.getEnrolled()?.subscribe({
-      next: (res) => {
-        this.schedule = res;
-
-        this.scheduleItems = this.languageService.translateSchedule(res);
-
-        this.byDateItems = this.scheduleItems.filter(
-          (item) =>
-            new Date(item.date_time).getTime() >
-              new Date(Date.now() + this.dateService.hourInMs()).getTime() &&
-            this.dateService.getDate(item.date_time) ===
-              this.dateService.getDate(this.dateService.baseScheduleDate)
-        );
-
-        this.byDateArchiveItems = this.scheduleItems.filter(
-          (item) =>
-            new Date(item.date_time).getTime() <
-              new Date(Date.now()).getTime() &&
-            this.dateService.getDate(item.date_time) ===
-              this.dateService.getDate(this.dateService.baseScheduleDate)
-        );
-
-        this.loader.hideSpinner();
-      },
-      error: (err) => {
-        this.loader.hideSpinner();
-        catchError(err);
-      },
-    });
 
     this.subscription = this.selectedDate.subscribe((res) => {
-      this.byDateItems =
-        this.schedule.length > 0
-          ? this.languageService
-              .translateSchedule(this.schedule)
-              .filter(
-                (item) =>
-                  new Date(item.date_time).getTime() >
-                    new Date(Date.now()).getTime() &&
-                  this.dateService.getDate(item.date_time) ===
-                    this.dateService.getDate(res)
-              )
-          : [];
-
-      this.byDateArchiveItems =
-        this.schedule.length > 0
-          ? this.languageService
-              .translateSchedule(this.schedule)
-              .filter(
-                (item) =>
-                  new Date(item.date_time).getTime() <
-                    new Date(Date.now()).getTime() &&
-                  this.dateService.getDate(item.date_time) ===
-                    this.dateService.getDate(res)
-              )
-          : [];
+      if (!res) {
+        return;
+      }
+      this.enrollmentsService.getByDateMapped(res)?.subscribe({
+        next: (res) => {
+          this.items = res;
+        },
+        error: catchError,
+      });
     });
+    this.loader.hideSpinner();
   }
 
   ngAfterContentChecked(): void {
@@ -118,8 +70,12 @@ export class EnrollmentsPage implements OnInit, AfterContentChecked, OnDestroy {
     this.selectedDate.next(date);
   };
 
-  getByDate = () => this.byDateItems;
-  getByDateArchive = () => this.byDateArchiveItems;
+  getActive = () =>
+    this.items.filter((item) => {
+      return item.date_time > new Date(Date.now());
+    });
+  getArchive = () =>
+    this.items.filter((item) => item.date_time < new Date(Date.now()));
 
   onSlideChange = () => {
     this.selectedDate.next(this.dateService.getMinEnrollmentsDate());

@@ -1,21 +1,9 @@
 <ion-content>
   <h1>{{ "enrollments.stats.title" | translate }}</h1>
-  <ion-item color="light">
-    <p>
-      {{ "enrollments.stats.totalVisited" | translate }}:
-      <span>{{ items.length }}</span>
-    </p>
-  </ion-item>
-  <ion-item color="light">
-    <p>
-      {{ "enrollments.stats.totalHours" | translate }}:
-      <span>{{ getTotalDuration() }}</span>
-    </p>
-  </ion-item>
   <ion-item *ngFor="let item of classesNames" color="light">
     <p>
       {{ "enrollments.stats." + item | translate }}:
-      <span>{{ getTotalDuration(item) }}</span>
+      <span>{{ stats[item] }}</span>
     </p>
   </ion-item>
 </ion-content>

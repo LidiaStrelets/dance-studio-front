@@ -5,4 +5,8 @@ p {
 .item-container {
   width: 100%;
 }
+
+.duration {
+  color: red;
+}
 /*# sourceMappingURL=date-schedule.component.css.map */

@@ -16,7 +16,7 @@ Swiper.use([Pagination]);
   templateUrl: './schedule.page.html',
   styleUrls: ['./schedule.page.scss'],
 })
-export class SchedulePage implements OnInit, AfterContentChecked, OnDestroy {
+export class SchedulePage implements OnInit, AfterContentChecked {
   @ViewChild('slides') swiper?: SwiperComponent;
 
   config: SwiperOptions = {
@@ -36,10 +36,6 @@ export class SchedulePage implements OnInit, AfterContentChecked, OnDestroy {
         this.activeSlide = e.realIndex;
       });
     }
-  }
-
-  ngOnDestroy(): void {
-    console.log('tut');
   }
 
   getActiveSlide = () => this.activeSlide;

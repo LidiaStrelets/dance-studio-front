@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Registration } from 'src/types';
+import { Registration, ScheduleFull, Stats } from 'src/types';
 import { AuthService } from '../../auth/services/auth.service';
 
 @Injectable({
@@ -36,12 +36,12 @@ export class EnrollmentsService {
       .pipe(take(1));
   }
 
-  getEnrollments(): Observable<Registration[]> | null {
+  getStats(): Observable<Stats> | null {
     if (!this.authService.getCurrentUserId()) {
       return null;
     }
     return this.http
-      .get<Registration[]>(this.coreUrl + this.authService.getCurrentUserId())
+      .get<Stats>(this.coreUrl + 'stats/' + this.authService.getCurrentUserId())
       .pipe(take(1));
   }
 
@@ -51,6 +51,45 @@ export class EnrollmentsService {
     }
     return this.http
       .get<Registration[]>(this.coreUrl + 'bySchedule/' + id)
+      .pipe(take(1));
+  }
+
+  getByDateMapped(date: string): Observable<ScheduleFull[]> | null {
+    if (!this.authService.getCurrentUserId()) {
+      return null;
+    }
+    return this.http
+      .get<ScheduleFull[]>(
+        this.coreUrl +
+          'byDateMapped/' +
+          this.authService.getCurrentUserId() +
+          '/' +
+          date
+      )
+      .pipe(
+        take(1),
+        map((data) => {
+          data.forEach((item) => {
+            item.date_time = new Date(item.date_time);
+          });
+
+          return data;
+        })
+      );
+  }
+
+  getByDate(date: string): Observable<Registration[]> | null {
+    if (!this.authService.getCurrentUserId()) {
+      return null;
+    }
+    return this.http
+      .get<Registration[]>(
+        this.coreUrl +
+          'byDate/' +
+          this.authService.getCurrentUserId() +
+          '/' +
+          date
+      )
       .pipe(take(1));
   }
 }

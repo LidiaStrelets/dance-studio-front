@@ -6,14 +6,14 @@ import { Injectable } from '@angular/core';
 })
 export class DateService {
   defaultDate = new Date('2000-12-12');
-  baseScheduleDate = new Date().toISOString();
+  baseScheduleDate = new Date().toISOString().split('T')[0];
   templateWeekStart = new Date('2022-10-17');
   templateWeekEnd = new Date('2022-10-24');
 
   constructor() {}
 
   convertForPicker = (date: Date): string => {
-    return date.toISOString().split('T')[0];
+    return date?.toISOString().split('T')[0];
   };
 
   getDate = (date: string) => date.split('T')[0];
@@ -38,5 +38,5 @@ export class DateService {
   hourInMs = () => 60 * 60 * 1000;
   dayInMs = () => this.hourInMs() * 24;
   convertIntoMinutes = (time: number) => time / 60 / 1000;
-  convertIntoHours = (time: number) => time / 60;
+  convertIntoHours = (time: number) => Math.round(time / 60);
 }

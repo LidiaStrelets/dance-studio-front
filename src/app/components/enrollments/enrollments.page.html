@@ -4,19 +4,19 @@
   <swiper (slideChange)="onSlideChange()" [config]="config" #slides>
     <ng-template swiperSlide
       ><app-current
-        [items]="getByDate()"
+        [items]="getActive()"
         (setDate)="setDate($event)"
       ></app-current
     ></ng-template>
-    <ng-template swiperSlide
-      ><app-current
+    <ng-template swiperSlide>
+      <app-current
         [archive]="true"
-        [items]="getByDateArchive()"
+        [items]="getArchive()"
         (setDate)="setDate($event)"
-      ></app-current
-    ></ng-template>
-    <ng-template swiperSlide
-      ><app-stats [items]="getByDateArchive()"></app-stats
-    ></ng-template>
+      ></app-current>
+    </ng-template>
+    <ng-template swiperSlide>
+      <app-stats></app-stats>
+    </ng-template>
   </swiper>
 </ion-content>

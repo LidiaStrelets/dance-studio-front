@@ -1,6 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DateService } from 'src/app/services/date.service';
-import { Classes, Schedule, TClass } from 'src/types';
+import { LoaderService } from 'src/app/services/loader.service';
+import { Stats, StatsKeys } from 'src/types';
+import { EnrollmentsService } from '../../services/enrollments.service';
 
 @Component({
   selector: 'app-stats',
@@ -8,25 +10,39 @@ import { Classes, Schedule, TClass } from 'src/types';
   styleUrls: ['./stats.component.scss'],
 })
 export class StatsComponent implements OnInit {
-  @Input() items: Schedule[] = [];
+  stats: Stats = {} as Stats;
 
-  classes = Classes;
+  classesNames: StatsKeys[] = [];
+  constructor(
+    private enrollmentsService: EnrollmentsService,
+    private loader: LoaderService,
+    private dateService: DateService
+  ) {}
 
-  classesNames: TClass[] = Object.keys(this.classes) as TClass[];
-  constructor(private dateService: DateService) {}
+  ngOnInit() {
+    this.loader.showSpinner();
+    this.enrollmentsService.getStats()?.subscribe({
+      next: (res) => {
+        this.stats = res;
+        const allKeys = Object.keys(res) as StatsKeys[];
 
-  ngOnInit() {}
+        this.stats = allKeys.reduce((filtered, key) => {
+          const value = this.stats[key];
+          if (value) {
+            filtered[key] =
+              key === 'totalMinutes'
+                ? this.dateService.convertIntoHours(value)
+                : value;
+          }
+          return filtered;
+        }, {} as Stats);
 
-  getTotalDuration = (sortBy?: TClass) => {
-    const minutes = this.items.reduce((sum, item) => {
-      if (!sortBy) {
-        return sum + item.duration;
-      } else {
-        return item.class_id === this.classes[sortBy]
-          ? sum + item.duration
-          : sum;
-      }
-    }, 0);
-    return Math.round(this.dateService.convertIntoHours(minutes));
-  };
+        this.classesNames = allKeys.filter((item) =>
+          this.stats.hasOwnProperty(item)
+        ) as StatsKeys[];
+      },
+    });
+
+    this.loader.hideSpinner();
+  }
 }

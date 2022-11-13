@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { catchError } from 'rxjs/operators';
+import { routesPaths } from 'src/app/app-routing.module';
 import { AlertService } from 'src/app/services/alert.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { Registration, Schedule } from 'src/types';
@@ -13,11 +15,13 @@ import { EnrollmentsService } from '../../../enrollments/services/enrollments.se
 export class ItemButtonsComponent implements OnInit {
   @Input() item: Schedule = {} as Schedule;
   @Output() newEnrollment = new EventEmitter<Registration>();
+  @Output() showModal = new EventEmitter<string>();
 
   constructor(
     private enrollmentService: EnrollmentsService,
     private alertService: AlertService,
-    private loader: LoaderService
+    private loader: LoaderService,
+    private router: Router
   ) {}
 
   ngOnInit() {}
@@ -41,5 +45,9 @@ export class ItemButtonsComponent implements OnInit {
         catchError(err);
       },
     });
+  };
+
+  openClick = (id: string) => {
+    this.router.navigate([routesPaths.schedule, id]);
   };
 }

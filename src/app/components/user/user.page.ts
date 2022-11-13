@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { User, UserDeletedFields, UserForm, UserFormFields } from 'src/types';
+import {
+  User,
+  UserDeletedFields,
+  UserForm,
+  UserFormFields,
+  UserRequest,
+} from 'src/types';
 import { UsersService } from './services/users.service';
 import { AuthService } from '../auth/services/auth.service';
 import { AlertService } from 'src/app/services/alert.service';
@@ -120,6 +126,7 @@ export class UserPage implements OnInit {
   handlePhoto = (avatar: File) => {
     this.user.photo = URL.createObjectURL(avatar);
     this.userForm.patchValue({ photo: avatar });
+    this.userForm.get('photo')?.markAsDirty();
   };
 
   formHasChanges = () =>
@@ -135,11 +142,22 @@ export class UserPage implements OnInit {
     ) {
       return;
     }
+    const keys: UserFormFields[] = Object.keys(
+      this.userForm.value
+    ) as UserFormFields[];
+
+    const requestObject = keys.reduce((requestObject, key) => {
+      const fieldDalue = this.userForm.get(key);
+      if (fieldDalue?.dirty) {
+        requestObject[key] = fieldDalue.value;
+      }
+      return requestObject;
+    }, {} as UserRequest);
     this.loader.showSpinner();
     this.closeAll();
 
     this.usersService
-      .patch(this.authService.getCurrentUserId() ?? '', this.userForm)
+      .patch(this.authService.getCurrentUserId() ?? '', requestObject)
       ?.subscribe({
         next: (res) => {
           this.alertService.presentAlertSuccess(

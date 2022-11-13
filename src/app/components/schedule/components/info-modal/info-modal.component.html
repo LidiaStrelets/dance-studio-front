@@ -1,52 +1,45 @@
-<ion-modal
-  [initialBreakpoint]="0.95"
-  [canDismiss]="true"
-  #modal
-  mode="ios"
-  [trigger]="item.id"
-  [presentingElement]="presentingElement"
->
-  <ng-template>
-    <ion-header>
-      <ion-toolbar>
-        <div class="modal-header">
-          <ion-title>{{ "infoModal.header" | translate }}</ion-title>
-          <ion-buttons slot="end">
-            <ion-button (click)="modal.dismiss()">
-              <ion-icon slot="icon-only" name="close-outline"></ion-icon>
-            </ion-button>
-          </ion-buttons>
-        </div>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content class="ion-padding-bottom">
-      <ion-item class="ion-no-padding" color="light">
-        <div class="item-container">
-          <p>
-            {{ "infoModal.coach" | translate }}: <span>{{ item.coach }}</span>
-          </p>
-          <p>{{ coach.information }}</p>
-        </div>
-      </ion-item>
-      <ion-item class="ion-no-padding" color="light">
-        <div class="item-container">
-          <p>
-            {{ "infoModal.class" | translate }}: <span>{{ item.class }}</span>
-          </p>
-          <p>{{ isUk() ? classItem.descriptionUk : classItem.description }}</p>
-        </div>
-      </ion-item>
-      <ion-item class="ion-no-padding ion-padding-bottom" color="light">
-        <div class="item-container">
-          <p>{{ "infoModal.enrolled" | translate }}:</p>
-          <ion-list>
-            <app-enrolled-client
-              [client]="findUser(enrollment.client_id)"
-              *ngFor="let enrollment of enrollments"
-            ></app-enrolled-client>
-          </ion-list>
-        </div>
-      </ion-item>
-    </ion-content>
-  </ng-template>
-</ion-modal>
+<ion-header>
+  <ion-toolbar>
+    <div class="modal-header">
+      <ion-title>{{ "infoModal.header" | translate }}</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="backToSchedule()">
+          <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </div>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding-bottom">
+  <ion-item class="ion-no-padding" color="light">
+    <div class="item-container">
+      <p>
+        {{ "infoModal.coach" | translate }}:
+        <span>{{ item.value?.coach }}</span>
+      </p>
+      <p>{{ item.value?.coachInfo }}</p>
+    </div>
+  </ion-item>
+  <ion-item class="ion-no-padding" color="light">
+    <div class="item-container">
+      <p>
+        {{ "infoModal.class" | translate }}:
+        <span>{{ item.value?.class }}</span>
+      </p>
+      <p>
+        {{ isUk() ? item.value?.classInfoUk : item.value?.classInfo }}
+      </p>
+    </div>
+  </ion-item>
+  <ion-item class="ion-no-padding ion-padding-bottom" color="light">
+    <div class="item-container">
+      <p>{{ "infoModal.enrolled" | translate }}:</p>
+      <ion-list>
+        <app-enrolled-client
+          [client]="findUser(enrollment.client_id)"
+          *ngFor="let enrollment of enrollments"
+        ></app-enrolled-client>
+      </ion-list>
+    </div>
+  </ion-item>
+</ion-content>

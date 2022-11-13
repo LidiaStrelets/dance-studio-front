@@ -54,7 +54,14 @@ export class PaymentsService {
         catchError((err) => {
           throw err;
         }),
-        take(1)
+        take(1),
+        map((data) => {
+          if (data.createdAt) {
+            data.createdAt = new Date(data.createdAt);
+          }
+
+          return data;
+        })
       );
   }
 

@@ -114,6 +114,14 @@ export interface User {
   role: TRoles;
 }
 
+export interface UserRequest {
+  birth_date?: Date | null;
+  firstname?: string;
+  information?: string;
+  lastname?: string;
+  photo?: string | null;
+}
+
 export type UserForm = FormGroup<{
   birth_date: FormControl<string | null>;
   firstname: FormControl<string | null>;
@@ -211,6 +219,12 @@ export interface ScheduleFull {
   duration: number;
 }
 
+export interface SingleScheduleFull extends ScheduleFull {
+  coachInfo: string;
+  classInfo: string;
+  classInfoUk: string;
+}
+
 export interface ClassItem {
   name: TClass;
   description: string;
@@ -276,3 +290,15 @@ export interface SubscriptionOptions {
   value: number;
   price: number;
 }
+
+export interface Stats {
+  totalClasses: number;
+  totalMinutes: number;
+  stretching?: number;
+  poleSport?: number;
+  poleExotic?: number;
+  stripPlastic?: number;
+  exoticBeginners?: number;
+}
+
+export type StatsKeys = keyof Stats;

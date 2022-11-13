@@ -1,11 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { LanguageService } from 'src/app/services/language.service';
 import { LoaderService } from 'src/app/services/loader.service';
-import { ClassItemFull, Registration, Schedule, User } from 'src/types';
-import { ClassesService } from '../../../classes/services/classes.service';
+import { Registration, SingleScheduleFull, User } from 'src/types';
 import { EnrollmentsService } from '../../../enrollments/services/enrollments.service';
 import { UsersService } from '../../../user/services/users.service';
+import { SchedulesService } from '../../services/schedules.service';
 
 @Component({
   selector: 'app-info-modal',
@@ -13,56 +16,62 @@ import { UsersService } from '../../../user/services/users.service';
   styleUrls: ['./info-modal.component.scss'],
 })
 export class InfoModalComponent implements OnInit {
-  @Input() item: Schedule = {} as Schedule;
-  presentingElement: Element | null = null;
-  coach: User = {} as User;
-  classItem: ClassItemFull = {} as ClassItemFull;
   enrollments: Registration[] = [];
   allUsers: User[] = [];
+  item = new BehaviorSubject<SingleScheduleFull | undefined>(undefined);
 
   constructor(
     private userService: UsersService,
-    private classesService: ClassesService,
     private languageService: LanguageService,
     private enrollmentsService: EnrollmentsService,
-    private loader: LoaderService
+    private loader: LoaderService,
+    private location: Location,
+    private route: ActivatedRoute,
+    private scheduleService: SchedulesService
   ) {}
 
   ngOnInit() {
-    this.loader.showSpinner();
+    this.route.paramMap.subscribe(async (res) => {
+      this.loader.showSpinner();
+      const scheduleId = res.get('id');
 
-    this.presentingElement = document.querySelector('.ion-page');
+      if (!scheduleId) {
+        // show error
+        return;
+      }
+      this.scheduleService.getById(scheduleId)?.subscribe({
+        next: (res) => {
+          this.item.next(res);
+        },
+        error: catchError,
+      });
 
-    this.allUsers = this.userService.getUsers();
-    this.coach =
-      this.allUsers.find((user) => user.id === this.item.coach_id) ??
-      ({} as User);
+      this.item.subscribe((res) => {
+        if (res) {
+          this.enrollmentsService.getBySchedule(res.id)?.subscribe({
+            next: (res) => {
+              this.enrollments = res;
+            },
+            error: (err) => {
+              catchError(err);
+            },
+          });
+        }
+      });
 
-    this.classesService.getById(this.item.class_id)?.subscribe({
-      next: (res) => {
-        this.classItem = res;
-        this.loader.hideSpinner();
-      },
-      error: (err) => {
-        this.loader.hideSpinner();
-        catchError(err);
-      },
-    });
+      await setTimeout(() => {
+        this.allUsers = this.userService.getUsers();
+      }, 1000);
 
-    this.loader.showSpinner();
-    this.enrollmentsService.getBySchedule(this.item.id)?.subscribe({
-      next: (res) => {
-        this.enrollments = res;
-        this.loader.hideSpinner();
-      },
-      error: (err) => {
-        this.loader.hideSpinner();
-        catchError(err);
-      },
+      this.loader.hideSpinner();
     });
   }
 
   isUk = this.languageService.isUk;
 
   findUser = (id: string) => this.allUsers.find((user) => user.id === id);
+
+  backToSchedule = () => {
+    this.location.back();
+  };
 }

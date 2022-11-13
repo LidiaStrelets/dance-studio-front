@@ -69,6 +69,7 @@ export class PaymentsPage implements OnInit {
     this.paymentsService.create(price.id)?.subscribe({
       next: (res) => {
         this.payments.push(res);
+        this.selectedSubscription = undefined;
         this.loader.hideSpinner();
         this.alertService.presentAlertSuccess(
           this.alertService.getTranslations().paymentSuccessMessage
