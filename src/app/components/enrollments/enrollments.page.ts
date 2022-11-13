@@ -25,7 +25,6 @@ export class EnrollmentsPage implements OnInit, AfterContentChecked, OnDestroy {
   @ViewChild('slides') swiper?: SwiperComponent;
   config: SwiperOptions = {
     pagination: true,
-    initialSlide: 2,
   };
 
   items: Schedule[] = [];
