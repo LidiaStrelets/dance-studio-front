@@ -11,10 +11,11 @@ import { catchError } from 'rxjs/operators';
 import { DateService } from 'src/app/services/date.service';
 import { LanguageService } from 'src/app/services/language.service';
 import { LoaderService } from 'src/app/services/loader.service';
-import { ClassItemFull, ELanguages, Schedule, ScheduleFull } from 'src/types';
+import {  Schedule, ScheduleFull } from './../../types';
 import { ClassesService } from '../../../classes/services/classes.service';
 import { CommonService } from '../../services/common.service';
 import { SchedulesService } from '../../services/schedules.service';
+import { ClassItemFull } from 'src/app/components/classes/types';
 
 @Component({
   selector: 'app-class-schedule',
@@ -106,9 +107,9 @@ export class ClassScheduleComponent implements OnInit, OnDestroy, OnChanges {
 
   getClasses = () =>
     this.classItems.map(({ id, name, nameUk }) =>
-      this.languageService.getLanguage() === ELanguages.en
-        ? { id, name }
-        : { id, name: nameUk }
+      this.languageService.isUk ()
+        ? { id, name: nameUk }
+        : { id, name }
     );
 
   selectClass = (id: string) => {
