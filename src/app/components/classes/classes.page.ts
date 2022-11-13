@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { catchError } from 'rxjs';
 import { LanguageService } from 'src/app/services/language.service';
 import { LoaderService } from 'src/app/services/loader.service';
-import { ClassItemFull, ELanguages } from 'src/types';
+import { ClassItemFull } from './types';
 import { ClassesService } from './services/classes.service';
 
 @Component({
@@ -36,8 +36,8 @@ export class ClassesPage implements OnInit {
 
   getClasses = () =>
     this.classItems.map(({ id, name, nameUk, description, descriptionUk }) =>
-      this.languageService.getLanguage() === ELanguages.en
-        ? { id, name, description }
-        : { id, name: nameUk, description: descriptionUk }
+      this.languageService.isUk()
+        ? { id, name: nameUk, description: descriptionUk }
+        : { id, name, description }
     );
 }

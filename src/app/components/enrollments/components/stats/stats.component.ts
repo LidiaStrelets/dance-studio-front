@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DateService } from 'src/app/services/date.service';
 import { LoaderService } from 'src/app/services/loader.service';
-import { Stats, StatsKeys } from 'src/types';
+import { Stats, StatsKeys } from './../../types';
 import { EnrollmentsService } from '../../services/enrollments.service';
 
 @Component({

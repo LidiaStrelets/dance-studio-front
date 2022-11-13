@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { UserDeletedFields } from 'src/types';
+import { UserDeletedFields } from './../../types';
 
 @Component({
   selector: 'app-icon-button',

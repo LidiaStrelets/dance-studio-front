@@ -7,7 +7,6 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Registration, Schedule } from 'src/types';
 import { catchError } from 'rxjs/operators';
 import { EnrollmentsService } from 'src/app/components/enrollments/services/enrollments.service';
 import { LoaderService } from 'src/app/services/loader.service';
@@ -16,6 +15,8 @@ import { AuthService } from 'src/app/components/auth/services/auth.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { SchedulesService } from '../../services/schedules.service';
 import { LanguageService } from 'src/app/services/language.service';
+import { Schedule } from '../../types';
+import { Registration } from 'src/app/components/enrollments/types';
 
 @Component({
   selector: 'app-date-schedule',

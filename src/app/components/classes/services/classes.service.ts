@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { ClassItemFull } from 'src/types';
+import { ClassItemFull } from './../types';
 import { AuthService } from '../../auth/services/auth.service';
 
 @Injectable({

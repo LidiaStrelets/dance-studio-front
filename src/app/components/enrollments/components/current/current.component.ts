@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Schedule } from 'src/app/components/schedule/types';
 import { DateService } from 'src/app/services/date.service';
-import { CancellEnrollmentEvent, Schedule } from 'src/types';
+import { CancellEnrollmentEvent } from '../../types';
 
 @Component({
   selector: 'app-current',

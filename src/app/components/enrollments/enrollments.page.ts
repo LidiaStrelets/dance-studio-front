@@ -8,9 +8,9 @@ import {
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { LoaderService } from 'src/app/services/loader.service';
-import { Schedule } from 'src/types';
 import Swiper, { Pagination, SwiperOptions } from 'swiper';
 import { SwiperComponent } from 'swiper/angular';
+import { Schedule } from '../schedule/types';
 import { EnrollmentsService } from './services/enrollments.service';
 
 Swiper.use([Pagination]);

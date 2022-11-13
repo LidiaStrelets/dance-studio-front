@@ -4,7 +4,7 @@ import { catchError } from 'rxjs/operators';
 import { routesPaths } from 'src/app/app-routing.module';
 import { FormService } from 'src/app/services/form.service';
 import { LoaderService } from 'src/app/services/loader.service';
-import { LoginData, LoginForm, LoginFormFields } from 'src/types';
+import { LoginData, LoginForm, LoginFormFields } from './../../types';
 import { AuthService } from '../../services/auth.service';
 import { BeService } from '../../services/login.services/be.service';
 

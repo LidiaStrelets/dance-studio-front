@@ -3,7 +3,7 @@ import { catchError } from 'rxjs/operators';
 import { LanguageService } from 'src/app/services/language.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { environment } from 'src/environments/environment';
-import { ELanguages, Hall, TranslatedHall } from 'src/types';
+import { ELanguages, Hall, TranslatedHall } from './types';
 import { HallService } from './services/hall.service';
 
 @Component({

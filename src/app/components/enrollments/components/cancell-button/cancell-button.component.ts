@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { catchError } from 'rxjs';
+import { Schedule } from 'src/app/components/schedule/types';
 import { AlertService } from 'src/app/services/alert.service';
 import { DateService } from 'src/app/services/date.service';
 import { LoaderService } from 'src/app/services/loader.service';
-import { CancellEnrollmentEvent, Schedule } from 'src/types';
 import { EnrollmentsService } from '../../services/enrollments.service';
+import { CancellEnrollmentEvent } from '../../types';
 
 @Component({
   selector: 'app-cancell-button',

@@ -4,8 +4,9 @@ import { catchError } from 'rxjs/operators';
 import { routesPaths } from 'src/app/app-routing.module';
 import { AlertService } from 'src/app/services/alert.service';
 import { LoaderService } from 'src/app/services/loader.service';
-import { Registration, Schedule } from 'src/types';
+import { Schedule } from './../../types';
 import { EnrollmentsService } from '../../../enrollments/services/enrollments.service';
+import { Registration } from 'src/app/components/enrollments/types';
 
 @Component({
   selector: 'app-item-buttons',

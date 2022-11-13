@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RegistrationData, TokenResponce } from 'src/types';
 import { catchError, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { RegistrationData, TokenResponce } from '../../types';
 
 @Injectable({
   providedIn: 'root',

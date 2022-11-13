@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
-import {
-  ELanguages,
-  Languages,
-  LocalStorageKeys,
-  ScheduleFull,
-} from 'src/types';
+import { LocalStorageKeys } from './../types';
 import { TranslateService } from '@ngx-translate/core';
+import { ScheduleFull } from '../components/schedule/types';
+import { ELanguages, Languages } from '../components/home/types';
 
 @Injectable({
   providedIn: 'root',

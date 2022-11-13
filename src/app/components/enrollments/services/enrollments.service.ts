@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Registration, ScheduleFull, Stats } from 'src/types';
+import { Registration, Stats } from './../types';
 import { AuthService } from '../../auth/services/auth.service';
+import { ScheduleFull } from '../../schedule/types';
 
 @Injectable({
   providedIn: 'root',

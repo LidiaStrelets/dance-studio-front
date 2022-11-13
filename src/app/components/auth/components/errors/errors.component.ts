@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ErrorMessages } from 'src/types';
+import { ErrorMessages } from 'src/app/types';
 
 @Component({
   selector: 'app-errors',

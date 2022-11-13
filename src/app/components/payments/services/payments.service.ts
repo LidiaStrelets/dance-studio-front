@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, take } from 'rxjs';
 import { LanguageService } from 'src/app/services/language.service';
 import { environment } from 'src/environments/environment';
-import { Payment, Price, SubscriptionOptions } from 'src/types';
+import { Payment, SubscriptionOptions } from './../types';
 import { AuthService } from '../../auth/services/auth.service';
+import { Price } from '../../prices/types';
 
 @Injectable({
   providedIn: 'root',

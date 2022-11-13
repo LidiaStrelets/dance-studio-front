@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import {
-  ErrorMessages,
   RegistrationFormFields,
   TRegistrationFormFields,
-} from 'src/types';
+} from '../components/auth/types';
+import { ErrorMessages } from './../types';
 
 @Injectable({
   providedIn: 'root',

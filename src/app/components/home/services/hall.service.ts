@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { Hall } from 'src/types';
+import { Hall } from './../types';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../../auth/services/auth.service';
 

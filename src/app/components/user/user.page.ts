@@ -5,7 +5,7 @@ import {
   UserForm,
   UserFormFields,
   UserRequest,
-} from 'src/types';
+} from './types';
 import { UsersService } from './services/users.service';
 import { AuthService } from '../auth/services/auth.service';
 import { AlertService } from 'src/app/services/alert.service';

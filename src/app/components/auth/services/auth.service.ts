@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { LocalStorageKeys, Roles, TokenData, TRoles } from 'src/types';
+import { TokenData } from './../types';
 import { catchError, take } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { AlertService } from 'src/app/services/alert.service';
@@ -8,6 +8,8 @@ import { routesPaths } from 'src/app/app-routing.module';
 import { environment } from 'src/environments/environment';
 import { LoaderService } from 'src/app/services/loader.service';
 import { BehaviorSubject } from 'rxjs';
+import { LocalStorageKeys } from 'src/app/types';
+import { Roles, TRoles } from '../../user/types';
 
 @Injectable({
   providedIn: 'root',

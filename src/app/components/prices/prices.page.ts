@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { catchError } from 'rxjs';
 import { LoaderService } from 'src/app/services/loader.service';
-import { Price } from 'src/types';
+import { Price } from './types';
 import { PricesService } from './services/prices.service';
 
 @Component({

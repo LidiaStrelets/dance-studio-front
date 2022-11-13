@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { catchError, map, take } from 'rxjs/operators';
 import { DateService } from 'src/app/services/date.service';
 import { environment } from 'src/environments/environment';
-import { ScheduleFull, SingleScheduleFull } from 'src/types';
+import { ScheduleFull, SingleScheduleFull } from './../types';
 import { AuthService } from '../../auth/services/auth.service';
 
 @Injectable({
