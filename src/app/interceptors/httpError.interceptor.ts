@@ -33,13 +33,16 @@ export class ErrorCatchingInterceptor implements HttpInterceptor {
         created.code = errorStatus.toString();
 
         if (error.status === 401) {
-          this.authService.deauthenticate();
-          return throwError(() => created);
-        }
+          if (this.authService.isAuthenticated()) {
+            this.authService.deauthenticate();
 
-        this.alertService.presentAlertError(
-          this.errorService.generateMessage(errorMessage, errorStatus)
-        );
+            return throwError(() => created);
+          }
+        } else {
+          this.alertService.presentAlertError(
+            this.errorService.generateMessage(errorMessage, errorStatus)
+          );
+        }
 
         return throwError(() => created);
       })

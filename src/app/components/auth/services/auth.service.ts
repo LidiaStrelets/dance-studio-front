@@ -68,7 +68,6 @@ export class AuthService {
 
   getUserData() {
     if (!this.getToken()) {
-      this.deauthenticate();
       return;
     }
 

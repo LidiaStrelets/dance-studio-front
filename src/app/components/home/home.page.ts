@@ -4,7 +4,7 @@ import { LanguageService } from 'src/app/services/language.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { environment } from 'src/environments/environment';
 import { ELanguages, Hall, TranslatedHall } from 'src/types';
-import { HallService } from './hall.service';
+import { HallService } from './services/hall.service';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +25,7 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.spinner.showSpinner();
-    this.hallService.get().subscribe({
+    this.hallService.get()?.subscribe({
       next: (res) => {
         this.halls = res;
         this.translate();
