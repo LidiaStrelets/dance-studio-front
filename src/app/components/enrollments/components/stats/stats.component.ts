@@ -45,4 +45,6 @@ export class StatsComponent implements OnInit {
 
     this.loader.hideSpinner();
   }
+
+  getStats = () => this.stats;
 }

@@ -16,7 +16,6 @@ import { AuthService } from 'src/app/components/auth/services/auth.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { SchedulesService } from '../../services/schedules.service';
 import { LanguageService } from 'src/app/services/language.service';
-import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-date-schedule',
@@ -46,8 +45,7 @@ export class DateScheduleComponent implements OnInit, OnDestroy, OnChanges {
     private loader: LoaderService,
     private authService: AuthService,
     private schedulesService: SchedulesService,
-    private languageService: LanguageService,
-    private modalCtrl: ModalController
+    private languageService: LanguageService
   ) {}
 
   ngOnInit() {
@@ -71,23 +69,23 @@ export class DateScheduleComponent implements OnInit, OnDestroy, OnChanges {
           this.subscription = this.selectedDate.subscribe((res) => {
             if (res) {
               this.schedulesService.get(res)?.subscribe({
-                next: (res) => {
-                  this.items = this.languageService.translateSchedule(res);
+                next: (result) => {
+                  this.items = this.languageService.translateSchedule(result);
 
                   this.loader.hideSpinner();
-                },
-                error: (err) => {
-                  this.loader.hideSpinner();
-                  catchError(err);
-                },
-              });
 
-              this.enrollmentService.getByDate(res)?.subscribe({
-                next: (res) => {
-                  this.enrollments = res;
-                  this.items = this.addEnrolled(this.items, res);
+                  this.enrollmentService.getByDate(res)?.subscribe({
+                    next: (res) => {
+                      this.enrollments = res;
+                      this.items = this.addEnrolled(result, res);
 
-                  this.loader.hideSpinner();
+                      this.loader.hideSpinner();
+                    },
+                    error: (err) => {
+                      this.loader.hideSpinner();
+                      catchError(err);
+                    },
+                  });
                 },
                 error: (err) => {
                   this.loader.hideSpinner();

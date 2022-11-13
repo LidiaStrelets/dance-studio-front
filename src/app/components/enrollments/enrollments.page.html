@@ -1,7 +1,7 @@
 <app-header [header]="'menu.Enrollments'|translate"></app-header>
 
 <ion-content>
-  <swiper (slideChange)="onSlideChange()" [config]="config" #slides>
+  <swiper [config]="config" #slides>
     <ng-template swiperSlide
       ><app-current
         [items]="getActive()"

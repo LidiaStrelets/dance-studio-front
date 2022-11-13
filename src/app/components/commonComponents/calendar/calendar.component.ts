@@ -34,7 +34,7 @@ export class CalendarComponent implements OnInit {
     if (this.location.path().includes(routesPaths.schedule) || this.archive) {
       return this.dateService.getMinScheduleDate();
     } else {
-      return this.dateService.getMinEnrollmentsDate();
+      return this.dateService.baseScheduleDate;
     }
   };
 
@@ -46,7 +46,7 @@ export class CalendarComponent implements OnInit {
     ) {
       return this.dateService.getMaxEnrollmentsDate();
     } else if (this.archive) {
-      return this.dateService.getMinEnrollmentsDate();
+      return this.dateService.baseScheduleDate;
     } else return null;
   };
 

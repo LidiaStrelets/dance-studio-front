@@ -11,7 +11,6 @@ import { LoaderService } from 'src/app/services/loader.service';
 import { Schedule } from 'src/types';
 import Swiper, { Pagination, SwiperOptions } from 'swiper';
 import { SwiperComponent } from 'swiper/angular';
-import { DateService } from '../../services/date.service';
 import { EnrollmentsService } from './services/enrollments.service';
 
 Swiper.use([Pagination]);
@@ -26,6 +25,7 @@ export class EnrollmentsPage implements OnInit, AfterContentChecked, OnDestroy {
   config: SwiperOptions = {
     pagination: true,
   };
+  activeSlide = 0;
 
   items: Schedule[] = [];
 
@@ -33,7 +33,6 @@ export class EnrollmentsPage implements OnInit, AfterContentChecked, OnDestroy {
   subscription: Subscription = {} as Subscription;
 
   constructor(
-    private dateService: DateService,
     private loader: LoaderService,
     private enrollmentsService: EnrollmentsService
   ) {}
@@ -45,6 +44,7 @@ export class EnrollmentsPage implements OnInit, AfterContentChecked, OnDestroy {
       if (!res) {
         return;
       }
+
       this.enrollmentsService.getByDateMapped(res)?.subscribe({
         next: (res) => {
           this.items = res;
@@ -58,6 +58,10 @@ export class EnrollmentsPage implements OnInit, AfterContentChecked, OnDestroy {
   ngAfterContentChecked(): void {
     if (this.swiper) {
       this.swiper.updateSwiper({});
+
+      this.swiper.swiperRef.on('slideChange', (e) => {
+        this.activeSlide = e.realIndex;
+      });
     }
   }
 
@@ -75,8 +79,4 @@ export class EnrollmentsPage implements OnInit, AfterContentChecked, OnDestroy {
     });
   getArchive = () =>
     this.items.filter((item) => item.date_time < new Date(Date.now()));
-
-  onSlideChange = () => {
-    this.selectedDate.next(this.dateService.getMinEnrollmentsDate());
-  };
 }

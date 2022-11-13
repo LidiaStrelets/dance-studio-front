@@ -1,9 +1,10 @@
 <ion-content>
   <h1>{{ "enrollments.stats.title" | translate }}</h1>
+
   <ion-item *ngFor="let item of classesNames" color="light">
     <p>
       {{ "enrollments.stats." + item | translate }}:
-      <span>{{ stats[item] }}</span>
+      <span>{{ getStats()[item] }}</span>
     </p>
   </ion-item>
 </ion-content>
