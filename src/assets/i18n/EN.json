@@ -25,7 +25,8 @@
     "Coaches": "Coaches",
     "Classes": "Classes",
     "Prices": "Prices",
-    "Enrollments": "Enrollments"
+    "Enrollments": "Enrollments",
+    "Personals": "Personal classes"
   },
   "profile": {
     "header": "My profile",
@@ -85,7 +86,12 @@
     "required": "Required field!",
     "email": "Enter valid email address!",
     "keyRequired": "Provide an admin key!",
-    "pattern": "A password should be at least 8 symbols long, contain a capital letter and a digit"
+    "pattern": {
+      "password": "A password should be at least 8 symbols long, contain a capital letter and a digit",
+      "duration": "Enter an integer"
+    },
+    "min": "Minimum duration is 60 minutes",
+    "max": "Maximum duration is 120 minutes"
   },
   "infoModal": {
     "header": "Class information",
@@ -128,5 +134,21 @@
     "subscription": "Subscription",
     "classes": "Classes",
     "expirationDate": "Valid until"
+  },
+  "personals": {
+    "description": "We offer you a private class service. Create your dream class. Pay attention! When a coach confirms the class you should pay the whole price - only then the class will be activated and added to a schedule. Also we offer private classes pass.",
+    "enroll": {
+      "button": "Ennroll",
+      "header": "Create your class",
+      "chooseCoach": "Choose a coach",
+      "chooseClass": "Choose a class",
+      "chooseDate": "Choose date",
+      "chooseDuration": "Enter preferred class duration",
+      "coachLabel": "Coach",
+      "classLabel": "Class",
+      "dateLabel": "Date",
+      "durationLabel": "Duration",
+      "submit": "Create"
+    }
   }
 }

@@ -5,6 +5,10 @@ import {
   RegistrationFormFields,
   TRegistrationFormFields,
 } from '../components/auth/types';
+import {
+  PersonalFormFields,
+  TPersonalFormFields,
+} from '../components/personals/types';
 import { ErrorMessages } from './../types';
 
 @Injectable({
@@ -22,7 +26,10 @@ export class FormService {
 
   constructor(private translateService: TranslateService) {}
 
-  getValidation = (field: TRegistrationFormFields, form: FormGroup) => {
+  getValidation = (
+    field: TRegistrationFormFields | TPersonalFormFields,
+    form: FormGroup
+  ) => {
     if (!form) return;
     const fieldValue = form.get(field);
 
@@ -33,7 +40,7 @@ export class FormService {
   };
 
   getErrors = (
-    field: TRegistrationFormFields,
+    field: TRegistrationFormFields | TPersonalFormFields,
     form: FormGroup
   ): ErrorMessages => {
     if (!form) return {} as ErrorMessages;
@@ -48,14 +55,31 @@ export class FormService {
         .subscribe((res) => (customErrors.required = res));
     }
     if (errors?.['pattern']) {
-      this.translateService
-        .get('errors.pattern')
-        .subscribe((res) => (customErrors.pattern = res));
+      if (field === RegistrationFormFields.password) {
+        this.translateService
+          .get('errors.pattern.password')
+          .subscribe((res) => (customErrors.pattern = res));
+      }
+      if (field === PersonalFormFields.duration) {
+        this.translateService
+          .get('errors.pattern.duration')
+          .subscribe((res) => (customErrors.pattern = res));
+      }
     }
     if (errors?.['email']) {
       this.translateService
         .get('errors.email')
         .subscribe((res) => (customErrors.email = res));
+    }
+    if (errors?.['min']) {
+      this.translateService
+        .get('errors.min')
+        .subscribe((res) => (customErrors.min = res));
+    }
+    if (errors?.['max']) {
+      this.translateService
+        .get('errors.max')
+        .subscribe((res) => (customErrors.max = res));
     }
     if (
       (field =

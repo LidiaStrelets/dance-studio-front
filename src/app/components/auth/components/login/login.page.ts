@@ -22,7 +22,7 @@ export class LoginPage implements OnInit {
   constructor(
     private be: BeService,
     private authService: AuthService,
-    private formFunctionsServise: FormService,
+    private formFunctionsService: FormService,
     private loader: LoaderService
   ) {}
 
@@ -56,8 +56,8 @@ export class LoginPage implements OnInit {
     });
   }
 
-  getValidation = this.formFunctionsServise.getValidation;
-  getErrors = this.formFunctionsServise.getErrors;
+  getValidation = this.formFunctionsService.getValidation;
+  getErrors = this.formFunctionsService.getErrors;
 
-  inputStyles = this.formFunctionsServise.inputStyles;
+  inputStyles = this.formFunctionsService.inputStyles;
 }

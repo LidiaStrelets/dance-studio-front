@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { ELanguages, LocalStorageKeys, MenuItem, Roles } from 'src/types';
+import { LocalStorageKeys, MenuItem } from './types';
 import { routesPaths } from './app-routing.module';
 import { AuthService } from './components/auth/services/auth.service';
 import { LoaderService } from './services/loader.service';
+import { ELanguages } from './components/home/types';
 
 @Component({
   selector: 'app-root',
@@ -44,18 +45,24 @@ export class AppComponent {
     },
     {
       id: 5,
+      name: 'Personals',
+      translatedName: 'Personals',
+      link: ['../', routesPaths.personals],
+    },
+    {
+      id: 6,
       name: 'Coaches',
       translatedName: 'Coaches',
       link: ['../', routesPaths.coaches],
     },
     {
-      id: 6,
+      id: 7,
       name: 'Classes',
       translatedName: 'Classes',
       link: ['../', routesPaths.classes],
     },
     {
-      id: 7,
+      id: 9,
       name: 'Prices',
       translatedName: 'Prices',
       link: ['../', routesPaths.prices],

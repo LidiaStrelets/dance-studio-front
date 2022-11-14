@@ -1,0 +1,107 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-back-button [text]="null"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <h1>{{ "personals.enroll.header" | translate }}</h1>
+  <form (ngSubmit)="handleSubmit()" [formGroup]="personalForm">
+    <app-calendar
+      [showDate]="showDate"
+      [toggleDate]="toggleDate"
+      [getDate]="getDate"
+    ></app-calendar>
+    <ion-item
+      [ngStyle]="
+        getValidation(personalFormFields.coach, personalForm)?.blockHighlight
+          ? inputStyles
+          : {}
+      "
+    >
+      <ion-label position="floating">{{
+        "personals.enroll.coachLabel" | translate
+      }}</ion-label>
+
+      <ion-select
+        [formControlName]="personalFormFields.coach"
+        interface="popover"
+        [placeholder]="'personals.enroll.chooseCoach' | translate"
+      >
+        <ion-select-option *ngFor="let coach of coaches" [value]="coach.id">{{
+          getName(coach)
+        }}</ion-select-option>
+      </ion-select>
+      <app-errors
+        [showError]="
+          getValidation(personalFormFields.coach, personalForm)?.showMessage ??
+          false
+        "
+        [errors]="getErrors(personalFormFields.coach, personalForm)"
+      ></app-errors>
+    </ion-item>
+    <ion-item
+      [ngStyle]="
+        getValidation(personalFormFields.class, personalForm)?.blockHighlight
+          ? inputStyles
+          : {}
+      "
+    >
+      <ion-label position="floating">{{
+        "personals.enroll.classLabel" | translate
+      }}</ion-label>
+      <ion-select
+        [formControlName]="personalFormFields.class"
+        interface="popover"
+        [placeholder]="'personals.enroll.chooseClass' | translate"
+      >
+        <ion-select-option
+          *ngFor="let classItem of translatedClasses"
+          [value]="classItem.id"
+          >{{ classItem.name }}</ion-select-option
+        >
+      </ion-select>
+      <app-errors
+        [showError]="
+          getValidation(personalFormFields.class, personalForm)?.showMessage ??
+          false
+        "
+        [errors]="getErrors(personalFormFields.class, personalForm)"
+      ></app-errors>
+    </ion-item>
+    <ion-item
+      [ngStyle]="
+        getValidation(personalFormFields.duration, personalForm)?.blockHighlight
+          ? inputStyles
+          : {}
+      "
+    >
+      <ion-label position="floating">{{
+        "personals.enroll.durationLabel" | translate
+      }}</ion-label>
+      <ion-input
+        [formControlName]="personalFormFields.duration"
+        type="number"
+        [placeholder]="'personals.enroll.chooseDuration' | translate"
+      ></ion-input>
+
+      <app-errors
+        [showError]="
+          getValidation(personalFormFields.duration, personalForm)
+            ?.showMessage ?? false
+        "
+        [errors]="getErrors(personalFormFields.duration, personalForm)"
+      ></app-errors>
+    </ion-item>
+    <div class="button-container">
+      <ion-button
+        size="large"
+        fill="outline"
+        [disabled]="!personalForm.valid"
+        type="submit"
+        >{{ "personals.enroll.submit" | translate }}</ion-button
+      >
+    </div>
+  </form>
+</ion-content>

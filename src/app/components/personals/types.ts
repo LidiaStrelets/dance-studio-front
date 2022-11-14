@@ -4,3 +4,5 @@ export enum PersonalFormFields {
   date = 'date',
   duration = 'duration',
 }
+
+export type TPersonalFormFields = 'coach' | 'class' | 'date' | 'duration';

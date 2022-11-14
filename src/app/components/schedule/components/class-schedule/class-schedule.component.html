@@ -1,13 +1,13 @@
 <ion-content>
   <ion-item color="light">
     <ion-select
-      [(ngModel)]="selectedClass"
+      [(ngModel)]="filters.value.classItem"
       (ngModelChange)="selectClass($event)"
       interface="popover"
       [placeholder]="'schedule.classText' | translate"
     >
       <ion-select-option
-        *ngFor="let class of getClasses()"
+        *ngFor="let class of translateClasses"
         [value]="class.id"
         >{{ class.name }}</ion-select-option
       >

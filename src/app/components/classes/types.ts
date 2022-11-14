@@ -1,5 +1,5 @@
 export interface ClassItem {
-  name: TClass;
+  name: TClass | TClassUk;
   description: string;
   id: string;
 }

@@ -5,4 +5,6 @@
     {{ errors["pattern"] }}
   </p>
   <p *ngIf="errors['keyRequired']">{{ errors["keyRequired"] }}</p>
+  <p *ngIf="errors['min']">{{ errors["min"] }}</p>
+  <p *ngIf="errors['max']">{{ errors["max"] }}</p>
 </div>

@@ -11,7 +11,7 @@ import { catchError } from 'rxjs/operators';
 import { DateService } from 'src/app/services/date.service';
 import { LanguageService } from 'src/app/services/language.service';
 import { LoaderService } from 'src/app/services/loader.service';
-import {  Schedule, ScheduleFull } from './../../types';
+import { Schedule, ScheduleFull } from './../../types';
 import { ClassesService } from '../../../classes/services/classes.service';
 import { CommonService } from '../../services/common.service';
 import { SchedulesService } from '../../services/schedules.service';
@@ -105,12 +105,7 @@ export class ClassScheduleComponent implements OnInit, OnDestroy, OnChanges {
 
   radioItems = this.common.radioItems;
 
-  getClasses = () =>
-    this.classItems.map(({ id, name, nameUk }) =>
-      this.languageService.isUk ()
-        ? { id, name: nameUk }
-        : { id, name }
-    );
+  translateClasses = this.classesService.translateClasses(this.classItems);
 
   selectClass = (id: string) => {
     this.filters.next({ classItem: id, days: this.filters.value.days });

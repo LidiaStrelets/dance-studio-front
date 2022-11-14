@@ -1,0 +1,15 @@
+<app-header [header]="'menu.Personals'|translate"></app-header>
+
+<ion-content>
+  <div class="page-container">
+    <p>{{"personals.description"|translate}}</p>
+    <div class="button-container">
+      <ion-button
+        [routerLink]="['../',routerPath.personals, 'enroll']"
+        size="large"
+        fill="outline"
+        >{{"personals.enroll.button"|translate}}</ion-button
+      >
+    </div>
+  </div>
+</ion-content>

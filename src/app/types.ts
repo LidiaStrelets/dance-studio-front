@@ -61,4 +61,6 @@ export interface ErrorMessages {
   pattern: string;
   email: string;
   keyRequired: string;
+  min: string;
+  max: string;
 }

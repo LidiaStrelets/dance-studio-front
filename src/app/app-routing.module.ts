@@ -15,6 +15,7 @@ export const routesPaths = {
   classes: 'classes',
   prices: 'prices',
   enrollments: 'enrollments',
+  personals: 'personals',
 };
 
 const routes: Routes = [
@@ -102,6 +103,13 @@ const routes: Routes = [
     loadChildren: () =>
       import('./components/payments/payments.module').then(
         (m) => m.PaymentsPageModule
+      ),
+  },
+  {
+    path: routesPaths.personals,
+    loadChildren: () =>
+      import('./components/personals/personals.module').then(
+        (m) => m.PersonalsPageModule
       ),
   },
   // {
