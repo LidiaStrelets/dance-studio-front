@@ -1,7 +1,7 @@
 import { HttpHandler, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthService } from '../components/auth/services/auth.service';
+import { AuthService } from '@authModule/services/auth.service';
 
 @Injectable({
   providedIn: 'root',

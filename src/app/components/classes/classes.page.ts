@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { catchError } from 'rxjs';
-import { LanguageService } from 'src/app/services/language.service';
-import { LoaderService } from 'src/app/services/loader.service';
-import { ClassItemFull } from './types';
-import { ClassesService } from './services/classes.service';
+import { LanguageService } from '@services/language.service';
+import { LoaderService } from '@services/loader.service';
+import { ClassItemFull } from '@classesModule/types';
+import { ClassesService } from '@classesModule/services/classes.service';
 
 @Component({
   selector: 'app-classes',

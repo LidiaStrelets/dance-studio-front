@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { catchError } from 'rxjs/operators';
-import { LanguageService } from 'src/app/services/language.service';
-import { LoaderService } from 'src/app/services/loader.service';
-import { environment } from 'src/environments/environment';
-import { ELanguages, Hall, TranslatedHall } from './types';
-import { HallService } from './services/hall.service';
+import { LanguageService } from '@services/language.service';
+import { LoaderService } from '@services/loader.service';
+import { environment } from '@root/environments/environment';
+import { ELanguages, Hall, TranslatedHall } from '@homeModule/types';
+import { HallService } from '@homeModule/services/hall.service';
 
 @Component({
   selector: 'app-home',

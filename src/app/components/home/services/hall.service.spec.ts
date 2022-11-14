@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-
-import { HallService } from './hall.service';
+import { HallService } from '@homeModule/services/hall.service';
 
 describe('HallService', () => {
   let service: HallService;

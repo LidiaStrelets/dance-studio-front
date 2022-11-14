@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { catchError } from 'rxjs';
-import { AlertService } from 'src/app/services/alert.service';
-import { DateService } from 'src/app/services/date.service';
-import { LoaderService } from 'src/app/services/loader.service';
-import { Payment, SubscriptionOptions } from './types';
-import { PricesService } from '../prices/services/prices.service';
-import { PaymentsService } from './services/payments.service';
-import { Price } from '../prices/types';
+import { AlertService } from '@services/alert.service';
+import { DateService } from '@services/date.service';
+import { LoaderService } from '@services/loader.service';
+import { Payment, SubscriptionOptions } from '@paymentsModule/types';
+import { PricesService } from '@pricesModule/services/prices.service';
+import { PaymentsService } from '@paymentsModule/services/payments.service';
+import { Price } from '@pricesModule/types';
 
 @Component({
   selector: 'app-payments',

@@ -1,5 +1,5 @@
 import { FormGroup, ValidationErrors } from '@angular/forms';
-import { TRegistrationFormFields } from './components/auth/types';
+import { TRegistrationFormFields } from '@authModule/types';
 
 export interface MenuItem {
   name: string;

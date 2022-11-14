@@ -5,12 +5,12 @@ import {
   ViewChild,
 } from '@angular/core';
 import { catchError } from 'rxjs/operators';
-import { LoaderService } from 'src/app/services/loader.service';
-import { environment } from 'src/environments/environment';
+import { LoaderService } from '@services/loader.service';
+import { environment } from '@root/environments/environment';
 import Swiper, { EffectCube, Pagination, SwiperOptions } from 'swiper';
 import { SwiperComponent } from 'swiper/angular';
-import { UsersService } from '../user/services/users.service';
-import { User } from '../user/types';
+import { UsersService } from '@userModule/services/users.service';
+import { User } from '@userModule/types';
 
 Swiper.use([Pagination, EffectCube]);
 

@@ -8,14 +8,14 @@ import {
 } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { DateService } from 'src/app/services/date.service';
-import { LanguageService } from 'src/app/services/language.service';
-import { LoaderService } from 'src/app/services/loader.service';
-import { Schedule, ScheduleFull } from './../../types';
-import { ClassesService } from '../../../classes/services/classes.service';
-import { CommonService } from '../../services/common.service';
-import { SchedulesService } from '../../services/schedules.service';
-import { ClassItemFull } from 'src/app/components/classes/types';
+import { DateService } from '@services/date.service';
+import { LanguageService } from '@services/language.service';
+import { LoaderService } from '@services/loader.service';
+import { Schedule, ScheduleFull } from '@schedulesModule/types';
+import { ClassesService } from '@classesModule/services/classes.service';
+import { CommonService } from '@schedulesModule/services/common.service';
+import { SchedulesService } from '@schedulesModule/services/schedules.service';
+import { ClassItemFull } from '@classesModule/types';
 
 @Component({
   selector: 'app-class-schedule',

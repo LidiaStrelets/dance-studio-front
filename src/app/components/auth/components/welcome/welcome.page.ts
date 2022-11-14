@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { routesPaths } from 'src/app/app-routing.module';
-import { AuthService } from '../../services/auth.service';
+import { routesPaths } from '@app/app-routing.module';
+import { AuthService } from '@authModule/services/auth.service';
 
 @Component({
   selector: 'app-welcome',

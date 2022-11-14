@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './components/auth/guards/auth.guard';
-import { IsCoachGuard } from './components/auth/guards/isCoach.guard';
+import { AuthGuard } from '@authModule/guards/auth.guard';
+import { IsCoachGuard } from '@authModule/guards/isCoach.guard';
 
 export const routesPaths = {
   default: 'welcome',
@@ -27,21 +27,21 @@ const routes: Routes = [
   {
     path: routesPaths.default,
     loadChildren: () =>
-      import('./components/auth/components/welcome/welcome.module').then(
+      import('@authModule/components/welcome/welcome.module').then(
         (m) => m.WelcomePageModule
       ),
   },
   {
     path: routesPaths.register,
     loadChildren: () =>
-      import('./components/auth/components/register/register.module').then(
+      import('@authModule/components/register/register.module').then(
         (m) => m.RegisterPageModule
       ),
   },
   {
     path: routesPaths.login,
     loadChildren: () =>
-      import('./components/auth/components/login/login.module').then(
+      import('@authModule/components/login/login.module').then(
         (m) => m.LoginPageModule
       ),
   },
@@ -49,19 +49,19 @@ const routes: Routes = [
     path: routesPaths.home,
     canActivate: [AuthGuard],
     loadChildren: () =>
-      import('./components/home/home.module').then((m) => m.HomePageModule),
+      import('@homeModule/home.module').then((m) => m.HomePageModule),
   },
   {
     path: routesPaths.user,
     canActivate: [AuthGuard],
     loadChildren: () =>
-      import('./components/user/user.module').then((m) => m.UserPageModule),
+      import('@userModule/user.module').then((m) => m.UserPageModule),
   },
   {
     path: routesPaths.schedule,
     canActivate: [AuthGuard],
     loadChildren: () =>
-      import('./components/schedule/schedule.module').then(
+      import('@schedulesModule/schedule.module').then(
         (m) => m.SchedulePageModule
       ),
   },
@@ -69,15 +69,13 @@ const routes: Routes = [
     path: routesPaths.classes,
     canActivate: [AuthGuard],
     loadChildren: () =>
-      import('./components/classes/classes.module').then(
-        (m) => m.ClassesPageModule
-      ),
+      import('@classesModule/classes.module').then((m) => m.ClassesPageModule),
   },
   {
     path: routesPaths.enrollments,
     canActivate: [AuthGuard],
     loadChildren: () =>
-      import('./components/enrollments/enrollments.module').then(
+      import('@enrollmentsModule/enrollments.module').then(
         (m) => m.EnrollmentsPageModule
       ),
   },
@@ -85,30 +83,26 @@ const routes: Routes = [
     path: routesPaths.coaches,
     canActivate: [AuthGuard],
     loadChildren: () =>
-      import('./components/coaches/coaches.module').then(
-        (m) => m.CoachesPageModule
-      ),
+      import('@coachesModule/coaches.module').then((m) => m.CoachesPageModule),
   },
   {
     path: routesPaths.prices,
     canActivate: [AuthGuard],
     loadChildren: () =>
-      import('./components/prices/prices.module').then(
-        (m) => m.PricesPageModule
-      ),
+      import('@pricesModule/prices.module').then((m) => m.PricesPageModule),
   },
   {
     path: routesPaths.payments,
     canActivate: [AuthGuard, IsCoachGuard],
     loadChildren: () =>
-      import('./components/payments/payments.module').then(
+      import('@paymentsModule/payments.module').then(
         (m) => m.PaymentsPageModule
       ),
   },
   {
     path: routesPaths.personals,
     loadChildren: () =>
-      import('./components/personals/personals.module').then(
+      import('@personalsModule/personals.module').then(
         (m) => m.PersonalsPageModule
       ),
   },

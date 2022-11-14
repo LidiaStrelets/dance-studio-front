@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { Hall } from './../types';
-import { environment } from 'src/environments/environment';
-import { AuthService } from '../../auth/services/auth.service';
+import { Hall } from '@homeModule/types';
+import { environment } from '@root/environments/environment';
+import { AuthService } from '@authModule/services/auth.service';
 
 @Injectable({
   providedIn: 'root',

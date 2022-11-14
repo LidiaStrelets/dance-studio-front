@@ -4,12 +4,12 @@ import { TranslateService } from '@ngx-translate/core';
 import {
   RegistrationFormFields,
   TRegistrationFormFields,
-} from '../components/auth/types';
+} from '@authModule/types';
 import {
   PersonalFormFields,
   TPersonalFormFields,
-} from '../components/personals/types';
-import { ErrorMessages } from './../types';
+} from '@personalsModule/types';
+import { ErrorMessages } from '@app/types';
 
 @Injectable({
   providedIn: 'root',

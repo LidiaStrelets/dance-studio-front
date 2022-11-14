@@ -8,14 +8,14 @@ import {
 } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { UsersService } from 'src/app/components/user/services/users.service';
-import { DateService } from 'src/app/services/date.service';
-import { LanguageService } from 'src/app/services/language.service';
-import { LoaderService } from 'src/app/services/loader.service';
-import { Schedule, ScheduleFull } from './../../types';
-import { CommonService } from '../../services/common.service';
-import { SchedulesService } from '../../services/schedules.service';
-import { User } from 'src/app/components/user/types';
+import { UsersService } from '@userModule/services/users.service';
+import { DateService } from '@services/date.service';
+import { LanguageService } from '@services/language.service';
+import { LoaderService } from '@services/loader.service';
+import { Schedule, ScheduleFull } from '@schedulesModule/types';
+import { CommonService } from '@schedulesModule/services/common.service';
+import { SchedulesService } from '@schedulesModule/services/schedules.service';
+import { User } from '@userModule/types';
 
 @Component({
   selector: 'app-coach-schedule',

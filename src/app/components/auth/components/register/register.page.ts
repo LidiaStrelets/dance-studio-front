@@ -8,11 +8,11 @@ import {
   RegistrationData,
   RegistrationForm,
   RegistrationFormFields,
-} from './../../types';
-import { CustomValidators } from 'src/validation-functions';
-import { AuthService } from '../../services/auth.service';
-import { BeService } from '../../services/register.services/be.service';
-import { Roles } from 'src/app/components/user/types';
+} from '@authModule/types';
+import { CustomValidators } from '@root/validation-functions';
+import { AuthService } from '@authModule/services/auth.service';
+import { BeService } from '@authModule/services/register.services/be.service';
+import { Roles } from '@userModule/types';
 
 @Component({
   selector: 'app-register',

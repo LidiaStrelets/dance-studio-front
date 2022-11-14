@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { CancellButtonComponent } from './cancell-button.component';
+import { CancellButtonComponent } from '@enrollmentsModule/components/cancell-button/cancell-button.component';
 
 describe('CancellButtonComponent', () => {
   let component: CancellButtonComponent;
@@ -9,8 +9,8 @@ describe('CancellButtonComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CancellButtonComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [CancellButtonComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CancellButtonComponent);

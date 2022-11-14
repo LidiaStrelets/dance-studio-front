@@ -7,11 +7,11 @@ import {
 } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { LoaderService } from 'src/app/services/loader.service';
+import { LoaderService } from '@services/loader.service';
 import Swiper, { Pagination, SwiperOptions } from 'swiper';
 import { SwiperComponent } from 'swiper/angular';
-import { Schedule } from '../schedule/types';
-import { EnrollmentsService } from './services/enrollments.service';
+import { Schedule } from '@schedulesModule/types';
+import { EnrollmentsService } from '@enrollmentsModule/services/enrollments.service';
 
 Swiper.use([Pagination]);
 

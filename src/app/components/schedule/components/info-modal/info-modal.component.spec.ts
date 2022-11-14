@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-
-import { InfoModalComponent } from './info-modal.component';
+import { InfoModalComponent } from '@schedulesModule/components/info-modal/info-modal.component';
 
 describe('InfoModalComponent', () => {
   let component: InfoModalComponent;
@@ -9,8 +8,8 @@ describe('InfoModalComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ InfoModalComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [InfoModalComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(InfoModalComponent);

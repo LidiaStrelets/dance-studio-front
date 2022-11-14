@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, take } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { Price } from './../types';
-import { AuthService } from '../../auth/services/auth.service';
+import { environment } from '@root/environments/environment';
+import { Price } from '@pricesModule/types';
+import { AuthService } from '@authModule/services/auth.service';
 
 @Injectable({
   providedIn: 'root',

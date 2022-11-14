@@ -4,11 +4,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { LoginPageRoutingModule } from './login-routing.module';
+import { LoginPageRoutingModule } from '@authModule/components/login/login-routing.module';
 
-import { LoginPage } from './login.page';
-import { HeaderModule } from '../header/header.module';
-import { ErrorsModule } from '../errors/errors.module';
+import { LoginPage } from '@authModule/components/login/login.page';
+import { HeaderModule } from '@authModule/components/header/header.module';
+import { ErrorsModule } from '@authModule/components/errors/errors.module';
 import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({

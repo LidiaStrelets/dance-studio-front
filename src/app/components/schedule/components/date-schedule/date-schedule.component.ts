@@ -8,15 +8,15 @@ import {
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { catchError } from 'rxjs/operators';
-import { EnrollmentsService } from 'src/app/components/enrollments/services/enrollments.service';
-import { LoaderService } from 'src/app/services/loader.service';
-import { DateService } from 'src/app/services/date.service';
-import { AuthService } from 'src/app/components/auth/services/auth.service';
+import { EnrollmentsService } from '@enrollmentsModule/services/enrollments.service';
+import { LoaderService } from '@services/loader.service';
+import { DateService } from '@services/date.service';
+import { AuthService } from '@authModule/services/auth.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { SchedulesService } from '../../services/schedules.service';
-import { LanguageService } from 'src/app/services/language.service';
-import { Schedule } from '../../types';
-import { Registration } from 'src/app/components/enrollments/types';
+import { SchedulesService } from '@schedulesModule/services/schedules.service';
+import { LanguageService } from '@services/language.service';
+import { Schedule } from '@schedulesModule/types';
+import { Registration } from '@enrollmentsModule/types';
 
 @Component({
   selector: 'app-date-schedule',

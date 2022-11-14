@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-
-import { DateScheduleComponent } from './date-schedule.component';
+import { DateScheduleComponent } from '@schedulesModule/components/date-schedule/date-schedule.component';
 
 describe('DateScheduleComponent', () => {
   let component: DateScheduleComponent;
@@ -9,8 +8,8 @@ describe('DateScheduleComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ DateScheduleComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [DateScheduleComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DateScheduleComponent);

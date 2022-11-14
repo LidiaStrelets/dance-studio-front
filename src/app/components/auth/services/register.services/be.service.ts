@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { RegistrationData, TokenResponce } from '../../types';
+import { environment } from '@root/environments/environment';
+import { RegistrationData, TokenResponce } from '@authModule/types';
 
 @Injectable({
   providedIn: 'root',

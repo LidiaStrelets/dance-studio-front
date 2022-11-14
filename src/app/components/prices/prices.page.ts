@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { catchError } from 'rxjs';
-import { LoaderService } from 'src/app/services/loader.service';
-import { Price } from './types';
-import { PricesService } from './services/prices.service';
+import { LoaderService } from '@services/loader.service';
+import { Price } from '@pricesModule/types';
+import { PricesService } from '@pricesModule/services/prices.service';
 
 @Component({
   selector: 'app-prices',

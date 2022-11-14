@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError } from 'rxjs/operators';
-import { routesPaths } from 'src/app/app-routing.module';
-import { AlertService } from 'src/app/services/alert.service';
-import { LoaderService } from 'src/app/services/loader.service';
-import { Schedule } from './../../types';
-import { EnrollmentsService } from '../../../enrollments/services/enrollments.service';
-import { Registration } from 'src/app/components/enrollments/types';
+import { routesPaths } from '@app/app-routing.module';
+import { AlertService } from '@services/alert.service';
+import { LoaderService } from '@services/loader.service';
+import { Schedule } from '@schedulesModule/types';
+import { EnrollmentsService } from '@enrollmentsModule/services/enrollments.service';
+import { Registration } from '@enrollmentsModule/types';
 
 @Component({
   selector: 'app-item-buttons',

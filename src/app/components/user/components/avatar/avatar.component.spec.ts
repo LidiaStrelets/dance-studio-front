@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-
-import { AvatarComponent } from './avatar.component';
+import { AvatarComponent } from '@userModule/components/avatar/avatar.component';
 
 describe('AvatarComponent', () => {
   let component: AvatarComponent;
@@ -9,8 +8,8 @@ describe('AvatarComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ AvatarComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [AvatarComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AvatarComponent);

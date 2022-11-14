@@ -1,5 +1,5 @@
-import { FormControl, FormGroup, ValidationErrors } from '@angular/forms';
-import { TRoles } from '../user/types';
+import { FormControl, FormGroup } from '@angular/forms';
+import { TRoles } from '@userModule/types';
 
 export type LoginForm = FormGroup<{
   email: FormControl<string | null>;

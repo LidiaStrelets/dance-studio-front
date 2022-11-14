@@ -1,9 +1,9 @@
 import { Location } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { routesPaths } from 'src/app/app-routing.module';
-import { LanguageService } from 'src/app/services/language.service';
-import { DateService } from '../../../services/date.service';
+import { routesPaths } from '@app/app-routing.module';
+import { LanguageService } from '@services/language.service';
+import { DateService } from '@services/date.service';
 
 @Component({
   selector: 'app-calendar',

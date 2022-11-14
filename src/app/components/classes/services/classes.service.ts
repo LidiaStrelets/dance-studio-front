@@ -2,10 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, take } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
-import { ClassItem, ClassItemFull } from './../types';
-import { AuthService } from '../../auth/services/auth.service';
-import { LanguageService } from 'src/app/services/language.service';
+import { environment } from '@root/environments/environment';
+import { ClassItem, ClassItemFull } from '@classesModule/types';
+import { AuthService } from '@authModule/services/auth.service';
+import { LanguageService } from '@services/language.service';
 
 @Injectable({
   providedIn: 'root',

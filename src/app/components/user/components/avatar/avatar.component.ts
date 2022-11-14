@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { environment } from 'src/environments/environment';
-import { UserDeletedFields, UserFormFields } from './../../types';
+import { environment } from '@root/environments/environment';
+import { UserDeletedFields, UserFormFields } from '@userModule/types';
 
 @Component({
   selector: 'app-avatar',

@@ -1,19 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
-
-import { EnrollmentsPageRoutingModule } from './enrollments-routing.module';
-
-import { EnrollmentsPage } from './enrollments.page';
-import { HeaderModule } from '../commonComponents/header/header.module';
+import { EnrollmentsPageRoutingModule } from '@enrollmentsModule/enrollments-routing.module';
+import { EnrollmentsPage } from '@enrollmentsModule/enrollments.page';
+import { HeaderModule } from '@commonComponents/header/header.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { SwiperModule } from 'swiper/angular';
-import { CalendarModule } from '../commonComponents/calendar/calendar.module';
-import { CurrentComponent } from './components/current/current.component';
-import { StatsComponent } from './components/stats/stats.component';
-import { CancellButtonComponent } from './components/cancell-button/cancell-button.component';
+import { CalendarModule } from '@commonComponents/calendar/calendar.module';
+import { CurrentComponent } from '@enrollmentsModule/components/current/current.component';
+import { StatsComponent } from '@enrollmentsModule/components/stats/stats.component';
+import { CancellButtonComponent } from '@enrollmentsModule/components/cancell-button/cancell-button.component';
 
 @NgModule({
   imports: [

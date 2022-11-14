@@ -1,20 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { IonInput } from '@ionic/angular';
-import { InputCustomEvent } from '@ionic/core';
 import { BehaviorSubject, catchError } from 'rxjs';
-import { ClassesService } from 'src/app/components/classes/services/classes.service';
-import {
-  ClassItem,
-  ClassItemFull,
-  TClass,
-} from 'src/app/components/classes/types';
-import { UsersService } from 'src/app/components/user/services/users.service';
-import { User } from 'src/app/components/user/types';
-import { DateService } from 'src/app/services/date.service';
-import { FormService } from 'src/app/services/form.service';
-import { LoaderService } from 'src/app/services/loader.service';
-import { PersonalFormFields } from '../../types';
+import { ClassesService } from '@classesModule/services/classes.service';
+import { ClassItem, ClassItemFull, TClass } from '@classesModule/types';
+import { UsersService } from '@userModule/services/users.service';
+import { User } from '@userModule/types';
+import { DateService } from '@services/date.service';
+import { FormService } from '@services/form.service';
+import { LoaderService } from '@services/loader.service';
+import { PersonalFormFields } from '@personalsModule/types';
 
 @Component({
   selector: 'app-enroll',

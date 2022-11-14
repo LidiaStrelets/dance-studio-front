@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { InfoModalComponent } from './components/info-modal/info-modal.component';
-
-import { SchedulePage } from './schedule.page';
+import { InfoModalComponent } from '@schedulesModule/components/info-modal/info-modal.component';
+import { SchedulePage } from '@schedulesModule/schedule.page';
 
 const routes: Routes = [
   {

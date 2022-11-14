@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { AlertTranslation, EAlertTranslation } from './../types';
-import { routesPaths } from '../app-routing.module';
+import { AlertTranslation, EAlertTranslation } from '@app/types';
+import { routesPaths } from '@app/app-routing.module';
 
 @Injectable({
   providedIn: 'root',

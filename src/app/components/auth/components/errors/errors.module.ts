@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ErrorsComponent } from './errors.component';
+import { ErrorsComponent } from '@authModule/components/errors/errors.component';
 
 @NgModule({
   declarations: [ErrorsComponent],

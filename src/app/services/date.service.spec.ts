@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-
-import { DateService } from './date.service';
+import { DateService } from '@services/date.service';
 
 describe('DateService', () => {
   let service: DateService;

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { LocalStorageKeys, MenuItem } from './types';
-import { routesPaths } from './app-routing.module';
-import { AuthService } from './components/auth/services/auth.service';
-import { LoaderService } from './services/loader.service';
-import { ELanguages } from './components/home/types';
+import { LocalStorageKeys, MenuItem } from '@root/app/types';
+import { routesPaths } from '@root/app/app-routing.module';
+import { AuthService } from '@authModule/services/auth.service';
+import { LoaderService } from '@services/loader.service';
+import { ELanguages } from '@homeModule/types';
 
 @Component({
   selector: 'app-root',

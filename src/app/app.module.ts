@@ -4,22 +4,22 @@ import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from '@app/app.component';
+import { AppRoutingModule } from '@app/app-routing.module';
 import {
   HttpClient,
   HttpClientModule,
   HTTP_INTERCEPTORS,
 } from '@angular/common/http';
-import { TokenInterceptorService } from './services/token-interceptor.service';
+import { TokenInterceptorService } from '@services/token-interceptor.service';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { ErrorCatchingInterceptor } from './interceptors/httpError.interceptor';
-import { AlertService } from './services/alert.service';
-import { ErrorService } from './services/error.service';
+import { ErrorCatchingInterceptor } from '@interceptors/httpError.interceptor';
+import { AlertService } from '@services/alert.service';
+import { ErrorService } from '@services/error.service';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AuthService } from './components/auth/services/auth.service';
+import { AuthService } from '@authModule/services/auth.service';
 
 export const httpLoaderFactory = (httpClient: HttpClient) =>
   new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');

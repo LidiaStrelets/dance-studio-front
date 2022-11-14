@@ -2,10 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, map, take } from 'rxjs/operators';
-import { DateService } from 'src/app/services/date.service';
-import { environment } from 'src/environments/environment';
-import { ScheduleFull, SingleScheduleFull } from './../types';
-import { AuthService } from '../../auth/services/auth.service';
+import { DateService } from '@services/date.service';
+import { environment } from '@root/environments/environment';
+import { ScheduleFull, SingleScheduleFull } from '@schedulesModule/types';
+import { AuthService } from '@authModule/services/auth.service';
 
 @Injectable({
   providedIn: 'root',

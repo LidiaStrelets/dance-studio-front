@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ErrorsComponent } from './errors.component';
+import { ErrorsComponent } from '@authModule/components/errors/errors.component';
 
 describe('ErrorsComponent', () => {
   let component: ErrorsComponent;
@@ -9,8 +9,8 @@ describe('ErrorsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ErrorsComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [ErrorsComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ErrorsComponent);

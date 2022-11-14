@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, take } from 'rxjs';
-import { LanguageService } from 'src/app/services/language.service';
-import { environment } from 'src/environments/environment';
-import { Payment, SubscriptionOptions } from './../types';
-import { AuthService } from '../../auth/services/auth.service';
-import { Price } from '../../prices/types';
+import { LanguageService } from '@services/language.service';
+import { environment } from '@root/environments/environment';
+import { Payment, SubscriptionOptions } from '@paymentsModule/types';
+import { AuthService } from '@authModule/services/auth.service';
+import { Price } from '@pricesModule/types';
 
 @Injectable({
   providedIn: 'root',
