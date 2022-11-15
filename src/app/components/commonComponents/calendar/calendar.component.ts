@@ -18,6 +18,8 @@ export class CalendarComponent implements OnInit {
 
   dateForm: FormGroup = {} as FormGroup;
 
+  needsTime = false;
+
   constructor(
     private languageService: LanguageService,
     private dateService: DateService,
@@ -28,7 +30,11 @@ export class CalendarComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.location.path().includes(routesPaths.personals)) {
+      this.needsTime = true;
+    }
+  }
 
   getMinDate = () => {
     if (this.location.path().includes(routesPaths.schedule) || this.archive) {
@@ -42,7 +48,8 @@ export class CalendarComponent implements OnInit {
     if (
       (this.location.path().includes(routesPaths.enrollments) &&
         !this.archive) ||
-      this.location.path().includes(routesPaths.schedule)
+      this.location.path().includes(routesPaths.schedule) ||
+      this.location.path().includes(routesPaths.personals)
     ) {
       return this.dateService.getMaxEnrollmentsDate();
     } else if (this.archive) {

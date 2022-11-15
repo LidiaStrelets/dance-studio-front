@@ -3,6 +3,41 @@ export enum PersonalFormFields {
   class = 'class',
   date = 'date',
   duration = 'duration',
+  message = 'message',
 }
 
-export type TPersonalFormFields = 'coach' | 'class' | 'date' | 'duration';
+export type TPersonalFormFields =
+  | 'coach'
+  | 'class'
+  | 'date'
+  | 'duration'
+  | 'message';
+
+export interface CreatePersonal {
+  coach_id: string;
+  hall_id?: string;
+  class_id: string;
+  date_time: Date;
+  duration: number;
+  status: TStatus;
+  message?: string;
+}
+
+export interface Personal {
+  id: string;
+  coach_id: string;
+  hall_id: string;
+  class_id: string;
+  date_time: Date;
+  duration: number;
+  status: TStatus;
+  message?: string;
+}
+
+export enum Statuses {
+  created = 'created',
+  submitted = 'submitted',
+  approved = 'approved',
+}
+
+export type TStatus = 'created' | 'submitted' | 'approved';

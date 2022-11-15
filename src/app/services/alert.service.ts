@@ -4,6 +4,7 @@ import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { AlertTranslation, EAlertTranslation } from '@app/types';
 import { routesPaths } from '@app/app-routing.module';
+import { CreatePersonal } from '@personalsModule/types';
 
 @Injectable({
   providedIn: 'root',
@@ -50,6 +51,30 @@ export class AlertService {
         {
           text: this.getTranslations().okButton,
           role: 'cancel',
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
+  async presentAlertConfirmData(
+    data: string,
+    handler: (data: CreatePersonal) => void
+  ) {
+    const alert = await this.alertCtrl.create({
+      header: this.getTranslations().confirmationHeader,
+      message: this.translate.instant('alert.confirmationPersonalMessage', {
+        data,
+      }),
+      buttons: [
+        {
+          text: this.getTranslations().cancellButton,
+          role: 'cancel',
+        },
+        {
+          text: this.getTranslations().okButton,
+          handler,
         },
       ],
     });

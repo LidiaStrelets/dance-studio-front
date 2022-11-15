@@ -12,12 +12,16 @@ import { LanguageService } from '@services/language.service';
 })
 export class ClassesService {
   private coreUrl = `${environment.basicUrl}classes/`;
+  private classes: ClassItemFull[] = [];
 
   constructor(
     private http: HttpClient,
     private authService: AuthService,
     private languageService: LanguageService
   ) {}
+
+  setClasses = (classes: ClassItemFull[]) => (this.classes = classes);
+  getCurrentClasses = () => this.translateClasses(this.classes);
 
   getClasses = (): Observable<ClassItemFull[]> | null => {
     if (!this.authService.getCurrentUserId()) {

@@ -94,6 +94,12 @@
         [errors]="getErrors(personalFormFields.duration, personalForm)"
       ></app-errors>
     </ion-item>
+
+    <ion-textarea
+      [formControlName]="personalFormFields.message"
+      [placeholder]="'personals.enroll.messagePlaceholder' | translate"
+    ></ion-textarea>
+
     <div class="button-container">
       <ion-button
         size="large"

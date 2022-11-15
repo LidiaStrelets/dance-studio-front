@@ -6,7 +6,8 @@ import { Injectable } from '@angular/core';
 })
 export class DateService {
   defaultDate = new Date('2000-12-12');
-  baseScheduleDate = new Date().toISOString().split('T')[0];
+  // monitor this - removed split
+  baseScheduleDate = new Date().toISOString();
   templateWeekStart = new Date('2022-10-17');
   templateWeekEnd = new Date('2022-10-24');
 

@@ -2,13 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, catchError } from 'rxjs';
 import { ClassesService } from '@classesModule/services/classes.service';
-import { ClassItem, ClassItemFull, TClass } from '@classesModule/types';
+import { ClassItem } from '@classesModule/types';
 import { UsersService } from '@userModule/services/users.service';
 import { User } from '@userModule/types';
 import { DateService } from '@services/date.service';
 import { FormService } from '@services/form.service';
 import { LoaderService } from '@services/loader.service';
-import { PersonalFormFields } from '@personalsModule/types';
+import {
+  CreatePersonal,
+  PersonalFormFields,
+  Statuses,
+} from '@personalsModule/types';
+import { PersonalsService } from '@personalsModule/services/personals.service';
+import { AlertService } from '@services/alert.service';
 
 @Component({
   selector: 'app-enroll',
@@ -17,12 +23,11 @@ import { PersonalFormFields } from '@personalsModule/types';
 })
 export class EnrollComponent implements OnInit {
   coaches: User[] = [];
-  classes: ClassItemFull[] = [];
   translatedClasses: ClassItem[] = [];
 
   personalForm = new FormGroup({
     coach: new FormControl('', Validators.required),
-    class: new FormControl<TClass | null>(null, Validators.required),
+    class: new FormControl('', Validators.required),
     date: new FormControl(new Date(), Validators.required),
     duration: new FormControl<number | null>(null, [
       Validators.pattern('^[0-9]*$'),
@@ -30,6 +35,7 @@ export class EnrollComponent implements OnInit {
       Validators.min(60),
       Validators.max(120),
     ]),
+    message: new FormControl(''),
   });
   personalFormFields = PersonalFormFields;
 
@@ -42,29 +48,14 @@ export class EnrollComponent implements OnInit {
     private classesService: ClassesService,
     private loader: LoaderService,
     private dateService: DateService,
-    private formService: FormService
+    private formService: FormService,
+    private personalsService: PersonalsService,
+    private alertService: AlertService
   ) {}
 
   async ngOnInit() {
-    this.loader.showSpinner();
-
-    const observable = await this.usersService.getCoaches();
-    observable?.subscribe({
-      next: (res) => {
-        this.coaches = res;
-      },
-      error: catchError,
-    });
-
-    this.classesService.getClasses()?.subscribe({
-      next: (res) => {
-        this.classes = res;
-        this.translatedClasses = this.classesService.translateClasses(res);
-      },
-      error: catchError,
-    });
-
-    this.loader.hideSpinner();
+    this.translatedClasses = this.classesService.getCurrentClasses();
+    this.coaches = this.usersService.getCurrentCoaches();
   }
 
   getName = this.usersService.getUserName;
@@ -77,7 +68,36 @@ export class EnrollComponent implements OnInit {
     if (!this.personalForm.valid) {
       return;
     }
-    console.log(this.personalForm.value);
+    const input: CreatePersonal = {
+      coach_id: this.personalForm.value.coach!,
+      class_id: this.personalForm.value.class!,
+      date_time: this.personalForm.value.date!,
+      duration: this.personalForm.value.duration!,
+      status: Statuses.created,
+    };
+    if (this.personalForm.value.message) {
+      input.message = this.personalForm.value.message;
+    }
+    this.alertService.presentAlertConfirmData(
+      this.personalsService.createConfirmData(
+        input,
+        this.coaches,
+        this.translatedClasses
+      ),
+      () => {
+        this.loader.showSpinner();
+
+        this.personalsService.create(input)?.subscribe({
+          next: () => {
+            // фвв ыгссуыы фдуке
+            this.personalForm.reset();
+          },
+          error: catchError,
+        });
+
+        this.loader.hideSpinner();
+      }
+    );
   };
 
   toggleDate = (form: FormGroup) => {
@@ -85,10 +105,12 @@ export class EnrollComponent implements OnInit {
     if (!this.showDate) {
       this.selectedDate.next(form.get(this.fieldName)?.value ?? '');
 
-      this.personalForm.patchValue({ date: form.get(this.fieldName)?.value });
+      this.personalForm.patchValue({
+        date: new Date(form.get(this.fieldName)?.value),
+      });
     }
   };
 
   getDate = (form: FormGroup) =>
-    this.dateService.getDate(form.get(this.fieldName)?.value);
+    this.dateService.getDateTime(form.get(this.fieldName)?.value);
 }

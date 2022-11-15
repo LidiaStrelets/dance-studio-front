@@ -13,7 +13,7 @@
         formControlName="date"
         #date
         color="schedule"
-        presentation="date"
+        [presentation]="needsTime ? 'date-time' : 'date'"
         [preferWheel]="true"
       ></ion-datetime>
     </form>

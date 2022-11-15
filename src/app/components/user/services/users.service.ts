@@ -13,6 +13,7 @@ export class UsersService {
   private userId = '';
   private coreUrl = `${environment.basicUrl}users/`;
   private users: User[] = [];
+  private coaches: User[] = [];
 
   constructor(private http: HttpClient, private authService: AuthService) {
     this.userId = this.authService.getCurrentUserId() ?? '';
@@ -110,6 +111,9 @@ export class UsersService {
       take(1)
     );
   };
+
+  setCoaches = (coaches: User[]) => (this.coaches = coaches);
+  getCurrentCoaches = () => this.coaches;
 
   getUsers = () => this.users;
 
