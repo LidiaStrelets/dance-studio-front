@@ -100,12 +100,15 @@ export class ClassScheduleComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    if (this.subscription.unsubscribe) {
+      this.subscription.unsubscribe();
+    }
   }
 
   radioItems = this.common.radioItems;
 
-  translateClasses = this.classesService.translateClasses(this.classItems);
+  translateClasses = () =>
+    this.classesService.translateClasses(this.classItems);
 
   selectClass = (id: string) => {
     this.filters.next({ classItem: id, days: this.filters.value.days });

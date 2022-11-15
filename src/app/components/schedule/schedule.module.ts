@@ -14,6 +14,7 @@ import { ItemButtonsComponent } from '@schedulesModule/components/item-buttons/i
 import { InfoModalComponent } from '@schedulesModule/components/info-modal/info-modal.component';
 import { EnrolledClientComponent } from '@schedulesModule/components/enrolled-client/enrolled-client.component';
 import { CalendarModule } from '@commonComponents/calendar/calendar.module';
+import { ScheduleItemModule } from '@commonComponents/schedule-item/schedule-item.module';
 
 @NgModule({
   imports: [
@@ -25,13 +26,13 @@ import { CalendarModule } from '@commonComponents/calendar/calendar.module';
     TranslateModule,
     SwiperModule,
     CalendarModule,
+    ScheduleItemModule,
   ],
   declarations: [
     SchedulePage,
     DateScheduleComponent,
     CoachScheduleComponent,
     ClassScheduleComponent,
-    ItemButtonsComponent,
     InfoModalComponent,
     EnrolledClientComponent,
   ],

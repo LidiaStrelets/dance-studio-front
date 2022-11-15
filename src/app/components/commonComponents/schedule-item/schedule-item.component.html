@@ -1,0 +1,33 @@
+<div *ngIf="item" class="item-container">
+  <p>{{ item.coach }} {{ item.class }}</p>
+  <p>
+    {{ getTimePart() }}
+    {{ item.hall }}
+  </p>
+  <span *ngIf="item.duration !== 60" class="duration"
+    >{{ item.duration }} {{ "schedule.minutes" | translate }}</span
+  >
+
+  <app-item-buttons
+    *ngIf="!isCoach && showButtons"
+    [item]="item"
+    (newEnrollment)="enroll && enroll($event)"
+  ></app-item-buttons>
+
+  <div *ngIf="showEnrollmentPart">
+    <p
+      class="left"
+      *ngIf="
+        getTimeLeft(item.date_time) < 60 && getTimeLeft(item.date_time) > 0
+      "
+    >
+      {{ getTimeLeft(item.date_time) }}
+      {{ "enrollments.timeLeft" | translate }}
+    </p>
+    <app-cancell-button
+      *ngIf="!archive"
+      [item]="item"
+      (cancellEnrollment)="cancell && cancell($event)"
+    ></app-cancell-button>
+  </div>
+</div>

@@ -7,22 +7,11 @@
   <div>
     <ion-list>
       <ion-item color="light" *ngFor="let item of items">
-        <div class="item-container">
-          <p>{{ item.coach }} {{ item.class }}</p>
-          <p>
-            {{ getTimePart(item.date_time) }}
-            {{ item.hall }}
-          </p>
-          <span *ngIf="item.duration !== 60" class="duration"
-            >{{ item.duration }} {{ "schedule.minutes" | translate }}</span
-          >
-
-          <app-item-buttons
-            *ngIf="!isCoach"
-            [item]="item"
-            (newEnrollment)="enroll($event)"
-          ></app-item-buttons>
-        </div>
+        <app-schedule-item
+          style="width: 100%"
+          [item]="item"
+          [enroll]="enroll"
+        ></app-schedule-item>
       </ion-item>
     </ion-list>
   </div>

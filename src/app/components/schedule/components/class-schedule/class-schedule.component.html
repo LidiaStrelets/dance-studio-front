@@ -7,7 +7,7 @@
       [placeholder]="'schedule.classText' | translate"
     >
       <ion-select-option
-        *ngFor="let class of translateClasses"
+        *ngFor="let class of translateClasses()"
         [value]="class.id"
         >{{ class.name }}</ion-select-option
       >

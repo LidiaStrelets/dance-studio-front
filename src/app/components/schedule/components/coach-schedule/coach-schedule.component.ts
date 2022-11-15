@@ -103,7 +103,9 @@ export class CoachScheduleComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    if (this.subscription.unsubscribe) {
+      this.subscription?.unsubscribe();
+    }
   }
 
   radioItems = this.common.radioItems;

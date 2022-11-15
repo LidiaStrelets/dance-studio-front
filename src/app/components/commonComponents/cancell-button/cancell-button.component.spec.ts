@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { CancellButtonComponent } from '@enrollmentsModule/components/cancell-button/cancell-button.component';
+import { CancellButtonComponent } from '@commonComponents/cancell-button/cancell-button.component';
 
 describe('CancellButtonComponent', () => {
   let component: CancellButtonComponent;

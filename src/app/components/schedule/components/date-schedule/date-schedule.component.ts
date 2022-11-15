@@ -117,23 +117,20 @@ export class DateScheduleComponent implements OnInit, OnDestroy, OnChanges {
       this.selectedDate.next(form.get(this.fieldName)?.value ?? '');
     }
   };
-  // closeDate = () => {
-  //   if (!this.showDate) {
-  //     return;
-  //   }
-  //   this.showDate = !this.showDate;
-  // };
+  closeDate = () => {
+    if (!this.showDate) {
+      return;
+    }
+    this.showDate = !this.showDate;
+  };
 
   getDate = (form: FormGroup) =>
     this.dateService.getDate(form.get(this.fieldName)?.value);
-  getTimePart = this.dateService.getTime;
 
   enroll = (item: Registration) => {
     this.enrollments.push(item);
     this.items = this.addEnrolled(this.items, this.enrollments);
   };
-
-  isCoach = this.authService.isCoach();
 
   test = async (schedule_id: string) => {
     this.modalId.next(schedule_id);
