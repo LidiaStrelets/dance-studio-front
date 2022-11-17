@@ -19,8 +19,10 @@ export class DateService {
 
   getDate = (date: string) => date.split('T')[0];
   getTime = (date: Date) => date.toISOString().split('T')[1].slice(0, 5);
-  getDateTime = (date: string) =>
-    date.split('T')[0] + ' ' + date.split('T')[1].slice(0, 5);
+  getDateTime = (date: Date) =>
+    date.toISOString().split('T')[0] +
+    ' ' +
+    date.toISOString().split('T')[1].slice(0, 5);
   getWeekDay = (date: Date) => ({
     day: `schedule.${WeekDay[date.getDay()].toLowerCase()}`,
     id: date.getDay(),

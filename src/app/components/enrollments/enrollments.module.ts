@@ -10,7 +10,7 @@ import { SwiperModule } from 'swiper/angular';
 import { CalendarModule } from '@commonComponents/calendar/calendar.module';
 import { CurrentComponent } from '@enrollmentsModule/components/current/current.component';
 import { StatsComponent } from '@enrollmentsModule/components/stats/stats.component';
-import { CancellButtonComponent } from '@enrollmentsModule/components/cancell-button/cancell-button.component';
+import { ScheduleItemModule } from '@commonComponents/schedule-item/schedule-item.module';
 
 @NgModule({
   imports: [
@@ -22,12 +22,8 @@ import { CancellButtonComponent } from '@enrollmentsModule/components/cancell-bu
     HeaderModule,
     SwiperModule,
     CalendarModule,
+    ScheduleItemModule,
   ],
-  declarations: [
-    EnrollmentsPage,
-    CurrentComponent,
-    StatsComponent,
-    CancellButtonComponent,
-  ],
+  declarations: [EnrollmentsPage, CurrentComponent, StatsComponent],
 })
 export class EnrollmentsPageModule {}

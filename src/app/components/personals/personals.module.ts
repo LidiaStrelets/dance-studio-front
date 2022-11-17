@@ -9,6 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { EnrollComponent } from '@personalsModule/components/enroll/enroll.component';
 import { CalendarModule } from '@commonComponents/calendar/calendar.module';
 import { ErrorsModule } from '@authModule/components/errors/errors.module';
+import { ScheduleItemModule } from '@commonComponents/schedule-item/schedule-item.module';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { ErrorsModule } from '@authModule/components/errors/errors.module';
     ReactiveFormsModule,
     CalendarModule,
     ErrorsModule,
+    ScheduleItemModule,
   ],
   declarations: [PersonalsPage, EnrollComponent],
 })

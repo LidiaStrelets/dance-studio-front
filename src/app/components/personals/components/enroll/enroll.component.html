@@ -1,7 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="end">
-      <ion-back-button [text]="null"></ion-back-button>
+      <ion-button (click)="backToPersonals()">
+        <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>

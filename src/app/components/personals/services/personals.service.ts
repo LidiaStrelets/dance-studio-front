@@ -6,7 +6,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { CreatePersonal, Personal } from '@personalsModule/types';
 import { environment } from '@root/environments/environment';
 import { DateService } from '@services/date.service';
-import { LanguageService } from '@services/language.service';
 import { UsersService } from '@userModule/services/users.service';
 import { User } from '@userModule/types';
 import { catchError, map, Observable, take } from 'rxjs';
@@ -16,6 +15,7 @@ import { catchError, map, Observable, take } from 'rxjs';
 })
 export class PersonalsService {
   private coreUrl = `${environment.basicUrl}personals/`;
+  private personals: Personal[] = [];
 
   constructor(
     private authService: AuthService,
@@ -79,7 +79,7 @@ export class PersonalsService {
     const translation = this.translateService.instant(
       'alert.confirmationPersonal',
       {
-        date: this.dateService.getDateTime(personal.date_time.toISOString()),
+        date: this.dateService.getDateTime(personal.date_time),
         coach: this.userService.getUserName(coach!),
         class: classItem?.name,
         duration: personal.duration,
@@ -88,4 +88,8 @@ export class PersonalsService {
 
     return translation;
   };
+
+  setPersonals = (personal: Personal) =>
+    (this.personals = [...this.personals, personal]);
+  getPersonals = () => this.personals;
 }

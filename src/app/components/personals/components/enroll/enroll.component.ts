@@ -15,6 +15,8 @@ import {
 } from '@personalsModule/types';
 import { PersonalsService } from '@personalsModule/services/personals.service';
 import { AlertService } from '@services/alert.service';
+import { Router } from '@angular/router';
+import { routesPaths } from '@app/app-routing.module';
 
 @Component({
   selector: 'app-enroll',
@@ -50,7 +52,8 @@ export class EnrollComponent implements OnInit {
     private dateService: DateService,
     private formService: FormService,
     private personalsService: PersonalsService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private router: Router
   ) {}
 
   async ngOnInit() {
@@ -88,9 +91,13 @@ export class EnrollComponent implements OnInit {
         this.loader.showSpinner();
 
         this.personalsService.create(input)?.subscribe({
-          next: () => {
-            // фвв ыгссуыы фдуке
+          next: (res) => {
+            this.personalsService.setPersonals(res);
             this.personalForm.reset();
+
+            this.alertService.presentAlertSuccess(
+              this.alertService.getTranslations().personalSuccessMessage
+            );
           },
           error: catchError,
         });
@@ -112,5 +119,9 @@ export class EnrollComponent implements OnInit {
   };
 
   getDate = (form: FormGroup) =>
-    this.dateService.getDateTime(form.get(this.fieldName)?.value);
+    this.dateService.getDateTime(new Date(form.get(this.fieldName)?.value));
+
+  backToPersonals = () => {
+    this.router.navigate(['../', routesPaths.personals]);
+  };
 }

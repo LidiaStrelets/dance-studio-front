@@ -39,6 +39,7 @@ export interface AlertTranslation {
   enrollmentCancellConfirmation: string;
   cancellButton: string;
   confirmationHeader: string;
+  personalSuccessMessage: string;
 }
 
 export enum EAlertTranslation {
@@ -54,6 +55,7 @@ export enum EAlertTranslation {
   enrollmentCancellMessage = 'enrollmentCancellMessage',
   paymentSuccessMessage = 'paymentSuccessMessage',
   enrollmentCancellConfirmation = 'enrollmentCancellConfirmation',
+  personalSuccessMessage = 'personalSuccessMessage',
 }
 
 export interface ErrorMessages {

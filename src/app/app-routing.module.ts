@@ -101,6 +101,7 @@ const routes: Routes = [
   },
   {
     path: routesPaths.personals,
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('@personalsModule/personals.module').then(
         (m) => m.PersonalsPageModule

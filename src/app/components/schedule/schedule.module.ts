@@ -10,7 +10,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { DateScheduleComponent } from '@schedulesModule/components/date-schedule/date-schedule.component';
 import { CoachScheduleComponent } from '@schedulesModule/components/coach-schedule/coach-schedule.component';
 import { ClassScheduleComponent } from '@schedulesModule/components/class-schedule/class-schedule.component';
-import { ItemButtonsComponent } from '@schedulesModule/components/item-buttons/item-buttons.component';
 import { InfoModalComponent } from '@schedulesModule/components/info-modal/info-modal.component';
 import { EnrolledClientComponent } from '@schedulesModule/components/enrolled-client/enrolled-client.component';
 import { CalendarModule } from '@commonComponents/calendar/calendar.module';
