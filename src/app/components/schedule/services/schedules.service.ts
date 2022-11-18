@@ -23,21 +23,23 @@ export class SchedulesService {
     if (!this.authService.getCurrentUserId() || !date) {
       return null;
     }
-    return this.http.get<ScheduleFull[]>(this.coreUrl + date).pipe(
-      catchError((err) => {
-        throw err;
-      }),
-      take(1),
-      map((data) => {
-        data.forEach((item) => {
-          if (item.date_time) {
-            item.date_time = new Date(item.date_time);
-          }
-        });
+    return this.http
+      .get<ScheduleFull[]>(this.coreUrl + date.split('T')[0])
+      .pipe(
+        catchError((err) => {
+          throw err;
+        }),
+        take(1),
+        map((data) => {
+          data.forEach((item) => {
+            if (item.date_time) {
+              item.date_time = new Date(item.date_time);
+            }
+          });
 
-        return data;
-      })
-    );
+          return data;
+        })
+      );
   }
 
   getById(id: string): Observable<SingleScheduleFull> | null {

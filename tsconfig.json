@@ -12,6 +12,7 @@
       "@homeModule/*": ["src/app/components/home/*"],
       "@paymentsModule/*": ["src/app/components/payments/*"],
       "@personalsModule/*": ["src/app/components/personals/*"],
+      "@coachClassesModule/*": ["src/app/components/coach-classes/*"],
       "@pricesModule/*": ["src/app/components/prices/*"],
       "@schedulesModule/*": ["src/app/components/schedule/*"],
       "@userModule/*": ["src/app/components/user/*"],

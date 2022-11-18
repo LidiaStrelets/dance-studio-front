@@ -49,7 +49,8 @@ export class CalendarComponent implements OnInit {
       (this.location.path().includes(routesPaths.enrollments) &&
         !this.archive) ||
       this.location.path().includes(routesPaths.schedule) ||
-      this.location.path().includes(routesPaths.personals)
+      this.location.path().includes(routesPaths.personals) ||
+      (this.location.path().includes(routesPaths.coachClasses) && !this.archive)
     ) {
       return this.dateService.getMaxEnrollmentsDate();
     } else if (this.archive) {

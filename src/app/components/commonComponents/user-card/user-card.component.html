@@ -1,8 +1,10 @@
 <ion-item lines="none" color="light">
   <ion-avatar slot="start">
-    <ion-img [src]="client?.photo ?? avatar"></ion-img>
+    <ion-img [src]="(user | async)?.photo"></ion-img>
   </ion-avatar>
-  <ion-label>
+
+  <ion-label *ngIf="(user | async)?.id">
     <p>{{ getName() }}</p>
   </ion-label>
+  <div>{{ test() }}</div>
 </ion-item>

@@ -1,3 +1,5 @@
+import { Schedule } from '@schedulesModule/types';
+
 export enum PersonalFormFields {
   coach = 'coach',
   class = 'class',
@@ -41,3 +43,7 @@ export enum Statuses {
 }
 
 export type TStatus = 'created' | 'submitted' | 'approved';
+
+export interface PersonalSchedule extends Schedule {
+  client_id: string;
+}

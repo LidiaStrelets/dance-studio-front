@@ -1,3 +1,5 @@
+import { ScheduleFull } from '@schedulesModule/types';
+
 export interface Registration {
   schedule_id: string;
   client_id: string;
@@ -18,4 +20,8 @@ export type StatsKeys = keyof Stats;
 
 export interface CancellEnrollmentEvent {
   scheduleId: string;
+}
+
+export interface ByCoachSchedule extends ScheduleFull {
+  clients: string[];
 }

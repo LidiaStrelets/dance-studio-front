@@ -67,6 +67,12 @@ export class AppComponent {
       translatedName: 'Prices',
       link: ['../', routesPaths.prices],
     },
+    {
+      id: 10,
+      name: 'CoachClasses',
+      translatedName: 'CoachClasses',
+      link: ['../', routesPaths.coachClasses],
+    },
   ];
   languageKey = LocalStorageKeys.language;
 
@@ -88,7 +94,14 @@ export class AppComponent {
         clearInterval(id);
       }
       if (this.authService.isCoach()) {
-        this.menuItems = this.menuItems.filter((item) => item.id !== 2);
+        this.menuItems = this.menuItems.filter(
+          (item) => ![2, 4, 5].some((number) => item.id === number)
+        );
+      }
+      if (this.authService.isClient()) {
+        this.menuItems = this.menuItems.filter(
+          (item) => ![10].some((number) => item.id === number)
+        );
       }
     }, 1000);
   }

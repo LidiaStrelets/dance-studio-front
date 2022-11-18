@@ -26,7 +26,8 @@
     "Classes": "Classes",
     "Prices": "Prices",
     "Enrollments": "Enrollments",
-    "Personals": "Personal classes"
+    "Personals": "Personal classes",
+    "CoachClasses": "My classes"
   },
   "profile": {
     "header": "My profile",
@@ -154,5 +155,12 @@
       "submit": "Create",
       "messagePlaceholder": "Add some information about your preferences"
     }
+  },
+  "coachClasses": {
+    "type": {
+      "personal": "personal",
+      "group": "group"
+    },
+    "class": "class"
   }
 }

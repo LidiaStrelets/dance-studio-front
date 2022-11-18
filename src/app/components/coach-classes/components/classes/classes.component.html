@@ -1,0 +1,43 @@
+<ion-content [scrollEvents]="true" (ionScroll)="closeDate()">
+  <h1 *ngIf="archive; then archiveTitle; else currentTitle"></h1>
+  <ng-template #archiveTitle
+    ><h1>{{ "enrollments.archiveHeader" | translate }}</h1></ng-template
+  >
+  <ng-template #currentTitle></ng-template>
+  <app-calendar
+    [archive]="archive"
+    [showDate]="showDate"
+    [toggleDate]="toggleDate"
+    [getDate]="getDate"
+  ></app-calendar>
+
+  <div>
+    <ion-list>
+      <ion-item color="light" *ngFor="let item of items">
+        <div>
+          <div *ngIf="item" class="item-container">
+            <p>{{ item.class }} {{ getClassType(item) }}</p>
+            <p>
+              {{ getTimePart(item) }}
+              {{ item.hall }}
+            </p>
+            <span *ngIf="item.duration !== 60" class="duration"
+              >{{ item.duration }} {{ "schedule.minutes" | translate }}</span
+            >
+          </div>
+          <div class="item-container">
+            <p>{{ "infoModal.enrolled" | translate }}:</p>
+
+            <ion-list *ngIf="getClients(item)">
+              <!-- {{ item.clients[0] }} -->
+              <app-user-card
+                *ngFor="let id of getClients(item)"
+                [userId]="id"
+              ></app-user-card>
+            </ion-list>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

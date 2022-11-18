@@ -1,7 +1,6 @@
 import {
   AfterContentChecked,
   Component,
-  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -32,9 +31,9 @@ export class SchedulePage implements OnInit, AfterContentChecked {
     if (this.swiper) {
       this.swiper.updateSwiper({});
 
-      this.swiper.swiperRef.on('slideChange', (e) => {
-        this.activeSlide = e.realIndex;
-      });
+      // this.swiper.swiperRef.on('slideChange', (e) => {
+      //   this.activeSlide = e.realIndex;
+      // });
     }
   }
 

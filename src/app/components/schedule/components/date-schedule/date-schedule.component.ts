@@ -44,7 +44,6 @@ export class DateScheduleComponent implements OnInit, OnDestroy, OnChanges {
     private dateService: DateService,
     private enrollmentService: EnrollmentsService,
     private loader: LoaderService,
-    private authService: AuthService,
     private schedulesService: SchedulesService,
     private languageService: LanguageService
   ) {}
@@ -78,7 +77,7 @@ export class DateScheduleComponent implements OnInit, OnDestroy, OnChanges {
                   this.enrollmentService.getByDate(res)?.subscribe({
                     next: (res) => {
                       this.enrollments = res;
-                      this.items = this.addEnrolled(result, res);
+                      this.items = this.addEnrolled(this.items, res);
 
                       this.loader.hideSpinner();
                     },

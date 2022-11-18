@@ -102,4 +102,5 @@ export class AuthService {
   getUserRole = () => this.userData.value.role;
 
   isCoach = () => this.userData.value.role === Roles.coach;
+  isClient = () => this.userData.value.role === Roles.client;
 }

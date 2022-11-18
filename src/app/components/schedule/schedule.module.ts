@@ -11,9 +11,9 @@ import { DateScheduleComponent } from '@schedulesModule/components/date-schedule
 import { CoachScheduleComponent } from '@schedulesModule/components/coach-schedule/coach-schedule.component';
 import { ClassScheduleComponent } from '@schedulesModule/components/class-schedule/class-schedule.component';
 import { InfoModalComponent } from '@schedulesModule/components/info-modal/info-modal.component';
-import { EnrolledClientComponent } from '@schedulesModule/components/enrolled-client/enrolled-client.component';
 import { CalendarModule } from '@commonComponents/calendar/calendar.module';
 import { ScheduleItemModule } from '@commonComponents/schedule-item/schedule-item.module';
+import { UserCardModule } from '@commonComponents/user-card/user-card.module';
 
 @NgModule({
   imports: [
@@ -26,6 +26,7 @@ import { ScheduleItemModule } from '@commonComponents/schedule-item/schedule-ite
     SwiperModule,
     CalendarModule,
     ScheduleItemModule,
+    UserCardModule,
   ],
   declarations: [
     SchedulePage,
@@ -33,7 +34,6 @@ import { ScheduleItemModule } from '@commonComponents/schedule-item/schedule-ite
     CoachScheduleComponent,
     ClassScheduleComponent,
     InfoModalComponent,
-    EnrolledClientComponent,
   ],
 })
 export class SchedulePageModule {}

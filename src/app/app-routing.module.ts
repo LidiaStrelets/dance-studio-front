@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '@authModule/guards/auth.guard';
+import { IsClienthGuard } from '@authModule/guards/isClient.guard';
 import { IsCoachGuard } from '@authModule/guards/isCoach.guard';
 
 export const routesPaths = {
@@ -16,6 +17,7 @@ export const routesPaths = {
   prices: 'prices',
   enrollments: 'enrollments',
   personals: 'personals',
+  coachClasses: 'coach-classes',
 };
 
 const routes: Routes = [
@@ -73,7 +75,7 @@ const routes: Routes = [
   },
   {
     path: routesPaths.enrollments,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, IsCoachGuard],
     loadChildren: () =>
       import('@enrollmentsModule/enrollments.module').then(
         (m) => m.EnrollmentsPageModule
@@ -101,10 +103,18 @@ const routes: Routes = [
   },
   {
     path: routesPaths.personals,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, IsCoachGuard],
     loadChildren: () =>
       import('@personalsModule/personals.module').then(
         (m) => m.PersonalsPageModule
+      ),
+  },
+  {
+    path: routesPaths.coachClasses,
+    canActivate: [AuthGuard, IsClienthGuard],
+    loadChildren: () =>
+      import('@coachClassesModule/coach-classes.module').then(
+        (m) => m.CoachClassesPageModule
       ),
   },
   // {

@@ -1,0 +1,13 @@
+<app-header [header]="'menu.CoachClasses'|translate"></app-header>
+
+<ion-content>
+  <swiper [config]="config" #slides>
+    <ng-template swiperSlide
+      ><app-classes
+        [items]="getActive()"
+        (setDate)="setDate($event)"
+      ></app-classes>
+    </ng-template>
+    <ng-template swiperSlide></ng-template>
+  </swiper>
+</ion-content>

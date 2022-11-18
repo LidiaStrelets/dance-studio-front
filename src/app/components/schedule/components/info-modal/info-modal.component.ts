@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { LanguageService } from 'src/app/services/language.service';
 import { LoaderService } from 'src/app/services/loader.service';
-import { SingleScheduleFull } from '@schedulesModule/types';
+import { SingleSchedule } from '@schedulesModule/types';
 import { EnrollmentsService } from '@enrollmentsModule/services/enrollments.service';
 import { UsersService } from '@userModule/services/users.service';
 import { SchedulesService } from '@schedulesModule/services/schedules.service';
@@ -19,8 +19,8 @@ import { Registration } from '@enrollmentsModule/types';
 })
 export class InfoModalComponent implements OnInit {
   enrollments: Registration[] = [];
-  allUsers: User[] = [];
-  item = new BehaviorSubject<SingleScheduleFull | undefined>(undefined);
+
+  item = new BehaviorSubject<SingleSchedule | undefined>(undefined);
 
   constructor(
     private userService: UsersService,
@@ -43,7 +43,9 @@ export class InfoModalComponent implements OnInit {
       }
       this.scheduleService.getById(scheduleId)?.subscribe({
         next: (res) => {
-          this.item.next(res);
+          const translated = this.languageService.translateSingleSchedule(res);
+
+          this.item.next(translated);
         },
         error: catchError,
       });
@@ -61,17 +63,11 @@ export class InfoModalComponent implements OnInit {
         }
       });
 
-      await setTimeout(() => {
-        this.allUsers = this.userService.getUsers();
-      }, 1000);
-
       this.loader.hideSpinner();
     });
   }
 
   isUk = this.languageService.isUk;
-
-  findUser = (id: string) => this.allUsers.find((user) => user.id === id);
 
   backToSchedule = () => {
     this.location.back();

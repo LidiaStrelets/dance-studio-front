@@ -27,18 +27,22 @@
         <span>{{ item.value?.class }}</span>
       </p>
       <p>
-        {{ isUk() ? item.value?.classInfoUk : item.value?.classInfo }}
+        {{ item.value?.classInfo }}
       </p>
     </div>
   </ion-item>
-  <ion-item class="ion-no-padding ion-padding-bottom" color="light">
+  <ion-item
+    *ngIf="enrollments.length > 0"
+    class="ion-no-padding ion-padding-bottom"
+    color="light"
+  >
     <div class="item-container">
       <p>{{ "infoModal.enrolled" | translate }}:</p>
       <ion-list>
-        <app-enrolled-client
-          [client]="findUser(enrollment.client_id)"
+        <app-user-card
           *ngFor="let enrollment of enrollments"
-        ></app-enrolled-client>
+          [userId]="enrollment.client_id"
+        ></app-user-card>
       </ion-list>
     </div>
   </ion-item>

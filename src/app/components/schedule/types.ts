@@ -29,3 +29,8 @@ export interface SingleScheduleFull extends ScheduleFull {
   classInfo: string;
   classInfoUk: string;
 }
+
+export interface SingleSchedule extends Schedule {
+  coachInfo: string;
+  classInfo: string;
+}

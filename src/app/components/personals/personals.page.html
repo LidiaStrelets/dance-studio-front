@@ -7,7 +7,7 @@
       ><p>{{"personals.description"|translate}}</p></ng-template
     >
     <ng-template #list>
-      <ion-list *ngIf="showItems()">
+      <ion-list>
         <ion-item *ngFor="let item of getPersonals()">
           <app-schedule-item [item]="item"></app-schedule-item
         ></ion-item>

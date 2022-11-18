@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Registration, Stats } from '@enrollmentsModule/types';
+import { ByCoachSchedule, Registration, Stats } from '@enrollmentsModule/types';
 import { AuthService } from '@authModule/services/auth.service';
 import { ScheduleFull } from '@schedulesModule/types';
 
@@ -65,7 +65,31 @@ export class EnrollmentsService {
           'byDateMapped/' +
           this.authService.getCurrentUserId() +
           '/' +
-          date
+          date.split('T')[0]
+      )
+      .pipe(
+        take(1),
+        map((data) => {
+          data.forEach((item) => {
+            item.date_time = new Date(item.date_time);
+          });
+
+          return data;
+        })
+      );
+  }
+
+  getByDateAndCoachMapped(date: string): Observable<ByCoachSchedule[]> | null {
+    if (!this.authService.getCurrentUserId()) {
+      return null;
+    }
+    return this.http
+      .get<ByCoachSchedule[]>(
+        this.coreUrl +
+          'byDateAndCoachMapped/' +
+          this.authService.getCurrentUserId() +
+          '/' +
+          date.split('T')[0]
       )
       .pipe(
         take(1),
@@ -89,7 +113,7 @@ export class EnrollmentsService {
           'byDate/' +
           this.authService.getCurrentUserId() +
           '/' +
-          date
+          date.split('T')[0]
       )
       .pipe(take(1));
   }

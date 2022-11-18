@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageKeys } from '@app/types';
 import { TranslateService } from '@ngx-translate/core';
-import { ScheduleFull } from '@schedulesModule/types';
+import {
+  ScheduleFull,
+  SingleSchedule,
+  SingleScheduleFull,
+} from '@schedulesModule/types';
 import { ELanguages, Languages } from '@homeModule/types';
 
 @Injectable({
@@ -34,7 +38,7 @@ export class LanguageService {
 
   translateSchedule = (items: ScheduleFull[]) => {
     let scheduleItems;
-    if (this.getLanguage() === ELanguages.en) {
+    if (!this.isUk()) {
       scheduleItems = items.map((item) => ({
         coach_id: item.coach_id,
         hall_id: item.hall_id,
@@ -60,5 +64,39 @@ export class LanguageService {
       }));
     }
     return scheduleItems;
+  };
+
+  translateSingleSchedule = (item: SingleScheduleFull): SingleSchedule => {
+    let translated;
+    if (!this.isUk()) {
+      translated = {
+        coach_id: item.coach_id,
+        hall_id: item.hall_id,
+        class_id: item.class_id,
+        coach: item.coach,
+        hall: item.hall,
+        class: item.class,
+        date_time: item.date_time,
+        id: item.id,
+        duration: item.duration,
+        coachInfo: item.coachInfo,
+        classInfo: item.classInfo,
+      };
+    } else {
+      translated = {
+        coach_id: item.coach_id,
+        hall_id: item.hall_id,
+        class_id: item.class_id,
+        coach: item.coach,
+        hall: item.hallUk,
+        class: item.classUk,
+        date_time: item.date_time,
+        id: item.id,
+        duration: item.duration,
+        coachInfo: item.coachInfo,
+        classInfo: item.classInfoUk,
+      };
+    }
+    return translated;
   };
 }

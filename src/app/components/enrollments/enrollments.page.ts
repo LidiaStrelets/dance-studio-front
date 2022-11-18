@@ -12,6 +12,7 @@ import Swiper, { Pagination, SwiperOptions } from 'swiper';
 import { SwiperComponent } from 'swiper/angular';
 import { Schedule } from '@schedulesModule/types';
 import { EnrollmentsService } from '@enrollmentsModule/services/enrollments.service';
+import { LanguageService } from '@services/language.service';
 
 Swiper.use([Pagination]);
 
@@ -34,7 +35,8 @@ export class EnrollmentsPage implements OnInit, AfterContentChecked, OnDestroy {
 
   constructor(
     private loader: LoaderService,
-    private enrollmentsService: EnrollmentsService
+    private enrollmentsService: EnrollmentsService,
+    private languageService: LanguageService
   ) {}
 
   ngOnInit() {
@@ -47,7 +49,7 @@ export class EnrollmentsPage implements OnInit, AfterContentChecked, OnDestroy {
 
       this.enrollmentsService.getByDateMapped(res)?.subscribe({
         next: (res) => {
-          this.items = res;
+          this.items = this.languageService.translateSchedule(res);
         },
         error: catchError,
       });
