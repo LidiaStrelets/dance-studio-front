@@ -12,16 +12,14 @@ import { User, UserRequest } from './../types';
 export class UsersService {
   private userId = '';
   private coreUrl = `${environment.basicUrl}users/`;
-  private users: User[] = [];
   private coaches: User[] = [];
 
   constructor(private http: HttpClient, private authService: AuthService) {
     this.userId = this.authService.getCurrentUserId() ?? '';
-    this.get();
   }
 
   getById(id?: string): Observable<User> | null {
-    if (!this.authService.getCurrentUserId()) {
+    if (!this.authService.getCurrentUserId() && !id) {
       return null;
     }
     const requestId = id || this.userId;
@@ -37,34 +35,6 @@ export class UsersService {
         return data;
       })
     );
-  }
-
-  get() {
-    if (!this.authService.getCurrentUserId()) {
-      return;
-    }
-    this.http
-      .get<User[]>(this.coreUrl)
-      .pipe(
-        catchError((err) => {
-          throw err;
-        }),
-        take(1),
-        map((data) => {
-          data.forEach((item) => {
-            if (item.birth_date) {
-              item.birth_date = new Date(item.birth_date);
-            }
-          });
-
-          return data;
-        })
-      )
-      .subscribe({
-        next: (res) => {
-          this.users = res;
-        },
-      });
   }
 
   patch(id: string, updatedUser: UserRequest) {
@@ -114,8 +84,6 @@ export class UsersService {
 
   setCoaches = (coaches: User[]) => (this.coaches = coaches);
   getCurrentCoaches = () => this.coaches;
-
-  getUsers = () => this.users;
 
   getUserName = ({ firstname, lastname }: User) => `${firstname} ${lastname}`;
 }

@@ -7,9 +7,7 @@ import { LanguageService } from 'src/app/services/language.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { SingleSchedule } from '@schedulesModule/types';
 import { EnrollmentsService } from '@enrollmentsModule/services/enrollments.service';
-import { UsersService } from '@userModule/services/users.service';
 import { SchedulesService } from '@schedulesModule/services/schedules.service';
-import { User } from '@userModule/types';
 import { Registration } from '@enrollmentsModule/types';
 
 @Component({
@@ -23,7 +21,6 @@ export class InfoModalComponent implements OnInit {
   item = new BehaviorSubject<SingleSchedule | undefined>(undefined);
 
   constructor(
-    private userService: UsersService,
     private languageService: LanguageService,
     private enrollmentsService: EnrollmentsService,
     private loader: LoaderService,
