@@ -19,6 +19,15 @@ export class SchedulesService {
     private dateService: DateService
   ) {}
 
+  create() {
+    return this.http.post(this.coreUrl + 'createSchedules', {}).pipe(
+      catchError((err) => {
+        throw err;
+      }),
+      take(1)
+    );
+  }
+
   get(date: string): Observable<ScheduleFull[]> | null {
     if (!this.authService.getCurrentUserId() || !date) {
       return null;

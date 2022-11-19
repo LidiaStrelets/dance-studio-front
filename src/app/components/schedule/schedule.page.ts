@@ -7,6 +7,7 @@ import {
 import { SwiperOptions } from 'swiper';
 import { SwiperComponent } from 'swiper/angular';
 import Swiper, { Pagination } from 'swiper';
+import { SchedulesService } from './services/schedules.service';
 
 Swiper.use([Pagination]);
 
@@ -23,17 +24,23 @@ export class SchedulePage implements OnInit, AfterContentChecked {
   };
   activeSlide = 0;
 
-  constructor() {}
+  constructor(private sched: SchedulesService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    // until the admin functionality is done will keep this for creating schedules
+    // this.sched.create().subscribe({
+    //   next: (res) => console.log('upipi', res),
+    //   error: (err) => console.log('error', err),
+    // });
+  }
 
   ngAfterContentChecked(): void {
     if (this.swiper) {
       this.swiper.updateSwiper({});
 
-      // this.swiper.swiperRef.on('slideChange', (e) => {
-      //   this.activeSlide = e.realIndex;
-      // });
+      this.swiper.swiperRef.on('slideChange', (e) => {
+        this.activeSlide = e.realIndex;
+      });
     }
   }
 
