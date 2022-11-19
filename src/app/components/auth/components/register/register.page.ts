@@ -58,26 +58,26 @@ export class RegisterPage implements OnInit {
     this.authService.redirectAuthenticated();
     this.registrationForm = new FormGroup(
       {
-        [RegistrationFormFields.email]: new FormControl('marina@i.ua', [
+        [RegistrationFormFields.email]: new FormControl('', [
           Validators.required,
           Validators.email,
         ]),
-        [RegistrationFormFields.password]: new FormControl('qwertyQ1', [
+        [RegistrationFormFields.password]: new FormControl('', [
           Validators.required,
           Validators.pattern(
             '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{8,}'
           ),
         ]),
         [RegistrationFormFields.firstname]: new FormControl(
-          'Marina',
+          '',
           Validators.required
         ),
         [RegistrationFormFields.lastname]: new FormControl(
-          'Gerasimenia',
+          '',
           Validators.required
         ),
         [RegistrationFormFields.role]: new FormControl(),
-        [RegistrationFormFields.adminKey]: new FormControl('x0E7q04QJa3o'),
+        [RegistrationFormFields.adminKey]: new FormControl(''),
       },
       { validators: this.customValidators.keyValidator() }
     );

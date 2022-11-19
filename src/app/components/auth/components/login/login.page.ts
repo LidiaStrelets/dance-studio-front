@@ -46,13 +46,11 @@ export class LoginPage implements OnInit {
   ngOnInit() {
     this.authService.redirectAuthenticated();
     this.loginForm = new FormGroup({
-      [LoginFormFields.email]: new FormControl('marina@i.ua', [
+      [LoginFormFields.email]: new FormControl('', [
         Validators.required,
         Validators.email,
       ]),
-      [LoginFormFields.password]: new FormControl('qwertyQ1', [
-        Validators.required,
-      ]),
+      [LoginFormFields.password]: new FormControl('', [Validators.required]),
     });
   }
 
