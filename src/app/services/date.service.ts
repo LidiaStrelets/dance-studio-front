@@ -38,4 +38,10 @@ export class DateService {
   dayInMs = () => this.hourInMs() * 24;
   convertIntoMinutes = (time: number) => time / 60 / 1000;
   convertIntoHours = (time: number) => Math.round(time / 60);
+
+  getActiveItems = <T extends { date_time: Date }>(items: T[]) =>
+    items.filter((item) => item.date_time > new Date(Date.now()));
+
+  getArchiveItems = <T extends { date_time: Date }>(items: T[]) =>
+    items.filter((item) => item.date_time < new Date(Date.now()));
 }

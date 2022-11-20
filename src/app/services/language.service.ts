@@ -6,7 +6,7 @@ import {
   SingleSchedule,
   SingleScheduleFull,
 } from '@schedulesModule/types';
-import { ELanguages, Languages } from '@homeModule/types';
+import { ELanguages, Hall, Languages } from '@homeModule/types';
 import { ClassItem, ClassItemFull } from '@classesModule/types';
 
 @Injectable({
@@ -107,4 +107,22 @@ export class LanguageService {
         ? { id, name: nameUk, description: descriptionUk }
         : { id, name, description }
     );
+
+  translateHalls = (items: Hall[]) => {
+    if (!this.isUk()) {
+      return items.map(({ name, description, id, picture }) => ({
+        name,
+        description,
+        id,
+        picture,
+      }));
+    } else {
+      return items.map(({ nameUk, descriptionUk, id, picture }) => ({
+        name: nameUk,
+        description: descriptionUk,
+        id,
+        picture,
+      }));
+    }
+  };
 }

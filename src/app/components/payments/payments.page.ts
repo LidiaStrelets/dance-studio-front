@@ -33,15 +33,9 @@ export class PaymentsPage implements OnInit {
     this.paymentsService.get()?.subscribe({
       next: (res) => {
         this.payments = res;
-        this.loader.hideSpinner();
       },
-      error: (err) => {
-        this.loader.hideSpinner();
-        catchError(err);
-      },
+      error: catchError,
     });
-
-    this.loader.showSpinner();
 
     this.pricesService.get()?.subscribe({
       next: (res) => {
@@ -49,13 +43,11 @@ export class PaymentsPage implements OnInit {
         this.selectOptions = res.map((price) =>
           this.paymentsService.translateClassesAmount(price)
         );
-        this.loader.hideSpinner();
       },
-      error: (err) => {
-        this.loader.hideSpinner();
-        catchError(err);
-      },
+      error: catchError,
     });
+
+    this.loader.hideSpinner();
   }
 
   showPrice = (amount?: number) =>

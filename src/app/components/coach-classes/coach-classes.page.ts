@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { EnrollmentsService } from '@enrollmentsModule/services/enrollments.service';
 import { PersonalsService } from '@personalsModule/services/personals.service';
 import { PersonalSchedule } from '@personalsModule/types';
+import { DateService } from '@services/date.service';
 import { BehaviorSubject, catchError, Subscription } from 'rxjs';
 import Swiper, { Pagination, SwiperOptions } from 'swiper';
 import { SwiperComponent } from 'swiper/angular';
@@ -24,14 +25,14 @@ export class CoachClassesPage implements OnInit {
   config: SwiperOptions = {
     pagination: true,
   };
-  activeSlide = 0;
 
   selectedDate = new BehaviorSubject('');
   subscription: Subscription = {} as Subscription;
 
   constructor(
     private enrollmentsService: EnrollmentsService,
-    private personalService: PersonalsService
+    private personalService: PersonalsService,
+    private dateService: DateService
   ) {}
 
   ngOnInit() {
@@ -70,25 +71,12 @@ export class CoachClassesPage implements OnInit {
     });
   }
 
-  ngAfterContentChecked(): void {
-    if (this.swiper) {
-      this.swiper.updateSwiper({});
-
-      this.swiper.swiperRef.on('slideChange', (e) => {
-        this.activeSlide = e.realIndex;
-      });
-    }
-  }
-
   setDate = (date: string) => {
     this.selectedDate.next(date);
   };
 
-  getActive = () =>
-    this.items.filter((item) => item.date_time > new Date(Date.now()));
-
-  getArchive = () =>
-    this.items.filter((item) => item.date_time < new Date(Date.now()));
+  getActive = () => this.dateService.getActiveItems(this.items);
+  getArchive = () => this.dateService.getArchiveItems(this.items);
 
   getItems = () => this.items;
 }

@@ -23,12 +23,10 @@ export class PricesPage implements OnInit {
     this.pricesService.get()?.subscribe({
       next: (res) => {
         this.prices = res;
-        this.loader.hideSpinner();
       },
-      error: (err) => {
-        this.loader.hideSpinner();
-        catchError(err);
-      },
+      error: catchError,
     });
+
+    this.loader.hideSpinner();
   }
 }

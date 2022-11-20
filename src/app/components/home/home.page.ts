@@ -30,13 +30,11 @@ export class HomePage implements OnInit {
         next: (res) => {
           this.halls = res;
           this.translate();
-          this.spinner.hideSpinner();
         },
-        error: (err) => {
-          this.spinner.hideSpinner();
-          catchError(err);
-        },
+        error: catchError,
       });
+
+      this.spinner.hideSpinner();
     }, 1000);
   }
 
@@ -49,25 +47,6 @@ export class HomePage implements OnInit {
     this.translate();
   };
 
-  private translate = () => {
-    if (this.languageService.getLanguage() === ELanguages.en) {
-      this.translatedHalls = this.halls.map(
-        ({ name, description, id, picture }) => ({
-          name,
-          description,
-          id,
-          picture,
-        })
-      );
-    } else {
-      this.translatedHalls = this.halls.map(
-        ({ nameUk, descriptionUk, id, picture }) => ({
-          name: nameUk,
-          description: descriptionUk,
-          id,
-          picture,
-        })
-      );
-    }
-  };
+  private translate = () =>
+    (this.translatedHalls = this.languageService.translateHalls(this.halls));
 }

@@ -45,13 +45,11 @@ export class CoachesPage implements OnInit, AfterContentChecked {
     observable?.subscribe({
       next: (res) => {
         this.coaches = res;
-        this.loader.hideSpinner();
       },
-      error: (err) => {
-        this.loader.hideSpinner();
-        catchError(err);
-      },
+      error: catchError,
     });
+
+    this.loader.hideSpinner();
   }
 
   getName = this.usersService.getUserName;
