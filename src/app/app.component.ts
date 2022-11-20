@@ -73,6 +73,12 @@ export class AppComponent {
       translatedName: 'CoachClasses',
       link: ['../', routesPaths.coachClasses],
     },
+    {
+      id: 11,
+      name: 'Salary',
+      translatedName: 'Salary',
+      link: ['../', routesPaths.salary],
+    },
   ];
   languageKey = LocalStorageKeys.language;
 
@@ -95,12 +101,12 @@ export class AppComponent {
       }
       if (this.authService.isCoach()) {
         this.menuItems = this.menuItems.filter(
-          (item) => ![2, 4, 5].some((number) => item.id === number)
+          (item) => ![2, 4, 5, 9].some((number) => item.id === number)
         );
       }
       if (this.authService.isClient()) {
         this.menuItems = this.menuItems.filter(
-          (item) => ![10].some((number) => item.id === number)
+          (item) => ![10, 11].some((number) => item.id === number)
         );
       }
     }, 1000);

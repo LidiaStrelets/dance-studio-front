@@ -18,6 +18,7 @@ export const routesPaths = {
   enrollments: 'enrollments',
   personals: 'personals',
   coachClasses: 'coach-classes',
+  salary: 'salary',
 };
 
 const routes: Routes = [
@@ -89,7 +90,7 @@ const routes: Routes = [
   },
   {
     path: routesPaths.prices,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, IsCoachGuard],
     loadChildren: () =>
       import('@pricesModule/prices.module').then((m) => m.PricesPageModule),
   },
@@ -117,10 +118,18 @@ const routes: Routes = [
         (m) => m.CoachClassesPageModule
       ),
   },
-  // {
-  //   path: '**',
-  //   redirectTo: 'welcome',
-  // },
+  {
+    path: routesPaths.salary,
+    canActivate: [AuthGuard, IsClienthGuard],
+    loadChildren: () =>
+      import('./components/salary/salary.module').then(
+        (m) => m.SalaryPageModule
+      ),
+  },
+  {
+    path: '**',
+    redirectTo: routesPaths.home,
+  },
 ];
 
 @NgModule({

@@ -16,6 +16,7 @@
       "@pricesModule/*": ["src/app/components/prices/*"],
       "@schedulesModule/*": ["src/app/components/schedule/*"],
       "@userModule/*": ["src/app/components/user/*"],
+      "@salaryModule/*": ["src/app/components/salary/*"],
       "@interceptors/*": ["src/app/interceptors/*"],
       "@middlewares/*": ["src/core/middlewares/*"],
       "@services/*": ["src/app/services/*"],

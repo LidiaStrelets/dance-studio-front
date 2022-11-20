@@ -1,0 +1,11 @@
+<app-header [header]="'menu.Salary'|translate"></app-header>
+
+<ion-content>
+  <div *ngIf="isCoach">
+    <p>{{"salary.description"|translate}}</p>
+    <p *ngIf="salary">
+      {{"salary.currentText"|translate}} :
+      <span>{{salary| currency:"UAH":"symbol-narrow"}}</span>
+    </p>
+  </div>
+</ion-content>
