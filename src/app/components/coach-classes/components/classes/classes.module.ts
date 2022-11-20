@@ -5,9 +5,11 @@ import { ClassesComponent } from './classes.component';
 import { CalendarModule } from '@commonComponents/calendar/calendar.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { UserCardModule } from '@commonComponents/user-card/user-card.module';
+import { FormsModule } from '@angular/forms';
+import { NotesComponent } from '../notes/notes.component';
 
 @NgModule({
-  declarations: [ClassesComponent],
+  declarations: [ClassesComponent, NotesComponent],
   exports: [ClassesComponent],
   imports: [
     CommonModule,
@@ -15,6 +17,7 @@ import { UserCardModule } from '@commonComponents/user-card/user-card.module';
     CalendarModule,
     TranslateModule,
     UserCardModule,
+    FormsModule,
   ],
 })
 export class ClassesModule {}

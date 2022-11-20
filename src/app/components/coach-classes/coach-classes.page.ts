@@ -1,12 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { EnrollmentsService } from '@enrollmentsModule/services/enrollments.service';
 import { PersonalsService } from '@personalsModule/services/personals.service';
-import { Personal, PersonalSchedule } from '@personalsModule/types';
-import { Schedule } from '@schedulesModule/types';
+import { PersonalSchedule } from '@personalsModule/types';
 import { BehaviorSubject, catchError, Subscription } from 'rxjs';
 import Swiper, { Pagination, SwiperOptions } from 'swiper';
 import { SwiperComponent } from 'swiper/angular';
-import { PersonalClass } from './types';
+import { EClassTypes, PersonalClass } from './types';
 
 Swiper.use([Pagination]);
 
@@ -62,7 +61,8 @@ export class CoachClassesPage implements OnInit {
 
           this.personals = personals.map((item) => ({
             ...item,
-            type: 'personal',
+            type: EClassTypes.personal,
+            clients: [item.client_id],
           }));
           this.items = [...this.personals, ...this.registrations];
         },

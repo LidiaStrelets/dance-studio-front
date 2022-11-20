@@ -4,7 +4,11 @@ import { Observable } from 'rxjs';
 import { catchError, map, take } from 'rxjs/operators';
 import { DateService } from '@services/date.service';
 import { environment } from '@root/environments/environment';
-import { ScheduleFull, SingleScheduleFull } from '@schedulesModule/types';
+import {
+  ScheduleFull,
+  ScheduleUpdate,
+  SingleScheduleFull,
+} from '@schedulesModule/types';
 import { AuthService } from '@authModule/services/auth.service';
 
 @Injectable({
@@ -48,6 +52,22 @@ export class SchedulesService {
 
           return data;
         })
+      );
+  }
+
+  getSalary(): Observable<number> | null {
+    if (!this.authService.getCurrentUserId() || !this.authService.isCoach) {
+      return null;
+    }
+    return this.http
+      .get<number>(
+        this.coreUrl + 'salary/' + this.authService.getCurrentUserId()
+      )
+      .pipe(
+        catchError((err) => {
+          throw err;
+        }),
+        take(1)
       );
   }
 
@@ -126,5 +146,22 @@ export class SchedulesService {
           return data;
         })
       );
+  }
+
+  update(id: string, update: ScheduleUpdate): Observable<ScheduleFull> | null {
+    if (!this.authService.getCurrentUserId() || !id) {
+      return null;
+    }
+    return this.http.patch<ScheduleFull>(this.coreUrl + id, update).pipe(
+      catchError((err) => {
+        throw err;
+      }),
+      take(1),
+      map((data) => {
+        data.date_time = new Date(data.date_time);
+
+        return data;
+      })
+    );
   }
 }

@@ -1,6 +1,6 @@
 <ion-item lines="none" color="light">
   <ion-avatar slot="start">
-    <ion-img [src]="(user | async)?.photo"></ion-img>
+    <ion-img [src]="(user | async)?.photo ?? avatar"></ion-img>
   </ion-avatar>
 
   <ion-label *ngIf="(user | async)?.id">

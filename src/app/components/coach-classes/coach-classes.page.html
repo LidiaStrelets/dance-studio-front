@@ -8,6 +8,12 @@
         (setDate)="setDate($event)"
       ></app-classes>
     </ng-template>
-    <ng-template swiperSlide></ng-template>
+    <ng-template swiperSlide>
+      <app-classes
+        [archive]="true"
+        [items]="getActive()"
+        (setDate)="setDate($event)"
+      ></app-classes>
+    </ng-template>
   </swiper>
 </ion-content>

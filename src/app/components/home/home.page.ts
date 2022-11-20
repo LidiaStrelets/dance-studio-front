@@ -24,18 +24,20 @@ export class HomePage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.spinner.showSpinner();
-    this.hallService.get()?.subscribe({
-      next: (res) => {
-        this.halls = res;
-        this.translate();
-        this.spinner.hideSpinner();
-      },
-      error: (err) => {
-        this.spinner.hideSpinner();
-        catchError(err);
-      },
-    });
+    setTimeout(() => {
+      this.spinner.showSpinner();
+      this.hallService.get()?.subscribe({
+        next: (res) => {
+          this.halls = res;
+          this.translate();
+          this.spinner.hideSpinner();
+        },
+        error: (err) => {
+          this.spinner.hideSpinner();
+          catchError(err);
+        },
+      });
+    }, 1000);
   }
 
   toggleLanguages = () => {

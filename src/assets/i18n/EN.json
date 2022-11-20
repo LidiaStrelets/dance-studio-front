@@ -27,7 +27,8 @@
     "Prices": "Prices",
     "Enrollments": "Enrollments",
     "Personals": "Personal classes",
-    "CoachClasses": "My classes"
+    "CoachClasses": "My classes",
+    "Salary": "My salary"
   },
   "profile": {
     "header": "My profile",
@@ -65,7 +66,8 @@
       "1": "Enrollment you're trying to cancell doesn't exist"
     },
     "confirmationPersonal": "date: {{date}}, coach: {{coach}}, class: {{class}}, duration: {{duration}}",
-    "confirmationPersonalMessage": "You are creating personal class : {{data}}. Everything is correct?"
+    "confirmationPersonalMessage": "You are creating personal class : {{data}}. Everything is correct?",
+    "notesUpdatedMessage": "Notes were successfully updated"
   },
   "buttons": { "cancel": "Cancel", "ok": "apply" },
   "schedule": {
@@ -161,6 +163,15 @@
       "personal": "personal",
       "group": "group"
     },
-    "class": "class"
+    "class": "class",
+    "notes": {
+      "title": "Class notes",
+      "notesPlaceholder": "Add class notes",
+      "done": "done"
+    }
+  },
+  "salary": {
+    "description": "The salary is paid once a month by the 10th of the month following the current one. The coach receives 200 hryvnias for each training conducted, including individual training.",
+    "currentText": "This month your salary is {{salary}}"
   }
 }
