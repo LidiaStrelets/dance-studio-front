@@ -7,6 +7,7 @@ import {
   SingleScheduleFull,
 } from '@schedulesModule/types';
 import { ELanguages, Languages } from '@homeModule/types';
+import { ClassItem, ClassItemFull } from '@classesModule/types';
 
 @Injectable({
   providedIn: 'root',
@@ -99,4 +100,11 @@ export class LanguageService {
     }
     return translated;
   };
+
+  translateClasses = (items: ClassItemFull[]): ClassItem[] =>
+    items.map(({ id, name, nameUk, description, descriptionUk }) =>
+      this.isUk()
+        ? { id, name: nameUk, description: descriptionUk }
+        : { id, name, description }
+    );
 }

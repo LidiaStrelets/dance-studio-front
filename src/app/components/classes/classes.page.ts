@@ -25,19 +25,12 @@ export class ClassesPage implements OnInit {
     this.classesService.getClasses()?.subscribe({
       next: (res) => {
         this.classItems = res;
-        this.loader.hideSpinner();
       },
-      error: (err) => {
-        this.loader.hideSpinner();
-        catchError(err);
-      },
+      error: catchError,
     });
+
+    this.loader.hideSpinner();
   }
 
-  getClasses = () =>
-    this.classItems.map(({ id, name, nameUk, description, descriptionUk }) =>
-      this.languageService.isUk()
-        ? { id, name: nameUk, description: descriptionUk }
-        : { id, name, description }
-    );
+  getClasses = () => this.languageService.translateClasses(this.classItems);
 }
