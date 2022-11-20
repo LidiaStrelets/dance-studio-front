@@ -32,14 +32,11 @@ export class UserCardComponent implements OnInit, OnChanges {
       let change = changes[propName];
 
       let value = change.currentValue;
-      // console.log('change', value, propName);
 
       if (propName === 'userId' && value) {
         this.usersService.getById(value)?.subscribe({
           next: (res) => {
             this.user.next(res);
-            // = res;
-            console.log('next', res);
           },
           error: catchError,
         });
@@ -48,19 +45,12 @@ export class UserCardComponent implements OnInit, OnChanges {
   }
 
   getName = () => {
-    // console.log('test');
-
     if (!this.user.value?.id) {
       return;
     }
-    // console.log('getName', this.user);
 
     return this.user ? this.usersService.getUserName(this.user.value) : '';
   };
 
   getUser = () => this.user;
-
-  test = () => {
-    console.log('check render');
-  };
 }

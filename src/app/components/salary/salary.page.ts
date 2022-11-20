@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@authModule/services/auth.service';
 import { SchedulesService } from '@schedulesModule/services/schedules.service';
+import { catchError } from 'rxjs';
 
 @Component({
   selector: 'app-salary',
@@ -17,7 +18,7 @@ export class SalaryPage implements OnInit {
   ngOnInit() {
     this.schedulesService.getSalary()?.subscribe({
       next: (res) => (this.salary = res),
-      error: (err) => console.log('err', err),
+      error: catchError,
     });
   }
 

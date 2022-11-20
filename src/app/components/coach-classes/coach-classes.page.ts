@@ -87,5 +87,8 @@ export class CoachClassesPage implements OnInit {
   getActive = () =>
     this.items.filter((item) => item.date_time > new Date(Date.now()));
 
+  getArchive = () =>
+    this.items.filter((item) => item.date_time < new Date(Date.now()));
+
   getItems = () => this.items;
 }
