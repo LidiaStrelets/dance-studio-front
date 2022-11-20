@@ -1,0 +1,10 @@
+<p>{{ "coachClasses.notes.title" | translate }}:</p>
+<ion-textarea
+  (ionChange)="setNotes($event)"
+  [(ngModel)]="value"
+  class="ion-padding"
+  [placeholder]="'coachClasses.notes.notesPlaceholder' | translate"
+></ion-textarea>
+<ion-button [disabled]="!value" (click)="patchItem()" fill="outline">{{
+  "coachClasses.notes.done" | translate
+}}</ion-button>
