@@ -4,7 +4,7 @@
   <form [formGroup]="userForm">
     <ion-card color="light">
       <app-avatar
-        [userPhoto]="user.photo"
+        [userPhoto]="tempPhoto"
         (onPhoto)="handlePhoto($event)"
         (onClear)="clean($event)"
       ></app-avatar>
@@ -47,10 +47,6 @@
             ></app-errors>
           </ion-item>
         </div>
-
-        <ion-card-subtitle
-          >{{"roles"+'.'+ user.role|translate}}</ion-card-subtitle
-        >
       </ion-card-header>
 
       <ion-card-content>
@@ -85,7 +81,7 @@
         </div>
 
         <div class="edit-container end">
-          <ion-label>{{"profile.information"|translate}}:</ion-label>
+          <p>{{"profile.information"|translate}}:</p>
           <app-icon-button
             [toggle]="toggleInfo"
             [show]="showInfo"
@@ -93,15 +89,16 @@
             [cleanAllowed]="userFormFields.information"
           ></app-icon-button>
         </div>
-
-        <ion-textarea
+        <textarea
           [class.bordered]="showInfo"
           [formControlName]="userFormFields.information"
           [readonly]="!showInfo"
           [placeholder]="'profile.infoPlaceholder'|translate"
-        ></ion-textarea>
+          [rows]="4"
+        ></textarea>
 
         <ion-button
+          expand="block"
           [disabled]="!formHasChanges() || userForm.invalid"
           (click)="submitPatch()"
           color="danger"

@@ -1,7 +1,5 @@
-p,
-span {
-  font-size: 20px;
-}
+@use "./../../styles/mixins/button.scss" as *;
+
 ion-datetime {
   --background: #e4e6e7;
   --background-rgb: 228, 230, 231;
@@ -42,16 +40,68 @@ ion-datetime {
   align-items: center;
 
   &.end {
-    align-items: end;
+    @media screen and (min-width: 300px) {
+      align-items: end;
+    }
   }
 }
-ion-textarea {
+textarea {
   border: 2px solid transparent;
+  border-radius: 5px;
+  background: inherit;
+  width: 100%;
+
+  outline: none;
+  padding: 10px;
+
+  font-size: 20px;
+  @media screen and (max-width: 300px) {
+    font-size: 15px;
+  }
+  @media screen and (max-width: 260px) {
+    font-size: 10px;
+  }
+
   &.bordered {
     border-color: var(--ion-color-profile);
   }
+  &::placeholder {
+    font-size: 20px;
+    @media screen and (max-width: 300px) {
+      font-size: 15px;
+    }
+    @media screen and (max-width: 260px) {
+      font-size: 10px;
+    }
+  }
 }
-ion-card-subtitle {
-  font-size: 15px;
-  --margin-top: 0;
+ion-card-title {
+  @media screen and (max-width: 300px) {
+    font-size: 20px;
+  }
+  @media screen and (max-width: 260px) {
+    font-size: 15px;
+  }
+}
+p {
+  margin: 0;
+  font-size: 25px;
+  @media screen and (max-width: 300px) {
+    font-size: 20px;
+  }
+  @media screen and (max-width: 260px) {
+    font-size: 15px;
+  }
+}
+span {
+  font-size: 20px;
+  @media screen and (max-width: 300px) {
+    font-size: 15px;
+  }
+  @media screen and (max-width: 260px) {
+    font-size: 10px;
+  }
+}
+ion-button {
+  @include auth-button();
 }

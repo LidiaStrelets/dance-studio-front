@@ -1,6 +1,10 @@
 <div class="avatar-container">
   <ion-img [src]="userPhoto ?? avatar"></ion-img>
-  <div *ngIf="userPhoto" (click)="handleClear()" class="delete-photo">
+  <div
+    *ngIf="userPhoto && userPhoto !== avatar"
+    (click)="handleClear()"
+    class="delete-photo"
+  >
     <ion-icon name="trash-outline"></ion-icon>
   </div>
   <div class="avatar-button">

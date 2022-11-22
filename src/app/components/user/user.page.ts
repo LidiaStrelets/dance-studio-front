@@ -32,6 +32,8 @@ export class UserPage implements OnInit {
 
   cleanedField = false;
 
+  tempPhoto: string | null = null;
+
   constructor(
     private usersService: UsersService,
     private authService: AuthService,
@@ -47,7 +49,7 @@ export class UserPage implements OnInit {
       ),
       [UserFormFields.firstname]: new FormControl('', Validators.required),
       [UserFormFields.lastname]: new FormControl('', Validators.required),
-      [UserFormFields.information]: new FormControl(),
+      [UserFormFields.information]: new FormControl(''),
       [UserFormFields.photo]: new FormControl(),
     });
   }
@@ -59,6 +61,9 @@ export class UserPage implements OnInit {
         this.user = res;
         this.setInitialValues(this.user);
         this.loader.hideSpinner();
+        if (res.photo) {
+          this.tempPhoto = res.photo;
+        }
       },
       error: (err) => {
         this.loader.hideSpinner();
@@ -109,11 +114,12 @@ export class UserPage implements OnInit {
 
   clean(field: UserDeletedFields) {
     if (field === UserFormFields.photo) {
-      this.user.photo = null;
+      this.tempPhoto = null;
+      this.cleanedField = true;
     }
 
     this.userForm.controls[field].reset();
-    this.cleanedField = true;
+
     this.closeAll();
   }
 
@@ -124,15 +130,23 @@ export class UserPage implements OnInit {
   };
 
   handlePhoto = (avatar: File) => {
-    this.user.photo = URL.createObjectURL(avatar);
+    this.tempPhoto = URL.createObjectURL(avatar);
     this.userForm.patchValue({ photo: avatar });
     this.userForm.get('photo')?.markAsDirty();
   };
 
   formHasChanges = () =>
-    this.userForm.dirty ||
-    this.userForm.get(UserFormFields.photo)?.value ||
-    this.cleanedField;
+    (this.userForm.dirty &&
+      (!!this.user.information != !!this.userForm.value.information ||
+        this.user.firstname != this.userForm.value.firstname ||
+        this.user.lastname != this.userForm.value.lastname ||
+        (this.user.birth_date != this.userForm.value.birth_date &&
+          this.userForm.value.birth_date !=
+            this.dateService.convertForPicker(
+              this.dateService.defaultDate
+            )))) ||
+    !!this.userForm.get(UserFormFields.photo)?.value ||
+    (this.cleanedField && this.user.photo != this.userForm.value.photo);
 
   submitPatch = () => {
     if (
@@ -142,6 +156,7 @@ export class UserPage implements OnInit {
     ) {
       return;
     }
+
     const keys: UserFormFields[] = Object.keys(
       this.userForm.value
     ) as UserFormFields[];
