@@ -3,8 +3,9 @@ import { catchError } from 'rxjs/operators';
 import { LanguageService } from '@services/language.service';
 import { LoaderService } from '@services/loader.service';
 import { environment } from '@root/environments/environment';
-import { ELanguages, Hall, TranslatedHall } from '@homeModule/types';
+import { Hall, TranslatedHall } from '@homeModule/types';
 import { HallService } from '@homeModule/services/hall.service';
+import { PlatformService } from '@services/platform.service';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,8 @@ export class HomePage implements OnInit {
   constructor(
     private hallService: HallService,
     private languageService: LanguageService,
-    private spinner: LoaderService
+    private spinner: LoaderService,
+    private platformService: PlatformService
   ) {}
 
   ngOnInit() {
@@ -49,4 +51,12 @@ export class HomePage implements OnInit {
 
   private translate = () =>
     (this.translatedHalls = this.languageService.translateHalls(this.halls));
+
+  titleStyle = () =>
+    this.platformService.isPlatformIos()
+      ? {
+          position: 'relative',
+          paddingTop: 0,
+        }
+      : {};
 }

@@ -1,6 +1,31 @@
 span {
   font-size: 15px;
   text-align: center;
+
+  @media screen and (max-width: 260px) {
+    font-size: 10px;
+  }
+  @media screen and (max-width: 230px) {
+    font-size: 7px;
+  }
+}
+ion-title {
+  @media screen and (max-width: 260px) {
+    font-size: 20px;
+  }
+  @media screen and (max-width: 230px) {
+    font-size: 12px;
+  }
+}
+ion-buttons {
+  padding-bottom: 16px;
+
+  @media screen and (max-width: 260px) {
+    padding-bottom: 10px;
+  }
+  @media screen and (max-width: 230px) {
+    padding-bottom: 4px;
+  }
 }
 ion-toolbar.page-header {
   text-align: end;

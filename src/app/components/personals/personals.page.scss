@@ -1,3 +1,5 @@
+@use "./../../styles/mixins/button.scss" as *;
+
 .page-container {
   padding: 10px;
 }
@@ -6,4 +8,7 @@
   margin-top: 50px;
   display: flex;
   justify-content: center;
+}
+ion-button {
+  @include auth-button();
 }
