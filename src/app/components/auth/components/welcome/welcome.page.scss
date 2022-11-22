@@ -10,6 +10,14 @@ div {
 }
 p {
   font-size: 70px;
+
+  @media screen and (max-width: 400px) {
+    font-size: 50px;
+  }
+  @media screen and (max-width: 300px) {
+    font-size: 30px;
+  }
+
   font-family: "Passions Conflict", cursive;
 
   color: var(--ion-background-color);
@@ -40,4 +48,11 @@ p {
 span {
   font-weight: 100;
   font-size: 90px;
+
+  @media screen and (max-width: 400px) {
+    font-size: 70px;
+  }
+  @media screen and (max-width: 300px) {
+    font-size: 50px;
+  }
 }
