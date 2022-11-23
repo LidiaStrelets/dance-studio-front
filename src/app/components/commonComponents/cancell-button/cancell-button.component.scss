@@ -1,0 +1,5 @@
+@use "./../../../styles/mixins/small-button.scss" as *;
+
+ion-button {
+  @include small-button();
+}

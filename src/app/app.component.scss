@@ -1,4 +1,4 @@
-@use "./styles/mixins/button.scss" as *;
+@use "./styles/mixins/small-button.scss" as *;
 
 ion-app {
   max-width: 500px;
@@ -43,5 +43,5 @@ ion-menu-toggle.menu-toggle {
   font-size: inherit;
 }
 ion-button {
-  @include auth-button();
+  @include small-button();
 }

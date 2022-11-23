@@ -1,9 +1,13 @@
+@use "./../../../../styles/mixins/title-font-size.scss" as *;
+
 p.left {
   color: var(--ion-color-danger);
 }
 h1 {
   margin: 0;
   text-align: center;
+
+  @include title-font-size();
 }
 .item-container {
   width: 100%;

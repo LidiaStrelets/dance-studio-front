@@ -1,4 +1,16 @@
+@use "./../../../../styles//mixins/title-font-size.scss" as *;
+@use "./../../../../styles//mixins/smaller-text.scss" as *;
+
 h1 {
   margin: 0;
   text-align: center;
+
+  @include title-font-size();
+}
+p {
+  @include smaller-text();
+
+  & span {
+    font-size: inherit;
+  }
 }
