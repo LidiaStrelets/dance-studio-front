@@ -1,14 +1,13 @@
 @use "./../../styles/mixins/button.scss" as *;
+@use "./../../styles/mixins/title-font-size.scss" as *;
 
 .page-container {
   padding: 10px;
 }
-.button-container {
-  width: 100%;
-  margin-top: 50px;
-  display: flex;
-  justify-content: center;
-}
 ion-button {
   @include auth-button();
+  margin-top: 50px;
+}
+p {
+  @include title-font-size();
 }

@@ -9,6 +9,7 @@
 </ion-header>
 <ion-content class="ion-padding">
   <h1>{{ "personals.enroll.header" | translate }}</h1>
+
   <form (ngSubmit)="handleSubmit()" [formGroup]="personalForm">
     <app-calendar
       [showDate]="showDate"
@@ -97,19 +98,19 @@
       ></app-errors>
     </ion-item>
 
-    <ion-textarea
+    <textarea
       [formControlName]="personalFormFields.message"
       [placeholder]="'personals.enroll.messagePlaceholder' | translate"
-    ></ion-textarea>
+    ></textarea>
 
-    <div class="button-container">
-      <ion-button
-        size="large"
-        fill="outline"
-        [disabled]="!personalForm.valid"
-        type="submit"
-        >{{ "personals.enroll.submit" | translate }}</ion-button
-      >
-    </div>
+    <ion-button
+      class="submit"
+      expand="block"
+      size="large"
+      fill="outline"
+      [disabled]="!personalForm.valid"
+      type="submit"
+      >{{ "personals.enroll.submit" | translate }}</ion-button
+    >
   </form>
 </ion-content>
