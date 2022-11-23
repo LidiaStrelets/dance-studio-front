@@ -1,0 +1,11 @@
+@mixin card-content {
+  @media screen and (max-width: 370px) {
+    font-size: 12px;
+  }
+  @media screen and (max-width: 300px) {
+    font-size: 10px;
+  }
+  @media screen and (max-width: 240px) {
+    font-size: 8px;
+  }
+}
