@@ -21,6 +21,7 @@ export class SchedulePage implements OnInit, AfterContentChecked {
 
   config: SwiperOptions = {
     pagination: true,
+    initialSlide: 1,
   };
   activeSlide = 0;
 
