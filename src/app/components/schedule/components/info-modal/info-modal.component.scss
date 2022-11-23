@@ -1,3 +1,5 @@
+@use "./../../../../styles/mixins//title-font-size.scss" as *;
+
 .modal-header {
   display: flex;
   justify-content: space-between;
@@ -8,6 +10,8 @@ ion-title {
   position: initial;
   text-align: start;
   padding: 0;
+
+  @include title-font-size();
 }
 ion-buttons {
   position: initial;
@@ -21,10 +25,16 @@ ion-modal {
   padding: 20px;
 
   p {
-    margin-bottom: 0;
+    margin: 0;
+
+    @include title-font-size();
 
     &:not(:last-child) {
-      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    & span {
+      font-size: inherit;
     }
   }
 }
