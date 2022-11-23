@@ -1,6 +1,33 @@
+@use "./../../styles/mixins/title-font-size.scss" as *;
+@use "./../../styles/mixins/smaller-text.scss" as *;
+
 .container {
   padding: 10px;
 }
 ion-card.danger {
   background: rgba(255, 0, 0, 0.5);
+}
+ion-card-title {
+  @include title-font-size();
+}
+p {
+  margin: 0;
+
+  &.no-payments {
+    @include title-font-size();
+    margin-bottom: 10px;
+  }
+
+  &.card-line {
+    margin-top: 10px;
+
+    @include smaller-text();
+
+    & span {
+      font-size: inherit;
+    }
+  }
+}
+ion-select::part(placeholder) {
+  @include title-font-size();
 }

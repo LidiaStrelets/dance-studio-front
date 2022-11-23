@@ -1,15 +1,9 @@
+@use "./../../../styles/mixins/title-font-size.scss" as *;
+
 ion-title {
   padding: 0;
   position: relative;
   left: -15px;
 
-  @media screen and (max-width: 370px) {
-    font-size: 20px;
-  }
-  @media screen and (max-width: 300px) {
-    font-size: 15px;
-  }
-  @media screen and (max-width: 240px) {
-    font-size: 12px;
-  }
+  @include title-font-size();
 }
