@@ -1,0 +1,30 @@
+@use "./border.scss" as *;
+
+@mixin textarea {
+  @include border(--ion-color-profile);
+
+  background: inherit;
+  width: 100%;
+  margin-top: 20px;
+
+  outline: none;
+  padding: 10px;
+
+  font-size: 20px;
+  @media screen and (max-width: 300px) {
+    font-size: 15px;
+  }
+  @media screen and (max-width: 260px) {
+    font-size: 10px;
+  }
+
+  &::placeholder {
+    font-size: 20px;
+    @media screen and (max-width: 300px) {
+      font-size: 15px;
+    }
+    @media screen and (max-width: 260px) {
+      font-size: 10px;
+    }
+  }
+}

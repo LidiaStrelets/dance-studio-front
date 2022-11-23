@@ -3,6 +3,7 @@ import { EnrollmentsService } from '@enrollmentsModule/services/enrollments.serv
 import { PersonalsService } from '@personalsModule/services/personals.service';
 import { PersonalSchedule } from '@personalsModule/types';
 import { DateService } from '@services/date.service';
+import { LanguageService } from '@services/language.service';
 import { BehaviorSubject, catchError, Subscription } from 'rxjs';
 import Swiper, { Pagination, SwiperOptions } from 'swiper';
 import { SwiperComponent } from 'swiper/angular';
@@ -32,7 +33,8 @@ export class CoachClassesPage implements OnInit {
   constructor(
     private enrollmentsService: EnrollmentsService,
     private personalService: PersonalsService,
-    private dateService: DateService
+    private dateService: DateService,
+    private languageService: LanguageService
   ) {}
 
   ngOnInit() {
@@ -43,7 +45,12 @@ export class CoachClassesPage implements OnInit {
 
       this.enrollmentsService.getByDateAndCoachMapped(res)?.subscribe({
         next: (res) => {
-          this.registrations = res.map((item) => ({ ...item, type: 'group' }));
+          this.registrations = res.map((item) => ({
+            ...item,
+            type: 'group',
+            hall: this.languageService.isUk() ? item.hallUk : item.hall,
+            class: this.languageService.isUk() ? item.classUk : item.class,
+          }));
 
           this.items = [...this.registrations, ...this.personals];
         },

@@ -1,3 +1,16 @@
+@use "./../../styles//mixins//title-font-size.scss" as *;
+
 div {
   padding: 10px;
+}
+p {
+  margin: 0;
+
+  @include title-font-size();
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
+  & span {
+    font-size: inherit;
+  }
 }

@@ -1,3 +1,5 @@
+@use "./../../../../styles/mixins/title-font-size.scss" as *;
+
 ion-list {
   padding: 0;
 }
@@ -11,6 +13,14 @@ p {
 
   &.margin-bottom {
     margin-bottom: 10px;
+  }
+
+  &.item-line {
+    @include title-font-size();
+  }
+
+  & span {
+    font-size: inherit;
   }
 }
 .item-container {

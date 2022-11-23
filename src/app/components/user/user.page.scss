@@ -1,5 +1,5 @@
 @use "./../../styles/mixins/button.scss" as *;
-@use "./../../styles/mixins//border.scss" as *;
+@use "./../../styles/mixins//textarea.scss" as *;
 
 ion-datetime {
   --background: #e4e6e7;
@@ -45,33 +45,10 @@ ion-datetime {
   }
 }
 textarea {
-  @include border(transparent);
-
-  background: inherit;
-  width: 100%;
-
-  outline: none;
-  padding: 10px;
-
-  font-size: 20px;
-  @media screen and (max-width: 300px) {
-    font-size: 15px;
-  }
-  @media screen and (max-width: 260px) {
-    font-size: 10px;
-  }
+  @include textarea();
 
   &.bordered {
     border-color: var(--ion-color-profile);
-  }
-  &::placeholder {
-    font-size: 20px;
-    @media screen and (max-width: 300px) {
-      font-size: 15px;
-    }
-    @media screen and (max-width: 260px) {
-      font-size: 10px;
-    }
   }
 }
 ion-card-title {
