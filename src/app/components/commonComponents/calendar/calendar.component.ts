@@ -1,9 +1,10 @@
 import { Location } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { routesPaths } from '@app/app-routing.module';
 import { LanguageService } from '@services/language.service';
 import { DateService } from '@services/date.service';
+import { IonDatetime } from '@ionic/angular';
 
 @Component({
   selector: 'app-calendar',
@@ -15,6 +16,10 @@ export class CalendarComponent implements OnInit {
   @Input() archive?: boolean;
   @Input() toggleDate?: (form: FormGroup) => void;
   @Input() getDate?: (form: FormGroup) => void;
+
+  // the only option found to style calendar
+  // @ViewChild('date', { read: ElementRef, static: false })
+  // calendar?: ElementRef;
 
   dateForm: FormGroup = {} as FormGroup;
 
@@ -35,6 +40,21 @@ export class CalendarComponent implements OnInit {
       this.needsTime = true;
     }
   }
+
+  // ngAfterViewInit(): void {
+  //   setTimeout(() => {
+  //     console.log('hey', this.calendar?.nativeElement);
+  //     const shadow: DocumentFragment = this.calendar?.nativeElement.shadowRoot;
+  //     const buttons = shadow.querySelectorAll('ion-picker-column-internal');
+
+  //     buttons.forEach((button) => {
+  //       console.log(button);
+
+  //       button.style.fontSize = '10px';
+  //       // this.renderer.setAttribute(day, 'part', 'day');
+  //     });
+  //   }, 2000);
+  // }
 
   getMinDate = () => {
     if (this.location.path().includes(routesPaths.schedule) || this.archive) {

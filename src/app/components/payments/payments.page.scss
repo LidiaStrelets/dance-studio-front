@@ -28,6 +28,3 @@ p {
     }
   }
 }
-ion-select::part(placeholder) {
-  @include title-font-size();
-}

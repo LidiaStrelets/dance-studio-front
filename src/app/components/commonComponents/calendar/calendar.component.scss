@@ -1,3 +1,5 @@
+@use "./../../../styles/mixins/title-font-size.scss" as *;
+
 .container {
   padding: 10px;
 }
@@ -20,4 +22,7 @@ ion-datetime {
 ion-icon {
   position: relative;
   top: 3px;
+}
+ion-label {
+  @include title-font-size();
 }

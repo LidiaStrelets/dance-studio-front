@@ -36,11 +36,11 @@
     <ion-list>
       <ion-item color="light" *ngFor="let item of filteredItems">
         <div>
-          <p>
+          <p class="item-line">
             {{ getWeekDay(item.date_time).day | translate }}
             {{ getTime(item.date_time) }}
           </p>
-          <p>{{ item.coach }} {{ item.hall }}</p>
+          <p class="item-line">{{ item.coach }} {{ item.hall }}</p>
         </div>
       </ion-item>
     </ion-list>
