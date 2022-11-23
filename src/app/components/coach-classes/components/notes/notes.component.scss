@@ -1,4 +1,5 @@
+@use "./../../../../styles/mixins/border.scss" as *;
+
 ion-textarea {
-  border: 2px solid rgb(198, 198, 198);
-  border-radius: 5px;
+  @include border(rgb(198, 198, 198));
 }

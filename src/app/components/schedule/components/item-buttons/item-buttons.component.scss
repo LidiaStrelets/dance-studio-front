@@ -1,3 +1,6 @@
+@use "./../../../../styles/mixins/border.scss" as *;
+@use "./../../../../styles/mixins/small-button.scss" as *;
+
 .button-container {
   width: 100%;
   display: flex;
@@ -18,9 +21,24 @@
 
 span.enrolled {
   @include enroll-btn();
+  @include border(green);
+  @include small-button();
 
   display: inline-block;
-  padding: 2px 5px;
-  border: 2px solid green;
-  border-radius: 3px;
+  padding: 7px 5px;
+
+  @media screen and (max-width: 370px) {
+    padding: 8px 5px;
+  }
+  @media screen and (max-width: 300px) {
+    padding: 9px 5px;
+  }
+  @media screen and (max-width: 240px) {
+    padding: 10px 5px;
+  }
+
+  font-size: 14px;
+}
+ion-button {
+  @include small-button();
 }

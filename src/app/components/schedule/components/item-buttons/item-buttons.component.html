@@ -1,7 +1,4 @@
-<div
-  *ngIf="canEnroll(item.date_time)"
-  class="ion-margin-top ion-margin-bottom button-container"
->
+<div *ngIf="canEnroll(item.date_time)" class="button-container">
   <ion-buttons>
     <ion-button
       (click)="openClick(item.id)"

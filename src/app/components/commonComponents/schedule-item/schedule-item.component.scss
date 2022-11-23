@@ -1,8 +1,18 @@
+@use "./../../../styles/mixins/title-font-size.scss" as *;
+
 p {
-  margin-bottom: 0;
+  margin: 0;
+
+  &.item-line {
+    margin-bottom: 10px;
+
+    @include title-font-size();
+  }
 }
 .item-container {
   width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 .duration {
   color: red;
