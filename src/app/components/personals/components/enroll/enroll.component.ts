@@ -17,6 +17,7 @@ import { PersonalsService } from '@personalsModule/services/personals.service';
 import { AlertService } from '@services/alert.service';
 import { Router } from '@angular/router';
 import { routesPaths } from '@app/app-routing.module';
+import { SocketService } from '@services/socket.service';
 
 @Component({
   selector: 'app-enroll',
@@ -24,7 +25,7 @@ import { routesPaths } from '@app/app-routing.module';
   styleUrls: ['./enroll.component.scss'],
 })
 export class EnrollComponent implements OnInit {
-  coaches: User[] = [];
+  coaches: User[];
   translatedClasses: ClassItem[] = [];
 
   personalForm = new FormGroup({
@@ -53,13 +54,14 @@ export class EnrollComponent implements OnInit {
     private formService: FormService,
     private personalsService: PersonalsService,
     private alertService: AlertService,
-    private router: Router
-  ) {}
-
-  async ngOnInit() {
-    this.translatedClasses = this.classesService.getCurrentClasses();
+    private router: Router,
+    private socketService: SocketService
+  ) {
     this.coaches = this.usersService.getCurrentCoaches();
+    this.translatedClasses = this.classesService.getCurrentClasses();
   }
+
+  async ngOnInit() {}
 
   getName = this.usersService.getUserName;
 
@@ -98,6 +100,10 @@ export class EnrollComponent implements OnInit {
             this.alertService.presentAlertSuccess(
               this.alertService.getTranslations().personalSuccessMessage
             );
+
+            this.socketService.emitPersonal(res);
+
+            this.backToPersonals();
           },
           error: catchError,
         });

@@ -44,4 +44,12 @@ export class DateService {
 
   getArchiveItems = <T extends { date_time: Date }>(items: T[]) =>
     items.filter((item) => item.date_time < new Date(Date.now()));
+
+  isOtherDate = (date: Date, selectedDate: string) => {
+    return !(
+      new Date(date).getMonth() === new Date(selectedDate).getMonth() &&
+      new Date(date).getDate() === new Date(selectedDate).getDate() &&
+      new Date(date).getFullYear() === new Date(selectedDate).getFullYear()
+    );
+  };
 }

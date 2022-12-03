@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   basicUrl: 'http://localhost:5555/',
+  SOCKET_ENDPOINT: 'ws://localhost:8080',
 };
 
 /*
