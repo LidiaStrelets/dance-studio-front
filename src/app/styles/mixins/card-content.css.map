@@ -2,8 +2,8 @@
     "version": 3,
     "mappings": "",
     "sources": [
-        "date-schedule.component.scss"
+        "card-content.scss"
     ],
     "names": [],
-    "file": "date-schedule.component.css"
+    "file": "card-content.css"
 }

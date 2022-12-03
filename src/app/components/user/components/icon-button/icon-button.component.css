@@ -29,4 +29,8 @@
       -ms-flex-align: center;
           align-items: center;
 }
+
+ion-button {
+  margin: 0;
+}
 /*# sourceMappingURL=icon-button.component.css.map */

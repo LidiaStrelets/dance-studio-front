@@ -2,8 +2,8 @@
     "version": 3,
     "mappings": "",
     "sources": [
-        "date-schedule.component.scss"
+        "title-font-size.scss"
     ],
     "names": [],
-    "file": "date-schedule.component.css"
+    "file": "title-font-size.css"
 }

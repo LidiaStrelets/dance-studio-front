@@ -13,6 +13,12 @@ div {
   transition: transform 250ms ease, -webkit-transform 250ms ease;
 }
 
+@media screen and (max-width: 300px) {
+  div {
+    width: 30%;
+  }
+}
+
 div.shown {
   -webkit-transform: translateY(0);
           transform: translateY(0);
@@ -23,6 +29,22 @@ ul {
   margin: 0;
   padding: 20px;
   width: 100%;
+}
+
+li {
+  text-align: center;
+}
+
+@media screen and (max-width: 400px) {
+  li {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  li {
+    font-size: 13px;
+  }
 }
 
 li:not(:last-child) {

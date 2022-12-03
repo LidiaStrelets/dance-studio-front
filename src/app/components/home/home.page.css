@@ -3,6 +3,46 @@ span {
   text-align: center;
 }
 
+@media screen and (max-width: 260px) {
+  span {
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 230px) {
+  span {
+    font-size: 7px;
+  }
+}
+
+@media screen and (max-width: 260px) {
+  ion-title {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 230px) {
+  ion-title {
+    font-size: 12px;
+  }
+}
+
+ion-buttons {
+  padding-bottom: 16px;
+}
+
+@media screen and (max-width: 260px) {
+  ion-buttons {
+    padding-bottom: 10px;
+  }
+}
+
+@media screen and (max-width: 230px) {
+  ion-buttons {
+    padding-bottom: 4px;
+  }
+}
+
 ion-toolbar.page-header {
   text-align: end;
 }
