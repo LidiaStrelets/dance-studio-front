@@ -9,7 +9,7 @@ import { SocketService } from '@services/socket.service';
 import { BehaviorSubject, catchError, Subscription } from 'rxjs';
 import Swiper, { Pagination, SwiperOptions } from 'swiper';
 import { SwiperComponent } from 'swiper/angular';
-import { EClassTypes, PersonalClass } from './types';
+import { EClassTypes, CoachClass } from './types';
 
 Swiper.use([Pagination]);
 
@@ -21,9 +21,9 @@ Swiper.use([Pagination]);
 export class CoachClassesPage implements OnInit {
   @ViewChild('slides') swiper?: SwiperComponent;
 
-  items: PersonalClass[] = [];
-  registrations: PersonalClass[] = [];
-  personals: PersonalClass[] = [];
+  items: CoachClass[] = [];
+  registrations: CoachClass[] = [];
+  personals: CoachClass[] = [];
 
   config: SwiperOptions = {
     pagination: true,
@@ -67,7 +67,14 @@ export class CoachClassesPage implements OnInit {
             const personals = result.reduce((array, item) => {
               const mapped = this.personalService.addData(item);
               return mapped
-                ? [...array, { ...mapped, client_id: item.client_id }]
+                ? [
+                    ...array,
+                    {
+                      ...mapped,
+                      client_id: item.client_id,
+                      status: item.status,
+                    },
+                  ]
                 : array;
             }, [] as PersonalSchedule[]);
 
@@ -97,6 +104,7 @@ export class CoachClassesPage implements OnInit {
               date_time: new Date(mapped.date_time),
               type: EClassTypes.personal,
               clients: [item.client_id],
+              status: item.status,
             },
           ];
         }

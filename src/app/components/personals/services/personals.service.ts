@@ -10,6 +10,7 @@ import {
   CreatePersonal,
   Personal,
   PersonalSchedule,
+  UpdatePersonal,
 } from '@personalsModule/types';
 import { environment } from '@root/environments/environment';
 import { Schedule } from '@schedulesModule/types';
@@ -75,6 +76,26 @@ export class PersonalsService {
         this.coreUrl + this.authService.getCurrentUserId(),
         personal
       )
+      .pipe(
+        catchError((err) => {
+          throw err;
+        }),
+        take(1),
+        map((data) => {
+          data.date_time = new Date(data.date_time);
+
+          return data;
+        })
+      );
+  }
+
+  update(personal: UpdatePersonal, id: string): Observable<Personal> | null {
+    if (!this.authService.getCurrentUserId()) {
+      return null;
+    }
+
+    return this.http
+      .post<Personal>(this.coreUrl + 'update/' + id, personal)
       .pipe(
         catchError((err) => {
           throw err;
@@ -157,8 +178,12 @@ export class PersonalsService {
     return translation;
   };
 
-  setPersonals = (personal: Personal) =>
-    (this.personals = [...this.personals, personal]);
+  setPersonals = (personal: Personal) => {
+    if (this.personals.some(({ id }) => id === personal.id)) {
+      return;
+    }
+    this.personals = [...this.personals, personal];
+  };
   getPersonals = () => this.personals;
 
   addData = ({

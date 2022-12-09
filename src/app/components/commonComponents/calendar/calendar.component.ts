@@ -41,21 +41,6 @@ export class CalendarComponent implements OnInit {
     }
   }
 
-  // ngAfterViewInit(): void {
-  //   setTimeout(() => {
-  //     console.log('hey', this.calendar?.nativeElement);
-  //     const shadow: DocumentFragment = this.calendar?.nativeElement.shadowRoot;
-  //     const buttons = shadow.querySelectorAll('ion-picker-column-internal');
-
-  //     buttons.forEach((button) => {
-  //       console.log(button);
-
-  //       button.style.fontSize = '10px';
-  //       // this.renderer.setAttribute(day, 'part', 'day');
-  //     });
-  //   }, 2000);
-  // }
-
   getMinDate = () => {
     if (this.location.path().includes(routesPaths.schedule) || this.archive) {
       return this.dateService.getMinScheduleDate();

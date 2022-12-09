@@ -2,17 +2,18 @@
 
 <ion-content>
   <div class="page-container">
-    <div *ngIf="personals.length===0; then info; else list"></div>
-    <ng-template #info
-      ><p>{{"personals.description"|translate}}</p></ng-template
-    >
-    <ng-template #list>
-      <ion-list>
-        <ion-item *ngFor="let item of getPersonals()">
-          <app-schedule-item [item]="item"></app-schedule-item
-        ></ion-item>
-      </ion-list>
-    </ng-template>
+    <p *ngIf="personals.length===0" class="description">
+      {{"personals.description"|translate}}
+    </p>
+    <ion-list *ngIf="personals.length>0">
+      <ion-item [ngClass]="item.status" *ngFor="let item of mapPersonals()">
+        <div>
+          <app-schedule-item [item]="item"></app-schedule-item>
+          <app-messages [personal_id]="item.id"></app-messages>
+          <p [ngClass]="item.status">{{statusMessage(item.status!)}}</p>
+        </div>
+      </ion-item>
+    </ion-list>
     <ion-button
       expand="block"
       [routerLink]="['../',routerPath.personals, 'enroll']"
@@ -21,4 +22,5 @@
       >{{"personals.enroll.button"|translate}}</ion-button
     >
   </div>
+  {{test()}}
 </ion-content>

@@ -1,0 +1,12 @@
+<div>
+  <ion-button
+    [disabled]="!hallId"
+    (click)="presentAlertApprove()"
+    color="medium"
+    fill="outline"
+    >{{ "coachClasses.approveButton" | translate }}</ion-button
+  >
+  <ion-button (click)="presentAlertCancell()" color="danger" fill="outline">{{
+    "coachClasses.cancellButton" | translate
+  }}</ion-button>
+</div>

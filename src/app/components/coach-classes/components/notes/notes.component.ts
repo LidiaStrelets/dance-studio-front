@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PersonalClass } from '@coachClassesModule/types';
+import { CoachClass } from '@coachClassesModule/types';
 import { SchedulesService } from '@schedulesModule/services/schedules.service';
 import { AlertService } from '@services/alert.service';
 import { catchError } from 'rxjs';
@@ -10,7 +10,7 @@ import { catchError } from 'rxjs';
   styleUrls: ['./notes.component.scss'],
 })
 export class NotesComponent implements OnInit {
-  @Input() item?: PersonalClass;
+  @Input() item?: CoachClass;
 
   value = '';
 

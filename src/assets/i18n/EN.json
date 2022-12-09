@@ -156,6 +156,15 @@
       "durationLabel": "Duration",
       "submit": "Create",
       "messagePlaceholder": "Add some information about your preferences"
+    },
+    "statuses": {
+      "created": "You requested a personal class - waiting for coach approval",
+      "approved": "Coach approved your request - now you need to pay the class",
+      "submitted": "Your class is submitted!",
+      "cancelled": "Class was cancelled"
+    },
+    "messages": {
+      "title": "Messages"
     }
   },
   "coachClasses": {
@@ -168,7 +177,25 @@
       "title": "Class notes",
       "notesPlaceholder": "Add class notes",
       "done": "done"
-    }
+    },
+    "status": {
+      "no-group": "Less then 3 people enrolled - this class is not active yet",
+      "created": "A personal class requested - waiting for your approval",
+      "approved": "You approved the personal class - waiting for client to pay",
+      "submitted": "The class is submitted!",
+      "cancelled": "Class was cancelled"
+    },
+    "approveButton": "Approve",
+    "cancellButton": "Cancell",
+    "alert": {
+      "approveHeader": "Approve class",
+      "approveText": "Are you sure you want to approve this class? {{classData}}.",
+      "cancellHeader": "Cancell class",
+      "cancellText": "Are you sure you want to cancell this class? {{classData}}",
+      "messagePlaceholder": "Any additional information",
+      "messageHeader": "Add a message for client"
+    },
+    "pickHallText": "Pick the hall to approve class."
   },
   "salary": {
     "description": "The salary is paid once a month by the 10th of the month following the current one. The coach receives 200 hryvnias for each training conducted, including individual training.",

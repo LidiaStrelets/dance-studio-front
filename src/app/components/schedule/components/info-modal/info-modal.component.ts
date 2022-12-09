@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { LanguageService } from 'src/app/services/language.service';
@@ -9,6 +9,7 @@ import { SingleSchedule } from '@schedulesModule/types';
 import { EnrollmentsService } from '@enrollmentsModule/services/enrollments.service';
 import { SchedulesService } from '@schedulesModule/services/schedules.service';
 import { Registration } from '@enrollmentsModule/types';
+import { routesPaths } from '@app/app-routing.module';
 
 @Component({
   selector: 'app-info-modal',
@@ -26,41 +27,43 @@ export class InfoModalComponent implements OnInit {
     private loader: LoaderService,
     private location: Location,
     private route: ActivatedRoute,
-    private scheduleService: SchedulesService
+    private scheduleService: SchedulesService,
+    private router: Router
   ) {}
 
   ngOnInit() {
-    this.route.paramMap.subscribe(async (res) => {
+    this.route.paramMap.subscribe((res) => {
       this.loader.showSpinner();
       const scheduleId = res.get('id');
 
       if (!scheduleId) {
-        // show error
-        return;
+        this.router.navigate([routesPaths.schedule]);
+      } else {
+        this.scheduleService.getById(scheduleId)?.subscribe({
+          next: (res) => {
+            const translated =
+              this.languageService.translateSingleSchedule(res);
+
+            this.item.next(translated);
+          },
+          error: catchError,
+        });
+
+        this.item.subscribe((res) => {
+          if (res) {
+            this.enrollmentsService.getBySchedule(res.id)?.subscribe({
+              next: (res) => {
+                this.enrollments = res;
+              },
+              error: (err) => {
+                catchError(err);
+              },
+            });
+          }
+        });
+
+        this.loader.hideSpinner();
       }
-      this.scheduleService.getById(scheduleId)?.subscribe({
-        next: (res) => {
-          const translated = this.languageService.translateSingleSchedule(res);
-
-          this.item.next(translated);
-        },
-        error: catchError,
-      });
-
-      this.item.subscribe((res) => {
-        if (res) {
-          this.enrollmentsService.getBySchedule(res.id)?.subscribe({
-            next: (res) => {
-              this.enrollments = res;
-            },
-            error: (err) => {
-              catchError(err);
-            },
-          });
-        }
-      });
-
-      this.loader.hideSpinner();
     });
   }
 

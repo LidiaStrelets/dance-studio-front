@@ -1,0 +1,13 @@
+<div>
+  <p>{{ "coachClasses.pickHallText" | translate }}</p>
+  <ion-radio-group
+    (ionChange)="handleRadio()"
+    [(ngModel)]="pickedHall"
+    [allowEmptySelection]="true"
+  >
+    <ion-item lines="none" color="light" *ngFor="let hall of halls">
+      <ion-label>{{ hall.name }}</ion-label>
+      <ion-radio slot="end" [value]="hall.id"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+</div>

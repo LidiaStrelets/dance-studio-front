@@ -7,9 +7,17 @@ import { TranslateModule } from '@ngx-translate/core';
 import { UserCardModule } from '@commonComponents/user-card/user-card.module';
 import { FormsModule } from '@angular/forms';
 import { NotesComponent } from '../notes/notes.component';
+import { StatusCreatedComponent } from '../status-created/status-created.component';
+import { PickHallComponent } from '../pick-hall/pick-hall.component';
+import { MessagesModule } from '@commonComponents/messages/messages.module';
 
 @NgModule({
-  declarations: [ClassesComponent, NotesComponent],
+  declarations: [
+    ClassesComponent,
+    NotesComponent,
+    StatusCreatedComponent,
+    PickHallComponent,
+  ],
   exports: [ClassesComponent],
   imports: [
     CommonModule,
@@ -18,6 +26,7 @@ import { NotesComponent } from '../notes/notes.component';
     TranslateModule,
     UserCardModule,
     FormsModule,
+    MessagesModule,
   ],
 })
 export class ClassesModule {}

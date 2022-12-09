@@ -25,25 +25,28 @@ export interface CreatePersonal {
   message?: string;
 }
 
-export interface Personal {
+export type UpdatePersonal = Pick<
+  CreatePersonal,
+  'hall_id' | 'status' | 'message'
+>;
+
+export interface Personal extends Omit<CreatePersonal, 'message'> {
   id: string;
-  coach_id: string;
-  hall_id: string;
-  class_id: string;
-  date_time: Date;
-  duration: number;
-  status: TStatus;
-  message?: string;
+  client_id: string;
+  message?: string[];
 }
 
 export enum Statuses {
   created = 'created',
   submitted = 'submitted',
   approved = 'approved',
+  cancelled = 'cancelled',
 }
 
-export type TStatus = 'created' | 'submitted' | 'approved';
+export type TStatus = 'created' | 'submitted' | 'approved' | 'cancelled';
 
 export interface PersonalSchedule extends Schedule {
   client_id: string;
+  status?: TStatus;
+  message?: string[];
 }

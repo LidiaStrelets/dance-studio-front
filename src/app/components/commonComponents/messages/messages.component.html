@@ -1,0 +1,6 @@
+<h1>{{ "personals.messages.title" | translate }}:</h1>
+<ion-list>
+  <ion-item lines="none" color="light" *ngFor="let message of messages">
+    <p>{{ message.message }}</p>
+  </ion-item>
+</ion-list>

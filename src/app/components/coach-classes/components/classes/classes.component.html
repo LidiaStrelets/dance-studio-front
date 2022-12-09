@@ -13,7 +13,12 @@
 
   <div>
     <ion-list>
-      <ion-item color="light" *ngFor="let item of items">
+      <ion-item
+        lines="none"
+        [ngClass]="status(item)"
+        color="light"
+        *ngFor="let item of items"
+      >
         <div class="main-container ion-padding-vertical">
           <div *ngIf="item" class="item-container">
             <p class="margin-bottom item-line">
@@ -40,8 +45,20 @@
               ></app-user-card>
             </ion-list>
           </div>
+          <p [ngClass]="status(item)">{{ statusMessage(item) }}</p>
+          <app-pick-hall
+            *ngIf="item.status === statuses.created"
+            (onPickHall)="setHall($event)"
+          ></app-pick-hall>
+          <app-status-created
+            [hallId]="pickedHall"
+            [item]="item"
+            *ngIf="item.status === statuses.created"
+          ></app-status-created>
+          <app-messages [personal_id]="item.id"></app-messages>
         </div>
       </ion-item>
     </ion-list>
   </div>
+  {{ test() }}
 </ion-content>

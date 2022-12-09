@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
+import { Statuses } from '@personalsModule/types';
 import { Schedule } from '@schedulesModule/types';
 import { DateService } from '@services/date.service';
-import { EClassTypes, PersonalClass } from '../../types';
+import { EClassTypes, CoachClass } from '../../types';
 
 @Component({
   selector: 'app-classes',
@@ -12,7 +13,7 @@ import { EClassTypes, PersonalClass } from '../../types';
 })
 export class ClassesComponent implements OnInit {
   @Output() setDate = new EventEmitter<string>();
-  @Input() items: PersonalClass[] = [];
+  @Input() items: CoachClass[] = [];
   @Input() archive?: boolean;
 
   showDate = false;
@@ -20,6 +21,10 @@ export class ClassesComponent implements OnInit {
   fieldName = 'date';
 
   types = EClassTypes;
+
+  statuses = Statuses;
+
+  pickedHall = '';
 
   constructor(
     private dateService: DateService,
@@ -49,7 +54,7 @@ export class ClassesComponent implements OnInit {
 
   getTimePart = (item: Schedule) => this.dateService.getTime(item.date_time);
 
-  getClassType = (item: PersonalClass) => {
+  getClassType = (item: CoachClass) => {
     const typeTranslation = this.translate.instant(
       `coachClasses.type.${item.type}`
     );
@@ -58,5 +63,28 @@ export class ClassesComponent implements OnInit {
     return `${typeTranslation} ${restTranslation}`;
   };
 
-  getClients = (item: PersonalClass) => item.clients;
+  getClients = (item: CoachClass) => item.clients;
+
+  status = (item: CoachClass) => {
+    if (item.type === EClassTypes.personal) {
+      return item.status;
+    } else {
+      if (!item.clients || item.clients.length < 3) {
+        return 'no-group';
+      } else return '';
+    }
+  };
+
+  statusMessage = (item: CoachClass) => {
+    const status = this.status(item);
+    return this.translate.instant(`coachClasses.status.${status}`);
+  };
+
+  setHall = (hallId: string) => {
+    this.pickedHall = hallId;
+  };
+
+  test() {
+    console.log('render coach classes');
+  }
 }
