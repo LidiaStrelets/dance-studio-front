@@ -3,25 +3,16 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, take } from 'rxjs/operators';
 import { environment } from '@root/environments/environment';
-import { ClassItem, ClassItemFull } from '@classesModule/types';
+import { ClassItemFull } from '@classesModule/types';
 import { AuthService } from '@authModule/services/auth.service';
-import { LanguageService } from '@services/language.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ClassesService {
   private coreUrl = `${environment.basicUrl}classes/`;
-  private classes: ClassItemFull[] = [];
 
-  constructor(
-    private http: HttpClient,
-    private authService: AuthService,
-    private languageService: LanguageService
-  ) {}
-
-  setClasses = (classes: ClassItemFull[]) => (this.classes = classes);
-  getCurrentClasses = () => this.translateClasses(this.classes);
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   getClasses = (): Observable<ClassItemFull[]> | null => {
     if (!this.authService.getCurrentUserId()) {
@@ -46,11 +37,4 @@ export class ClassesService {
       take(1)
     );
   };
-
-  translateClasses = (classes: ClassItemFull[]): ClassItem[] =>
-    classes.map(({ id, name, nameUk, description, descriptionUk }) =>
-      this.languageService.isUk()
-        ? { id, name: nameUk, description: descriptionUk }
-        : { id, name, description }
-    );
 }

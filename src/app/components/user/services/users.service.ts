@@ -12,7 +12,6 @@ import { User, UserRequest } from './../types';
 export class UsersService {
   private userId = '';
   private coreUrl = `${environment.basicUrl}users/`;
-  private coaches: User[] = [];
 
   constructor(private http: HttpClient, private authService: AuthService) {
     this.userId = this.authService.getCurrentUserId() ?? '';
@@ -68,9 +67,8 @@ export class UsersService {
       })
     );
   }
-
-  getCoaches = async (): Promise<Observable<User[]> | null> => {
-    await setTimeout(() => {}, 1000);
+  // monitor this - removed timeout
+  getCoaches = (): Observable<User[]> | null => {
     if (!this.authService.getCurrentUserId()) {
       return null;
     }
@@ -81,9 +79,6 @@ export class UsersService {
       take(1)
     );
   };
-
-  setCoaches = (coaches: User[]) => (this.coaches = coaches);
-  getCurrentCoaches = () => this.coaches;
 
   getUserName = ({ firstname, lastname }: User) => `${firstname} ${lastname}`;
 }

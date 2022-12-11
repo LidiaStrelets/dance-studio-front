@@ -1,21 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from '@authModule/services/auth.service';
-import { ClassesService } from '@classesModule/services/classes.service';
-import { ClassItem, ClassItemFull } from '@classesModule/types';
-import { HallService } from '@homeModule/services/hall.service';
-import { Hall } from '@homeModule/types';
+import { ClassItem } from '@classesModule/types';
+import { CoachClass, EClassTypes } from '@coachClassesModule/types';
 import { TranslateService } from '@ngx-translate/core';
 import {
   CreatePersonal,
   Personal,
-  PersonalSchedule,
   UpdatePersonal,
 } from '@personalsModule/types';
 import { environment } from '@root/environments/environment';
-import { Schedule } from '@schedulesModule/types';
 import { DateService } from '@services/date.service';
-import { LanguageService } from '@services/language.service';
 import { UsersService } from '@userModule/services/users.service';
 import { User } from '@userModule/types';
 import { catchError, map, Observable, take } from 'rxjs';
@@ -25,47 +20,14 @@ import { catchError, map, Observable, take } from 'rxjs';
 })
 export class PersonalsService {
   private coreUrl = `${environment.basicUrl}personals/`;
-  private personals: Personal[] = [];
-
-  private coaches: User[] = [];
-  private classes: ClassItemFull[] = [];
-  private translatedClasses: ClassItem[] = [];
-  private halls: Hall[] = [];
 
   constructor(
     private authService: AuthService,
     private http: HttpClient,
     private userService: UsersService,
     private dateService: DateService,
-    private translateService: TranslateService,
-    private languageService: LanguageService,
-    private classesService: ClassesService,
-    private hallService: HallService
-  ) {
-    this.userService.getCoaches().then((observable) => {
-      observable?.subscribe({
-        next: (res) => {
-          this.coaches = res;
-          this.userService.setCoaches(res);
-        },
-        error: catchError,
-      });
-    });
-
-    this.classesService.getClasses()?.subscribe({
-      next: (res) => {
-        this.classes = res;
-        this.classesService.setClasses(res);
-        this.translatedClasses = this.classesService.translateClasses(res);
-      },
-      error: catchError,
-    });
-
-    this.hallService.get()?.subscribe({
-      next: (res) => (this.halls = res),
-      error: catchError,
-    });
-  }
+    private translateService: TranslateService
+  ) {}
 
   create(personal: CreatePersonal): Observable<Personal> | null {
     if (!this.authService.getCurrentUserId()) {
@@ -130,12 +92,12 @@ export class PersonalsService {
       );
   }
 
-  getByCoachAndDate(date: string): Observable<PersonalSchedule[]> | null {
+  getByCoachAndDate(date: string): Observable<Personal[]> | null {
     if (!this.authService.getCurrentUserId()) {
       return null;
     }
     return this.http
-      .get<PersonalSchedule[]>(
+      .get<Personal[]>(
         this.coreUrl +
           'byCoach/' +
           this.authService.getCurrentUserId() +
@@ -178,43 +140,11 @@ export class PersonalsService {
     return translation;
   };
 
-  setPersonals = (personal: Personal) => {
-    if (this.personals.some(({ id }) => id === personal.id)) {
-      return;
-    }
-    this.personals = [...this.personals, personal];
-  };
-  getPersonals = () => this.personals;
-
-  addData = ({
-    coach_id,
-    hall_id,
-    class_id,
-    date_time,
-    id,
-    duration,
-  }: Personal | PersonalSchedule): Schedule | undefined => {
-    const coach = this.coaches.find((coach) => coach_id === coach.id);
-    const classItem = this.translatedClasses.find(
-      (item) => item.id === class_id
-    );
-    const hall = this.halls.find((hall) => hall.id === hall_id);
-
-    if (!coach || !classItem) {
-      return undefined;
-    }
-    const hallName = this.languageService.isUk() ? hall?.nameUk : hall?.name;
-
+  addType = (personal: Personal): CoachClass => {
     return {
-      coach_id,
-      hall_id,
-      class_id,
-      date_time,
-      id,
-      duration,
-      coach: this.userService.getUserName(coach!),
-      class: classItem!.name,
-      hall: hallName || '',
+      ...personal,
+      type: EClassTypes.personal,
+      clients: [personal.client_id],
     };
   };
 }

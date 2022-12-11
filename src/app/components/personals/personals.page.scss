@@ -19,15 +19,14 @@ p {
   &.approved,
   &.submitted,
   &.cancelled {
-    @include status-text();
-
     margin-top: 0;
+    @include status-text();
   }
   &.created {
     color: rgb(255, 149, 0);
   }
   &.approved {
-    color: red;
+    color: rgb(255, 149, 0);
   }
   &.submitted {
     color: rgb(4, 161, 25);
@@ -37,10 +36,20 @@ p {
   }
 }
 ion-item {
-  &.created {
+  &.created,
+  &.approved {
     @include border(rgb(255, 149, 0));
+  }
+  &.cancelled {
+    @include border(red);
+  }
+  &.submitted {
+    @include border(rgb(4, 161, 25));
   }
 }
 ion-list {
   padding: 0;
+}
+.container {
+  padding-bottom: 10px;
 }

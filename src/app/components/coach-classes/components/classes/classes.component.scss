@@ -14,10 +14,6 @@ ion-list {
 p {
   margin: 0;
 
-  &.margin-bottom {
-    margin-bottom: 10px;
-  }
-
   &.item-line {
     @include title-font-size();
   }
@@ -63,6 +59,12 @@ ion-item {
   &.created,
   &.approved {
     @include border(rgb(255, 149, 0));
+  }
+  &.cancelled {
+    @include border(red);
+  }
+  &.submitted {
+    @include border(rgb(4, 161, 25));
   }
 }
 span {

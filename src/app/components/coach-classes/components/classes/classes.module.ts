@@ -10,6 +10,7 @@ import { NotesComponent } from '../notes/notes.component';
 import { StatusCreatedComponent } from '../status-created/status-created.component';
 import { PickHallComponent } from '../pick-hall/pick-hall.component';
 import { MessagesModule } from '@commonComponents/messages/messages.module';
+import { ClassesDetailsComponent } from '../classes-details/classes-details.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { MessagesModule } from '@commonComponents/messages/messages.module';
     NotesComponent,
     StatusCreatedComponent,
     PickHallComponent,
+    ClassesDetailsComponent,
   ],
   exports: [ClassesComponent],
   imports: [

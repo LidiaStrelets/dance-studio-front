@@ -108,7 +108,7 @@ export class ClassScheduleComponent implements OnInit, OnDestroy, OnChanges {
   radioItems = this.common.radioItems;
 
   translateClasses = () =>
-    this.classesService.translateClasses(this.classItems);
+    this.languageService.translateClasses(this.classItems);
 
   selectClass = (id: string) => {
     this.filters.next({ classItem: id, days: this.filters.value.days });

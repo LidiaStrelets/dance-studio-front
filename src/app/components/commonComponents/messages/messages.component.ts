@@ -1,11 +1,11 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   Input,
   OnChanges,
   OnInit,
   SimpleChanges,
 } from '@angular/core';
+import { SocketService } from '@services/socket.service';
 import { catchError } from 'rxjs';
 import { MessageService } from './services/message.service';
 import { PersonalMessage } from './types';
@@ -14,15 +14,25 @@ import { PersonalMessage } from './types';
   selector: 'app-messages',
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MessagesComponent implements OnInit, OnChanges {
   @Input() personal_id = '';
   messages: PersonalMessage[] = [];
 
-  constructor(private messagesService: MessageService) {}
+  constructor(
+    private messagesService: MessageService,
+    private socketService: SocketService
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.socketService.subscribeOnMessage((item: PersonalMessage) => {
+      if (item.personal_id !== this.personal_id) {
+        return;
+      }
+
+      this.messages = [...this.messages, item];
+    });
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     for (let propName in changes) {
@@ -31,14 +41,12 @@ export class MessagesComponent implements OnInit, OnChanges {
       let value = change.currentValue;
 
       if (propName === 'personal_id') {
-        console.log('kuku', value);
-        // this.messagesService.get(value)?.subscribe({
-        //   next: (res) => {
-        //     this.messages = res;
-        //     console.log('messages', res);
-        //   },
-        //   error: catchError,
-        // });
+        this.messagesService.get(value)?.subscribe({
+          next: (res) => {
+            this.messages = res;
+          },
+          error: catchError,
+        });
       }
     }
   }

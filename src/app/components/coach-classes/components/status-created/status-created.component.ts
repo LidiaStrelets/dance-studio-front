@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { PersonalsService } from '@personalsModule/services/personals.service';
 import { Statuses } from '@personalsModule/types';
 import { DateService } from '@services/date.service';
+import { SocketService } from '@services/socket.service';
 import { UsersService } from '@userModule/services/users.service';
 import { catchError } from 'rxjs';
 
@@ -16,6 +17,7 @@ import { catchError } from 'rxjs';
 export class StatusCreatedComponent implements OnInit {
   @Input() item?: CoachClass;
   @Input() hallId = '';
+
   client = '';
 
   constructor(
@@ -23,7 +25,8 @@ export class StatusCreatedComponent implements OnInit {
     private translate: TranslateService,
     private usersService: UsersService,
     private dateService: DateService,
-    private personalsService: PersonalsService
+    private personalsService: PersonalsService,
+    private socketService: SocketService
   ) {}
 
   ngOnInit() {
@@ -80,10 +83,15 @@ export class StatusCreatedComponent implements OnInit {
             if (!this.item?.id) {
               return;
             }
-            this.personalsService.update(
-              { status: Statuses.cancelled },
-              this.item?.id
-            );
+
+            this.personalsService
+              .update({ status: Statuses.cancelled }, this.item?.id)
+              ?.subscribe({
+                next: (res) => {
+                  this.socketService.emitPersonal(res);
+                },
+                error: catchError,
+              });
           },
         },
         {
@@ -105,20 +113,26 @@ export class StatusCreatedComponent implements OnInit {
             if (!this.item?.id) {
               return;
             }
+            const newMessage = alertData['message'];
 
             this.personalsService
               .update(
                 {
                   status: Statuses.approved,
-                  message: alertData['message'],
+                  message: newMessage,
                   hall_id: this.hallId,
                 },
                 this.item?.id
               )
               ?.subscribe({
                 next: (res) => {
-                  // console.log(res);
-                  // handle personal update
+                  this.socketService.emitPersonal(res);
+                  if (newMessage && this.item?.id) {
+                    this.socketService.emitMessage({
+                      message: newMessage,
+                      personal_id: this.item?.id,
+                    });
+                  }
                 },
                 error: catchError,
               });

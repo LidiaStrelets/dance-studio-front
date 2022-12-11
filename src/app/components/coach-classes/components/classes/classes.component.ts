@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { Statuses } from '@personalsModule/types';
-import { Schedule } from '@schedulesModule/types';
 import { DateService } from '@services/date.service';
 import { EClassTypes, CoachClass } from '../../types';
 
@@ -52,17 +51,6 @@ export class ClassesComponent implements OnInit {
     this.showDate = !this.showDate;
   };
 
-  getTimePart = (item: Schedule) => this.dateService.getTime(item.date_time);
-
-  getClassType = (item: CoachClass) => {
-    const typeTranslation = this.translate.instant(
-      `coachClasses.type.${item.type}`
-    );
-    const restTranslation = this.translate.instant(`coachClasses.class`);
-
-    return `${typeTranslation} ${restTranslation}`;
-  };
-
   getClients = (item: CoachClass) => item.clients;
 
   status = (item: CoachClass) => {
@@ -84,7 +72,7 @@ export class ClassesComponent implements OnInit {
     this.pickedHall = hallId;
   };
 
-  test() {
-    console.log('render coach classes');
+  trackMessage(index: number, item: CoachClass) {
+    return item.id;
   }
 }

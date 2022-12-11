@@ -1,0 +1,8 @@
+<p class="margin-bottom item-line">{{ item.class }} {{ getClassType(item) }}</p>
+<p class="item-line">
+  {{ getTimePart(item) }}
+  {{ item.hall }}
+</p>
+<span *ngIf="item.duration !== 60" class="duration"
+  >{{ item.duration }} {{ "schedule.minutes" | translate }}</span
+>

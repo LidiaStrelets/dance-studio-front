@@ -2,15 +2,23 @@
 
 <ion-content>
   <div class="page-container">
-    <p *ngIf="personals.length===0" class="description">
+    <p *ngIf="coachClasses.length===0" class="description">
       {{"personals.description"|translate}}
     </p>
-    <ion-list *ngIf="personals.length>0">
-      <ion-item [ngClass]="item.status" *ngFor="let item of mapPersonals()">
-        <div>
+    <ion-list *ngIf="coachClasses.length>0">
+      <ion-item
+        color="light"
+        [ngClass]="item.status"
+        *ngFor="let item of coachClasses; trackBy: trackMessages"
+      >
+        <div [ngClass]="item.status===statuses.submitted? 'container':''">
           <app-schedule-item [item]="item"></app-schedule-item>
-          <app-messages [personal_id]="item.id"></app-messages>
           <p [ngClass]="item.status">{{statusMessage(item.status!)}}</p>
+          <app-messages [personal_id]="item.id"></app-messages>
+          <app-payment
+            [item]="item"
+            *ngIf="item.status===statuses.approved"
+          ></app-payment>
         </div>
       </ion-item>
     </ion-list>
@@ -22,5 +30,4 @@
       >{{"personals.enroll.button"|translate}}</ion-button
     >
   </div>
-  {{test()}}
 </ion-content>

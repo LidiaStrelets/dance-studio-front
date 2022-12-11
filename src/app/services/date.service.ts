@@ -1,5 +1,6 @@
 import { WeekDay } from '@angular/common';
 import { Injectable } from '@angular/core';
+import { WithDate } from '@app/types';
 
 @Injectable({
   providedIn: 'root',
@@ -18,11 +19,12 @@ export class DateService {
   };
 
   getDate = (date: string) => date.split('T')[0];
-  getTime = (date: Date) => date.toISOString().split('T')[1].slice(0, 5);
-  getDateTime = (date: Date) =>
-    date.toISOString().split('T')[0] +
+  getTime = (date: Date) =>
+    new Date(date).toISOString().split('T')[1].slice(0, 5);
+  getDateTime = (date: Date | string) =>
+    new Date(date).toISOString().split('T')[0] +
     ' ' +
-    date.toISOString().split('T')[1].slice(0, 5);
+    new Date(date).toISOString().split('T')[1].slice(0, 5);
   getWeekDay = (date: Date) => ({
     day: `schedule.${WeekDay[date.getDay()].toLowerCase()}`,
     id: date.getDay(),
@@ -39,11 +41,11 @@ export class DateService {
   convertIntoMinutes = (time: number) => time / 60 / 1000;
   convertIntoHours = (time: number) => Math.round(time / 60);
 
-  getActiveItems = <T extends { date_time: Date }>(items: T[]) =>
-    items.filter((item) => item.date_time > new Date(Date.now()));
+  getActiveItems = <T extends WithDate>(items: T[]) =>
+    items.filter((item) => new Date(item.date_time) > new Date(Date.now()));
 
-  getArchiveItems = <T extends { date_time: Date }>(items: T[]) =>
-    items.filter((item) => item.date_time < new Date(Date.now()));
+  getArchiveItems = <T extends WithDate>(items: T[]) =>
+    items.filter((item) => new Date(item.date_time) < new Date(Date.now()));
 
   isOtherDate = (date: Date, selectedDate: string) => {
     return !(

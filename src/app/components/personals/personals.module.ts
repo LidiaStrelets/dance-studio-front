@@ -11,6 +11,7 @@ import { CalendarModule } from '@commonComponents/calendar/calendar.module';
 import { ErrorsModule } from '@authModule/components/errors/errors.module';
 import { ScheduleItemModule } from '@commonComponents/schedule-item/schedule-item.module';
 import { MessagesModule } from '@commonComponents/messages/messages.module';
+import { PaymentComponent } from './components/payment/payment.component';
 
 @NgModule({
   imports: [
@@ -26,6 +27,6 @@ import { MessagesModule } from '@commonComponents/messages/messages.module';
     ScheduleItemModule,
     MessagesModule,
   ],
-  declarations: [PersonalsPage, EnrollComponent],
+  declarations: [PersonalsPage, EnrollComponent, PaymentComponent],
 })
 export class PersonalsPageModule {}

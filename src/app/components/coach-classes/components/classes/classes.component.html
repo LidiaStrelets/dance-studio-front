@@ -10,31 +10,23 @@
     [toggleDate]="toggleDate"
     [getDate]="getDate"
   ></app-calendar>
-
   <div>
     <ion-list>
       <ion-item
         lines="none"
         [ngClass]="status(item)"
         color="light"
-        *ngFor="let item of items"
+        *ngFor="let item of items; trackBy: trackMessage"
       >
         <div class="main-container ion-padding-vertical">
-          <div *ngIf="item" class="item-container">
-            <p class="margin-bottom item-line">
-              {{ item.class }} {{ getClassType(item) }}
-            </p>
-            <p class="item-line">
-              {{ getTimePart(item) }}
-              {{ item.hall }}
-            </p>
-            <span *ngIf="item.duration !== 60" class="duration"
-              >{{ item.duration }} {{ "schedule.minutes" | translate }}</span
-            >
+          <div class="item-container">
+            <app-classes-details [item]="item"></app-classes-details>
           </div>
+
           <div class="item-container">
             <app-notes [item]="item"></app-notes>
           </div>
+
           <div class="item-container">
             <p class="item-line">{{ "infoModal.enrolled" | translate }}:</p>
 
@@ -45,20 +37,22 @@
               ></app-user-card>
             </ion-list>
           </div>
+
           <p [ngClass]="status(item)">{{ statusMessage(item) }}</p>
           <app-pick-hall
             *ngIf="item.status === statuses.created"
             (onPickHall)="setHall($event)"
           ></app-pick-hall>
+
           <app-status-created
             [hallId]="pickedHall"
             [item]="item"
             *ngIf="item.status === statuses.created"
           ></app-status-created>
+
           <app-messages [personal_id]="item.id"></app-messages>
         </div>
       </ion-item>
     </ion-list>
   </div>
-  {{ test() }}
 </ion-content>

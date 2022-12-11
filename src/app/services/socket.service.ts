@@ -1,5 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { Personal, PersonalSchedule } from '@personalsModule/types';
+import { SocketEvents } from '@app/types';
+import { PersonalMessage } from '@commonComponents/messages/types';
+import { Personal } from '@personalsModule/types';
 import { environment } from '@root/environments/environment';
 import { io, Socket } from 'socket.io-client';
 
@@ -21,17 +23,27 @@ export class SocketService implements OnDestroy {
     }
   }
 
-  emitPersonal(personal: Personal) {
-    this.socket.emit('new-personal', personal);
-  }
-
   ngOnDestroy(): void {
     this.disconnect();
   }
 
-  subscribeOnPersonal(callback: (item: PersonalSchedule) => void) {
-    this.socket.on('personal-created', (data: PersonalSchedule) => {
+  emitPersonal(personal: Personal) {
+    this.socket.emit(SocketEvents.newPersonal, personal);
+  }
+
+  subscribeOnPersonal(callback: (item: Personal) => void) {
+    this.socket.on(SocketEvents.personalCreated, (data: Personal) => {
       callback(data);
+    });
+  }
+
+  emitMessage(item: PersonalMessage) {
+    this.socket.emit(SocketEvents.newMessage, item);
+  }
+
+  subscribeOnMessage(callback: (item: PersonalMessage) => void) {
+    this.socket.on(SocketEvents.messageCreated, (item: PersonalMessage) => {
+      callback(item);
     });
   }
 }

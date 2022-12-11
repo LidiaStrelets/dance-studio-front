@@ -2,14 +2,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '@authModule/services/auth.service';
 import { EnrollmentsService } from '@enrollmentsModule/services/enrollments.service';
 import { PersonalsService } from '@personalsModule/services/personals.service';
-import { PersonalSchedule } from '@personalsModule/types';
+import { Personal } from '@personalsModule/types';
 import { DateService } from '@services/date.service';
 import { LanguageService } from '@services/language.service';
 import { SocketService } from '@services/socket.service';
 import { BehaviorSubject, catchError, Subscription } from 'rxjs';
 import Swiper, { Pagination, SwiperOptions } from 'swiper';
 import { SwiperComponent } from 'swiper/angular';
-import { EClassTypes, CoachClass } from './types';
+import { CoachClass } from './types';
 
 Swiper.use([Pagination]);
 
@@ -64,49 +64,30 @@ export class CoachClassesPage implements OnInit {
 
         this.personalService.getByCoachAndDate(res)?.subscribe({
           next: (result) => {
-            const personals = result.reduce((array, item) => {
-              const mapped = this.personalService.addData(item);
-              return mapped
-                ? [
-                    ...array,
-                    {
-                      ...mapped,
-                      client_id: item.client_id,
-                      status: item.status,
-                    },
-                  ]
-                : array;
-            }, [] as PersonalSchedule[]);
+            this.personals = result.map((item) =>
+              this.personalService.addType(item)
+            );
 
-            this.personals = personals.map((item) => ({
-              ...item,
-              type: EClassTypes.personal,
-              clients: [item.client_id],
-            }));
             this.items = [...this.personals, ...this.registrations];
           },
         });
       });
 
-      this.socketService.subscribeOnPersonal((item: PersonalSchedule) => {
+      this.socketService.subscribeOnPersonal((item: Personal) => {
         if (
           item.coach_id !== this.authService.getCurrentUserId() ||
           this.dateService.isOtherDate(item.date_time, this.selectedDate.value)
         ) {
           return;
         }
-        const mapped = this.personalService.addData(item);
-        if (mapped) {
-          this.items = [
-            ...this.items,
-            {
-              ...mapped,
-              date_time: new Date(mapped.date_time),
-              type: EClassTypes.personal,
-              clients: [item.client_id],
-              status: item.status,
-            },
-          ];
+        const mapped = this.personalService.addType(item);
+
+        if (this.items.some((classItem) => classItem.id === item.id)) {
+          this.items = this.items.map((classItem) =>
+            classItem.id === item.id ? mapped : classItem
+          );
+        } else {
+          this.items = [...this.items, mapped];
         }
       });
     }, 1500);
