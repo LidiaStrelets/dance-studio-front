@@ -1,5 +1,5 @@
 export interface PersonalMessage {
-  id: string;
+  id?: string;
   personal_id: string;
   message: string;
 }

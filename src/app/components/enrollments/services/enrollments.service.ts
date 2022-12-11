@@ -5,7 +5,7 @@ import { map, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { ByCoachSchedule, Registration, Stats } from '@enrollmentsModule/types';
 import { AuthService } from '@authModule/services/auth.service';
-import { ScheduleFull } from '@schedulesModule/types';
+import { TrainingFull } from '@schedulesModule/types';
 
 @Injectable({
   providedIn: 'root',
@@ -55,12 +55,12 @@ export class EnrollmentsService {
       .pipe(take(1));
   }
 
-  getByDateMapped(date: string): Observable<ScheduleFull[]> | null {
+  getByDateMapped(date: string): Observable<TrainingFull[]> | null {
     if (!this.authService.getCurrentUserId()) {
       return null;
     }
     return this.http
-      .get<ScheduleFull[]>(
+      .get<TrainingFull[]>(
         this.coreUrl +
           'byDateMapped/' +
           this.authService.getCurrentUserId() +

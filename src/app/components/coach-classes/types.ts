@@ -1,13 +1,13 @@
 import { TStatus } from '@personalsModule/types';
-import { Schedule } from '@schedulesModule/types';
+import { Training } from '@schedulesModule/types';
 
 export type ClassType = 'group' | 'personal';
 
-export interface CoachClass extends Schedule {
+export interface CoachClass extends Omit<Training, 'hall_id'> {
   type: ClassType;
   clients?: string[];
   status?: TStatus;
-  message?: string[];
+  hall_id?: string;
 }
 
 export enum EClassTypes {

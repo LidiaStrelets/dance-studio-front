@@ -1,4 +1,4 @@
-import { ScheduleFull } from '@schedulesModule/types';
+import { TrainingFull } from '@schedulesModule/types';
 
 export interface Registration {
   schedule_id: string;
@@ -22,6 +22,6 @@ export interface CancellEnrollmentEvent {
   scheduleId: string;
 }
 
-export interface ByCoachSchedule extends ScheduleFull {
+export interface ByCoachSchedule extends TrainingFull {
   clients: string[];
 }

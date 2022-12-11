@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { LocalStorageKeys } from '@app/types';
 import { TranslateService } from '@ngx-translate/core';
 import {
-  ScheduleFull,
-  SingleSchedule,
-  SingleScheduleFull,
+  TrainingFull,
+  TrainingWithInfo,
+  TrainingWithInfoFull,
 } from '@schedulesModule/types';
 import { ELanguages, Hall, Languages } from '@homeModule/types';
 import { ClassItem, ClassItemFull } from '@classesModule/types';
@@ -37,7 +37,7 @@ export class LanguageService {
 
   isUk = () => this.getLanguage() === ELanguages.uk;
 
-  translateSchedule = (items: ScheduleFull[]) => {
+  translateSchedule = (items: TrainingFull[]) => {
     let scheduleItems;
     if (!this.isUk()) {
       scheduleItems = items.map((item) => ({
@@ -67,7 +67,7 @@ export class LanguageService {
     return scheduleItems;
   };
 
-  translateSingleSchedule = (item: SingleScheduleFull): SingleSchedule => {
+  translateSingleSchedule = (item: TrainingWithInfoFull): TrainingWithInfo => {
     let translated;
     if (!this.isUk()) {
       translated = {

@@ -11,7 +11,7 @@ import { catchError } from 'rxjs/operators';
 import { DateService } from '@services/date.service';
 import { LanguageService } from '@services/language.service';
 import { LoaderService } from '@services/loader.service';
-import { Schedule, ScheduleFull } from '@schedulesModule/types';
+import { Training, TrainingFull } from '@schedulesModule/types';
 import { ClassesService } from '@classesModule/services/classes.service';
 import { CommonService } from '@schedulesModule/services/common.service';
 import { SchedulesService } from '@schedulesModule/services/schedules.service';
@@ -25,8 +25,8 @@ import { ClassItemFull } from '@classesModule/types';
 export class ClassScheduleComponent implements OnInit, OnDestroy, OnChanges {
   @Input() isCurrent = false;
 
-  filteredItems: Schedule[] = [];
-  weekSchedule: ScheduleFull[] = [];
+  filteredItems: Training[] = [];
+  weekSchedule: TrainingFull[] = [];
 
   classItems: ClassItemFull[] = [];
 

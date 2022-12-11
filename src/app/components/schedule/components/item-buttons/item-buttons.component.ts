@@ -11,9 +11,10 @@ import { catchError } from 'rxjs/operators';
 import { routesPaths } from '@app/app-routing.module';
 import { AlertService } from '@services/alert.service';
 import { LoaderService } from '@services/loader.service';
-import { Schedule } from '@schedulesModule/types';
+import { Training } from '@schedulesModule/types';
 import { EnrollmentsService } from '@enrollmentsModule/services/enrollments.service';
 import { Registration } from '@enrollmentsModule/types';
+import { CoachClass } from '@coachClassesModule/types';
 
 @Component({
   selector: 'app-item-buttons',
@@ -21,7 +22,7 @@ import { Registration } from '@enrollmentsModule/types';
   styleUrls: ['./item-buttons.component.scss'],
 })
 export class ItemButtonsComponent implements OnInit {
-  @Input() item: Schedule = {} as Schedule;
+  @Input() item: Training | CoachClass = {} as Training;
   @Output() newEnrollment = new EventEmitter<Registration>();
   @Output() showModal = new EventEmitter<string>();
 
@@ -58,6 +59,6 @@ export class ItemButtonsComponent implements OnInit {
 
   openClick = (id: string) => {
     this.ngZone.run(() => this.router.navigate([routesPaths.schedule, id]));
-    // this.router.navigate([routesPaths.schedule, id]);
+    // this.router.navigate([routesPaths.Training, id]);
   };
 }

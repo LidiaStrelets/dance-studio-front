@@ -11,11 +11,10 @@ import { catchError } from 'rxjs/operators';
 import { EnrollmentsService } from '@enrollmentsModule/services/enrollments.service';
 import { LoaderService } from '@services/loader.service';
 import { DateService } from '@services/date.service';
-import { AuthService } from '@authModule/services/auth.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { SchedulesService } from '@schedulesModule/services/schedules.service';
 import { LanguageService } from '@services/language.service';
-import { Schedule } from '@schedulesModule/types';
+import { Training } from '@schedulesModule/types';
 import { Registration } from '@enrollmentsModule/types';
 
 @Component({
@@ -26,7 +25,7 @@ import { Registration } from '@enrollmentsModule/types';
 export class DateScheduleComponent implements OnInit, OnDestroy, OnChanges {
   @Input() isCurrent = false;
 
-  items: Schedule[] = [];
+  items: Training[] = [];
   selectedDate = new BehaviorSubject('');
 
   showDate = false;
@@ -38,7 +37,7 @@ export class DateScheduleComponent implements OnInit, OnDestroy, OnChanges {
   subscription?: Subscription;
 
   modalId = new BehaviorSubject<string>('');
-  modalItem: Schedule = {} as Schedule;
+  modalItem: Training = {} as Training;
 
   constructor(
     private dateService: DateService,
@@ -54,7 +53,7 @@ export class DateScheduleComponent implements OnInit, OnDestroy, OnChanges {
 
     this.modalId.subscribe((res) => {
       this.modalItem =
-        this.items.find(({ id }) => id === res) || ({} as Schedule);
+        this.items.find(({ id }) => id === res) || ({} as Training);
     });
   }
 
@@ -103,7 +102,7 @@ export class DateScheduleComponent implements OnInit, OnDestroy, OnChanges {
     this.subscription?.unsubscribe();
   }
 
-  private addEnrolled = (items: Schedule[], enrollments: Registration[]) =>
+  private addEnrolled = (items: Training[], enrollments: Registration[]) =>
     items.map((item) =>
       enrollments.some((enr) => item.id === enr.schedule_id)
         ? { ...item, enrolled: true }

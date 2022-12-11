@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { LanguageService } from 'src/app/services/language.service';
 import { LoaderService } from 'src/app/services/loader.service';
-import { SingleSchedule } from '@schedulesModule/types';
+import { TrainingWithInfo } from '@schedulesModule/types';
 import { EnrollmentsService } from '@enrollmentsModule/services/enrollments.service';
 import { SchedulesService } from '@schedulesModule/services/schedules.service';
 import { Registration } from '@enrollmentsModule/types';
@@ -19,7 +19,7 @@ import { routesPaths } from '@app/app-routing.module';
 export class InfoModalComponent implements OnInit {
   enrollments: Registration[] = [];
 
-  item = new BehaviorSubject<SingleSchedule | undefined>(undefined);
+  item = new BehaviorSubject<TrainingWithInfo | undefined>(undefined);
 
   constructor(
     private languageService: LanguageService,

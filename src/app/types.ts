@@ -68,3 +68,14 @@ export interface ErrorMessages {
   min: string;
   max: string;
 }
+
+export interface WithDate {
+  date_time: Date;
+}
+
+export enum SocketEvents {
+  personalCreated = 'personal-created',
+  newPersonal = 'new-personal',
+  messageCreated = 'message-created',
+  newMessage = 'new-message',
+}

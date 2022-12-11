@@ -5,9 +5,9 @@ import { catchError, map, take } from 'rxjs/operators';
 import { DateService } from '@services/date.service';
 import { environment } from '@root/environments/environment';
 import {
-  ScheduleFull,
-  ScheduleUpdate,
-  SingleScheduleFull,
+  TrainingFull,
+  TrainingUpdate,
+  TrainingWithInfoFull,
 } from '@schedulesModule/types';
 import { AuthService } from '@authModule/services/auth.service';
 
@@ -32,12 +32,12 @@ export class SchedulesService {
     );
   }
 
-  get(date: string): Observable<ScheduleFull[]> | null {
+  get(date: string): Observable<TrainingFull[]> | null {
     if (!this.authService.getCurrentUserId() || !date) {
       return null;
     }
     return this.http
-      .get<ScheduleFull[]>(this.coreUrl + date.split('T')[0])
+      .get<TrainingFull[]>(this.coreUrl + date.split('T')[0])
       .pipe(
         catchError((err) => {
           throw err;
@@ -71,12 +71,12 @@ export class SchedulesService {
       );
   }
 
-  getById(id: string): Observable<SingleScheduleFull> | null {
+  getById(id: string): Observable<TrainingWithInfoFull> | null {
     if (!this.authService.getCurrentUserId() || !id) {
       return null;
     }
     return this.http
-      .get<SingleScheduleFull>(this.coreUrl + 'schedule/' + id)
+      .get<TrainingWithInfoFull>(this.coreUrl + 'schedule/' + id)
       .pipe(
         catchError((err) => {
           throw err;
@@ -90,12 +90,12 @@ export class SchedulesService {
       );
   }
 
-  getWeek(): Observable<ScheduleFull[]> | null {
+  getWeek(): Observable<TrainingFull[]> | null {
     if (!this.authService.getCurrentUserId()) {
       return null;
     }
     return this.http
-      .get<ScheduleFull[]>(
+      .get<TrainingFull[]>(
         this.coreUrl +
           'week/' +
           this.dateService.templateWeekStart.toISOString() +
@@ -119,12 +119,12 @@ export class SchedulesService {
       );
   }
 
-  getEnrolled(date: string): Observable<ScheduleFull[]> | null {
+  getEnrolled(date: string): Observable<TrainingFull[]> | null {
     if (!this.authService.getCurrentUserId()) {
       return null;
     }
     return this.http
-      .get<ScheduleFull[]>(
+      .get<TrainingFull[]>(
         this.coreUrl +
           'enrolled/' +
           this.authService.getCurrentUserId() +
@@ -148,11 +148,11 @@ export class SchedulesService {
       );
   }
 
-  update(id: string, update: ScheduleUpdate): Observable<ScheduleFull> | null {
+  update(id: string, update: TrainingUpdate): Observable<TrainingFull> | null {
     if (!this.authService.getCurrentUserId() || !id) {
       return null;
     }
-    return this.http.patch<ScheduleFull>(this.coreUrl + id, update).pipe(
+    return this.http.patch<TrainingFull>(this.coreUrl + id, update).pipe(
       catchError((err) => {
         throw err;
       }),

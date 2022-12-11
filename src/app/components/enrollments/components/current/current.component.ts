@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Schedule } from '@schedulesModule/types';
+import { Training } from '@schedulesModule/types';
 import { DateService } from '@services/date.service';
 import { CancellEnrollmentEvent } from '@enrollmentsModule/types';
 
@@ -11,7 +11,7 @@ import { CancellEnrollmentEvent } from '@enrollmentsModule/types';
 })
 export class CurrentComponent implements OnInit {
   @Output() setDate = new EventEmitter<string>();
-  @Input() items: Schedule[] = [];
+  @Input() items: Training[] = [];
   @Input() archive?: boolean;
 
   showDate = false;

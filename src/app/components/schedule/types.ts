@@ -1,30 +1,32 @@
-export interface Schedule {
+export interface Training {
+  id: string;
   coach_id: string;
-  hall_id?: string;
+  hall_id: string;
   class_id: string;
+
   coach: string;
   hall: string;
   class: string;
+
   date_time: Date;
-  id: string;
   duration: number;
   notes?: string;
   enrolled?: boolean;
 }
-export interface ScheduleFull extends Schedule {
+export interface TrainingFull extends Training {
   hallUk: string;
   classUk: string;
 }
 
-export type ScheduleUpdate = Pick<ScheduleFull, 'notes'>;
+export type TrainingUpdate = Pick<TrainingFull, 'notes'>;
 
-export interface SingleScheduleFull extends ScheduleFull {
+export interface TrainingWithInfo extends Training {
   coachInfo: string;
   classInfo: string;
-  classInfoUk: string;
 }
 
-export interface SingleSchedule extends Schedule {
+export interface TrainingWithInfoFull extends TrainingFull {
+  classInfoUk: string;
   coachInfo: string;
   classInfo: string;
 }

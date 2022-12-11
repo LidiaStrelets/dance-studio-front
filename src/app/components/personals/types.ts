@@ -1,4 +1,4 @@
-import { Schedule } from '@schedulesModule/types';
+import { Training } from '@schedulesModule/types';
 
 export enum PersonalFormFields {
   coach = 'coach',
@@ -19,6 +19,7 @@ export interface CreatePersonal {
   coach_id: string;
   hall_id?: string;
   class_id: string;
+
   date_time: Date;
   duration: number;
   status: TStatus;
@@ -30,10 +31,10 @@ export type UpdatePersonal = Pick<
   'hall_id' | 'status' | 'message'
 >;
 
-export interface Personal extends Omit<CreatePersonal, 'message'> {
-  id: string;
+export interface Personal extends Omit<Training, 'hall_id'> {
+  status: TStatus;
   client_id: string;
-  message?: string[];
+  hall_id?: string;
 }
 
 export enum Statuses {
@@ -44,9 +45,3 @@ export enum Statuses {
 }
 
 export type TStatus = 'created' | 'submitted' | 'approved' | 'cancelled';
-
-export interface PersonalSchedule extends Schedule {
-  client_id: string;
-  status?: TStatus;
-  message?: string[];
-}

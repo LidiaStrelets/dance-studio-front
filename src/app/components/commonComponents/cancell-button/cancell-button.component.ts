@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { catchError } from 'rxjs';
-import { Schedule } from '@schedulesModule/types';
+import { Training } from '@schedulesModule/types';
 import { AlertService } from '@services/alert.service';
 import { DateService } from '@services/date.service';
 import { LoaderService } from '@services/loader.service';
 import { EnrollmentsService } from '@enrollmentsModule/services/enrollments.service';
 import { CancellEnrollmentEvent } from '@enrollmentsModule/types';
+import { CoachClass } from '@coachClassesModule/types';
 
 @Component({
   selector: 'app-cancell-button',
@@ -13,7 +14,7 @@ import { CancellEnrollmentEvent } from '@enrollmentsModule/types';
   styleUrls: ['./cancell-button.component.scss'],
 })
 export class CancellButtonComponent implements OnInit {
-  @Input() item: Schedule = {} as Schedule;
+  @Input() item: Training | CoachClass = {} as Training;
 
   @Output() cancellEnrollment = new EventEmitter<CancellEnrollmentEvent>();
 
@@ -31,7 +32,7 @@ export class CancellButtonComponent implements OnInit {
       Date.now() + this.dateService.hourInMs() * 2 + this.dateService.dayInMs()
     ) < date;
 
-  cancell = (item: Schedule) => {
+  cancell = (item: Training) => {
     if (!this.canCancell(item.date_time)) {
       this.alertService.presentAreYouSure(
         this.alertService.getTranslations().enrollmentCancellConfirmation,

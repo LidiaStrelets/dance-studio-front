@@ -2,8 +2,9 @@ import { Location } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { routesPaths } from '@app/app-routing.module';
 import { AuthService } from '@authModule/services/auth.service';
+import { CoachClass } from '@coachClassesModule/types';
 import { CancellEnrollmentEvent, Registration } from '@enrollmentsModule/types';
-import { Schedule } from '@schedulesModule/types';
+import { Training } from '@schedulesModule/types';
 import { DateService } from '@services/date.service';
 
 @Component({
@@ -12,7 +13,7 @@ import { DateService } from '@services/date.service';
   styleUrls: ['./schedule-item.component.scss'],
 })
 export class ScheduleItemComponent implements OnInit {
-  @Input() item?: Schedule;
+  @Input() item?: Training | CoachClass;
   @Input() enroll?: (item: Registration) => void;
   @Input() cancell?: ({ scheduleId }: CancellEnrollmentEvent) => void;
   @Input() archive?: boolean;

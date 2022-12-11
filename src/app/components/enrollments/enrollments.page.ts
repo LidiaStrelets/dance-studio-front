@@ -10,7 +10,7 @@ import { catchError } from 'rxjs/operators';
 import { LoaderService } from '@services/loader.service';
 import Swiper, { Pagination, SwiperOptions } from 'swiper';
 import { SwiperComponent } from 'swiper/angular';
-import { Schedule } from '@schedulesModule/types';
+import { Training } from '@schedulesModule/types';
 import { EnrollmentsService } from '@enrollmentsModule/services/enrollments.service';
 import { LanguageService } from '@services/language.service';
 import { DateService } from '@services/date.service';
@@ -28,7 +28,7 @@ export class EnrollmentsPage implements OnInit, AfterContentChecked, OnDestroy {
     pagination: true,
   };
 
-  items: Schedule[] = [];
+  items: Training[] = [];
 
   selectedDate = new BehaviorSubject('');
   subscription: Subscription = {} as Subscription;
