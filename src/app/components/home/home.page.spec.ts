@@ -54,14 +54,4 @@ fdescribe('HomePage', () => {
   it('should have halls', () => {
     expect(component.halls.length).toBe(2);
   });
-
-  it('#toggleLanguages() should toggle #showLanguages', () => {
-    expect(component.showLanguages).withContext('off at first').toBe(false);
-    component.toggleLanguages();
-    expect(component.showLanguages).withContext('on after click').toBe(true);
-    component.toggleLanguages();
-    expect(component.showLanguages)
-      .withContext('off after second click')
-      .toBe(false);
-  });
 });

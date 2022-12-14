@@ -12,17 +12,18 @@
     </div>
 
     <ion-buttons slot="end"
-      ><ion-button fill="clear" size="small" (click)="toggleLanguages()">
+      ><ion-button
+        fill="clear"
+        size="small"
+        (click)="languages.toggleLanguages()"
+      >
         <ion-icon slot="icon-only" name="globe"></ion-icon> </ion-button
     ></ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <app-languages
-    (closeMenu)="toggleLanguages()"
-    [showLanguagesMenu]="showLanguages"
-  ></app-languages>
+  <app-languages #languages></app-languages>
   <ion-card>
     <ion-item>
       <ion-img [src]="mainImage"></ion-img>
@@ -36,7 +37,7 @@
     </ion-card-content></ion-card
   >
 
-  <ion-card *ngFor="let hall of translatedHalls">
+  <ion-card *ngFor="let hall of translatedHalls()">
     <ion-item>
       <ion-img [src]="hall.picture"></ion-img>
     </ion-item>

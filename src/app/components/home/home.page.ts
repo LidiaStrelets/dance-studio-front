@@ -14,8 +14,6 @@ import { PlatformService } from '@services/platform.service';
 })
 export class HomePage implements OnInit {
   halls: Hall[] = [];
-  translatedHalls: TranslatedHall[] = [];
-  showLanguages = false;
   mainImage = `${environment.basicUrl}main.png`;
 
   constructor(
@@ -31,7 +29,6 @@ export class HomePage implements OnInit {
       this.hallService.get()?.subscribe({
         next: (res) => {
           this.halls = res;
-          this.translate();
         },
         error: catchError,
       });
@@ -40,17 +37,8 @@ export class HomePage implements OnInit {
     }, 1000);
   }
 
-  toggleLanguages = () => {
-    this.showLanguages = !this.showLanguages;
-
-    if (this.showLanguages) {
-      return;
-    }
-    this.translate();
-  };
-
-  private translate = () =>
-    (this.translatedHalls = this.languageService.translateHalls(this.halls));
+  translatedHalls = (): TranslatedHall[] =>
+    this.languageService.translateHalls(this.halls);
 
   titleStyle = () =>
     this.platformService.isPlatformIos()

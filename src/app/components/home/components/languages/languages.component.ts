@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LanguageService } from 'src/app/services/language.service';
 import { Languages } from '../../types';
 
@@ -8,10 +8,8 @@ import { Languages } from '../../types';
   styleUrls: ['./languages.component.scss'],
 })
 export class LanguagesComponent implements OnInit {
-  @Input() showLanguagesMenu = false;
-  @Output() closeMenu = new EventEmitter();
-
   languages: Languages[] = [];
+  showLanguages = false;
 
   constructor(private languageService: LanguageService) {}
 
@@ -21,8 +19,10 @@ export class LanguagesComponent implements OnInit {
 
   setLanguage = (language: Languages) => {
     this.languageService.setLanguage(language);
-    this.closeMenu.emit();
+    this.toggleLanguages();
   };
 
   getCurrentLanguage = () => this.languageService.getLanguage();
+
+  toggleLanguages = () => (this.showLanguages = !this.showLanguages);
 }
