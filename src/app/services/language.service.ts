@@ -8,6 +8,8 @@ import {
 } from '@schedulesModule/types';
 import { ELanguages, Hall, Languages } from '@homeModule/types';
 import { ClassItem, ClassItemFull } from '@classesModule/types';
+import { Price } from '@pricesModule/types';
+import { SubscriptionOptions } from '@paymentsModule/types';
 
 @Injectable({
   providedIn: 'root',
@@ -123,6 +125,67 @@ export class LanguageService {
         id,
         picture,
       }));
+    }
+  };
+
+  translateClassesAmount = (price: Price) => {
+    if (this.isUk()) {
+      let option: SubscriptionOptions;
+      switch (price.classes_amount) {
+        case 1000:
+          option = {
+            option: `Безлімітний`,
+            value: 1000,
+            price: price.price,
+          };
+          break;
+        case 1:
+          option = {
+            option: `${price.classes_amount} заняття`,
+            value: price.classes_amount,
+            price: price.price,
+          };
+          break;
+        case 2:
+          option = {
+            option: `${price.classes_amount} заняття`,
+            value: price.classes_amount,
+            price: price.price,
+          };
+          break;
+        case 4:
+          option = {
+            option: `${price.classes_amount} заняття`,
+            value: price.classes_amount,
+            price: price.price,
+          };
+          break;
+        case 8:
+          option = {
+            option: `${price.classes_amount} занять`,
+            value: price.classes_amount,
+            price: price.price,
+          };
+          break;
+        case 16:
+          option = {
+            option: `${price.classes_amount} занять`,
+            value: price.classes_amount,
+            price: price.price,
+          };
+          break;
+        default:
+          option = {} as SubscriptionOptions;
+      }
+      return option;
+    } else {
+      return price.classes_amount === 1000
+        ? { option: `Unlimited`, value: 1000, price: price.price }
+        : {
+            option: `${price.classes_amount} classes`,
+            value: price.classes_amount,
+            price: price.price,
+          };
     }
   };
 }

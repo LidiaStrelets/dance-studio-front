@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { HeaderComponent } from '@commonComponents/header/header.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { routes } from '@app/app-routing.module';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -9,7 +11,7 @@ describe('HeaderComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [HeaderComponent],
-      imports: [IonicModule.forRoot()],
+      imports: [IonicModule.forRoot(), RouterTestingModule.withRoutes(routes)],
     }).compileComponents();
 
     fixture = TestBed.createComponent(HeaderComponent);

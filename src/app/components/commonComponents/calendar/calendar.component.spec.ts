@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { CalendarComponent } from '@commonComponents/calendar/calendar.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('CalendarComponent', () => {
   let component: CalendarComponent;
@@ -9,7 +10,7 @@ describe('CalendarComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [CalendarComponent],
-      imports: [IonicModule.forRoot()],
+      imports: [IonicModule.forRoot(), TranslateModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CalendarComponent);

@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { CurrentComponent } from '@enrollmentsModule/components/current/current.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('CurrentComponent', () => {
   let component: CurrentComponent;
@@ -10,7 +11,7 @@ describe('CurrentComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [CurrentComponent],
-      imports: [IonicModule.forRoot()],
+      imports: [IonicModule.forRoot(), TranslateModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CurrentComponent);

@@ -17,10 +17,6 @@ export class CalendarComponent implements OnInit {
   @Input() toggleDate?: (form: FormGroup) => void;
   @Input() getDate?: (form: FormGroup) => void;
 
-  // the only option found to style calendar
-  // @ViewChild('date', { read: ElementRef, static: false })
-  // calendar?: ElementRef;
-
   dateForm: FormGroup = {} as FormGroup;
 
   needsTime = false;

@@ -1,7 +1,7 @@
 <ion-content>
   <ion-item color="light">
     <ion-select
-      [(ngModel)]="selectedCoach"
+      [(ngModel)]="filters.value.coach"
       (ngModelChange)="selectCoach($event)"
       interface="popover"
       [placeholder]="'schedule.coachText' | translate"

@@ -32,7 +32,7 @@ export class CancellButtonComponent implements OnInit {
       Date.now() + this.dateService.hourInMs() * 2 + this.dateService.dayInMs()
     ) < date;
 
-  cancell = (item: Training) => {
+  cancell = (item: Training | CoachClass) => {
     if (!this.canCancell(item.date_time)) {
       this.alertService.presentAreYouSure(
         this.alertService.getTranslations().enrollmentCancellConfirmation,

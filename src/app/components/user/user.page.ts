@@ -164,6 +164,7 @@ export class UserPage implements OnInit {
     const requestObject = keys.reduce((requestObject, key) => {
       const fieldDalue = this.userForm.get(key);
       if (fieldDalue?.dirty) {
+        // TYPE ERROR
         requestObject[key] = fieldDalue.value;
       }
       return requestObject;

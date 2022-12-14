@@ -13,11 +13,7 @@ import { Price } from '@pricesModule/types';
 export class PaymentsService {
   private coreUrl = `${environment.basicUrl}payments/`;
 
-  constructor(
-    private http: HttpClient,
-    private authService: AuthService,
-    private languageService: LanguageService
-  ) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   get(): Observable<Payment[]> | null {
     if (!this.authService.getCurrentUserId()) {
@@ -65,65 +61,4 @@ export class PaymentsService {
         })
       );
   }
-
-  translateClassesAmount = (price: Price) => {
-    if (this.languageService.isUk()) {
-      let option: SubscriptionOptions;
-      switch (price.classes_amount) {
-        case 1000:
-          option = {
-            option: `Безлімітний`,
-            value: 1000,
-            price: price.price,
-          };
-          break;
-        case 1:
-          option = {
-            option: `${price.classes_amount} заняття`,
-            value: price.classes_amount,
-            price: price.price,
-          };
-          break;
-        case 2:
-          option = {
-            option: `${price.classes_amount} заняття`,
-            value: price.classes_amount,
-            price: price.price,
-          };
-          break;
-        case 4:
-          option = {
-            option: `${price.classes_amount} заняття`,
-            value: price.classes_amount,
-            price: price.price,
-          };
-          break;
-        case 8:
-          option = {
-            option: `${price.classes_amount} занять`,
-            value: price.classes_amount,
-            price: price.price,
-          };
-          break;
-        case 16:
-          option = {
-            option: `${price.classes_amount} занять`,
-            value: price.classes_amount,
-            price: price.price,
-          };
-          break;
-        default:
-          option = {} as SubscriptionOptions;
-      }
-      return option;
-    } else {
-      return price.classes_amount === 1000
-        ? { option: `Unlimited`, value: 1000, price: price.price }
-        : {
-            option: `${price.classes_amount} classes`,
-            value: price.classes_amount,
-            price: price.price,
-          };
-    }
-  };
 }

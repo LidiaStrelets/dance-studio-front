@@ -7,6 +7,7 @@ import { Payment, SubscriptionOptions } from '@paymentsModule/types';
 import { PricesService } from '@pricesModule/services/prices.service';
 import { PaymentsService } from '@paymentsModule/services/payments.service';
 import { Price } from '@pricesModule/types';
+import { LanguageService } from '@services/language.service';
 
 @Component({
   selector: 'app-payments',
@@ -24,7 +25,8 @@ export class PaymentsPage implements OnInit {
     private loader: LoaderService,
     private pricesService: PricesService,
     private alertService: AlertService,
-    private dateService: DateService
+    private dateService: DateService,
+    private languageService: LanguageService
   ) {}
 
   ngOnInit() {
@@ -41,7 +43,7 @@ export class PaymentsPage implements OnInit {
       next: (res) => {
         this.prices = res;
         this.selectOptions = res.map((price) =>
-          this.paymentsService.translateClassesAmount(price)
+          this.languageService.translateClassesAmount(price)
         );
       },
       error: catchError,
