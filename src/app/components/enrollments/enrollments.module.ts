@@ -11,6 +11,7 @@ import { CalendarModule } from '@commonComponents/calendar/calendar.module';
 import { CurrentComponent } from '@enrollmentsModule/components/current/current.component';
 import { StatsComponent } from '@enrollmentsModule/components/stats/stats.component';
 import { ScheduleItemModule } from '@commonComponents/schedule-item/schedule-item.module';
+import { CancellButtonComponent } from '@commonComponents/cancell-button/cancell-button.component';
 
 @NgModule({
   imports: [
@@ -24,6 +25,11 @@ import { ScheduleItemModule } from '@commonComponents/schedule-item/schedule-ite
     CalendarModule,
     ScheduleItemModule,
   ],
-  declarations: [EnrollmentsPage, CurrentComponent, StatsComponent],
+  declarations: [
+    CancellButtonComponent,
+    EnrollmentsPage,
+    CurrentComponent,
+    StatsComponent,
+  ],
 })
 export class EnrollmentsPageModule {}

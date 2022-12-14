@@ -46,4 +46,11 @@ export class CurrentComponent implements OnInit {
   cancell = ({ scheduleId }: CancellEnrollmentEvent) => {
     this.items = this.items.filter((item) => item.id !== scheduleId);
   };
+
+  getTimeLeft = (date: Date) => {
+    const left = date.getTime() - Date.now() - this.dateService.hourInMs();
+    const minutes = this.dateService.convertIntoMinutes(left);
+
+    return Math.round(minutes);
+  };
 }

@@ -14,20 +14,5 @@
     (newEnrollment)="enroll && enroll($event)"
   ></app-item-buttons>
 
-  <div *ngIf="showEnrollmentPart">
-    <p
-      class="left"
-      *ngIf="
-        getTimeLeft(item.date_time) < 60 && getTimeLeft(item.date_time) > 0
-      "
-    >
-      {{ getTimeLeft(item.date_time) }}
-      {{ "enrollments.timeLeft" | translate }}
-    </p>
-    <app-cancell-button
-      *ngIf="!archive"
-      [item]="item"
-      (cancellEnrollment)="cancell && cancell($event)"
-    ></app-cancell-button>
-  </div>
+  <ng-content></ng-content>
 </div>

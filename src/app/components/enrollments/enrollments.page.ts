@@ -33,6 +33,8 @@ export class EnrollmentsPage implements OnInit, AfterContentChecked, OnDestroy {
   selectedDate = new BehaviorSubject('');
   subscription: Subscription = {} as Subscription;
 
+  currentSlide = 0;
+
   constructor(
     private loader: LoaderService,
     private enrollmentsService: EnrollmentsService,
@@ -61,6 +63,10 @@ export class EnrollmentsPage implements OnInit, AfterContentChecked, OnDestroy {
   ngAfterContentChecked(): void {
     if (this.swiper) {
       this.swiper.updateSwiper({});
+
+      this.swiper.swiperRef.on('slideChange', (e) => {
+        this.currentSlide = e.activeIndex;
+      });
     }
   }
 

@@ -20,7 +20,25 @@
           [item]="item"
           [cancell]="cancell"
           [archive]="archive"
-        ></app-schedule-item>
+        >
+          <div>
+            <p
+              class="left"
+              *ngIf="
+                getTimeLeft(item.date_time) < 60 &&
+                getTimeLeft(item.date_time) > 0
+              "
+            >
+              {{ getTimeLeft(item.date_time) }}
+              {{ "enrollments.timeLeft" | translate }}
+            </p>
+            <app-cancell-button
+              *ngIf="!archive"
+              [item]="item"
+              (cancellEnrollment)="cancell && cancell($event)"
+            ></app-cancell-button>
+          </div>
+        </app-schedule-item>
       </ion-item>
     </ion-list>
   </div>

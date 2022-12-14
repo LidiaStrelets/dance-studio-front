@@ -50,11 +50,4 @@ export class ScheduleItemComponent implements OnInit {
   };
 
   isCoach = this.authService.isCoach();
-
-  getTimeLeft = (date: Date) => {
-    const left = date.getTime() - Date.now() - this.dateService.hourInMs();
-    const minutes = this.dateService.convertIntoMinutes(left);
-
-    return Math.round(minutes);
-  };
 }
