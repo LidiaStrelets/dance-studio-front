@@ -3,7 +3,6 @@ import { IonicModule } from '@ionic/angular';
 import { WelcomePage } from '@authModule/components/welcome/welcome.page';
 import { AuthService } from '@authModule/services/auth.service';
 import { RouterTestingModule } from '@angular/router/testing';
-import { routes } from '@app/app-routing.module';
 
 describe('WelcomePage', () => {
   let component: WelcomePage;
@@ -16,7 +15,7 @@ describe('WelcomePage', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [WelcomePage],
-      imports: [IonicModule.forRoot(), RouterTestingModule.withRoutes(routes)],
+      imports: [IonicModule.forRoot(), RouterTestingModule],
       providers: [{ provide: AuthService, useValue: authServiceSpy }],
     }).compileComponents();
 
