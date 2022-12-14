@@ -14,6 +14,7 @@ import { InfoModalComponent } from '@schedulesModule/components/info-modal/info-
 import { CalendarModule } from '@commonComponents/calendar/calendar.module';
 import { ScheduleItemModule } from '@commonComponents/schedule-item/schedule-item.module';
 import { UserCardModule } from '@commonComponents/user-card/user-card.module';
+import { ItemButtonsComponent } from './components/item-buttons/item-buttons.component';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { UserCardModule } from '@commonComponents/user-card/user-card.module';
     UserCardModule,
   ],
   declarations: [
+    ItemButtonsComponent,
     SchedulePage,
     DateScheduleComponent,
     CoachScheduleComponent,

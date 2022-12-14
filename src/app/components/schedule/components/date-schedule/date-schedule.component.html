@@ -7,11 +7,13 @@
   <div>
     <ion-list>
       <ion-item color="light" *ngFor="let item of items">
-        <app-schedule-item
-          style="width: 100%"
-          [item]="item"
-          [enroll]="enroll"
-        ></app-schedule-item>
+        <app-schedule-item style="width: 100%" [item]="item">
+          <app-item-buttons
+            buttons
+            [item]="item"
+            (newEnrollment)="enroll && enroll($event)"
+          ></app-item-buttons>
+        </app-schedule-item>
       </ion-item>
     </ion-list>
   </div>

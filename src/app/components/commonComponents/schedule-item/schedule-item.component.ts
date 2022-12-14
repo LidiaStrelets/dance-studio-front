@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { routesPaths } from '@app/app-routing.module';
 import { AuthService } from '@authModule/services/auth.service';
 import { CoachClass } from '@coachClassesModule/types';
-import { CancellEnrollmentEvent, Registration } from '@enrollmentsModule/types';
+import { CancellEnrollmentEvent } from '@enrollmentsModule/types';
 import { Training } from '@schedulesModule/types';
 import { DateService } from '@services/date.service';
 
@@ -14,12 +14,9 @@ import { DateService } from '@services/date.service';
 })
 export class ScheduleItemComponent implements OnInit {
   @Input() item?: Training | CoachClass;
-  @Input() enroll?: (item: Registration) => void;
   @Input() cancell?: ({ scheduleId }: CancellEnrollmentEvent) => void;
   @Input() archive?: boolean;
 
-  showButtons = false;
-  showEnrollmentPart = false;
   showPersonalsPart = false;
 
   constructor(
@@ -29,12 +26,6 @@ export class ScheduleItemComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (this.location.path().includes(routesPaths.schedule)) {
-      this.showButtons = true;
-    }
-    if (this.location.path().includes(routesPaths.enrollments)) {
-      this.showEnrollmentPart = true;
-    }
     if (this.location.path().includes(routesPaths.personals)) {
       this.showPersonalsPart = true;
     }
@@ -49,5 +40,5 @@ export class ScheduleItemComponent implements OnInit {
       : this.dateService.getTime(this.item.date_time);
   };
 
-  isCoach = this.authService.isCoach();
+  isCoach = () => this.authService.isCoach();
 }

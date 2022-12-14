@@ -8,11 +8,7 @@
     >{{ item.duration }} {{ "schedule.minutes" | translate }}</span
   >
 
-  <app-item-buttons
-    *ngIf="!isCoach && showButtons"
-    [item]="item"
-    (newEnrollment)="enroll && enroll($event)"
-  ></app-item-buttons>
+  <ng-content *ngIf="!isCoach()" select="[buttons]"></ng-content>
 
   <ng-content></ng-content>
 </div>
