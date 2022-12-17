@@ -20,12 +20,13 @@ import { ErrorService } from '@services/error.service';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthService } from '@authModule/services/auth.service';
+import { FilterMenuPipe } from './pipes/filter-menu.pipe';
 
 export const httpLoaderFactory = (httpClient: HttpClient) =>
   new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, FilterMenuPipe],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

@@ -25,10 +25,10 @@ import { ClassItemFull } from '@classesModule/types';
 export class ClassScheduleComponent implements OnInit, OnDestroy, OnChanges {
   @Input() isCurrent = false;
 
-  filteredItems: Training[] = [];
+  items: Training[] = [];
   weekSchedule: TrainingFull[] = [];
 
-  classItems: ClassItemFull[] = [];
+  classes: ClassItemFull[] = [];
 
   filters = new BehaviorSubject<{ days: number[]; classItem: string }>({
     days: [],
@@ -66,7 +66,7 @@ export class ClassScheduleComponent implements OnInit, OnDestroy, OnChanges {
 
           this.classesService.getClasses()?.subscribe({
             next: (res) => {
-              this.classItems = res;
+              this.classes = res;
               this.loader.hideSpinner();
             },
             error: (err) => {
@@ -76,23 +76,9 @@ export class ClassScheduleComponent implements OnInit, OnDestroy, OnChanges {
           });
 
           this.subscription = this.filters.subscribe((res) => {
-            this.filteredItems = this.languageService.translateSchedule(
+            this.items = this.languageService.translateSchedule(
               this.weekSchedule
             );
-
-            if (res.classItem) {
-              this.filteredItems = this.filteredItems.filter((item) => {
-                return item.class_id === res.classItem;
-              });
-            }
-            if (res.days) {
-              this.filteredItems = this.filteredItems.filter((item) => {
-                return res.days.some(
-                  (day) =>
-                    day + 1 === this.dateService.getWeekDay(item.date_time).id
-                );
-              });
-            }
           });
         }
       }
@@ -107,8 +93,7 @@ export class ClassScheduleComponent implements OnInit, OnDestroy, OnChanges {
 
   radioItems = this.common.radioItems;
 
-  translateClasses = () =>
-    this.languageService.translateClasses(this.classItems);
+  translateClasses = () => this.languageService.translateClasses(this.classes);
 
   selectClass = (id: string) => {
     this.filters.next({ classItem: id, days: this.filters.value.days });

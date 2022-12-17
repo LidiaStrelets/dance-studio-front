@@ -4,14 +4,14 @@
   <swiper [config]="config" #slides>
     <ng-template swiperSlide
       ><app-classes
-        [items]="getActive()"
+        [items]="items | filterActive"
         (setDate)="setDate($event)"
       ></app-classes>
     </ng-template>
     <ng-template swiperSlide>
       <app-classes
         [archive]="true"
-        [items]="getArchive()"
+        [items]="items | filterArchive"
         (setDate)="setDate($event)"
       ></app-classes>
     </ng-template>

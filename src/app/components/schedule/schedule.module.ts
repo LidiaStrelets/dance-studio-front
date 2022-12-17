@@ -15,6 +15,8 @@ import { CalendarModule } from '@commonComponents/calendar/calendar.module';
 import { ScheduleItemModule } from '@commonComponents/schedule-item/schedule-item.module';
 import { UserCardModule } from '@commonComponents/user-card/user-card.module';
 import { ItemButtonsComponent } from './components/item-buttons/item-buttons.component';
+import { FilterClassSchedulePipe } from './pipes/filter-class-schedule.pipe';
+import { FilterCoachSchedulePipe } from './pipes/filter-coach-schedule.pipe';
 
 @NgModule({
   imports: [
@@ -36,6 +38,8 @@ import { ItemButtonsComponent } from './components/item-buttons/item-buttons.com
     CoachScheduleComponent,
     ClassScheduleComponent,
     InfoModalComponent,
+    FilterClassSchedulePipe,
+    FilterCoachSchedulePipe,
   ],
 })
 export class SchedulePageModule {}

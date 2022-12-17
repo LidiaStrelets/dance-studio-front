@@ -8,6 +8,7 @@ import { HeaderModule } from '@commonComponents/header/header.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { SwiperModule } from 'swiper/angular';
 import { ClassesModule } from '@coachClassesModule/components/classes/classes.module';
+import { PipesModule } from '@app/pipes/pipes.module';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { ClassesModule } from '@coachClassesModule/components/classes/classes.mo
     TranslateModule,
     SwiperModule,
     ClassesModule,
+    PipesModule,
   ],
   declarations: [CoachClassesPage],
 })

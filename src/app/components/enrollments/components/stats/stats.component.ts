@@ -35,7 +35,7 @@ export class StatsComponent implements OnInit, OnChanges {
 
       let value = change.currentValue;
 
-      if (propName === 'current' && this.current === 2) {
+      if (propName === 'current' && value === 2) {
         this.loader.showSpinner();
         this.enrollmentsService.getStats()?.subscribe({
           next: (res) => {

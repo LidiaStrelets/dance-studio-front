@@ -12,6 +12,7 @@ import { CurrentComponent } from '@enrollmentsModule/components/current/current.
 import { StatsComponent } from '@enrollmentsModule/components/stats/stats.component';
 import { ScheduleItemModule } from '@commonComponents/schedule-item/schedule-item.module';
 import { CancellButtonComponent } from '@commonComponents/cancell-button/cancell-button.component';
+import { PipesModule } from '@app/pipes/pipes.module';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { CancellButtonComponent } from '@commonComponents/cancell-button/cancell
     SwiperModule,
     CalendarModule,
     ScheduleItemModule,
+    PipesModule,
   ],
   declarations: [
     CancellButtonComponent,

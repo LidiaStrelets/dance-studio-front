@@ -5,6 +5,7 @@ import { routesPaths } from '@root/app/app-routing.module';
 import { AuthService } from '@authModule/services/auth.service';
 import { LoaderService } from '@services/loader.service';
 import { ELanguages } from '@homeModule/types';
+import { TRoles } from '@userModule/types';
 
 @Component({
   selector: 'app-root',
@@ -81,6 +82,7 @@ export class AppComponent {
     },
   ];
   languageKey = LocalStorageKeys.language;
+  role: TRoles | undefined;
 
   constructor(
     private translateService: TranslateService,
@@ -99,24 +101,18 @@ export class AppComponent {
       if (this.authService.getUserRole()) {
         clearInterval(id);
       }
-      if (this.authService.isCoach()) {
-        this.menuItems = this.menuItems.filter(
-          (item) => ![2, 4, 5, 9].some((number) => item.id === number)
-        );
-      }
-      if (this.authService.isClient()) {
-        this.menuItems = this.menuItems.filter(
-          (item) => ![10, 11].some((number) => item.id === number)
-        );
-      }
+      this.role = authService.getUserRole();
     }, 1000);
   }
 
-  getTranslation = (i: number) => {
-    this.translateService
-      .get(`menu.${this.menuItems[i].name}`)
-      .subscribe((res) => (this.menuItems[i].translatedName = res));
-    return this.menuItems[i].translatedName;
+  getTranslation = (id: number) => {
+    const item = this.menuItems.find((item) => item.id === id);
+    if (item) {
+      this.translateService
+        .get(`menu.${item.name}`)
+        .subscribe((res) => (item.translatedName = res));
+      return item.translatedName;
+    } else return '';
   };
 
   handleLogout = () => {

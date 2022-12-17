@@ -30,11 +30,17 @@
     </ion-item>
   </ion-list>
 
-  <div *ngIf="filteredItems.length > 0; then list; else text"></div>
+  <div *ngIf="items.length > 0; then list; else text"></div>
 
   <ng-template #list>
     <ion-list>
-      <ion-item color="light" *ngFor="let item of filteredItems">
+      <ion-item
+        color="light"
+        *ngFor="
+          let item of items
+            | filterClassSchedule : filters.value.days : filters.value.classItem
+        "
+      >
         <div>
           <p class="item-line">
             {{ getWeekDay(item.date_time).day | translate }}

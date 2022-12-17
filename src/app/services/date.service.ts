@@ -41,12 +41,6 @@ export class DateService {
   convertIntoMinutes = (time: number) => time / 60 / 1000;
   convertIntoHours = (time: number) => Math.round(time / 60);
 
-  getActiveItems = <T extends WithDate>(items: T[]) =>
-    items.filter((item) => new Date(item.date_time) > new Date(Date.now()));
-
-  getArchiveItems = <T extends WithDate>(items: T[]) =>
-    items.filter((item) => new Date(item.date_time) < new Date(Date.now()));
-
   isOtherDate = (date: Date, selectedDate: string) => {
     return !(
       new Date(date).getMonth() === new Date(selectedDate).getMonth() &&

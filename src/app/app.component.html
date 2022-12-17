@@ -4,13 +4,13 @@
       <div class="menu-container">
         <ion-list [inset]="false" lines="none">
           <li
-            *ngFor="let item of menuItems; let i = index"
+            *ngFor="let item of menuItems | filterMenu : role"
             routerLinkActive="active-link"
             [routerLink]="item.link"
           >
             <ion-menu-toggle class="menu-toggle"
               ><span class="menu-item">{{
-                getTranslation(i)
+                getTranslation(item.id)
               }}</span></ion-menu-toggle
             >
           </li>

@@ -96,7 +96,4 @@ export class CoachClassesPage implements OnInit {
   setDate = (date: string) => {
     this.selectedDate.next(date);
   };
-
-  getActive = () => this.dateService.getActiveItems(this.items);
-  getArchive = () => this.dateService.getArchiveItems(this.items);
 }

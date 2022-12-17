@@ -25,7 +25,7 @@ import { User } from '@userModule/types';
 export class CoachScheduleComponent implements OnInit, OnDestroy, OnChanges {
   @Input() isCurrent = false;
 
-  filteredItems: Training[] = [];
+  items: Training[] = [];
 
   weekSchedule: TrainingFull[] = [];
   coaches: User[] = [];
@@ -79,23 +79,9 @@ export class CoachScheduleComponent implements OnInit, OnDestroy, OnChanges {
           });
 
           this.subscription = this.filters.subscribe((res) => {
-            this.filteredItems = this.languageService.translateSchedule(
+            this.items = this.languageService.translateSchedule(
               this.weekSchedule
             );
-
-            if (res.coach) {
-              this.filteredItems = this.filteredItems.filter((item) => {
-                return item.coach_id === res.coach;
-              });
-            }
-            if (res.days) {
-              this.filteredItems = this.filteredItems.filter((item) => {
-                return res.days.some(
-                  (day) =>
-                    day + 1 === this.dateService.getWeekDay(item.date_time).id
-                );
-              });
-            }
           });
         }
       }
