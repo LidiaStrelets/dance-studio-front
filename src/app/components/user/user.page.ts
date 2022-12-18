@@ -75,7 +75,7 @@ export class UserPage implements OnInit {
         this.changes.detectChanges();
       },
       error: catchError,
-      complete: this.loader.hideSpinner,
+      complete: () => this.loader.hideSpinner(),
     });
   }
 
@@ -190,7 +190,7 @@ export class UserPage implements OnInit {
           this.changes.detectChanges();
         },
         error: catchError,
-        complete: this.loader.hideSpinner,
+        complete: () => this.loader.hideSpinner(),
       });
   };
 

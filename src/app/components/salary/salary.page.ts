@@ -24,7 +24,7 @@ export class SalaryPage implements OnInit {
     this.schedulesService.getSalary()?.subscribe({
       next: (res) => (this.salary = res),
       error: catchError,
-      complete: this.loader.hideSpinner,
+      complete: () => this.loader.hideSpinner(),
     });
   }
 

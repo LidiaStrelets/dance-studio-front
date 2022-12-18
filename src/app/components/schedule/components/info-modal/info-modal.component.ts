@@ -47,7 +47,7 @@ export class InfoModalComponent implements OnInit {
             this.item.next(translated);
           },
           error: catchError,
-          complete: this.loader.hideSpinner,
+          complete: () => this.loader.hideSpinner(),
         });
 
         this.item.subscribe((res) => {
@@ -57,7 +57,7 @@ export class InfoModalComponent implements OnInit {
                 this.enrollments = res;
               },
               error: catchError,
-              complete: this.loader.hideSpinner,
+              complete: () => this.loader.hideSpinner(),
             });
           }
         });

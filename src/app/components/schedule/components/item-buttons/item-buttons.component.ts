@@ -49,7 +49,7 @@ export class ItemButtonsComponent implements OnInit {
         this.newEnrollment.emit(res);
       },
       error: catchError,
-      complete: this.loader.hideSpinner,
+      complete: () => this.loader.hideSpinner(),
     });
   };
 

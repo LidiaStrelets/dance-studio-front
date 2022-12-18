@@ -59,7 +59,7 @@ export class StatsComponent implements OnInit, OnChanges {
             ) as StatsKeys[];
           },
           error: catchError,
-          complete: this.loader.hideSpinner,
+          complete: () => this.loader.hideSpinner(),
         });
       }
     }

@@ -124,7 +124,7 @@ export class EnrollComponent implements OnInit {
             this.backToPersonals();
           },
           error: catchError,
-          complete: this.loader.hideSpinner,
+          complete: () => this.loader.hideSpinner(),
         });
       }
     );

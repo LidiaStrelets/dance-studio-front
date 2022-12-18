@@ -61,7 +61,7 @@ export class ClassScheduleComponent implements OnInit, OnDestroy, OnChanges {
           this.schedulesService.getWeek()?.subscribe({
             next: (res) => (this.weekSchedule = res),
             error: catchError,
-            complete: this.loader.hideSpinner,
+            complete: () => this.loader.hideSpinner(),
           });
 
           this.loader.showSpinner();
@@ -70,7 +70,7 @@ export class ClassScheduleComponent implements OnInit, OnDestroy, OnChanges {
               this.classes = res;
             },
             error: catchError,
-            complete: this.loader.hideSpinner,
+            complete: () => this.loader.hideSpinner(),
           });
 
           this.subscription = this.filters.subscribe((res) => {

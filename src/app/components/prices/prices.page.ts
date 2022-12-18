@@ -25,7 +25,7 @@ export class PricesPage implements OnInit {
         this.prices = res;
       },
       error: catchError,
-      complete: this.loader.hideSpinner,
+      complete: () => this.loader.hideSpinner(),
     });
   }
 }

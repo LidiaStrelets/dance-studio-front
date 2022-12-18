@@ -27,7 +27,7 @@ export class ClassesPage implements OnInit {
         this.classItems = res;
       },
       error: catchError,
-      complete: this.loader.hideSpinner,
+      complete: () => this.loader.hideSpinner(),
     });
   }
 

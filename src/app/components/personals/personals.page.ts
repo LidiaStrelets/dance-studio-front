@@ -42,7 +42,7 @@ export class PersonalsPage implements OnInit {
         );
       },
       error: catchError,
-      complete: this.loader.hideSpinner,
+      complete: () => this.loader.hideSpinner(),
     });
 
     this.socketService.subscribeOnPersonal((item: Personal) => {

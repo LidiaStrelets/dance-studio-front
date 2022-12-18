@@ -36,7 +36,7 @@ export class LoginPage implements OnInit {
         this.authService.authenticate(res.data.token);
       },
       error: catchError,
-      complete: this.loader.hideSpinner,
+      complete: () => this.loader.hideSpinner(),
     });
   };
 
