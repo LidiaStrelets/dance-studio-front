@@ -45,13 +45,7 @@ export class PersonalsPage implements OnInit {
     });
 
     this.socketService.subscribeOnPersonal((item: Personal) => {
-      if (
-        item.client_id !== this.authService.getCurrentUserId() ||
-        this.dateService.isOtherDate(
-          item.date_time,
-          this.dateService.baseScheduleDate
-        )
-      ) {
+      if (item.client_id !== this.authService.getCurrentUserId()) {
         return;
       }
 
