@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import {
   User,
   UserDeletedFields,
@@ -21,6 +26,7 @@ import { FormatDatePipe } from '@app/pipes/format-date.pipe';
   selector: 'app-user',
   templateUrl: './user.page.html',
   styleUrls: ['./user.page.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserPage implements OnInit {
   user: User = {} as User;
@@ -43,7 +49,8 @@ export class UserPage implements OnInit {
     private formFunctionsServise: FormService,
     private languageService: LanguageService,
     private loader: LoaderService,
-    private formatDate: FormatDatePipe
+    private formatDate: FormatDatePipe,
+    private changes: ChangeDetectorRef
   ) {
     this.userForm = new FormGroup({
       [UserFormFields.birth_date]: new FormControl(
@@ -66,6 +73,7 @@ export class UserPage implements OnInit {
         if (res.photo) {
           this.tempPhoto = res.photo;
         }
+        this.changes.detectChanges();
       },
       error: (err) => {
         this.loader.hideSpinner();
@@ -183,6 +191,8 @@ export class UserPage implements OnInit {
           this.setInitialValues(this.user);
 
           this.loader.hideSpinner();
+
+          this.changes.detectChanges();
         },
         error: (err) => {
           this.loader.hideSpinner();

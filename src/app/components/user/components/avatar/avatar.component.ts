@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { environment } from '@root/environments/environment';
 import { UserDeletedFields, UserFormFields } from '@userModule/types';
 
@@ -6,6 +13,7 @@ import { UserDeletedFields, UserFormFields } from '@userModule/types';
   selector: 'app-avatar',
   templateUrl: './avatar.component.html',
   styleUrls: ['./avatar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AvatarComponent implements OnInit {
   @Input() userPhoto?: string | null;
