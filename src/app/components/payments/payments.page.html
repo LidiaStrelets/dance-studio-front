@@ -2,12 +2,14 @@
 
 <ion-content>
   <div class="container">
-    <div *ngIf="payments.length>0; then info; else noPayment"></div>
+    <div
+      *ngIf="(payments | filterExpired).length>0; then info; else noPayment"
+    ></div>
     <ng-template #info>
       <ion-card
         [class.danger]="payment.available_spots<2 || isExpiring(payment.createdAt)"
         class="ion-padding"
-        *ngFor="let payment of payments"
+        *ngFor="let payment of payments | filterExpired"
       >
         <ion-card-title>{{"payments.subscription"|translate}}</ion-card-title>
         <p class="card-line">
@@ -16,7 +18,9 @@
         </p>
         <p class="card-line">
           {{"payments.expirationDate"|translate}}:
-          <span>{{payment.createdAt | toExpirationDate | forDatePicker}</span>
+          <span
+            >{{payment.createdAt | toExpirationDate | formatDate:'date'}}</span
+          >
         </p>
       </ion-card>
     </ng-template>
@@ -40,7 +44,7 @@
     </ion-item>
 
     <ion-item *ngIf="selectedSubscription">
-      <span
+      <span class="price"
         >{{showPrice(selectedSubscription) |
         currency:"UAH":"symbol-narrow"}}</span
       >

@@ -8,7 +8,7 @@ import { PricesService } from '@pricesModule/services/prices.service';
 import { PaymentsService } from '@paymentsModule/services/payments.service';
 import { Price } from '@pricesModule/types';
 import { LanguageService } from '@services/language.service';
-import { ToExpirationDatePipe } from './pipes/to-expiration-date.pipe';
+import { GetExpirationDatePipe } from './pipes/get-expiration-date.pipe';
 
 @Component({
   selector: 'app-payments',
@@ -28,19 +28,20 @@ export class PaymentsPage implements OnInit {
     private alertService: AlertService,
     private dateService: DateService,
     private languageService: LanguageService,
-    private toExpirationDtae: ToExpirationDatePipe
+    private toExpirationDtae: GetExpirationDatePipe
   ) {}
 
   ngOnInit() {
     this.loader.showSpinner();
-
     this.paymentsService.get()?.subscribe({
       next: (res) => {
         this.payments = res;
       },
       error: catchError,
+      complete: () => this.loader.hideSpinner(),
     });
 
+    this.loader.showSpinner();
     this.pricesService.get()?.subscribe({
       next: (res) => {
         this.prices = res;
@@ -49,9 +50,8 @@ export class PaymentsPage implements OnInit {
         );
       },
       error: catchError,
+      complete: () => this.loader.hideSpinner(),
     });
-
-    this.loader.hideSpinner();
   }
 
   showPrice = (amount?: number) =>
@@ -67,15 +67,12 @@ export class PaymentsPage implements OnInit {
       next: (res) => {
         this.payments.push(res);
         this.selectedSubscription = undefined;
-        this.loader.hideSpinner();
         this.alertService.presentAlertSuccess(
           this.alertService.getTranslations().paymentSuccessMessage
         );
       },
-      error: (err) => {
-        this.loader.hideSpinner();
-        catchError(err);
-      },
+      error: catchError,
+      complete: () => this.loader.hideSpinner(),
     });
   };
 
