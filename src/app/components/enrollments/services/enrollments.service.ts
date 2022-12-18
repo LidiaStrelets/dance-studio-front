@@ -67,16 +67,7 @@ export class EnrollmentsService {
           '/' +
           date.split('T')[0]
       )
-      .pipe(
-        take(1),
-        map((data) => {
-          data.forEach((item) => {
-            item.date_time = new Date(item.date_time);
-          });
-
-          return data;
-        })
-      );
+      .pipe(take(1));
   }
 
   getByDateAndCoachMapped(date: string): Observable<ByCoachSchedule[]> | null {
@@ -91,16 +82,7 @@ export class EnrollmentsService {
           '/' +
           date.split('T')[0]
       )
-      .pipe(
-        take(1),
-        map((data) => {
-          data.forEach((item) => {
-            item.date_time = new Date(item.date_time);
-          });
-
-          return data;
-        })
-      );
+      .pipe(take(1));
   }
 
   getByDate(date: string): Observable<Registration[]> | null {

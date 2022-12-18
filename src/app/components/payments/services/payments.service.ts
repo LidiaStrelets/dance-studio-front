@@ -25,16 +25,7 @@ export class PaymentsService {
         catchError((err) => {
           throw err;
         }),
-        take(1),
-        map((data) => {
-          data.forEach((item) => {
-            if (item.createdAt) {
-              item.createdAt = new Date(item.createdAt);
-            }
-          });
-
-          return data;
-        })
+        take(1)
       );
   }
 
@@ -51,14 +42,7 @@ export class PaymentsService {
         catchError((err) => {
           throw err;
         }),
-        take(1),
-        map((data) => {
-          if (data.createdAt) {
-            data.createdAt = new Date(data.createdAt);
-          }
-
-          return data;
-        })
+        take(1)
       );
   }
 }

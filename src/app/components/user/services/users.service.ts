@@ -26,13 +26,7 @@ export class UsersService {
       catchError((err) => {
         throw err;
       }),
-      take(1),
-      map((data) => {
-        if (data.birth_date) {
-          data.birth_date = new Date(data.birth_date);
-        }
-        return data;
-      })
+      take(1)
     );
   }
 
@@ -57,14 +51,7 @@ export class UsersService {
       catchError((err) => {
         throw err;
       }),
-      take(1),
-      map((data) => {
-        if (data.user.birth_date) {
-          data.user.birth_date = new Date(data.user.birth_date);
-        }
-
-        return data;
-      })
+      take(1)
     );
   }
   // monitor this - removed timeout

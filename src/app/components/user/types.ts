@@ -9,7 +9,7 @@ export enum Roles {
 }
 
 export interface User {
-  birth_date?: Date;
+  birth_date?: string;
   email: string;
   firstname: string;
   id: string;
@@ -20,7 +20,7 @@ export interface User {
 }
 
 export interface UserRequest {
-  birth_date?: Date | null;
+  birth_date?: string | null;
   firstname?: string;
   information?: string;
   lastname?: string;

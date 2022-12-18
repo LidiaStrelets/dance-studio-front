@@ -20,7 +20,7 @@ export interface CreatePersonal {
   hall_id?: string;
   class_id: string;
 
-  date_time: Date;
+  date_time: string;
   duration: number;
   status: TStatus;
   message?: string;

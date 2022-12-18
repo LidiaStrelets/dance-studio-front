@@ -81,7 +81,7 @@ export class PaymentsPage implements OnInit {
     const expDateMs =
       createdAt.getTime() + this.dateService.getEnrollmentValidity();
 
-    return this.dateService.convertForPicker(new Date(expDateMs));
+    return this.dateService.convertForPicker(new Date(expDateMs).toISOString());
   };
 
   isExpiring = (createdAt: Date) => {

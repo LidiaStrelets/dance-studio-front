@@ -70,7 +70,7 @@ export interface ErrorMessages {
 }
 
 export interface WithDate {
-  date_time: Date;
+  date_time: string;
 }
 
 export enum SocketEvents {

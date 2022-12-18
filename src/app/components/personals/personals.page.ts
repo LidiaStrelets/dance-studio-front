@@ -48,7 +48,7 @@ export class PersonalsPage implements OnInit {
       if (
         item.client_id !== this.authService.getCurrentUserId() ||
         this.dateService.isOtherDate(
-          new Date(item.date_time),
+          item.date_time,
           this.dateService.baseScheduleDate
         )
       ) {

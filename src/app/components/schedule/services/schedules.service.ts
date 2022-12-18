@@ -42,16 +42,7 @@ export class SchedulesService {
         catchError((err) => {
           throw err;
         }),
-        take(1),
-        map((data) => {
-          data.forEach((item) => {
-            if (item.date_time) {
-              item.date_time = new Date(item.date_time);
-            }
-          });
-
-          return data;
-        })
+        take(1)
       );
   }
 
@@ -81,12 +72,7 @@ export class SchedulesService {
         catchError((err) => {
           throw err;
         }),
-        take(1),
-        map((data) => {
-          data.date_time = new Date(data.date_time);
-
-          return data;
-        })
+        take(1)
       );
   }
 
@@ -98,24 +84,15 @@ export class SchedulesService {
       .get<TrainingFull[]>(
         this.coreUrl +
           'week/' +
-          this.dateService.templateWeekStart.toISOString() +
+          this.dateService.templateWeekStart +
           '/' +
-          this.dateService.templateWeekEnd.toISOString()
+          this.dateService.templateWeekEnd
       )
       .pipe(
         catchError((err) => {
           throw err;
         }),
-        take(1),
-        map((data) => {
-          data.forEach((item) => {
-            if (item.date_time) {
-              item.date_time = new Date(item.date_time);
-            }
-          });
-
-          return data;
-        })
+        take(1)
       );
   }
 
@@ -135,16 +112,7 @@ export class SchedulesService {
         catchError((err) => {
           throw err;
         }),
-        take(1),
-        map((data) => {
-          data.forEach((item) => {
-            if (item.date_time) {
-              item.date_time = new Date(item.date_time);
-            }
-          });
-
-          return data;
-        })
+        take(1)
       );
   }
 
@@ -156,12 +124,7 @@ export class SchedulesService {
       catchError((err) => {
         throw err;
       }),
-      take(1),
-      map((data) => {
-        data.date_time = new Date(data.date_time);
-
-        return data;
-      })
+      take(1)
     );
   }
 }

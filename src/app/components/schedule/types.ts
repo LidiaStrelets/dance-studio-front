@@ -8,7 +8,7 @@ export interface Training {
   hall: string;
   class: string;
 
-  date_time: Date;
+  date_time: string;
   duration: number;
   notes?: string;
   enrolled?: boolean;

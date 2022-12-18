@@ -27,10 +27,10 @@ export class CancellButtonComponent implements OnInit {
 
   ngOnInit() {}
 
-  canCancell = (date: Date) =>
+  canCancell = (date: string) =>
     new Date(
       Date.now() + this.dateService.hourInMs() * 2 + this.dateService.dayInMs()
-    ) < date;
+    ) < new Date(date);
 
   cancell = (item: Training | CoachClass) => {
     if (!this.canCancell(item.date_time)) {

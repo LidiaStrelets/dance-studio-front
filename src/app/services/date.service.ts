@@ -1,27 +1,25 @@
 import { WeekDay } from '@angular/common';
 import { Injectable } from '@angular/core';
-import { WithDate } from '@app/types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DateService {
-  defaultDate = new Date('2000-12-12');
+  defaultDate = '2000-12-12';
   // monitor this - removed split
   baseScheduleDate = new Date().toISOString();
-  templateWeekStart = new Date('2022-10-17');
-  templateWeekEnd = new Date('2022-10-24');
+  templateWeekStart = '2022-10-17';
+  templateWeekEnd = '2022-10-24';
 
   constructor() {}
 
-  convertForPicker = (date: Date): string => {
-    return date?.toISOString().split('T')[0];
+  convertForPicker = (date: string): string => {
+    return date.split('T')[0];
   };
 
   getDate = (date: string) => date.split('T')[0];
-  getTime = (date: Date) =>
-    new Date(date).toISOString().split('T')[1].slice(0, 5);
-  getDateTime = (date: Date | string) => {
+  getTime = (date: string) => date.split('T')[1].slice(0, 5);
+  getDateTime = (date: string) => {
     const zoned = new Date(date).toLocaleString('en-GB', {
       timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     });
@@ -29,10 +27,13 @@ export class DateService {
 
     return datePart.split('/').join('-') + ' ' + timePart.slice(0, 5);
   };
-  getWeekDay = (date: Date) => ({
-    day: `schedule.${WeekDay[date.getDay()].toLowerCase()}`,
-    id: date.getDay(),
-  });
+  getWeekDay = (date: string) => {
+    const formated = new Date(date);
+    return {
+      day: `schedule.${WeekDay[formated.getDay()].toLowerCase()}`,
+      id: formated.getDay(),
+    };
+  };
   getMinScheduleDate = () => new Date('2021-10-01').toISOString();
   getMaxEnrollmentsDate = () => new Date('2027-12-31').toISOString();
 
@@ -45,7 +46,7 @@ export class DateService {
   convertIntoMinutes = (time: number) => time / 60 / 1000;
   convertIntoHours = (time: number) => Math.round(time / 60);
 
-  isOtherDate = (date: Date, selectedDate: string) => {
+  isOtherDate = (date: string, selectedDate: string) => {
     return !(
       new Date(date).getMonth() === new Date(selectedDate).getMonth() &&
       new Date(date).getDate() === new Date(selectedDate).getDate() &&

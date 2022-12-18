@@ -96,7 +96,7 @@ export class EnrollComponent implements OnInit {
     const input: CreatePersonal = {
       coach_id: this.personalForm.value.coach!,
       class_id: this.personalForm.value.class!,
-      date_time: new Date(date),
+      date_time: date,
       duration: this.personalForm.value.duration!,
       status: Statuses.created,
     };

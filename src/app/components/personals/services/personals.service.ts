@@ -42,12 +42,7 @@ export class PersonalsService {
         catchError((err) => {
           throw err;
         }),
-        take(1),
-        map((data) => {
-          data.date_time = new Date(data.date_time);
-
-          return data;
-        })
+        take(1)
       );
   }
 
@@ -62,12 +57,7 @@ export class PersonalsService {
         catchError((err) => {
           throw err;
         }),
-        take(1),
-        map((data) => {
-          data.date_time = new Date(data.date_time);
-
-          return data;
-        })
+        take(1)
       );
   }
 
@@ -81,14 +71,7 @@ export class PersonalsService {
         catchError((err) => {
           throw err;
         }),
-        take(1),
-        map((data) => {
-          data.forEach((item) => {
-            item.date_time = new Date(item.date_time);
-          });
-
-          return data;
-        })
+        take(1)
       );
   }
 
@@ -108,14 +91,7 @@ export class PersonalsService {
         catchError((err) => {
           throw err;
         }),
-        take(1),
-        map((data) => {
-          data.forEach((item) => {
-            item.date_time = new Date(item.date_time);
-          });
-
-          return data;
-        })
+        take(1)
       );
   }
 
