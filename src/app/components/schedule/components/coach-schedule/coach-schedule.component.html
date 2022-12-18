@@ -36,7 +36,8 @@
         color="light"
         *ngFor="
           let item of items
-            | filterCoachSchedule : filters.value.coach : filters.value.days
+            | filterCoachSchedule : filters.value.coach : filters.value.days;
+          trackBy: trackSchedules
         "
       >
         <div>

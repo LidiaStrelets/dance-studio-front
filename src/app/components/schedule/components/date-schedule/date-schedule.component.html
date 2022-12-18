@@ -6,7 +6,10 @@
   ></app-calendar>
   <div>
     <ion-list>
-      <ion-item color="light" *ngFor="let item of items">
+      <ion-item
+        color="light"
+        *ngFor="let item of items; trackBy: trachSchedules"
+      >
         <app-schedule-item style="width: 100%" [item]="item">
           <app-item-buttons
             buttons

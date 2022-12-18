@@ -1,4 +1,6 @@
 import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Input,
   OnChanges,
@@ -21,6 +23,7 @@ import { Registration } from '@enrollmentsModule/types';
   selector: 'app-date-schedule',
   templateUrl: './date-schedule.component.html',
   styleUrls: ['./date-schedule.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DateScheduleComponent implements OnInit, OnDestroy, OnChanges {
   @Input() isCurrent = false;
@@ -44,7 +47,8 @@ export class DateScheduleComponent implements OnInit, OnDestroy, OnChanges {
     private enrollmentService: EnrollmentsService,
     private loader: LoaderService,
     private schedulesService: SchedulesService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private changes: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -54,6 +58,7 @@ export class DateScheduleComponent implements OnInit, OnDestroy, OnChanges {
     this.modalId.subscribe((res) => {
       this.modalItem =
         this.items.find(({ id }) => id === res) || ({} as Training);
+      this.loader.hideSpinner();
     });
   }
 
@@ -65,31 +70,25 @@ export class DateScheduleComponent implements OnInit, OnDestroy, OnChanges {
 
       if (propName === 'isCurrent') {
         if (value) {
+          this.loader.showSpinner();
           this.subscription = this.selectedDate.subscribe((res) => {
             if (res) {
               this.schedulesService.get(res)?.subscribe({
                 next: (result) => {
                   this.items = this.languageService.translateSchedule(result);
 
-                  this.loader.hideSpinner();
-
                   this.enrollmentService.getByDate(res)?.subscribe({
                     next: (res) => {
                       this.enrollments = res;
                       this.items = this.addEnrolled(this.items, res);
-
-                      this.loader.hideSpinner();
+                      this.changes.detectChanges();
                     },
-                    error: (err) => {
-                      this.loader.hideSpinner();
-                      catchError(err);
-                    },
+                    error: catchError,
+                    complete: () => this.loader.hideSpinner(),
                   });
                 },
-                error: (err) => {
-                  this.loader.hideSpinner();
-                  catchError(err);
-                },
+                error: catchError,
+                complete: () => this.loader.hideSpinner(),
               });
             }
           });
@@ -127,9 +126,8 @@ export class DateScheduleComponent implements OnInit, OnDestroy, OnChanges {
   enroll = (item: Registration) => {
     this.enrollments.push(item);
     this.items = this.addEnrolled(this.items, this.enrollments);
+    this.changes.detectChanges();
   };
 
-  test = async (schedule_id: string) => {
-    this.modalId.next(schedule_id);
-  };
+  trachSchedules = (index: number, item: Training) => item.id;
 }

@@ -1,5 +1,10 @@
 import { Location } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { routesPaths } from '@app/app-routing.module';
 import { FormatDatePipe } from '@app/pipes/format-date.pipe';
 import { AuthService } from '@authModule/services/auth.service';
@@ -11,6 +16,7 @@ import { Training } from '@schedulesModule/types';
   selector: 'app-schedule-item',
   templateUrl: './schedule-item.component.html',
   styleUrls: ['./schedule-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ScheduleItemComponent implements OnInit {
   @Input() item?: Training | CoachClass;

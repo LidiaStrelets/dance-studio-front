@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
@@ -20,6 +21,7 @@ import { CoachClass } from '@coachClassesModule/types';
   selector: 'app-item-buttons',
   templateUrl: './item-buttons.component.html',
   styleUrls: ['./item-buttons.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ItemButtonsComponent implements OnInit {
   @Input() item: Training | CoachClass = {} as Training;

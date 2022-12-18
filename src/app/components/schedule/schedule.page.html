@@ -1,7 +1,7 @@
 <app-header [header]="'schedule.header'|translate"></app-header>
 
 <ion-content>
-  <swiper [config]="config" #slides>
+  <swiper (slideChange)="handleSlideChange($event)" [config]="config" #slides>
     <ng-template swiperSlide
       ><app-date-schedule [isCurrent]="getActiveSlide()===0"></app-date-schedule
     ></ng-template>

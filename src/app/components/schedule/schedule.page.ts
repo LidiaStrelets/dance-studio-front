@@ -1,5 +1,5 @@
 import {
-  AfterContentChecked,
+  ChangeDetectionStrategy,
   Component,
   OnInit,
   ViewChild,
@@ -15,8 +15,9 @@ Swiper.use([Pagination]);
   selector: 'app-schedule',
   templateUrl: './schedule.page.html',
   styleUrls: ['./schedule.page.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SchedulePage implements OnInit, AfterContentChecked {
+export class SchedulePage implements OnInit {
   @ViewChild('slides') swiper?: SwiperComponent;
 
   config: SwiperOptions = {
@@ -34,15 +35,10 @@ export class SchedulePage implements OnInit, AfterContentChecked {
     // });
   }
 
-  ngAfterContentChecked(): void {
-    if (this.swiper) {
-      this.swiper.updateSwiper({});
-
-      this.swiper.swiperRef.on('slideChange', (e) => {
-        this.activeSlide = e.realIndex;
-      });
-    }
-  }
+  handleSlideChange = (e: [swiper: Swiper]) => {
+    const [swiper] = e;
+    this.activeSlide = swiper.realIndex;
+  };
 
   getActiveSlide = () => this.activeSlide;
 }

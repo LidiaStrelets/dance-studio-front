@@ -55,33 +55,31 @@ export class CoachScheduleComponent implements OnInit, OnDestroy, OnChanges {
 
       let value = change.currentValue;
 
-      if (propName === 'isCurrent') {
-        if (value) {
-          this.loader.showSpinner();
-          this.schedulesService.getWeek()?.subscribe({
-            next: (res) => {
-              this.weekSchedule = res;
-            },
-            error: catchError,
-            complete: () => this.loader.hideSpinner(),
-          });
+      if (propName === 'isCurrent' && value) {
+        this.loader.showSpinner();
+        this.schedulesService.getWeek()?.subscribe({
+          next: (res) => {
+            this.weekSchedule = res;
+          },
+          error: catchError,
+          complete: () => this.loader.hideSpinner(),
+        });
 
-          this.loader.showSpinner();
-          const observable = await this.usersService.getCoaches();
-          observable?.subscribe({
-            next: (res) => {
-              this.coaches = res;
-            },
-            error: catchError,
-            complete: () => this.loader.hideSpinner(),
-          });
+        this.loader.showSpinner();
+        const observable = await this.usersService.getCoaches();
+        observable?.subscribe({
+          next: (res) => {
+            this.coaches = res;
+          },
+          error: catchError,
+          complete: () => this.loader.hideSpinner(),
+        });
 
-          this.subscription = this.filters.subscribe((res) => {
-            this.items = this.languageService.translateSchedule(
-              this.weekSchedule
-            );
-          });
-        }
+        this.subscription = this.filters.subscribe((res) => {
+          this.items = this.languageService.translateSchedule(
+            this.weekSchedule
+          );
+        });
       }
     }
   }
@@ -109,4 +107,6 @@ export class CoachScheduleComponent implements OnInit, OnDestroy, OnChanges {
   };
 
   getWeekDay = this.dateService.getWeekDay;
+
+  trackSchedules = (index: number, item: Training) => item.id;
 }
