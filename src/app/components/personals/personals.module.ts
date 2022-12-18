@@ -12,6 +12,7 @@ import { ErrorsModule } from '@authModule/components/errors/errors.module';
 import { ScheduleItemModule } from '@commonComponents/schedule-item/schedule-item.module';
 import { MessagesModule } from '@commonComponents/messages/messages.module';
 import { PaymentComponent } from './components/payment/payment.component';
+import { ZoneTimePipe } from '@app/pipes/zone-time.pipe';
 
 @NgModule({
   imports: [
@@ -28,5 +29,6 @@ import { PaymentComponent } from './components/payment/payment.component';
     MessagesModule,
   ],
   declarations: [PersonalsPage, EnrollComponent, PaymentComponent],
+  providers: [ZoneTimePipe],
 })
 export class PersonalsPageModule {}

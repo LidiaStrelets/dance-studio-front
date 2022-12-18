@@ -1,5 +1,6 @@
 import { WeekDay } from '@angular/common';
 import { Injectable } from '@angular/core';
+import { ZoneTimePipe } from '@app/pipes/zone-time.pipe';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class DateService {
   templateWeekStart = '2022-10-17';
   templateWeekEnd = '2022-10-24';
 
-  constructor() {}
+  constructor(private zoneTime: ZoneTimePipe) {}
 
   convertForPicker = (date: string): string => {
     return date.split('T')[0];
@@ -19,14 +20,9 @@ export class DateService {
 
   getDate = (date: string) => date.split('T')[0];
   getTime = (date: string) => date.split('T')[1].slice(0, 5);
-  getDateTime = (date: string) => {
-    const zoned = new Date(date).toLocaleString('en-GB', {
-      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-    });
-    const [datePart, timePart] = zoned.split(', ');
+  getDateTime = (date: string) =>
+    this.zoneTime.transform(date).split('T').join(' ').slice(0, 16);
 
-    return datePart.split('/').join('-') + ' ' + timePart.slice(0, 5);
-  };
   getWeekDay = (date: string) => {
     const formated = new Date(date);
     return {

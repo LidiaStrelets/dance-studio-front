@@ -21,6 +21,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthService } from '@authModule/services/auth.service';
 import { FilterMenuPipe } from './pipes/filter-menu.pipe';
+import { ZoneTimePipe } from './pipes/zone-time.pipe';
 
 export const httpLoaderFactory = (httpClient: HttpClient) =>
   new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
@@ -43,6 +44,7 @@ export const httpLoaderFactory = (httpClient: HttpClient) =>
     BrowserAnimationsModule,
   ],
   providers: [
+    ZoneTimePipe,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: HTTP_INTERCEPTORS,

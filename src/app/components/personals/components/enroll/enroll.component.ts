@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 import { routesPaths } from '@app/app-routing.module';
 import { SocketService } from '@services/socket.service';
 import { LanguageService } from '@services/language.service';
+import { ZoneTimePipe } from '@app/pipes/zone-time.pipe';
 
 @Component({
   selector: 'app-enroll',
@@ -32,7 +33,10 @@ export class EnrollComponent implements OnInit {
   personalForm = new FormGroup({
     coach: new FormControl('', Validators.required),
     class: new FormControl('', Validators.required),
-    date: new FormControl(new Date(), Validators.required),
+    date: new FormControl(
+      this.dateService.baseScheduleDate,
+      Validators.required
+    ),
     duration: new FormControl<number | null>(null, [
       Validators.pattern('^[0-9]*$'),
       Validators.required,
@@ -57,7 +61,8 @@ export class EnrollComponent implements OnInit {
     private alertService: AlertService,
     private router: Router,
     private socketService: SocketService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private zoneTime: ZoneTimePipe
   ) {}
 
   async ngOnInit() {
@@ -85,18 +90,10 @@ export class EnrollComponent implements OnInit {
     if (!this.personalForm.valid) {
       return;
     }
-    const noZoned = this.personalForm.value.date!;
-    const zoned = new Date(noZoned).toLocaleString('en-GB', {
-      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-    });
-
-    const date = `${noZoned.toISOString().split('T')[0]}T${
-      zoned.split(', ')[1]
-    }`;
     const input: CreatePersonal = {
       coach_id: this.personalForm.value.coach!,
       class_id: this.personalForm.value.class!,
-      date_time: date,
+      date_time: this.zoneTime.transform(this.personalForm.value.date!),
       duration: this.personalForm.value.duration!,
       status: Statuses.created,
     };
@@ -138,7 +135,7 @@ export class EnrollComponent implements OnInit {
       this.selectedDate.next(form.get(this.fieldName)?.value ?? '');
 
       this.personalForm.patchValue({
-        date: new Date(form.get(this.fieldName)?.value),
+        date: form.get(this.fieldName)?.value,
       });
     }
   };

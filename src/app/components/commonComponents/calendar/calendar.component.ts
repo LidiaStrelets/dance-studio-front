@@ -14,7 +14,7 @@ export class CalendarComponent implements OnInit {
   @Input() showDate = false;
   @Input() archive?: boolean;
   @Input() toggleDate?: (form: FormGroup) => void;
-  @Input() getDate?: (form: FormGroup) => void;
+  @Input() getDate?: (form: FormGroup) => string;
 
   dateForm: FormGroup = {} as FormGroup;
 
@@ -37,21 +37,14 @@ export class CalendarComponent implements OnInit {
   }
 
   getMinDate = () => {
-    let date;
     if (this.location.path().includes(routesPaths.schedule) || this.archive) {
-      date = this.dateService.getMinScheduleDate();
+      return this.dateService.getMinScheduleDate();
     } else {
-      date = this.dateService.baseScheduleDate;
+      return this.dateService.baseScheduleDate;
     }
-    const zoned = new Date(date).toLocaleString('en-GB', {
-      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-    });
-
-    return `${date.split('T')[0]}T${zoned.split(', ')[1]}`;
   };
 
   getMaxDate = () => {
-    let date;
     if (
       (this.location.path().includes(routesPaths.enrollments) &&
         !this.archive) ||
@@ -59,17 +52,10 @@ export class CalendarComponent implements OnInit {
       this.location.path().includes(routesPaths.personals) ||
       (this.location.path().includes(routesPaths.coachClasses) && !this.archive)
     ) {
-      date = this.dateService.getMaxEnrollmentsDate();
+      return this.dateService.getMaxEnrollmentsDate();
     } else if (this.archive) {
-      date = this.dateService.baseScheduleDate;
-    }
-    if (date) {
-      const zoned = new Date(date).toLocaleString('en-GB', {
-        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-      });
-
-      return `${date.split('T')[0]}T${zoned.split(', ')[1]}`;
-    } else return null;
+      return this.dateService.baseScheduleDate;
+    } else return '';
   };
 
   isUk = this.languageService.isUk;
