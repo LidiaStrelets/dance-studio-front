@@ -23,6 +23,7 @@ import { AuthService } from '@authModule/services/auth.service';
 import { FilterMenuPipe } from './pipes/filter-menu.pipe';
 import { ZoneTimePipe } from './pipes/zone-time.pipe';
 import { FormatDatePipe } from './pipes/format-date.pipe';
+import { GetExpirationDatePipe } from '@paymentsModule/pipes/get-expiration-date.pipe';
 
 export const httpLoaderFactory = (httpClient: HttpClient) =>
   new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
@@ -47,6 +48,7 @@ export const httpLoaderFactory = (httpClient: HttpClient) =>
   providers: [
     ZoneTimePipe,
     FormatDatePipe,
+    GetExpirationDatePipe,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: HTTP_INTERCEPTORS,
