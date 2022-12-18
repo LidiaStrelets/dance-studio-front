@@ -52,12 +52,9 @@ export class CancellButtonComponent implements OnInit {
         );
 
         this.cancellEnrollment.emit({ scheduleId: this.item.id });
-        this.loader.hideSpinner();
       },
-      error: (err) => {
-        this.loader.hideSpinner();
-        catchError(err);
-      },
+      error: catchError,
+      complete: this.loader.hideSpinner,
     });
   };
 }

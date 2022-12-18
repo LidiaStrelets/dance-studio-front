@@ -47,9 +47,8 @@ export class CoachesPage implements OnInit, AfterContentChecked {
         this.coaches = res;
       },
       error: catchError,
+      complete: this.loader.hideSpinner,
     });
-
-    this.loader.hideSpinner();
   }
 
   getName = this.usersService.getUserName;

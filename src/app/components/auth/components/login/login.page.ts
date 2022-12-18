@@ -34,12 +34,9 @@ export class LoginPage implements OnInit {
     this.be.register(this.loginForm.value as LoginData).subscribe({
       next: (res) => {
         this.authService.authenticate(res.data.token);
-        this.loader.hideSpinner();
       },
-      error: (err) => {
-        this.loader.hideSpinner();
-        catchError(err);
-      },
+      error: catchError,
+      complete: this.loader.hideSpinner,
     });
   };
 

@@ -58,21 +58,19 @@ export class ClassScheduleComponent implements OnInit, OnDestroy, OnChanges {
       if (propName === 'isCurrent') {
         if (value) {
           this.loader.showSpinner();
-
           this.schedulesService.getWeek()?.subscribe({
             next: (res) => (this.weekSchedule = res),
             error: catchError,
+            complete: this.loader.hideSpinner,
           });
 
+          this.loader.showSpinner();
           this.classesService.getClasses()?.subscribe({
             next: (res) => {
               this.classes = res;
-              this.loader.hideSpinner();
             },
-            error: (err) => {
-              this.loader.hideSpinner();
-              catchError(err);
-            },
+            error: catchError,
+            complete: this.loader.hideSpinner,
           });
 
           this.subscription = this.filters.subscribe((res) => {

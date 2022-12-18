@@ -31,9 +31,8 @@ export class HomePage implements OnInit {
           this.halls = res;
         },
         error: catchError,
+        complete: this.spinner.hideSpinner,
       });
-
-      this.spinner.hideSpinner();
     }, 1000);
   }
 

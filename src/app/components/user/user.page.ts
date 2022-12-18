@@ -69,16 +69,13 @@ export class UserPage implements OnInit {
       next: (res) => {
         this.user = res;
         this.setInitialValues(this.user);
-        this.loader.hideSpinner();
         if (res.photo) {
           this.tempPhoto = res.photo;
         }
         this.changes.detectChanges();
       },
-      error: (err) => {
-        this.loader.hideSpinner();
-        catchError(err);
-      },
+      error: catchError,
+      complete: this.loader.hideSpinner,
     });
   }
 
@@ -190,14 +187,10 @@ export class UserPage implements OnInit {
           this.userForm.reset();
           this.setInitialValues(this.user);
 
-          this.loader.hideSpinner();
-
           this.changes.detectChanges();
         },
-        error: (err) => {
-          this.loader.hideSpinner();
-          catchError(err);
-        },
+        error: catchError,
+        complete: this.loader.hideSpinner,
       });
   };
 

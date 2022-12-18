@@ -9,6 +9,7 @@ import { DateService } from 'src/app/services/date.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { Stats, StatsKeys } from '@enrollmentsModule/types';
 import { EnrollmentsService } from '@enrollmentsModule/services/enrollments.service';
+import { catchError } from 'rxjs';
 
 @Component({
   selector: 'app-stats',
@@ -57,9 +58,9 @@ export class StatsComponent implements OnInit, OnChanges {
               this.stats.hasOwnProperty(item)
             ) as StatsKeys[];
           },
+          error: catchError,
+          complete: this.loader.hideSpinner,
         });
-
-        this.loader.hideSpinner();
       }
     }
   }

@@ -38,8 +38,7 @@ export class EnrollmentsPage implements OnInit, AfterContentChecked, OnDestroy {
   constructor(
     private loader: LoaderService,
     private enrollmentsService: EnrollmentsService,
-    private languageService: LanguageService,
-    private dateService: DateService
+    private languageService: LanguageService
   ) {}
 
   ngOnInit() {
@@ -55,9 +54,9 @@ export class EnrollmentsPage implements OnInit, AfterContentChecked, OnDestroy {
           this.items = this.languageService.translateSchedule(res);
         },
         error: catchError,
+        complete: this.loader.hideSpinner,
       });
     });
-    this.loader.hideSpinner();
   }
 
   ngAfterContentChecked(): void {

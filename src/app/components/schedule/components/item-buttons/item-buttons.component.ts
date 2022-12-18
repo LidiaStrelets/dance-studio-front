@@ -36,7 +36,7 @@ export class ItemButtonsComponent implements OnInit {
 
   ngOnInit() {}
 
-  canEnroll = (date: Date) => new Date(Date.now() + 7200000) < date;
+  canEnroll = (date: string) => new Date(Date.now() + 7200000) < new Date(date);
 
   enroll = (scheduleId: string) => {
     this.loader.showSpinner();
@@ -47,18 +47,13 @@ export class ItemButtonsComponent implements OnInit {
         );
 
         this.newEnrollment.emit(res);
-
-        this.loader.hideSpinner();
       },
-      error: (err) => {
-        this.loader.hideSpinner();
-        catchError(err);
-      },
+      error: catchError,
+      complete: this.loader.hideSpinner,
     });
   };
 
   openClick = (id: string) => {
     this.ngZone.run(() => this.router.navigate([routesPaths.schedule, id]));
-    // this.router.navigate([routesPaths.Training, id]);
   };
 }

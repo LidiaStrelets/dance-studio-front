@@ -33,12 +33,12 @@ export class InfoModalComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe((res) => {
-      this.loader.showSpinner();
       const scheduleId = res.get('id');
 
       if (!scheduleId) {
         this.router.navigate([routesPaths.schedule]);
       } else {
+        this.loader.showSpinner();
         this.scheduleService.getById(scheduleId)?.subscribe({
           next: (res) => {
             const translated =
@@ -47,6 +47,7 @@ export class InfoModalComponent implements OnInit {
             this.item.next(translated);
           },
           error: catchError,
+          complete: this.loader.hideSpinner,
         });
 
         this.item.subscribe((res) => {
@@ -55,14 +56,11 @@ export class InfoModalComponent implements OnInit {
               next: (res) => {
                 this.enrollments = res;
               },
-              error: (err) => {
-                catchError(err);
-              },
+              error: catchError,
+              complete: this.loader.hideSpinner,
             });
           }
         });
-
-        this.loader.hideSpinner();
       }
     });
   }

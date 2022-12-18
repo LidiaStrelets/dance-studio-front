@@ -27,9 +27,8 @@ export class ClassesPage implements OnInit {
         this.classItems = res;
       },
       error: catchError,
+      complete: this.loader.hideSpinner,
     });
-
-    this.loader.hideSpinner();
   }
 
   getClasses = () => this.languageService.translateClasses(this.classItems);

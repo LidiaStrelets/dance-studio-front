@@ -42,6 +42,7 @@ export class PersonalsPage implements OnInit {
         );
       },
       error: catchError,
+      complete: this.loader.hideSpinner,
     });
 
     this.socketService.subscribeOnPersonal((item: Personal) => {
@@ -59,8 +60,6 @@ export class PersonalsPage implements OnInit {
         this.coachClasses = [...this.coachClasses, coachClass];
       }
     });
-
-    this.loader.hideSpinner();
   }
 
   statusMessage = (status: TStatus) =>
