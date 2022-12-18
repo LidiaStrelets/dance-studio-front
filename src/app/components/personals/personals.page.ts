@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { AuthService } from '@authModule/services/auth.service';
 import { CoachClass } from '@coachClassesModule/types';
 import { TranslateService } from '@ngx-translate/core';
-import { DateService } from '@services/date.service';
 import { LoaderService } from '@services/loader.service';
 import { SocketService } from '@services/socket.service';
 import { catchError } from 'rxjs';
@@ -14,6 +18,7 @@ import { Personal, Statuses, TStatus } from './types';
   selector: 'app-personals',
   templateUrl: './personals.page.html',
   styleUrls: ['./personals.page.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonalsPage implements OnInit {
   routerPath = routesPaths;
@@ -28,7 +33,7 @@ export class PersonalsPage implements OnInit {
     private translate: TranslateService,
     private socketService: SocketService,
     private authService: AuthService,
-    private dateService: DateService
+    private changes: ChangeDetectorRef
   ) {}
 
   async ngOnInit() {
@@ -40,6 +45,7 @@ export class PersonalsPage implements OnInit {
         this.coachClasses = this.personals.map((item) =>
           this.personalService.addType(item)
         );
+        this.changes.detectChanges();
       },
       error: catchError,
       complete: () => this.loader.hideSpinner(),
@@ -59,6 +65,7 @@ export class PersonalsPage implements OnInit {
       } else {
         this.coachClasses = [...this.coachClasses, coachClass];
       }
+      this.changes.detectChanges();
     });
   }
 

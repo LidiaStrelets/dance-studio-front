@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, catchError } from 'rxjs';
 import { ClassesService } from '@classesModule/services/classes.service';
@@ -26,6 +31,7 @@ import { FormatDatePipe } from '@app/pipes/format-date.pipe';
   selector: 'app-enroll',
   templateUrl: './enroll.component.html',
   styleUrls: ['./enroll.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EnrollComponent implements OnInit {
   coaches: User[] = [];
@@ -64,7 +70,8 @@ export class EnrollComponent implements OnInit {
     private socketService: SocketService,
     private languageService: LanguageService,
     private zoneTime: ZoneTimePipe,
-    private formatDate: FormatDatePipe
+    private formatDate: FormatDatePipe,
+    private changes: ChangeDetectorRef
   ) {}
 
   async ngOnInit() {
@@ -72,12 +79,16 @@ export class EnrollComponent implements OnInit {
       return null;
     }, 1500);
     this.usersService.getCoaches()?.subscribe({
-      next: (res) => (this.coaches = res),
+      next: (res) => {
+        this.coaches = res;
+        this.changes.detectChanges();
+      },
       error: catchError,
     });
     this.classesService.getClasses()?.subscribe({
       next: (res) => {
         this.translatedClasses = this.languageService.translateClasses(res);
+        this.changes.detectChanges();
       },
     });
   }
