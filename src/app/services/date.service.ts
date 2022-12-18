@@ -21,10 +21,14 @@ export class DateService {
   getDate = (date: string) => date.split('T')[0];
   getTime = (date: Date) =>
     new Date(date).toISOString().split('T')[1].slice(0, 5);
-  getDateTime = (date: Date | string) =>
-    new Date(date).toISOString().split('T')[0] +
-    ' ' +
-    new Date(date).toISOString().split('T')[1].slice(0, 5);
+  getDateTime = (date: Date | string) => {
+    const zoned = new Date(date).toLocaleString('en-GB', {
+      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    });
+    const [datePart, timePart] = zoned.split(', ');
+
+    return datePart.split('/').join('-') + ' ' + timePart.slice(0, 5);
+  };
   getWeekDay = (date: Date) => ({
     day: `schedule.${WeekDay[date.getDay()].toLowerCase()}`,
     id: date.getDay(),

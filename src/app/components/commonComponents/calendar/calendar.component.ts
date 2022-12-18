@@ -1,10 +1,9 @@
 import { Location } from '@angular/common';
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { routesPaths } from '@app/app-routing.module';
 import { LanguageService } from '@services/language.service';
 import { DateService } from '@services/date.service';
-import { IonDatetime } from '@ionic/angular';
 
 @Component({
   selector: 'app-calendar',
@@ -38,14 +37,21 @@ export class CalendarComponent implements OnInit {
   }
 
   getMinDate = () => {
+    let date;
     if (this.location.path().includes(routesPaths.schedule) || this.archive) {
-      return this.dateService.getMinScheduleDate();
+      date = this.dateService.getMinScheduleDate();
     } else {
-      return this.dateService.baseScheduleDate;
+      date = this.dateService.baseScheduleDate;
     }
+    const zoned = new Date(date).toLocaleString('en-GB', {
+      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    });
+
+    return `${date.split('T')[0]}T${zoned.split(', ')[1]}`;
   };
 
   getMaxDate = () => {
+    let date;
     if (
       (this.location.path().includes(routesPaths.enrollments) &&
         !this.archive) ||
@@ -53,9 +59,16 @@ export class CalendarComponent implements OnInit {
       this.location.path().includes(routesPaths.personals) ||
       (this.location.path().includes(routesPaths.coachClasses) && !this.archive)
     ) {
-      return this.dateService.getMaxEnrollmentsDate();
+      date = this.dateService.getMaxEnrollmentsDate();
     } else if (this.archive) {
-      return this.dateService.baseScheduleDate;
+      date = this.dateService.baseScheduleDate;
+    }
+    if (date) {
+      const zoned = new Date(date).toLocaleString('en-GB', {
+        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      });
+
+      return `${date.split('T')[0]}T${zoned.split(', ')[1]}`;
     } else return null;
   };
 

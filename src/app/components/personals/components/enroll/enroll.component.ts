@@ -85,10 +85,18 @@ export class EnrollComponent implements OnInit {
     if (!this.personalForm.valid) {
       return;
     }
+    const noZoned = this.personalForm.value.date!;
+    const zoned = new Date(noZoned).toLocaleString('en-GB', {
+      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    });
+
+    const date = `${noZoned.toISOString().split('T')[0]}T${
+      zoned.split(', ')[1]
+    }`;
     const input: CreatePersonal = {
       coach_id: this.personalForm.value.coach!,
       class_id: this.personalForm.value.class!,
-      date_time: this.personalForm.value.date!,
+      date_time: new Date(date),
       duration: this.personalForm.value.duration!,
       status: Statuses.created,
     };
@@ -135,8 +143,11 @@ export class EnrollComponent implements OnInit {
     }
   };
 
-  getDate = (form: FormGroup) =>
-    this.dateService.getDateTime(new Date(form.get(this.fieldName)?.value));
+  getDate = (form: FormGroup) => {
+    const calendarDate = form.get(this.fieldName)?.value;
+
+    return this.dateService.getDateTime(calendarDate);
+  };
 
   backToPersonals = () => {
     this.router.navigate(['../', routesPaths.personals]);
