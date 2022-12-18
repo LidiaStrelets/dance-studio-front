@@ -111,5 +111,4 @@ export class CoachScheduleComponent implements OnInit, OnDestroy, OnChanges {
   };
 
   getWeekDay = this.dateService.getWeekDay;
-  getTime = this.dateService.getTime;
 }

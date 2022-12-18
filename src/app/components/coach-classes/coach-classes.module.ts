@@ -9,6 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SwiperModule } from 'swiper/angular';
 import { ClassesModule } from '@coachClassesModule/components/classes/classes.module';
 import { PipesModule } from '@app/pipes/pipes.module';
+import { FormatDatePipe } from '@app/pipes/format-date.pipe';
 
 @NgModule({
   imports: [
@@ -23,5 +24,6 @@ import { PipesModule } from '@app/pipes/pipes.module';
     PipesModule,
   ],
   declarations: [CoachClassesPage],
+  providers: [FormatDatePipe],
 })
 export class CoachClassesPageModule {}

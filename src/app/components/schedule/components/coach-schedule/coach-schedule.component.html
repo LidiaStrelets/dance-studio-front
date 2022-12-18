@@ -42,7 +42,7 @@
         <div>
           <p class="item-line">
             {{ getWeekDay(item.date_time).day | translate }}
-            {{ getTime(item.date_time) }}
+            {{ item.date_time | formatDate : "time" }}
           </p>
           <p class="item-line">{{ item.class }} {{ item.hall }}</p>
         </div>

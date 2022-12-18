@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { ByCoachSchedule, Registration, Stats } from '@enrollmentsModule/types';
 import { AuthService } from '@authModule/services/auth.service';

@@ -8,6 +8,7 @@ import { PricesService } from '@pricesModule/services/prices.service';
 import { PaymentsService } from '@paymentsModule/services/payments.service';
 import { Price } from '@pricesModule/types';
 import { LanguageService } from '@services/language.service';
+import { ToExpirationDatePipe } from './pipes/to-expiration-date.pipe';
 
 @Component({
   selector: 'app-payments',
@@ -26,7 +27,8 @@ export class PaymentsPage implements OnInit {
     private pricesService: PricesService,
     private alertService: AlertService,
     private dateService: DateService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private toExpirationDtae: ToExpirationDatePipe
   ) {}
 
   ngOnInit() {
@@ -77,17 +79,10 @@ export class PaymentsPage implements OnInit {
     });
   };
 
-  getExpirationDate = (createdAt: Date) => {
-    const expDateMs =
-      createdAt.getTime() + this.dateService.getEnrollmentValidity();
-
-    return this.dateService.convertForPicker(new Date(expDateMs).toISOString());
-  };
-
-  isExpiring = (createdAt: Date) => {
+  isExpiring = (createdAt: string) => {
+    const expirationDate = this.toExpirationDtae.transform(createdAt);
     return (
-      new Date(this.getExpirationDate(createdAt)).getTime() -
-        createdAt.getTime() <
+      new Date(expirationDate).getTime() - new Date(createdAt).getTime() <
       this.dateService.getAlmostExpired()
     );
   };

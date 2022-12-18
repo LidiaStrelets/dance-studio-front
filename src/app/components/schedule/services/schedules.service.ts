@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { catchError, map, take } from 'rxjs/operators';
+import { catchError, take } from 'rxjs/operators';
 import { DateService } from '@services/date.service';
 import { environment } from '@root/environments/environment';
 import {

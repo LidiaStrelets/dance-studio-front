@@ -1,11 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, take } from 'rxjs';
-import { LanguageService } from '@services/language.service';
+import { catchError, Observable, take } from 'rxjs';
 import { environment } from '@root/environments/environment';
-import { Payment, SubscriptionOptions } from '@paymentsModule/types';
+import { Payment } from '@paymentsModule/types';
 import { AuthService } from '@authModule/services/auth.service';
-import { Price } from '@pricesModule/types';
 
 @Injectable({
   providedIn: 'root',

@@ -20,6 +20,7 @@ import { routesPaths } from '@app/app-routing.module';
 import { SocketService } from '@services/socket.service';
 import { LanguageService } from '@services/language.service';
 import { ZoneTimePipe } from '@app/pipes/zone-time.pipe';
+import { FormatDatePipe } from '@app/pipes/format-date.pipe';
 
 @Component({
   selector: 'app-enroll',
@@ -62,7 +63,8 @@ export class EnrollComponent implements OnInit {
     private router: Router,
     private socketService: SocketService,
     private languageService: LanguageService,
-    private zoneTime: ZoneTimePipe
+    private zoneTime: ZoneTimePipe,
+    private formatDate: FormatDatePipe
   ) {}
 
   async ngOnInit() {
@@ -140,11 +142,8 @@ export class EnrollComponent implements OnInit {
     }
   };
 
-  getDate = (form: FormGroup) => {
-    const calendarDate = form.get(this.fieldName)?.value;
-
-    return this.dateService.getDateTime(calendarDate);
-  };
+  getDate = (form: FormGroup) =>
+    this.formatDate.transform(form.get(this.fieldName)?.value, 'date-time');
 
   backToPersonals = () => {
     this.router.navigate(['../', routesPaths.personals]);

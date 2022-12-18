@@ -104,5 +104,4 @@ export class ClassScheduleComponent implements OnInit, OnDestroy, OnChanges {
   };
 
   getWeekDay = this.dateService.getWeekDay;
-  getTime = this.dateService.getTime;
 }

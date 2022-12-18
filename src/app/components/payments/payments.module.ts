@@ -6,6 +6,8 @@ import { PaymentsPageRoutingModule } from '@paymentsModule/payments-routing.modu
 import { PaymentsPage } from '@paymentsModule/payments.page';
 import { HeaderModule } from '@commonComponents/header/header.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { ToExpirationDatePipe } from './pipes/to-expiration-date.pipe';
+import { PipesModule } from '@app/pipes/pipes.module';
 
 @NgModule({
   imports: [
@@ -15,7 +17,8 @@ import { TranslateModule } from '@ngx-translate/core';
     PaymentsPageRoutingModule,
     HeaderModule,
     TranslateModule,
+    PipesModule,
   ],
-  declarations: [PaymentsPage],
+  declarations: [PaymentsPage, ToExpirationDatePipe],
 })
 export class PaymentsPageModule {}

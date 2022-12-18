@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { FormatDatePipe } from '@app/pipes/format-date.pipe';
 import { AuthService } from '@authModule/services/auth.service';
 import { ClassItem } from '@classesModule/types';
 import { CoachClass, EClassTypes } from '@coachClassesModule/types';
@@ -10,10 +11,9 @@ import {
   UpdatePersonal,
 } from '@personalsModule/types';
 import { environment } from '@root/environments/environment';
-import { DateService } from '@services/date.service';
 import { UsersService } from '@userModule/services/users.service';
 import { User } from '@userModule/types';
-import { catchError, map, Observable, take } from 'rxjs';
+import { catchError, Observable, take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -25,8 +25,8 @@ export class PersonalsService {
     private authService: AuthService,
     private http: HttpClient,
     private userService: UsersService,
-    private dateService: DateService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private formatDate: FormatDatePipe
   ) {}
 
   create(personal: CreatePersonal): Observable<Personal> | null {
@@ -106,7 +106,7 @@ export class PersonalsService {
     const translation = this.translateService.instant(
       'alert.confirmationPersonal',
       {
-        date: this.dateService.getDateTime(personal.date_time),
+        date: this.formatDate.transform(personal.date_time, 'date-time'),
         coach: this.userService.getUserName(coach!),
         class: classItem?.name,
         duration: personal.duration,

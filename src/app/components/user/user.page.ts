@@ -15,6 +15,7 @@ import { catchError } from 'rxjs/operators';
 import { LanguageService } from '@services/language.service';
 import { LoaderService } from '@services/loader.service';
 import { DateService } from '@services/date.service';
+import { FormatDatePipe } from '@app/pipes/format-date.pipe';
 
 @Component({
   selector: 'app-user',
@@ -41,11 +42,12 @@ export class UserPage implements OnInit {
     private dateService: DateService,
     private formFunctionsServise: FormService,
     private languageService: LanguageService,
-    private loader: LoaderService
+    private loader: LoaderService,
+    private formatDate: FormatDatePipe
   ) {
     this.userForm = new FormGroup({
       [UserFormFields.birth_date]: new FormControl(
-        this.dateService.convertForPicker(this.dateService.defaultDate)
+        this.dateService.defaultDate
       ),
       [UserFormFields.firstname]: new FormControl('', Validators.required),
       [UserFormFields.lastname]: new FormControl('', Validators.required),
@@ -77,8 +79,8 @@ export class UserPage implements OnInit {
       [UserFormFields.firstname]: user.firstname,
       [UserFormFields.lastname]: user.lastname,
       [UserFormFields.birth_date]: user.birth_date
-        ? this.dateService.convertForPicker(user.birth_date)
-        : this.dateService.convertForPicker(this.dateService.defaultDate),
+        ? this.formatDate.transform(user.birth_date, 'date')
+        : this.dateService.defaultDate,
       [UserFormFields.information]: user.information,
     });
   }
@@ -86,9 +88,7 @@ export class UserPage implements OnInit {
   getBirthDate = () => {
     const date = this.userForm.get(UserFormFields.birth_date)?.value;
 
-    if (
-      date === this.dateService.convertForPicker(this.dateService.defaultDate)
-    ) {
+    if (date === this.dateService.defaultDate) {
       return null;
     }
 
@@ -141,10 +141,7 @@ export class UserPage implements OnInit {
         this.user.firstname != this.userForm.value.firstname ||
         this.user.lastname != this.userForm.value.lastname ||
         (this.user.birth_date != this.userForm.value.birth_date &&
-          this.userForm.value.birth_date !=
-            this.dateService.convertForPicker(
-              this.dateService.defaultDate
-            )))) ||
+          this.userForm.value.birth_date != this.dateService.defaultDate))) ||
     !!this.userForm.get(UserFormFields.photo)?.value ||
     (this.cleanedField && this.user.photo != this.userForm.value.photo);
 

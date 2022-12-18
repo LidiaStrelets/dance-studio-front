@@ -122,8 +122,7 @@ export class DateScheduleComponent implements OnInit, OnDestroy, OnChanges {
     this.showDate = !this.showDate;
   };
 
-  getDate = (form: FormGroup) =>
-    this.dateService.getDate(form.get(this.fieldName)?.value);
+  getDate = (form: FormGroup) => form.get(this.fieldName)?.value;
 
   enroll = (item: Registration) => {
     this.enrollments.push(item);

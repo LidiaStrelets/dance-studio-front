@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ScheduleItemComponent } from './schedule-item.component';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
+import { FormatDatePipe } from '@app/pipes/format-date.pipe';
 
 @NgModule({
   declarations: [ScheduleItemComponent],
   exports: [ScheduleItemComponent],
   imports: [CommonModule, IonicModule, TranslateModule],
+  providers: [FormatDatePipe],
 })
 export class ScheduleItemModule {}

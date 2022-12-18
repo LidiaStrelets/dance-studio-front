@@ -1,11 +1,11 @@
 import { Location } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { routesPaths } from '@app/app-routing.module';
+import { FormatDatePipe } from '@app/pipes/format-date.pipe';
 import { AuthService } from '@authModule/services/auth.service';
 import { CoachClass } from '@coachClassesModule/types';
 import { CancellEnrollmentEvent } from '@enrollmentsModule/types';
 import { Training } from '@schedulesModule/types';
-import { DateService } from '@services/date.service';
 
 @Component({
   selector: 'app-schedule-item',
@@ -20,9 +20,9 @@ export class ScheduleItemComponent implements OnInit {
   showPersonalsPart = false;
 
   constructor(
-    private dateService: DateService,
     private authService: AuthService,
-    private location: Location
+    private location: Location,
+    private formatDate: FormatDatePipe
   ) {}
 
   ngOnInit() {
@@ -36,8 +36,8 @@ export class ScheduleItemComponent implements OnInit {
       return;
     }
     return this.showPersonalsPart
-      ? this.dateService.getDateTime(this.item.date_time)
-      : this.dateService.getTime(this.item.date_time);
+      ? this.formatDate.transform(this.item.date_time, 'date-time')
+      : this.formatDate.transform(this.item.date_time, 'time');
   };
 
   isCoach = () => this.authService.isCoach();

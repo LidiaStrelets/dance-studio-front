@@ -79,3 +79,5 @@ export enum SocketEvents {
   messageCreated = 'message-created',
   newMessage = 'new-message',
 }
+
+export type DateFormat = 'time' | 'date' | 'date-time';

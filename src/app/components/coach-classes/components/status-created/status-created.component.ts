@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormatDatePipe } from '@app/pipes/format-date.pipe';
 import { CoachClass } from '@coachClassesModule/types';
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { PersonalsService } from '@personalsModule/services/personals.service';
 import { Statuses } from '@personalsModule/types';
-import { DateService } from '@services/date.service';
 import { SocketService } from '@services/socket.service';
 import { UsersService } from '@userModule/services/users.service';
 import { catchError } from 'rxjs';
@@ -24,9 +24,9 @@ export class StatusCreatedComponent implements OnInit {
     private alertCtrl: AlertController,
     private translate: TranslateService,
     private usersService: UsersService,
-    private dateService: DateService,
     private personalsService: PersonalsService,
-    private socketService: SocketService
+    private socketService: SocketService,
+    private formatDate: FormatDatePipe
   ) {}
 
   ngOnInit() {
@@ -46,7 +46,7 @@ export class StatusCreatedComponent implements OnInit {
       message: this.translate.instant('coachClasses.alert.approveText', {
         classData: `${this.client}, ${this.item?.class}, ${
           this.item?.date_time
-            ? this.dateService.getDateTime(this.item?.date_time)
+            ? this.formatDate.transform(this.item?.date_time, 'date-time')
             : ''
         }, ${this.item?.duration} ${this.translate.instant(
           'schedule.minutes'

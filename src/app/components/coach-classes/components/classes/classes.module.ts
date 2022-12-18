@@ -11,6 +11,7 @@ import { StatusCreatedComponent } from '../status-created/status-created.compone
 import { PickHallComponent } from '../pick-hall/pick-hall.component';
 import { MessagesModule } from '@commonComponents/messages/messages.module';
 import { ClassesDetailsComponent } from '../classes-details/classes-details.component';
+import { PipesModule } from '@app/pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ClassesDetailsComponent } from '../classes-details/classes-details.comp
     UserCardModule,
     FormsModule,
     MessagesModule,
+    PipesModule,
   ],
 })
 export class ClassesModule {}

@@ -9,6 +9,7 @@ import { ErrorsModule } from '@authModule/components/errors/errors.module';
 import { IconButtonComponent } from '@userModule/components/icon-button/icon-button.component';
 import { AvatarComponent } from '@userModule/components/avatar/avatar.component';
 import { HeaderModule } from '@commonComponents/header/header.module';
+import { FormatDatePipe } from '@app/pipes/format-date.pipe';
 
 @NgModule({
   imports: [
@@ -22,5 +23,6 @@ import { HeaderModule } from '@commonComponents/header/header.module';
     HeaderModule,
   ],
   declarations: [UserPage, IconButtonComponent, AvatarComponent],
+  providers: [FormatDatePipe],
 })
 export class UserPageModule {}

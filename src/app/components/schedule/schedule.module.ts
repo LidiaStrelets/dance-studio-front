@@ -17,6 +17,7 @@ import { UserCardModule } from '@commonComponents/user-card/user-card.module';
 import { ItemButtonsComponent } from './components/item-buttons/item-buttons.component';
 import { FilterClassSchedulePipe } from './pipes/filter-class-schedule.pipe';
 import { FilterCoachSchedulePipe } from './pipes/filter-coach-schedule.pipe';
+import { PipesModule } from '@app/pipes/pipes.module';
 
 @NgModule({
   imports: [
@@ -30,6 +31,7 @@ import { FilterCoachSchedulePipe } from './pipes/filter-coach-schedule.pipe';
     CalendarModule,
     ScheduleItemModule,
     UserCardModule,
+    PipesModule,
   ],
   declarations: [
     ItemButtonsComponent,

@@ -16,7 +16,7 @@
         </p>
         <p class="card-line">
           {{"payments.expirationDate"|translate}}:
-          <span>{{getExpirationDate(payment.createdAt)}}</span>
+          <span>{{payment.createdAt | toExpirationDate | forDatePicker}</span>
         </p>
       </ion-card>
     </ng-template>

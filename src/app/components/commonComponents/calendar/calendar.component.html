@@ -2,7 +2,7 @@
   <ion-label (click)="toggleDate(dateForm)"
     >{{ "schedule.dateText" | translate }}
     <ion-icon name="calendar-outline"></ion-icon>:
-    {{ getDate(dateForm) }}</ion-label
+    {{ getDate(dateForm) | formatDate : "date" }}</ion-label
   >
   <div [class.shown]="showDate" class="date-container">
     <form [formGroup]="dateForm">

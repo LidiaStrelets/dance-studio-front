@@ -41,8 +41,7 @@ export class ClassesComponent implements OnInit {
     }
   };
 
-  getDate = (form: FormGroup) =>
-    this.dateService.getDate(form.get(this.fieldName)?.value);
+  getDate = (form: FormGroup) => form.get(this.fieldName)?.value;
 
   closeDate = () => {
     if (!this.showDate) {

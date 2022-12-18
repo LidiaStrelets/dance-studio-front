@@ -38,10 +38,7 @@ export class CurrentComponent implements OnInit {
     }
   };
 
-  getDate = (form: FormGroup) =>
-    this.dateService.getDate(form.get(this.fieldName)?.value);
-
-  getTimePart = this.dateService.getTime;
+  getDate = (form: FormGroup) => form.get(this.fieldName)?.value;
 
   cancell = ({ scheduleId }: CancellEnrollmentEvent) => {
     this.items = this.items.filter((item) => item.id !== scheduleId);
