@@ -1,5 +1,6 @@
 @use "./../../styles/mixins/title-font-size.scss" as *;
 @use "./../../styles/mixins/smaller-text.scss" as *;
+@use "./../../styles/mixins/small-button.scss" as *;
 
 .container {
   padding: 10px;
@@ -27,4 +28,11 @@ p {
       font-size: inherit;
     }
   }
+}
+ion-button {
+  @include small-button();
+}
+span.price {
+  font-size: 21px;
+  @include smaller-text();
 }
