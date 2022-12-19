@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { catchError } from 'rxjs';
 import { AlertService } from '@services/alert.service';
 import { DateService } from '@services/date.service';
@@ -14,6 +19,7 @@ import { GetExpirationDatePipe } from './pipes/get-expiration-date.pipe';
   selector: 'app-payments',
   templateUrl: './payments.page.html',
   styleUrls: ['./payments.page.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaymentsPage implements OnInit {
   payments: Payment[] = [];
@@ -28,7 +34,8 @@ export class PaymentsPage implements OnInit {
     private alertService: AlertService,
     private dateService: DateService,
     private languageService: LanguageService,
-    private toExpirationDtae: GetExpirationDatePipe
+    private toExpirationDtae: GetExpirationDatePipe,
+    private changes: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -36,6 +43,7 @@ export class PaymentsPage implements OnInit {
     this.paymentsService.get()?.subscribe({
       next: (res) => {
         this.payments = res;
+        this.changes.detectChanges();
       },
       error: catchError,
       complete: () => this.loader.hideSpinner(),
@@ -48,6 +56,7 @@ export class PaymentsPage implements OnInit {
         this.selectOptions = res.map((price) =>
           this.languageService.translateClassesAmount(price)
         );
+        this.changes.detectChanges();
       },
       error: catchError,
       complete: () => this.loader.hideSpinner(),
@@ -65,11 +74,12 @@ export class PaymentsPage implements OnInit {
     this.loader.showSpinner();
     this.paymentsService.create(price.id)?.subscribe({
       next: (res) => {
-        this.payments.push(res);
+        this.payments = [...this.payments, res];
         this.selectedSubscription = undefined;
         this.alertService.presentAlertSuccess(
           this.alertService.getTranslations().paymentSuccessMessage
         );
+        this.changes.detectChanges();
       },
       error: catchError,
       complete: () => this.loader.hideSpinner(),

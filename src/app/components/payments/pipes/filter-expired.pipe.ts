@@ -9,10 +9,12 @@ export class FilterExpiredPipe implements PipeTransform {
   constructor(private getExpirationDate: GetExpirationDatePipe) {}
 
   transform(value: Payment[]): Payment[] {
-    return value.filter(({ createdAt }) => {
-      const expirationDate = this.getExpirationDate.transform(createdAt);
+    return value && value.length > 0
+      ? value.filter(({ createdAt }) => {
+          const expirationDate = this.getExpirationDate.transform(createdAt);
 
-      return new Date(expirationDate).getTime() > Date.now();
-    });
+          return new Date(expirationDate).getTime() > Date.now();
+        })
+      : [];
   }
 }
