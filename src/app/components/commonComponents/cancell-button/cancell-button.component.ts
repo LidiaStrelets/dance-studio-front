@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { catchError } from 'rxjs';
 import { Training } from '@schedulesModule/types';
 import { AlertService } from '@services/alert.service';
@@ -12,6 +19,7 @@ import { CoachClass } from '@coachClassesModule/types';
   selector: 'app-cancell-button',
   templateUrl: './cancell-button.component.html',
   styleUrls: ['./cancell-button.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CancellButtonComponent implements OnInit {
   @Input() item: Training | CoachClass = {} as Training;

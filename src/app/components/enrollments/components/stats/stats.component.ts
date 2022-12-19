@@ -1,4 +1,6 @@
 import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Input,
   OnChanges,
@@ -15,6 +17,7 @@ import { catchError } from 'rxjs';
   selector: 'app-stats',
   templateUrl: './stats.component.html',
   styleUrls: ['./stats.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StatsComponent implements OnInit, OnChanges {
   @Input() current = 0;
@@ -25,7 +28,8 @@ export class StatsComponent implements OnInit, OnChanges {
   constructor(
     private enrollmentsService: EnrollmentsService,
     private loader: LoaderService,
-    private dateService: DateService
+    private dateService: DateService,
+    private changes: ChangeDetectorRef
   ) {}
 
   ngOnInit() {}
@@ -57,8 +61,13 @@ export class StatsComponent implements OnInit, OnChanges {
             this.classesNames = allKeys.filter((item) =>
               this.stats.hasOwnProperty(item)
             ) as StatsKeys[];
+
+            this.changes.detectChanges();
           },
-          error: catchError,
+          error: (err) => {
+            catchError(err);
+            this.loader.hideSpinner();
+          },
           complete: () => this.loader.hideSpinner(),
         });
       }

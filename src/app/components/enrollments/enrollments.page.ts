@@ -1,5 +1,6 @@
 import {
-  AfterContentChecked,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   OnDestroy,
   OnInit,
@@ -13,7 +14,6 @@ import { SwiperComponent } from 'swiper/angular';
 import { Training } from '@schedulesModule/types';
 import { EnrollmentsService } from '@enrollmentsModule/services/enrollments.service';
 import { LanguageService } from '@services/language.service';
-import { DateService } from '@services/date.service';
 
 Swiper.use([Pagination]);
 
@@ -21,8 +21,9 @@ Swiper.use([Pagination]);
   selector: 'app-enrollments',
   templateUrl: './enrollments.page.html',
   styleUrls: ['./enrollments.page.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EnrollmentsPage implements OnInit, AfterContentChecked, OnDestroy {
+export class EnrollmentsPage implements OnInit, OnDestroy {
   @ViewChild('slides') swiper?: SwiperComponent;
   config: SwiperOptions = {
     pagination: true,
@@ -38,7 +39,8 @@ export class EnrollmentsPage implements OnInit, AfterContentChecked, OnDestroy {
   constructor(
     private loader: LoaderService,
     private enrollmentsService: EnrollmentsService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private changes: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -52,6 +54,7 @@ export class EnrollmentsPage implements OnInit, AfterContentChecked, OnDestroy {
       this.enrollmentsService.getByDateMapped(res)?.subscribe({
         next: (res) => {
           this.items = this.languageService.translateSchedule(res);
+          this.changes.detectChanges();
         },
         error: catchError,
         complete: () => this.loader.hideSpinner(),
@@ -59,15 +62,10 @@ export class EnrollmentsPage implements OnInit, AfterContentChecked, OnDestroy {
     });
   }
 
-  ngAfterContentChecked(): void {
-    if (this.swiper) {
-      this.swiper.updateSwiper({});
-
-      this.swiper.swiperRef.on('slideChange', (e) => {
-        this.currentSlide = e.activeIndex;
-      });
-    }
-  }
+  handleSliding = (e: [swiper: Swiper]) => {
+    const [swiper] = e;
+    this.currentSlide = swiper.activeIndex;
+  };
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
