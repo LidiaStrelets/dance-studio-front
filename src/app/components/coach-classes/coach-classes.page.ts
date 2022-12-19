@@ -1,4 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { AuthService } from '@authModule/services/auth.service';
 import { EnrollmentsService } from '@enrollmentsModule/services/enrollments.service';
 import { PersonalsService } from '@personalsModule/services/personals.service';
@@ -18,6 +24,7 @@ Swiper.use([Pagination]);
   selector: 'app-coach-classes',
   templateUrl: './coach-classes.page.html',
   styleUrls: ['./coach-classes.page.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CoachClassesPage implements OnInit {
   @ViewChild('slides') swiper?: SwiperComponent;
@@ -33,6 +40,8 @@ export class CoachClassesPage implements OnInit {
   selectedDate = new BehaviorSubject('');
   subscription: Subscription = {} as Subscription;
 
+  currentSlide = 0;
+
   constructor(
     private enrollmentsService: EnrollmentsService,
     private personalService: PersonalsService,
@@ -40,7 +49,8 @@ export class CoachClassesPage implements OnInit {
     private languageService: LanguageService,
     private socketService: SocketService,
     private authService: AuthService,
-    private loader: LoaderService
+    private loader: LoaderService,
+    private changes: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -61,6 +71,7 @@ export class CoachClassesPage implements OnInit {
 
             this.items = [...this.registrations, ...this.personals];
             this.loader.hideSpinner();
+            this.changes.markForCheck();
           },
           error: (err) => {
             catchError(err);
@@ -75,6 +86,7 @@ export class CoachClassesPage implements OnInit {
             );
 
             this.items = [...this.personals, ...this.registrations];
+            this.changes.markForCheck();
           },
         });
       });
@@ -95,11 +107,18 @@ export class CoachClassesPage implements OnInit {
         } else {
           this.items = [...this.items, mapped];
         }
+        this.changes.markForCheck();
       });
     }, 1500);
   }
 
   setDate = (date: string) => {
     this.selectedDate.next(date);
+  };
+
+  handleSliding = (e: [swiper: Swiper]) => {
+    const [swiper] = e;
+
+    this.currentSlide = swiper.activeIndex;
   };
 }

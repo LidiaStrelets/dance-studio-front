@@ -1,4 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { CoachClass } from '@coachClassesModule/types';
 import { SchedulesService } from '@schedulesModule/services/schedules.service';
 import { AlertService } from '@services/alert.service';
@@ -9,6 +14,7 @@ import { catchError } from 'rxjs';
   selector: 'app-notes',
   templateUrl: './notes.component.html',
   styleUrls: ['./notes.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotesComponent implements OnInit {
   @Input() item?: CoachClass;

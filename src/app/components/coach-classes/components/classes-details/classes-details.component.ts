@@ -1,4 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { CoachClass } from '@coachClassesModule/types';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -6,6 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
   selector: 'app-classes-details',
   templateUrl: './classes-details.component.html',
   styleUrls: ['./classes-details.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ClassesDetailsComponent implements OnInit {
   @Input() item: CoachClass = {} as CoachClass;

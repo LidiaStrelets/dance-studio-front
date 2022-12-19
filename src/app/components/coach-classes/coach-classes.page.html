@@ -1,11 +1,12 @@
 <app-header [header]="'menu.CoachClasses'|translate"></app-header>
 
 <ion-content>
-  <swiper [config]="config" #slides>
+  <swiper (slideChange)="handleSliding($event)" [config]="config" #slides>
     <ng-template swiperSlide
       ><app-classes
         [items]="items | filterActive"
         (setDate)="setDate($event)"
+        [current]="currentSlide"
       ></app-classes>
     </ng-template>
     <ng-template swiperSlide>
@@ -13,6 +14,7 @@
         [archive]="true"
         [items]="items | filterArchive"
         (setDate)="setDate($event)"
+        [current]="currentSlide"
       ></app-classes>
     </ng-template>
   </swiper>

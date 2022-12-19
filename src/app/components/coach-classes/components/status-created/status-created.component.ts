@@ -1,4 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { FormatDatePipe } from '@app/pipes/format-date.pipe';
 import { CoachClass } from '@coachClassesModule/types';
 import { AlertController } from '@ionic/angular';
@@ -14,6 +19,7 @@ import { catchError } from 'rxjs';
   selector: 'app-status-created',
   templateUrl: './status-created.component.html',
   styleUrls: ['./status-created.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StatusCreatedComponent implements OnInit {
   @Input() item?: CoachClass;
