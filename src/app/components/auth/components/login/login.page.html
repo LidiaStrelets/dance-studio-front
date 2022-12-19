@@ -13,7 +13,7 @@
         type="email"
       ></ion-input>
       <app-errors
-        [showError]="getValidation(loginFormFields.email, loginForm)?.showMessage??false"
+        *ngIf="getValidation(loginFormFields.email, loginForm)?.showMessage??false"
         [errors]="getErrors(loginFormFields.email, loginForm)"
       ></app-errors>
     </ion-item>
@@ -26,7 +26,7 @@
         type="password"
       ></ion-input>
       <app-errors
-        [showError]="getValidation(loginFormFields.password, loginForm)?.showMessage??false"
+        *ngIf="getValidation(loginFormFields.password, loginForm)?.showMessage??false"
         [errors]="getErrors(loginFormFields.password, loginForm)"
       ></app-errors>
     </ion-item>

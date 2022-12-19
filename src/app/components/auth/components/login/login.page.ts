@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { catchError } from 'rxjs/operators';
 import { routesPaths } from 'src/app/app-routing.module';
@@ -12,6 +12,7 @@ import { BeService } from '@authModule/services/login.services/be.service';
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginPage implements OnInit {
   routerLink = ['../', routesPaths.register];

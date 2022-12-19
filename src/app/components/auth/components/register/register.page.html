@@ -13,7 +13,7 @@
         type="email"
       ></ion-input>
       <app-errors
-        [showError]="getValidation(registrationFormFields.email, registrationForm)?.showMessage??false"
+        *ngIf="getValidation(registrationFormFields.email, registrationForm)?.showMessage"
         [errors]="getErrors(registrationFormFields.email, registrationForm)"
       ></app-errors>
     </ion-item>
@@ -26,7 +26,7 @@
         type="password"
       ></ion-input>
       <app-errors
-        [showError]="getValidation(registrationFormFields.password, registrationForm)?.showMessage??false"
+        *ngIf="getValidation(registrationFormFields.password, registrationForm)?.showMessage"
         [errors]="getErrors(registrationFormFields.password, registrationForm)"
       ></app-errors>
     </ion-item>
@@ -41,7 +41,7 @@
         type="text"
       ></ion-input>
       <app-errors
-        [showError]="getValidation(registrationFormFields.firstname, registrationForm)?.showMessage??false"
+        *ngIf="getValidation(registrationFormFields.firstname, registrationForm)?.showMessage"
         [errors]="getErrors(registrationFormFields.firstname, registrationForm)"
       ></app-errors>
     </ion-item>
@@ -56,7 +56,7 @@
         type="text"
       ></ion-input>
       <app-errors
-        [showError]="getValidation(registrationFormFields.lastname, registrationForm)?.showMessage??false"
+        *ngIf="getValidation(registrationFormFields.lastname, registrationForm)?.showMessage"
         [errors]="getErrors(registrationFormFields.lastname, registrationForm)"
       ></app-errors>
     </ion-item>
@@ -84,7 +84,7 @@
         type="password"
       ></ion-input>
       <app-errors
-        [showError]="showKeyError()"
+        *ngIf="showKeyError()"
         [errors]="getErrors(registrationFormFields.adminKey, registrationForm)"
       ></app-errors>
     </ion-item>

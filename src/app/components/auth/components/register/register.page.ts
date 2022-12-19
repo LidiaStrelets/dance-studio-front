@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { catchError } from 'rxjs/operators';
 import { routesPaths } from 'src/app/app-routing.module';
@@ -18,6 +18,7 @@ import { Roles } from '@userModule/types';
   selector: 'app-register',
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterPage implements OnInit {
   roles = [Roles.admin, Roles.client, Roles.coach];
