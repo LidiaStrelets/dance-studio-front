@@ -12,7 +12,6 @@ import {
 import { Training } from '@schedulesModule/types';
 import { DateService } from '@services/date.service';
 import { CancellEnrollmentEvent } from '@enrollmentsModule/types';
-import { FormatDatePipe } from '@app/pipes/format-date.pipe';
 import { CalendarComponent } from '@commonComponents/calendar/calendar.component';
 
 @Component({
@@ -29,10 +28,7 @@ export class CurrentComponent implements OnInit, OnChanges {
   @Input() archive?: boolean;
   @Input() current = 0;
 
-  constructor(
-    private dateService: DateService,
-    private formatDate: FormatDatePipe
-  ) {}
+  constructor(private dateService: DateService) {}
 
   ngOnInit() {}
   ngOnChanges(changes: SimpleChanges): void {
@@ -43,9 +39,9 @@ export class CurrentComponent implements OnInit, OnChanges {
 
       if (propName === 'current') {
         if ((value === 0 && !this.archive) || (value === 1 && this.archive)) {
-          this.setDate.emit(
-            this.formatDate.transform(this.dateService.baseScheduleDate, 'date')
-          );
+          setTimeout(() => {
+            this.setDate.emit(this.calendar.getDate());
+          }, 1000);
         }
       }
     }
