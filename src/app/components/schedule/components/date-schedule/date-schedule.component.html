@@ -1,9 +1,5 @@
-<ion-content [scrollEvents]="true" (ionScroll)="closeDate()">
-  <app-calendar
-    [showDate]="showDate"
-    [toggleDate]="toggleDate"
-    [getDate]="getDate"
-  ></app-calendar>
+<ion-content [scrollEvents]="true" (ionScroll)="calendar.closeDate()">
+  <app-calendar (onSetDate)="handleDate($event)" #calendar></app-calendar>
   <div>
     <ion-list>
       <ion-item

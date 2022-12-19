@@ -1,9 +1,11 @@
 import { Location } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { routesPaths } from '@app/app-routing.module';
 import { LanguageService } from '@services/language.service';
 import { DateService } from '@services/date.service';
+import { FormatDatePipe } from '@app/pipes/format-date.pipe';
+import { DateFormat } from '@app/types';
 
 @Component({
   selector: 'app-calendar',
@@ -11,30 +13,30 @@ import { DateService } from '@services/date.service';
   styleUrls: ['./calendar.component.scss'],
 })
 export class CalendarComponent implements OnInit {
-  @Input() showDate = false;
   @Input() archive?: boolean;
-  @Input() toggleDate?: (form: FormGroup) => void;
-  @Input() getDate?: (form: FormGroup) => string;
+  @Output() onSetDate = new EventEmitter<string>();
 
   dateForm: FormGroup = {} as FormGroup;
-
-  needsTime = false;
+  showDate = false;
+  date = '';
+  format: DateFormat = 'date';
 
   constructor(
     private languageService: LanguageService,
     private dateService: DateService,
-    private location: Location
+    private location: Location,
+    private formatDate: FormatDatePipe
   ) {
     this.dateForm = new FormGroup({
       date: new FormControl(this.dateService.baseScheduleDate),
     });
+    if (location.path().includes(routesPaths.personals)) {
+      this.format = 'date-time';
+    }
+    this.date = formatDate.transform(dateService.baseScheduleDate, this.format);
   }
 
-  ngOnInit() {
-    if (this.location.path().includes(routesPaths.personals)) {
-      this.needsTime = true;
-    }
-  }
+  ngOnInit() {}
 
   getMinDate = () => {
     if (this.location.path().includes(routesPaths.schedule) || this.archive) {
@@ -59,4 +61,23 @@ export class CalendarComponent implements OnInit {
   };
 
   isUk = this.languageService.isUk;
+
+  toggleDate = () => {
+    this.showDate = !this.showDate;
+
+    if (!this.showDate && this.date !== this.getDate()) {
+      this.onSetDate.emit(this.getDate());
+      this.date = this.getDate();
+    }
+  };
+
+  getDate = () =>
+    this.formatDate.transform(this.dateForm.get('date')?.value, this.format);
+
+  closeDate = () => {
+    if (!this.showDate) {
+      return;
+    }
+    this.showDate = !this.showDate;
+  };
 }

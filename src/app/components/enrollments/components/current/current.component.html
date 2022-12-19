@@ -7,10 +7,9 @@
     ><h1>{{ "enrollments.header" | translate }}</h1></ng-template
   >
   <app-calendar
+    (onSetDate)="handleDate($event)"
     [archive]="archive"
-    [showDate]="showDate"
-    [toggleDate]="toggleDate"
-    [getDate]="getDate"
+    #calendar
   ></app-calendar>
 
   <div>

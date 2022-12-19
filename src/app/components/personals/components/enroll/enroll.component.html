@@ -11,11 +11,7 @@
   <h1>{{ "personals.enroll.header" | translate }}</h1>
 
   <form (ngSubmit)="handleSubmit()" [formGroup]="personalForm">
-    <app-calendar
-      [showDate]="showDate"
-      [toggleDate]="toggleDate"
-      [getDate]="getDate"
-    ></app-calendar>
+    <app-calendar (onSetDate)="handleDate($event)" #calendar></app-calendar>
     <ion-item
       [ngStyle]="
         getValidation(personalFormFields.coach, personalForm)?.blockHighlight

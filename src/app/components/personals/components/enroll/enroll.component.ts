@@ -3,6 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   OnInit,
+  ViewChild,
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, catchError } from 'rxjs';
@@ -26,6 +27,7 @@ import { SocketService } from '@services/socket.service';
 import { LanguageService } from '@services/language.service';
 import { ZoneTimePipe } from '@app/pipes/zone-time.pipe';
 import { FormatDatePipe } from '@app/pipes/format-date.pipe';
+import { CalendarComponent } from '@commonComponents/calendar/calendar.component';
 
 @Component({
   selector: 'app-enroll',
@@ -34,6 +36,8 @@ import { FormatDatePipe } from '@app/pipes/format-date.pipe';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EnrollComponent implements OnInit {
+  @ViewChild('calendar') calendar!: CalendarComponent;
+
   coaches: User[] = [];
   translatedClasses: ClassItem[] = [];
 
@@ -54,9 +58,7 @@ export class EnrollComponent implements OnInit {
   });
   personalFormFields = PersonalFormFields;
 
-  showDate = false;
   selectedDate = new BehaviorSubject('');
-  fieldName = 'date';
 
   constructor(
     private usersService: UsersService,
@@ -147,19 +149,13 @@ export class EnrollComponent implements OnInit {
     );
   };
 
-  toggleDate = (form: FormGroup) => {
-    this.showDate = !this.showDate;
-    if (!this.showDate) {
-      this.selectedDate.next(form.get(this.fieldName)?.value ?? '');
+  handleDate = (date: string) => {
+    this.selectedDate.next(date);
 
-      this.personalForm.patchValue({
-        date: form.get(this.fieldName)?.value,
-      });
-    }
+    this.personalForm.patchValue({
+      date,
+    });
   };
-
-  getDate = (form: FormGroup) =>
-    this.formatDate.transform(form.get(this.fieldName)?.value, 'date-time');
 
   backToPersonals = () => {
     this.router.navigate(['../', routesPaths.personals]);

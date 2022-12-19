@@ -7,8 +7,8 @@ import {
   OnDestroy,
   OnInit,
   SimpleChanges,
+  ViewChild,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { catchError } from 'rxjs/operators';
 import { EnrollmentsService } from '@enrollmentsModule/services/enrollments.service';
 import { LoaderService } from '@services/loader.service';
@@ -18,6 +18,7 @@ import { SchedulesService } from '@schedulesModule/services/schedules.service';
 import { LanguageService } from '@services/language.service';
 import { Training } from '@schedulesModule/types';
 import { Registration } from '@enrollmentsModule/types';
+import { CalendarComponent } from '@commonComponents/calendar/calendar.component';
 
 @Component({
   selector: 'app-date-schedule',
@@ -26,16 +27,14 @@ import { Registration } from '@enrollmentsModule/types';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DateScheduleComponent implements OnInit, OnDestroy, OnChanges {
+  @ViewChild('calendar') calendar!: CalendarComponent;
+
   @Input() isCurrent = false;
 
   items: Training[] = [];
   selectedDate = new BehaviorSubject('');
 
-  showDate = false;
-
   enrollments: Registration[] = [];
-
-  fieldName = 'date';
 
   subscription?: Subscription;
 
@@ -114,20 +113,7 @@ export class DateScheduleComponent implements OnInit, OnDestroy, OnChanges {
         : { ...item, enrolled: false }
     );
 
-  toggleDate = (form: FormGroup) => {
-    this.showDate = !this.showDate;
-    if (!this.showDate) {
-      this.selectedDate.next(form.get(this.fieldName)?.value ?? '');
-    }
-  };
-  closeDate = () => {
-    if (!this.showDate) {
-      return;
-    }
-    this.showDate = !this.showDate;
-  };
-
-  getDate = (form: FormGroup) => form.get(this.fieldName)?.value;
+  handleDate = (date: string) => this.selectedDate.next(date);
 
   enroll = (item: Registration) => {
     this.enrollments.push(item);

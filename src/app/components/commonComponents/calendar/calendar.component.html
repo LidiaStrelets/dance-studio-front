@@ -1,8 +1,7 @@
-<div *ngIf="toggleDate && getDate" class="container">
-  <ion-label (click)="toggleDate(dateForm)"
+<div class="container">
+  <ion-label (click)="toggleDate()"
     >{{ "schedule.dateText" | translate }}
-    <ion-icon name="calendar-outline"></ion-icon>:
-    {{ getDate(dateForm) | formatDate : "date" }}</ion-label
+    <ion-icon name="calendar-outline"></ion-icon>: {{ getDate() }}</ion-label
   >
   <div [class.shown]="showDate" class="date-container">
     <form [formGroup]="dateForm">
@@ -14,7 +13,7 @@
         formControlName="date"
         #date
         color="schedule"
-        [presentation]="needsTime ? 'date-time' : 'date'"
+        [presentation]="format"
         [preferWheel]="true"
       ></ion-datetime>
     </form>

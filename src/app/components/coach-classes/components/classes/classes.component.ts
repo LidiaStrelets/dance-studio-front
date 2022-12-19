@@ -1,5 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
+import { CalendarComponent } from '@commonComponents/calendar/calendar.component';
 import { TranslateService } from '@ngx-translate/core';
 import { Statuses } from '@personalsModule/types';
 import { DateService } from '@services/date.service';
@@ -11,13 +18,11 @@ import { EClassTypes, CoachClass } from '../../types';
   styleUrls: ['./classes.component.scss'],
 })
 export class ClassesComponent implements OnInit {
+  @ViewChild('calendar') calendar!: CalendarComponent;
+
   @Output() setDate = new EventEmitter<string>();
   @Input() items: CoachClass[] = [];
   @Input() archive?: boolean;
-
-  showDate = false;
-
-  fieldName = 'date';
 
   types = EClassTypes;
 
@@ -34,21 +39,7 @@ export class ClassesComponent implements OnInit {
     this.setDate.emit(this.dateService.baseScheduleDate);
   }
 
-  toggleDate = (form: FormGroup) => {
-    this.showDate = !this.showDate;
-    if (!this.showDate) {
-      this.setDate.emit(form.get(this.fieldName)?.value ?? '');
-    }
-  };
-
-  getDate = (form: FormGroup) => form.get(this.fieldName)?.value;
-
-  closeDate = () => {
-    if (!this.showDate) {
-      return;
-    }
-    this.showDate = !this.showDate;
-  };
+  handleDate = (date: string) => this.setDate.emit(date);
 
   getClients = (item: CoachClass) => item.clients;
 
