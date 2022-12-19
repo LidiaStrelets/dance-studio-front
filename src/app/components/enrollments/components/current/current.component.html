@@ -1,4 +1,4 @@
-<ion-content [scrollEvents]="true" (ionScroll)="closeDate()">
+<ion-content [scrollEvents]="true" (ionScroll)="calendar.closeDate()">
   <h1 *ngIf="archive; then archiveTitle; else currentTitle"></h1>
   <ng-template #archiveTitle
     ><h1>{{ "enrollments.archiveHeader" | translate }}</h1></ng-template
