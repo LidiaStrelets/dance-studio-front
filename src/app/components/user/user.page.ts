@@ -72,7 +72,7 @@ export class UserPage implements OnInit {
         if (res.photo) {
           this.tempPhoto = res.photo;
         }
-        this.changes.detectChanges();
+        this.changes.markForCheck();
       },
       error: (err) => {
         catchError(err);
@@ -190,7 +190,7 @@ export class UserPage implements OnInit {
           this.userForm.reset();
           this.setInitialValues(this.user);
 
-          this.changes.detectChanges();
+          this.changes.markForCheck();
         },
         error: (err) => {
           catchError(err);

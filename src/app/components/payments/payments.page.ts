@@ -43,7 +43,7 @@ export class PaymentsPage implements OnInit {
     this.paymentsService.get()?.subscribe({
       next: (res) => {
         this.payments = res;
-        this.changes.detectChanges();
+        this.changes.markForCheck();
       },
       error: (err) => {
         catchError(err);
@@ -59,7 +59,7 @@ export class PaymentsPage implements OnInit {
         this.selectOptions = res.map((price) =>
           this.languageService.translateClassesAmount(price)
         );
-        this.changes.detectChanges();
+        this.changes.markForCheck();
       },
       error: (err) => {
         catchError(err);
@@ -85,7 +85,7 @@ export class PaymentsPage implements OnInit {
         this.alertService.presentAlertSuccess(
           this.alertService.getTranslations().paymentSuccessMessage
         );
-        this.changes.detectChanges();
+        this.changes.markForCheck();
       },
       error: (err) => {
         catchError(err);

@@ -80,7 +80,7 @@ export class DateScheduleComponent implements OnInit, OnDestroy, OnChanges {
                     next: (res) => {
                       this.enrollments = res;
                       this.items = this.addEnrolled(this.items, res);
-                      this.changes.detectChanges();
+                      this.changes.markForCheck();
                     },
                     error: (err) => {
                       catchError(err);
@@ -118,7 +118,7 @@ export class DateScheduleComponent implements OnInit, OnDestroy, OnChanges {
   enroll = (item: Registration) => {
     this.enrollments.push(item);
     this.items = this.addEnrolled(this.items, this.enrollments);
-    this.changes.detectChanges();
+    this.changes.markForCheck();
   };
 
   trachSchedules = (index: number, item: Training) => item.id;

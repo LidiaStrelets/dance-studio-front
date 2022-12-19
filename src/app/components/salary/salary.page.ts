@@ -31,7 +31,7 @@ export class SalaryPage implements OnInit {
     this.schedulesService.getSalary()?.subscribe({
       next: (res) => {
         this.salary = res;
-        this.changes.detectChanges();
+        this.changes.markForCheck();
       },
       error: (err) => {
         catchError(err);

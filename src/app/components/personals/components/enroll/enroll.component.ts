@@ -83,7 +83,7 @@ export class EnrollComponent implements OnInit {
     this.usersService.getCoaches()?.subscribe({
       next: (res) => {
         this.coaches = res;
-        this.changes.detectChanges();
+        this.changes.markForCheck();
       },
       error: (err) => {
         catchError(err);
@@ -93,7 +93,7 @@ export class EnrollComponent implements OnInit {
     this.classesService.getClasses()?.subscribe({
       next: (res) => {
         this.translatedClasses = this.languageService.translateClasses(res);
-        this.changes.detectChanges();
+        this.changes.markForCheck();
       },
     });
   }

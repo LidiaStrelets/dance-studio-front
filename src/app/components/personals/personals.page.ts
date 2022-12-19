@@ -45,7 +45,7 @@ export class PersonalsPage implements OnInit {
         this.coachClasses = this.personals.map((item) =>
           this.personalService.addType(item)
         );
-        this.changes.detectChanges();
+        this.changes.markForCheck();
       },
       error: (err) => {
         catchError(err);
@@ -68,7 +68,7 @@ export class PersonalsPage implements OnInit {
       } else {
         this.coachClasses = [...this.coachClasses, coachClass];
       }
-      this.changes.detectChanges();
+      this.changes.markForCheck();
     });
   }
 

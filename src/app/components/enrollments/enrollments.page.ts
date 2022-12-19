@@ -54,7 +54,7 @@ export class EnrollmentsPage implements OnInit, OnDestroy {
       this.enrollmentsService.getByDateMapped(res)?.subscribe({
         next: (res) => {
           this.items = this.languageService.translateSchedule(res);
-          this.changes.detectChanges();
+          this.changes.markForCheck();
         },
         error: (err) => {
           catchError(err);

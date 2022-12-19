@@ -36,7 +36,7 @@ export class HomePage implements OnInit {
       this.hallService.get()?.subscribe({
         next: (res) => {
           this.halls = res;
-          this.changes.detectChanges();
+          this.changes.markForCheck();
         },
         error: (err) => {
           catchError(err);

@@ -62,7 +62,7 @@ export class StatsComponent implements OnInit, OnChanges {
               this.stats.hasOwnProperty(item)
             ) as StatsKeys[];
 
-            this.changes.detectChanges();
+            this.changes.markForCheck();
           },
           error: (err) => {
             catchError(err);

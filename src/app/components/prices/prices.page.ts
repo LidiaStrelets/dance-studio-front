@@ -30,7 +30,7 @@ export class PricesPage implements OnInit {
     this.pricesService.get()?.subscribe({
       next: (res) => {
         this.prices = res;
-        this.changes.detectChanges();
+        this.changes.markForCheck();
       },
       error: (err) => {
         catchError(err);
