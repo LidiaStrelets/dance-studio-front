@@ -83,7 +83,10 @@ export class EnrollComponent implements OnInit {
         this.coaches = res;
         this.changes.detectChanges();
       },
-      error: catchError,
+      error: (err) => {
+        catchError(err);
+        this.loader.hideSpinner();
+      },
     });
     this.classesService.getClasses()?.subscribe({
       next: (res) => {
@@ -134,7 +137,10 @@ export class EnrollComponent implements OnInit {
 
             this.backToPersonals();
           },
-          error: catchError,
+          error: (err) => {
+            catchError(err);
+            this.loader.hideSpinner();
+          },
           complete: () => this.loader.hideSpinner(),
         });
       }

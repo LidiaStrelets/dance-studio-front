@@ -32,7 +32,10 @@ export class PricesPage implements OnInit {
         this.prices = res;
         this.changes.detectChanges();
       },
-      error: catchError,
+      error: (err) => {
+        catchError(err);
+        this.loader.hideSpinner();
+      },
       complete: () => this.loader.hideSpinner(),
     });
   }

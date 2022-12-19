@@ -46,7 +46,10 @@ export class CoachesPage implements OnInit, AfterContentChecked {
       next: (res) => {
         this.coaches = res;
       },
-      error: catchError,
+      error: (err) => {
+        catchError(err);
+        this.loader.hideSpinner();
+      },
       complete: () => this.loader.hideSpinner(),
     });
   }

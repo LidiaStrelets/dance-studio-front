@@ -56,7 +56,10 @@ export class EnrollmentsPage implements OnInit, OnDestroy {
           this.items = this.languageService.translateSchedule(res);
           this.changes.detectChanges();
         },
-        error: catchError,
+        error: (err) => {
+          catchError(err);
+          this.loader.hideSpinner();
+        },
         complete: () => this.loader.hideSpinner(),
       });
     });

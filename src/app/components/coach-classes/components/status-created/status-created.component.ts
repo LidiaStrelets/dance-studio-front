@@ -5,6 +5,7 @@ import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { PersonalsService } from '@personalsModule/services/personals.service';
 import { Statuses } from '@personalsModule/types';
+import { LoaderService } from '@services/loader.service';
 import { SocketService } from '@services/socket.service';
 import { UsersService } from '@userModule/services/users.service';
 import { catchError } from 'rxjs';
@@ -26,16 +27,22 @@ export class StatusCreatedComponent implements OnInit {
     private usersService: UsersService,
     private personalsService: PersonalsService,
     private socketService: SocketService,
-    private formatDate: FormatDatePipe
+    private formatDate: FormatDatePipe,
+    private loader: LoaderService
   ) {}
 
   ngOnInit() {
     if (this.item?.clients) {
+      this.loader.showSpinner();
       this.usersService.getById(this.item.clients[0])?.subscribe({
         next: (res) => {
           this.client = this.usersService.getUserName(res);
+          this.loader.hideSpinner();
         },
-        error: catchError,
+        error: (err) => {
+          catchError(err);
+          this.loader.hideSpinner();
+        },
       });
     }
   }
@@ -83,14 +90,18 @@ export class StatusCreatedComponent implements OnInit {
             if (!this.item?.id) {
               return;
             }
-
+            this.loader.showSpinner();
             this.personalsService
               .update({ status: Statuses.cancelled }, this.item?.id)
               ?.subscribe({
                 next: (res) => {
                   this.socketService.emitPersonal(res);
+                  this.loader.hideSpinner();
                 },
-                error: catchError,
+                error: (err) => {
+                  catchError(err);
+                  this.loader.hideSpinner();
+                },
               });
           },
         },
@@ -114,7 +125,7 @@ export class StatusCreatedComponent implements OnInit {
               return;
             }
             const newMessage = alertData['message'];
-
+            this.loader.showSpinner();
             this.personalsService
               .update(
                 {
@@ -133,8 +144,12 @@ export class StatusCreatedComponent implements OnInit {
                       personal_id: this.item?.id,
                     });
                   }
+                  this.loader.hideSpinner();
                 },
-                error: catchError,
+                error: (err) => {
+                  catchError(err);
+                  this.loader.hideSpinner();
+                },
               });
           },
         },

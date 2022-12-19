@@ -47,7 +47,10 @@ export class PersonalsPage implements OnInit {
         );
         this.changes.detectChanges();
       },
-      error: catchError,
+      error: (err) => {
+        catchError(err);
+        this.loader.hideSpinner();
+      },
       complete: () => this.loader.hideSpinner(),
     });
 

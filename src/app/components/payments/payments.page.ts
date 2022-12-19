@@ -45,7 +45,10 @@ export class PaymentsPage implements OnInit {
         this.payments = res;
         this.changes.detectChanges();
       },
-      error: catchError,
+      error: (err) => {
+        catchError(err);
+        this.loader.hideSpinner();
+      },
       complete: () => this.loader.hideSpinner(),
     });
 
@@ -58,7 +61,10 @@ export class PaymentsPage implements OnInit {
         );
         this.changes.detectChanges();
       },
-      error: catchError,
+      error: (err) => {
+        catchError(err);
+        this.loader.hideSpinner();
+      },
       complete: () => this.loader.hideSpinner(),
     });
   }
@@ -81,7 +87,10 @@ export class PaymentsPage implements OnInit {
         );
         this.changes.detectChanges();
       },
-      error: catchError,
+      error: (err) => {
+        catchError(err);
+        this.loader.hideSpinner();
+      },
       complete: () => this.loader.hideSpinner(),
     });
   };

@@ -61,7 +61,10 @@ export class CoachScheduleComponent implements OnInit, OnDestroy, OnChanges {
           next: (res) => {
             this.weekSchedule = res;
           },
-          error: catchError,
+          error: (err) => {
+            catchError(err);
+            this.loader.hideSpinner();
+          },
           complete: () => this.loader.hideSpinner(),
         });
 
@@ -71,7 +74,10 @@ export class CoachScheduleComponent implements OnInit, OnDestroy, OnChanges {
           next: (res) => {
             this.coaches = res;
           },
-          error: catchError,
+          error: (err) => {
+            catchError(err);
+            this.loader.hideSpinner();
+          },
           complete: () => this.loader.hideSpinner(),
         });
 

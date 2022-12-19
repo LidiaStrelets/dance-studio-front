@@ -3,6 +3,7 @@ import { TranslatedHall } from '@homeModule/types';
 import { HallService } from '@homeModule/services/hall.service';
 import { LanguageService } from '@services/language.service';
 import { catchError } from 'rxjs';
+import { LoaderService } from '@services/loader.service';
 
 @Component({
   selector: 'app-pick-hall',
@@ -17,15 +18,21 @@ export class PickHallComponent implements OnInit {
 
   constructor(
     private hallsService: HallService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private loader: LoaderService
   ) {}
 
   ngOnInit() {
+    this.loader.showSpinner();
     this.hallsService.get()?.subscribe({
       next: (res) => {
         this.halls = this.languageService.translateHalls(res);
+        this.loader.hideSpinner();
       },
-      error: catchError,
+      error: (err) => {
+        catchError(err);
+        this.loader.hideSpinner();
+      },
     });
   }
 

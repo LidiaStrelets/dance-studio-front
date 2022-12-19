@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { catchError } from 'rxjs/operators';
 import { LanguageService } from '@services/language.service';
 import { LoaderService } from '@services/loader.service';
@@ -11,7 +16,7 @@ import { PlatformService } from '@services/platform.service';
   selector: 'app-home',
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePage implements OnInit {
   halls: Hall[] = [];
@@ -31,9 +36,12 @@ export class HomePage implements OnInit {
       this.hallService.get()?.subscribe({
         next: (res) => {
           this.halls = res;
-          this.changes.detectChanges()
+          this.changes.detectChanges();
         },
-        error: catchError,
+        error: (err) => {
+          catchError(err);
+          this.spinner.hideSpinner();
+        },
         complete: () => this.spinner.hideSpinner(),
       });
     }, 1000);

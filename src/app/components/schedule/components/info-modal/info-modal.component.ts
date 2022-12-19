@@ -46,7 +46,10 @@ export class InfoModalComponent implements OnInit {
 
             this.item.next(translated);
           },
-          error: catchError,
+          error: (err) => {
+            catchError(err);
+            this.loader.hideSpinner();
+          },
           complete: () => this.loader.hideSpinner(),
         });
 
@@ -56,7 +59,10 @@ export class InfoModalComponent implements OnInit {
               next: (res) => {
                 this.enrollments = res;
               },
-              error: catchError,
+              error: (err) => {
+                catchError(err);
+                this.loader.hideSpinner();
+              },
               complete: () => this.loader.hideSpinner(),
             });
           }

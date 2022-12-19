@@ -46,7 +46,10 @@ export class RegisterPage implements OnInit {
         next: (res) => {
           this.authService.authenticate(res.data.token);
         },
-        error: catchError,
+        error: (err) => {
+          catchError(err);
+          this.loader.hideSpinner();
+        },
         complete: () => this.loader.hideSpinner(),
       });
   };

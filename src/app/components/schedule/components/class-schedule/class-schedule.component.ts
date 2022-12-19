@@ -59,7 +59,10 @@ export class ClassScheduleComponent implements OnInit, OnDestroy, OnChanges {
         this.loader.showSpinner();
         this.schedulesService.getWeek()?.subscribe({
           next: (res) => (this.weekSchedule = res),
-          error: catchError,
+          error: (err) => {
+            catchError(err);
+            this.loader.hideSpinner();
+          },
           complete: () => this.loader.hideSpinner(),
         });
 
@@ -68,7 +71,10 @@ export class ClassScheduleComponent implements OnInit, OnDestroy, OnChanges {
           next: (res) => {
             this.classes = res;
           },
-          error: catchError,
+          error: (err) => {
+            catchError(err);
+            this.loader.hideSpinner();
+          },
           complete: () => this.loader.hideSpinner(),
         });
 

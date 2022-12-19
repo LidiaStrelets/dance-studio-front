@@ -33,7 +33,10 @@ export class SalaryPage implements OnInit {
         this.salary = res;
         this.changes.detectChanges();
       },
-      error: catchError,
+      error: (err) => {
+        catchError(err);
+        this.loader.hideSpinner();
+      },
       complete: () => this.loader.hideSpinner(),
     });
   }

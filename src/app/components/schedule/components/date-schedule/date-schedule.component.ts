@@ -83,11 +83,17 @@ export class DateScheduleComponent implements OnInit, OnDestroy, OnChanges {
                       this.items = this.addEnrolled(this.items, res);
                       this.changes.detectChanges();
                     },
-                    error: catchError,
+                    error: (err) => {
+                      catchError(err);
+                      this.loader.hideSpinner();
+                    },
                     complete: () => this.loader.hideSpinner(),
                   });
                 },
-                error: catchError,
+                error: (err) => {
+                  catchError(err);
+                  this.loader.hideSpinner();
+                },
                 complete: () => this.loader.hideSpinner(),
               });
             }

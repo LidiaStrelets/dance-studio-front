@@ -5,6 +5,7 @@ import { PersonalsService } from '@personalsModule/services/personals.service';
 import { Personal } from '@personalsModule/types';
 import { DateService } from '@services/date.service';
 import { LanguageService } from '@services/language.service';
+import { LoaderService } from '@services/loader.service';
 import { SocketService } from '@services/socket.service';
 import { BehaviorSubject, catchError, Subscription } from 'rxjs';
 import Swiper, { Pagination, SwiperOptions } from 'swiper';
@@ -38,7 +39,8 @@ export class CoachClassesPage implements OnInit {
     private dateService: DateService,
     private languageService: LanguageService,
     private socketService: SocketService,
-    private authService: AuthService
+    private authService: AuthService,
+    private loader: LoaderService
   ) {}
 
   ngOnInit() {
@@ -47,7 +49,7 @@ export class CoachClassesPage implements OnInit {
         if (!res) {
           return;
         }
-
+        this.loader.showSpinner();
         this.enrollmentsService.getByDateAndCoachMapped(res)?.subscribe({
           next: (res) => {
             this.registrations = res.map((item) => ({
@@ -58,8 +60,12 @@ export class CoachClassesPage implements OnInit {
             }));
 
             this.items = [...this.registrations, ...this.personals];
+            this.loader.hideSpinner();
           },
-          error: catchError,
+          error: (err) => {
+            catchError(err);
+            this.loader.hideSpinner();
+          },
         });
 
         this.personalService.getByCoachAndDate(res)?.subscribe({

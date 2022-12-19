@@ -7,6 +7,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { environment } from '@root/environments/environment';
+import { LoaderService } from '@services/loader.service';
 import { UsersService } from '@userModule/services/users.service';
 import { User } from '@userModule/types';
 import { BehaviorSubject, catchError } from 'rxjs';
@@ -23,7 +24,10 @@ export class UserCardComponent implements OnInit, OnChanges {
 
   avatar = `${environment.basicUrl}no_photo.webp`;
 
-  constructor(private usersService: UsersService) {}
+  constructor(
+    private usersService: UsersService,
+    private loader: LoaderService
+  ) {}
 
   ngOnInit() {}
 
@@ -34,11 +38,16 @@ export class UserCardComponent implements OnInit, OnChanges {
       let value = change.currentValue;
 
       if (propName === 'userId' && value) {
+        this.loader.showSpinner();
         this.usersService.getById(value)?.subscribe({
           next: (res) => {
             this.user.next(res);
+            this.loader.hideSpinner();
           },
-          error: catchError,
+          error: (err) => {
+            catchError(err);
+            this.loader.hideSpinner();
+          },
         });
       }
     }

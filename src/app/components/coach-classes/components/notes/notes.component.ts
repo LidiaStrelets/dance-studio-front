@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CoachClass } from '@coachClassesModule/types';
 import { SchedulesService } from '@schedulesModule/services/schedules.service';
 import { AlertService } from '@services/alert.service';
+import { LoaderService } from '@services/loader.service';
 import { catchError } from 'rxjs';
 
 @Component({
@@ -16,7 +17,8 @@ export class NotesComponent implements OnInit {
 
   constructor(
     private schedulesService: SchedulesService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private loader: LoaderService
   ) {}
 
   ngOnInit() {
@@ -36,6 +38,7 @@ export class NotesComponent implements OnInit {
     if (!this.value || !this.item) {
       return;
     }
+    this.loader.showSpinner();
     this.schedulesService
       .update(this.item!.id, { notes: this.value })
       ?.subscribe({
@@ -49,8 +52,12 @@ export class NotesComponent implements OnInit {
           this.alertService.presentAlertSuccess(
             this.alertService.getTranslations().notesUpdatedMessage
           );
+          this.loader.hideSpinner();
         },
-        error: catchError,
+        error: (err) => {
+          catchError(err);
+          this.loader.hideSpinner();
+        },
       });
   };
 }

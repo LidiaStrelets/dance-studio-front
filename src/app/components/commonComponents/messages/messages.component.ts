@@ -5,6 +5,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
+import { LoaderService } from '@services/loader.service';
 import { SocketService } from '@services/socket.service';
 import { catchError } from 'rxjs';
 import { MessageService } from './services/message.service';
@@ -21,7 +22,8 @@ export class MessagesComponent implements OnInit, OnChanges {
 
   constructor(
     private messagesService: MessageService,
-    private socketService: SocketService
+    private socketService: SocketService,
+    private loader: LoaderService
   ) {}
 
   ngOnInit() {
@@ -41,11 +43,16 @@ export class MessagesComponent implements OnInit, OnChanges {
       let value = change.currentValue;
 
       if (propName === 'personal_id') {
+        this.loader.showSpinner();
         this.messagesService.get(value)?.subscribe({
           next: (res) => {
             this.messages = res;
+            this.loader.hideSpinner();
           },
-          error: catchError,
+          error: (err) => {
+            catchError(err);
+            this.loader.hideSpinner();
+          },
         });
       }
     }
