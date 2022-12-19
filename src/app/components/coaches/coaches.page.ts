@@ -1,5 +1,5 @@
 import {
-  AfterContentChecked,
+  ChangeDetectionStrategy,
   Component,
   OnInit,
   ViewChild,
@@ -18,8 +18,9 @@ Swiper.use([Pagination, EffectCube]);
   selector: 'app-coaches',
   templateUrl: './coaches.page.html',
   styleUrls: ['./coaches.page.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CoachesPage implements OnInit, AfterContentChecked {
+export class CoachesPage implements OnInit {
   @ViewChild('slides') swiper?: SwiperComponent;
 
   avatar = `${environment.basicUrl}no_photo.webp`;
@@ -55,10 +56,4 @@ export class CoachesPage implements OnInit, AfterContentChecked {
   }
 
   getName = this.usersService.getUserName;
-
-  ngAfterContentChecked(): void {
-    if (this.swiper) {
-      this.swiper.updateSwiper({});
-    }
-  }
 }
