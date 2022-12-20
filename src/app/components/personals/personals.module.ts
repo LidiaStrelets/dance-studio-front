@@ -12,7 +12,7 @@ import { ErrorsModule } from '@authModule/components/errors/errors.module';
 import { ScheduleItemModule } from '@commonComponents/schedule-item/schedule-item.module';
 import { MessagesModule } from '@commonComponents/messages/messages.module';
 import { PaymentComponent } from './components/payment/payment.component';
-import { ZoneTimePipe } from '@app/pipes/zone-time.pipe';
+import { TransformDatePipe } from './pipes/transform-date.pipe';
 
 @NgModule({
   imports: [
@@ -28,7 +28,12 @@ import { ZoneTimePipe } from '@app/pipes/zone-time.pipe';
     ScheduleItemModule,
     MessagesModule,
   ],
-  declarations: [PersonalsPage, EnrollComponent, PaymentComponent],
-  providers: [ZoneTimePipe],
+  declarations: [
+    PersonalsPage,
+    EnrollComponent,
+    PaymentComponent,
+    TransformDatePipe,
+  ],
+  providers: [TransformDatePipe],
 })
 export class PersonalsPageModule {}

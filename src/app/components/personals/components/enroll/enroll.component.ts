@@ -25,9 +25,8 @@ import { Router } from '@angular/router';
 import { routesPaths } from '@app/app-routing.module';
 import { SocketService } from '@services/socket.service';
 import { LanguageService } from '@services/language.service';
-import { ZoneTimePipe } from '@app/pipes/zone-time.pipe';
-import { FormatDatePipe } from '@app/pipes/format-date.pipe';
 import { CalendarComponent } from '@commonComponents/calendar/calendar.component';
+import { TransformDatePipe } from '@personalsModule/pipes/transform-date.pipe';
 
 @Component({
   selector: 'app-enroll',
@@ -71,9 +70,8 @@ export class EnrollComponent implements OnInit {
     private router: Router,
     private socketService: SocketService,
     private languageService: LanguageService,
-    private zoneTime: ZoneTimePipe,
-    private formatDate: FormatDatePipe,
-    private changes: ChangeDetectorRef
+    private changes: ChangeDetectorRef,
+    private transformDate: TransformDatePipe
   ) {}
 
   async ngOnInit() {
@@ -111,7 +109,7 @@ export class EnrollComponent implements OnInit {
     const input: CreatePersonal = {
       coach_id: this.personalForm.value.coach!,
       class_id: this.personalForm.value.class!,
-      date_time: this.zoneTime.transform(this.personalForm.value.date!),
+      date_time: this.transformDate.transform(this.personalForm.value.date!),
       duration: this.personalForm.value.duration!,
       status: Statuses.created,
     };

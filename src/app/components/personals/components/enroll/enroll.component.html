@@ -33,9 +33,8 @@
         }}</ion-select-option>
       </ion-select>
       <app-errors
-        [showError]="
-          getValidation(personalFormFields.coach, personalForm)?.showMessage ??
-          false
+        *ngIf="
+          getValidation(personalFormFields.coach, personalForm)?.showMessage
         "
         [errors]="getErrors(personalFormFields.coach, personalForm)"
       ></app-errors>
@@ -62,9 +61,8 @@
         >
       </ion-select>
       <app-errors
-        [showError]="
-          getValidation(personalFormFields.class, personalForm)?.showMessage ??
-          false
+        *ngIf="
+          getValidation(personalFormFields.class, personalForm)?.showMessage
         "
         [errors]="getErrors(personalFormFields.class, personalForm)"
       ></app-errors>
@@ -86,9 +84,8 @@
       ></ion-input>
 
       <app-errors
-        [showError]="
-          getValidation(personalFormFields.duration, personalForm)
-            ?.showMessage ?? false
+        *ngIf="
+          getValidation(personalFormFields.duration, personalForm)?.showMessage
         "
         [errors]="getErrors(personalFormFields.duration, personalForm)"
       ></app-errors>
