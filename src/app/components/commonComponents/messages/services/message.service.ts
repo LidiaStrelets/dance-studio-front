@@ -9,7 +9,7 @@ import { PersonalMessage } from '../types';
   providedIn: 'root',
 })
 export class MessageService {
-  private coreUrl = `${environment.basicUrl}personals/messages/`;
+  private coreUrl = `${environment.basicUrl}messages/`;
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
