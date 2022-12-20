@@ -1,4 +1,6 @@
 import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Input,
   OnChanges,
@@ -15,6 +17,7 @@ import { PersonalMessage } from './types';
   selector: 'app-messages',
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MessagesComponent implements OnInit, OnChanges {
   @Input() personal_id = '';
@@ -23,7 +26,8 @@ export class MessagesComponent implements OnInit, OnChanges {
   constructor(
     private messagesService: MessageService,
     private socketService: SocketService,
-    private loader: LoaderService
+    private loader: LoaderService,
+    private changes: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -47,6 +51,7 @@ export class MessagesComponent implements OnInit, OnChanges {
         this.messagesService.get(value)?.subscribe({
           next: (res) => {
             this.messages = res;
+            this.changes.markForCheck();
             this.loader.hideSpinner();
           },
           error: (err) => {

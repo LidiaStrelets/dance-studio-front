@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Input,
   OnChanges,
@@ -26,7 +27,8 @@ export class UserCardComponent implements OnInit, OnChanges {
 
   constructor(
     private usersService: UsersService,
-    private loader: LoaderService
+    private loader: LoaderService,
+    private changes: ChangeDetectorRef
   ) {}
 
   ngOnInit() {}
@@ -42,6 +44,7 @@ export class UserCardComponent implements OnInit, OnChanges {
         this.usersService.getById(value)?.subscribe({
           next: (res) => {
             this.user.next(res);
+            this.changes.markForCheck();
             this.loader.hideSpinner();
           },
           error: (err) => {
