@@ -4,11 +4,7 @@ import { Observable } from 'rxjs';
 import { catchError, take } from 'rxjs/operators';
 import { DateService } from '@services/date.service';
 import { environment } from '@root/environments/environment';
-import {
-  TrainingFull,
-  TrainingUpdate,
-  TrainingWithInfoFull,
-} from '@schedulesModule/types';
+import { TrainingFull, TrainingWithInfoFull } from '@schedulesModule/types';
 import { AuthService } from '@authModule/services/auth.service';
 
 @Injectable({
@@ -114,17 +110,5 @@ export class SchedulesService {
         }),
         take(1)
       );
-  }
-
-  update(id: string, update: TrainingUpdate): Observable<TrainingFull> | null {
-    if (!this.authService.getCurrentUserId() || !id) {
-      return null;
-    }
-    return this.http.patch<TrainingFull>(this.coreUrl + id, update).pipe(
-      catchError((err) => {
-        throw err;
-      }),
-      take(1)
-    );
   }
 }

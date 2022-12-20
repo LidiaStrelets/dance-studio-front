@@ -14,3 +14,12 @@ export enum EClassTypes {
   group = 'group',
   personal = 'personal',
 }
+
+export interface NoteUpdate {
+  class_id: string;
+  notes: string;
+}
+
+export interface Note extends NoteUpdate {
+  id: string;
+}

@@ -10,15 +10,12 @@ export interface Training {
 
   date_time: string;
   duration: number;
-  notes?: string;
   enrolled?: boolean;
 }
 export interface TrainingFull extends Training {
   hallUk: string;
   classUk: string;
 }
-
-export type TrainingUpdate = Pick<TrainingFull, 'notes'>;
 
 export interface TrainingWithInfo extends Training {
   coachInfo: string;
