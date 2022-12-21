@@ -19,6 +19,7 @@ import { LanguageService } from '@services/language.service';
 import { Training } from '@schedulesModule/types';
 import { Registration } from '@enrollmentsModule/types';
 import { CalendarComponent } from '@commonComponents/calendar/calendar.component';
+import { routesPaths } from '@app/app-routing.module';
 
 @Component({
   selector: 'app-date-schedule',
@@ -40,6 +41,8 @@ export class DateScheduleComponent implements OnInit, OnDestroy, OnChanges {
 
   modalId = new BehaviorSubject<string>('');
   modalItem: Training = {} as Training;
+
+  rootPath = routesPaths.schedule;
 
   constructor(
     private dateService: DateService,

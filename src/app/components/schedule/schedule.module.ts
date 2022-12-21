@@ -18,6 +18,7 @@ import { ItemButtonsComponent } from './components/item-buttons/item-buttons.com
 import { FilterClassSchedulePipe } from './pipes/filter-class-schedule.pipe';
 import { FilterCoachSchedulePipe } from './pipes/filter-coach-schedule.pipe';
 import { PipesModule } from '@app/pipes/pipes.module';
+import { InfoButtonModule } from '@commonComponents/info-button/info-button.module';
 
 @NgModule({
   imports: [
@@ -32,6 +33,7 @@ import { PipesModule } from '@app/pipes/pipes.module';
     ScheduleItemModule,
     UserCardModule,
     PipesModule,
+    InfoButtonModule,
   ],
   declarations: [
     ItemButtonsComponent,

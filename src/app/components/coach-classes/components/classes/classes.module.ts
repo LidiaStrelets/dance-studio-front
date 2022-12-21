@@ -12,6 +12,9 @@ import { PickHallComponent } from '../pick-hall/pick-hall.component';
 import { MessagesModule } from '@commonComponents/messages/messages.module';
 import { ClassesDetailsComponent } from '../classes-details/classes-details.component';
 import { PipesModule } from '@app/pipes/pipes.module';
+import { AdditionalInfoComponent } from '../additional-info/additional-info.component';
+import { InfoButtonModule } from '@commonComponents/info-button/info-button.module';
+import { InfoHeaderModule } from '@commonComponents/info-header/info-header.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +23,7 @@ import { PipesModule } from '@app/pipes/pipes.module';
     StatusCreatedComponent,
     PickHallComponent,
     ClassesDetailsComponent,
+    AdditionalInfoComponent,
   ],
   exports: [ClassesComponent],
   imports: [
@@ -31,6 +35,8 @@ import { PipesModule } from '@app/pipes/pipes.module';
     FormsModule,
     MessagesModule,
     PipesModule,
+    InfoButtonModule,
+    InfoHeaderModule,
   ],
 })
 export class ClassesModule {}

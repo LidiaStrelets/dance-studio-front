@@ -13,6 +13,9 @@ import { ScheduleItemModule } from '@commonComponents/schedule-item/schedule-ite
 import { MessagesModule } from '@commonComponents/messages/messages.module';
 import { PaymentComponent } from './components/payment/payment.component';
 import { TransformDatePipe } from './pipes/transform-date.pipe';
+import { InfoButtonModule } from '@commonComponents/info-button/info-button.module';
+import { ClassDetailsComponent } from './components/class-details/class-details.component';
+import { InfoHeaderModule } from '@commonComponents/info-header/info-header.module';
 
 @NgModule({
   imports: [
@@ -27,12 +30,15 @@ import { TransformDatePipe } from './pipes/transform-date.pipe';
     ErrorsModule,
     ScheduleItemModule,
     MessagesModule,
+    InfoButtonModule,
+    InfoHeaderModule,
   ],
   declarations: [
     PersonalsPage,
     EnrollComponent,
     PaymentComponent,
     TransformDatePipe,
+    ClassDetailsComponent,
   ],
   providers: [TransformDatePipe],
 })

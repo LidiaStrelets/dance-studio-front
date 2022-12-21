@@ -60,6 +60,17 @@ export class PersonalsService {
         take(1)
       );
   }
+  get(id: string): Observable<Personal[]> | null {
+    if (!this.authService.getCurrentUserId()) {
+      return null;
+    }
+    return this.http.get<Personal[]>(this.coreUrl + 'byId/' + id).pipe(
+      catchError((err) => {
+        throw err;
+      }),
+      take(1)
+    );
+  }
 
   getByUser(): Observable<Personal[]> | null {
     if (!this.authService.getCurrentUserId()) {

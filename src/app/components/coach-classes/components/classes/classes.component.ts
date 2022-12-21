@@ -8,9 +8,8 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
+import { routesPaths } from '@app/app-routing.module';
 import { CalendarComponent } from '@commonComponents/calendar/calendar.component';
-import { TranslateService } from '@ngx-translate/core';
-import { Statuses } from '@personalsModule/types';
 import { EClassTypes, CoachClass } from '../../types';
 
 @Component({
@@ -29,11 +28,9 @@ export class ClassesComponent implements OnInit {
 
   types = EClassTypes;
 
-  statuses = Statuses;
+  rootPath = routesPaths.coachClasses;
 
-  pickedHall = '';
-
-  constructor(private translate: TranslateService) {}
+  constructor() {}
 
   ngOnInit() {}
 
@@ -55,7 +52,9 @@ export class ClassesComponent implements OnInit {
 
   handleDate = (date: string) => this.setDate.emit(date);
 
-  getClients = (item: CoachClass) => item.clients;
+  trackMessage(index: number, item: CoachClass) {
+    return item.id;
+  }
 
   status = (item: CoachClass) => {
     if (item.type === EClassTypes.personal) {
@@ -66,17 +65,4 @@ export class ClassesComponent implements OnInit {
       } else return '';
     }
   };
-
-  statusMessage = (item: CoachClass) => {
-    const status = this.status(item);
-    return this.translate.instant(`coachClasses.status.${status}`);
-  };
-
-  setHall = (hallId: string) => {
-    this.pickedHall = hallId;
-  };
-
-  trackMessage(index: number, item: CoachClass) {
-    return item.id;
-  }
 }

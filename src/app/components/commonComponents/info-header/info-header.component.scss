@@ -1,0 +1,18 @@
+@use "./../../../styles/mixins/title-font-size.scss" as *;
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: revert;
+  padding: 10px;
+}
+ion-title {
+  position: initial;
+  text-align: start;
+  padding: 0;
+
+  @include title-font-size();
+}
+ion-buttons {
+  position: initial;
+}

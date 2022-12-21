@@ -3,13 +3,10 @@ import {
   Component,
   EventEmitter,
   Input,
-  NgZone,
   OnInit,
   Output,
 } from '@angular/core';
-import { Router } from '@angular/router';
 import { catchError } from 'rxjs/operators';
-import { routesPaths } from '@app/app-routing.module';
 import { AlertService } from '@services/alert.service';
 import { LoaderService } from '@services/loader.service';
 import { Training } from '@schedulesModule/types';
@@ -31,9 +28,7 @@ export class ItemButtonsComponent implements OnInit {
   constructor(
     private enrollmentService: EnrollmentsService,
     private alertService: AlertService,
-    private loader: LoaderService,
-    private router: Router,
-    private ngZone: NgZone
+    private loader: LoaderService
   ) {}
 
   ngOnInit() {}
@@ -56,9 +51,5 @@ export class ItemButtonsComponent implements OnInit {
       },
       complete: () => this.loader.hideSpinner(),
     });
-  };
-
-  openClick = (id: string) => {
-    this.ngZone.run(() => this.router.navigate([routesPaths.schedule, id]));
   };
 }

@@ -12,13 +12,10 @@
         *ngFor="let item of coachClasses; trackBy: trackMessages"
       >
         <div [ngClass]="item.status===statuses.submitted? 'container':''">
+          <app-info-button
+            [navigateTo]="[routeRoot, item.id]"
+          ></app-info-button>
           <app-schedule-item [item]="item"></app-schedule-item>
-          <p [ngClass]="item.status">{{statusMessage(item.status!)}}</p>
-          <app-messages [personal_id]="item.id"></app-messages>
-          <app-payment
-            [item]="item"
-            *ngIf="item.status===statuses.approved"
-          ></app-payment>
         </div>
       </ion-item>
     </ion-list>

@@ -12,7 +12,7 @@ import { SocketService } from '@services/socket.service';
 import { catchError } from 'rxjs';
 import { routesPaths } from 'src/app/app-routing.module';
 import { PersonalsService } from './services/personals.service';
-import { Personal, Statuses, TStatus } from './types';
+import { Personal, Statuses } from './types';
 
 @Component({
   selector: 'app-personals',
@@ -26,6 +26,7 @@ export class PersonalsPage implements OnInit {
   personals: Personal[] = [];
   coachClasses: CoachClass[] = [];
   statuses = Statuses;
+  routeRoot = routesPaths.personals;
 
   constructor(
     private loader: LoaderService,
@@ -71,9 +72,6 @@ export class PersonalsPage implements OnInit {
       this.changes.markForCheck();
     });
   }
-
-  statusMessage = (status: TStatus) =>
-    this.translate.instant(`personals.statuses.${status}`);
 
   trackMessages(index: number, item: CoachClass) {
     return item.id;

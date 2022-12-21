@@ -5,7 +5,7 @@
       <ion-item
         color="light"
         *ngFor="let item of items; trackBy: trachSchedules"
-      >
+        ><app-info-button [navigateTo]="[rootPath, item.id]"></app-info-button>
         <app-schedule-item style="width: 100%" [item]="item">
           <app-item-buttons
             buttons
