@@ -3,7 +3,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { LoginPage } from '@authModule/pages/login/login.page';
 import { TranslateModule } from '@ngx-translate/core';
-import { BeService } from '@authModule/services/login.services/login.service';
+import { BeService } from '@authModule/services/login.service';
 import { AuthService } from '@authModule/services/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';

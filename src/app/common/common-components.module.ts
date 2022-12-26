@@ -12,7 +12,6 @@ import { MessagesComponent } from '@commonComponents/messages/messages.component
 import { ScheduleItemComponent } from '@commonComponents/schedule-item/schedule-item.component';
 import { UserCardComponent } from '@commonComponents/user-card/user-card.component';
 import { CancellButtonComponent } from '@commonComponents/cancell-button/cancell-button.component';
-import { FormatDatePipe } from '@pipes/format-date.pipe';
 
 @NgModule({
   declarations: [

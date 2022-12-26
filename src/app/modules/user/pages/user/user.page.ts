@@ -189,8 +189,4 @@ export class UserPage implements OnInit {
         complete: () => this.loader.hideSpinner(),
       });
   }
-
-  // attention function in template
-  // public getValidation = this.formFunctionsServise.getValidation;
-  // public getErrors = this.formFunctionsServise.getErrors;
 }

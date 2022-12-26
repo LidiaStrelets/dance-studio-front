@@ -18,7 +18,6 @@ export class LanguageService {
   private languageKey = LocalStorageKeys.language;
   private languages: Languages[] = [];
   private language: Languages = ELanguages.en;
-  // attention
   public isUk = this.getLanguage() === ELanguages.uk;
 
   constructor(private translateService: TranslateService) {

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AuthService } from '@app/modules/auth/services/auth.service';
+import { AuthService } from '@authModule/services/auth.service';
 import { environment } from '@root/environments/environment';
 import { catchError, Observable, take } from 'rxjs';
 import { PersonalMessage } from '@app/common/types/types';

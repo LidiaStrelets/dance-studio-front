@@ -9,7 +9,6 @@ import {
   EAlertTranslation,
 } from '@app/common/types/types';
 import { routesPaths } from '@app/app-routing.module';
-import { CreatePersonal } from '@personalsModule/types/types';
 
 @Injectable({
   providedIn: 'root',

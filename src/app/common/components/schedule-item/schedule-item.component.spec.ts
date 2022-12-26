@@ -4,7 +4,7 @@ import { AuthService } from '@app/modules/auth/services/auth.service';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ScheduleItemComponent } from './schedule-item.component';
+import { ScheduleItemComponent } from '@commonComponents/schedule-item/schedule-item.component';
 
 describe('ScheduleItemComponent', () => {
   let component: ScheduleItemComponent;
