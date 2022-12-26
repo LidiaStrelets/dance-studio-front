@@ -1,0 +1,9 @@
+@use "./../../../../assets/styles/mixins/title-font-size.scss" as *;
+
+ion-title {
+  padding: 0;
+  position: relative;
+  left: -15px;
+
+  @include title-font-size();
+}

@@ -1,0 +1,43 @@
+<app-auth-header
+  [link]="routerLink"
+  [linkName]="'register.button'|translate"
+></app-auth-header>
+<ion-content>
+  <form (ngSubmit)="handleSubmit()" [formGroup]="loginForm">
+    <ion-item
+      [ngStyle]="emailField?.invalid && emailField?.untouched?inputStyles:{}"
+    >
+      <ion-label position="floating">{{"login.email"|translate}}</ion-label>
+      <ion-input
+        [formControlName]="loginFormFields.email"
+        type="email"
+      ></ion-input>
+      <app-errors
+        *ngIf="emailField?.invalid && emailField?.touched"
+        [errors]="emailField?.errors"
+      ></app-errors>
+    </ion-item>
+    <ion-item
+      [ngStyle]="passwordField?.invalid && passwordField?.untouched?inputStyles:{}"
+    >
+      <ion-label position="floating">{{"login.password"|translate}}</ion-label>
+      <ion-input
+        [formControlName]="loginFormFields.password"
+        type="password"
+      ></ion-input>
+      <app-errors
+        *ngIf="passwordField?.invalid && passwordField?.touched"
+        [errors]="passwordField?.errors"
+      ></app-errors>
+    </ion-item>
+
+    <ion-button
+      [disabled]="loginForm.invalid"
+      class="ion-margin-top ion-margin-horizontal padding-custom"
+      expand="block"
+      fill="outline"
+      type="submit"
+      >{{"login.button"|translate}}</ion-button
+    >
+  </form>
+</ion-content>

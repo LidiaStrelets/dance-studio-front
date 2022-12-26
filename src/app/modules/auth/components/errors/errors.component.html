@@ -1,0 +1,10 @@
+<div *ngIf="errors">
+  <p *ngIf="errors['required']">{{ returnErrors["required"] }}</p>
+  <p *ngIf="errors['email']">{{ returnErrors["email"] }}</p>
+  <p *ngIf="errors['pattern']">
+    {{ returnErrors["pattern"] }}
+  </p>
+  <p *ngIf="errors['keyRequired']">{{ returnErrors["keyRequired"] }}</p>
+  <p *ngIf="errors['min']">{{ returnErrors["min"] }}</p>
+  <p *ngIf="errors['max']">{{ returnErrors["max"] }}</p>
+</div>

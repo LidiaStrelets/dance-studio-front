@@ -1,0 +1,103 @@
+<app-auth-header
+  [link]="routerLink"
+  [linkName]="'login.button'|translate"
+></app-auth-header>
+<ion-content>
+  <form (ngSubmit)="handleSubmit()" [formGroup]="registrationForm">
+    <ion-item
+      [ngStyle]="emailField?.invalid && emailField?.untouched?inputStyles:{}"
+    >
+      <ion-label position="floating">{{"login.email"|translate}}</ion-label>
+      <ion-input
+        [formControlName]="registrationFormFields.email"
+        type="email"
+      ></ion-input>
+      <app-errors
+        *ngIf="emailField?.invalid && emailField?.touched"
+        [errors]="emailField?.errors"
+      ></app-errors>
+    </ion-item>
+    <ion-item
+      [ngStyle]="passwordField?.invalid && passwordField?.untouched?inputStyles:{}"
+    >
+      <ion-label position="floating">{{"login.password"|translate}}</ion-label>
+      <ion-input
+        [formControlName]="registrationFormFields.password"
+        type="password"
+      ></ion-input>
+      <app-errors
+        *ngIf="passwordField?.invalid && passwordField?.touched"
+        [errors]="passwordField?.errors"
+        [field]="registrationFormFields.password"
+      ></app-errors>
+    </ion-item>
+    <ion-item
+      [ngStyle]="firstnameField?.invalid && firstnameField?.untouched?inputStyles:{}"
+    >
+      <ion-label position="floating"
+        >{{"register.firstname"|translate}}</ion-label
+      >
+      <ion-input
+        [formControlName]="registrationFormFields.firstname"
+        type="text"
+      ></ion-input>
+      <app-errors
+        *ngIf="firstnameField?.invalid && firstnameField?.touched"
+        [errors]="firstnameField?.errors"
+      ></app-errors>
+    </ion-item>
+    <ion-item
+      [ngStyle]="lastnameField?.invalid && lastnameField?.untouched?inputStyles:{}"
+    >
+      <ion-label position="floating"
+        >{{"register.lastname"|translate}}</ion-label
+      >
+      <ion-input
+        [formControlName]="registrationFormFields.lastname"
+        type="text"
+      ></ion-input>
+      <app-errors
+        *ngIf="lastnameField?.invalid && lastnameField?.touched"
+        [errors]="lastnameField?.errors"
+      ></app-errors>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">{{"register.role"|translate}}</ion-label>
+      <ion-select
+        [formControlName]="registrationFormFields.role"
+        interface="popover"
+        [placeholder]="'register.selectPlaceholder'|translate"
+      >
+        <ion-select-option *ngFor="let role of roles" [value]="role"
+          >{{"roles"+'.'+ role|translate}}</ion-select-option
+        >
+      </ion-select>
+    </ion-item>
+    <ion-item
+      [ngStyle]="registrationForm.errors"
+      *ngIf="roleField?.value!==roles[1] "
+    >
+      <ion-label position="floating"
+        >{{"register.adminKey"|translate}}</ion-label
+      >
+      <ion-input
+        [formControlName]="registrationFormFields.adminKey"
+        type="password"
+      ></ion-input>
+      <app-errors
+        *ngIf="keyField?.touched && registrationForm.errors!['keyRequired']"
+        [errors]="registrationForm.errors"
+        [field]="registrationFormFields.adminKey"
+      ></app-errors>
+    </ion-item>
+
+    <ion-button
+      [disabled]="registrationForm.invalid"
+      class="ion-margin-top ion-margin-horizontal padding-custom"
+      expand="block"
+      fill="outline"
+      type="submit"
+      >{{"register.button"|translate}}</ion-button
+    >
+  </form>
+</ion-content>

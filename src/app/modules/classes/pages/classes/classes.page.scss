@@ -1,0 +1,9 @@
+@use "./../../../../../assets/styles/mixins/title-font-size.scss" as *;
+@use "./../../../../../assets/styles/mixins/card-content.scss" as *;
+
+ion-card-title {
+  @include title-font-size();
+}
+ion-card-content {
+  @include card-content();
+}

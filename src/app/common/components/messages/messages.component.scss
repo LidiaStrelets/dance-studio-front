@@ -1,0 +1,16 @@
+@use "./../../../../assets/styles/mixins/title-font-size.scss" as *;
+@use "./../../../../assets/styles/mixins/smaller-text.scss" as *;
+
+p {
+  margin: 0;
+
+  @include smaller-text();
+}
+ion-list {
+  padding: 0;
+}
+h1 {
+  margin: 0;
+
+  @include title-font-size();
+}

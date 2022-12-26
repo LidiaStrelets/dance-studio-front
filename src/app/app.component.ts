@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { LocalStorageKeys, MenuItem } from '@root/app/types';
+import { LocalStorageKeys, MenuItem } from '@app/common/types/types';
 import { routesPaths } from '@root/app/app-routing.module';
 import { AuthService } from '@authModule/services/auth.service';
 import { LoaderService } from '@services/loader.service';
-import { ELanguages } from '@homeModule/types';
-import { TRoles } from '@userModule/types';
+import { TRoles } from '@userModule/types/types';
+import { ELanguages } from '@homeModule/types/types';
 
 @Component({
   selector: 'app-root',
@@ -13,22 +13,22 @@ import { TRoles } from '@userModule/types';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  menuItems: MenuItem[] = [
+  public menuItems: MenuItem[] = [
     {
       id: 0,
-      name: 'Home page',
+      name: 'Home_page',
       translatedName: 'Home page',
       link: ['../', routesPaths.home],
     },
     {
       id: 1,
-      name: 'My profile',
+      name: 'My_profile',
       translatedName: 'My profile',
       link: ['../', routesPaths.user],
     },
     {
       id: 2,
-      name: 'My payments',
+      name: 'My_payments',
       translatedName: 'My payments',
       link: ['../', routesPaths.payments],
     },
@@ -81,8 +81,8 @@ export class AppComponent {
       link: ['../', routesPaths.salary],
     },
   ];
-  languageKey = LocalStorageKeys.language;
-  role: TRoles | undefined;
+  private languageKey = LocalStorageKeys.language;
+  public role: TRoles | undefined;
 
   constructor(
     private translateService: TranslateService,
@@ -103,20 +103,17 @@ export class AppComponent {
       }
       this.role = authService.getUserRole();
     }, 1000);
+
+    this.translateService.get('menu').subscribe((res) => {
+      this.menuItems = this.menuItems.map((item) => ({
+        ...item,
+        translatedName: res[item.name],
+      }));
+    });
   }
 
-  getTranslation = (id: number) => {
-    const item = this.menuItems.find((item) => item.id === id);
-    if (item) {
-      this.translateService
-        .get(`menu.${item.name}`)
-        .subscribe((res) => (item.translatedName = res));
-      return item.translatedName;
-    } else return '';
-  };
-
-  handleLogout = () => {
+  public handleLogout() {
     this.loader.showSpinner();
     this.authService.logout();
-  };
+  }
 }

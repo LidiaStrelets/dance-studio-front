@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
-import { RegistrationFormFields } from '@authModule/types';
-import { Roles } from '@userModule/types';
+import { RegistrationFormFields } from '@authModule/types/types';
+import { Roles } from '@userModule/types/types';
 
 @Injectable({
   providedIn: 'root',

@@ -30,23 +30,17 @@ const routes: Routes = [
   {
     path: routesPaths.default,
     loadChildren: () =>
-      import('@authModule/components/welcome/welcome.module').then(
-        (m) => m.WelcomePageModule
-      ),
+      import('@authModule/welcome.module').then((m) => m.WelcomePageModule),
   },
   {
     path: routesPaths.register,
     loadChildren: () =>
-      import('@authModule/components/register/register.module').then(
-        (m) => m.RegisterPageModule
-      ),
+      import('@authModule/register.module').then((m) => m.RegisterPageModule),
   },
   {
     path: routesPaths.login,
     loadChildren: () =>
-      import('@authModule/components/login/login.module').then(
-        (m) => m.LoginPageModule
-      ),
+      import('@authModule/login.module').then((m) => m.LoginPageModule),
   },
   {
     path: routesPaths.home,
@@ -72,7 +66,9 @@ const routes: Routes = [
     path: routesPaths.classes,
     canActivate: [AuthGuard],
     loadChildren: () =>
-      import('@classesModule/classes.module').then((m) => m.ClassesPageModule),
+      import('@app/modules/classes/classes.module').then(
+        (m) => m.ClassesPageModule
+      ),
   },
   {
     path: routesPaths.enrollments,
@@ -122,9 +118,7 @@ const routes: Routes = [
     path: routesPaths.salary,
     canActivate: [AuthGuard, IsClienthGuard],
     loadChildren: () =>
-      import('./components/salary/salary.module').then(
-        (m) => m.SalaryPageModule
-      ),
+      import('@salaryModule/salary.module').then((m) => m.SalaryPageModule),
   },
   {
     path: '**',

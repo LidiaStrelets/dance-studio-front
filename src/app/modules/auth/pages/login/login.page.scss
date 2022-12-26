@@ -1,0 +1,9 @@
+@use "../../../../../assets/styles/mixins/button.scss" as *;
+
+form {
+  padding: 10px;
+  border-radius: 5px;
+}
+ion-button {
+  @include auth-button();
+}

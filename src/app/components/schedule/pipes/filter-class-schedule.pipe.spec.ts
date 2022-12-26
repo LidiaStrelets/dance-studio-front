@@ -1,9 +1,0 @@
-import { FilterClassSchedulePipe } from './filter-class-schedule.pipe';
-
-fdescribe('FilterClassSchedulePipe', () => {
-  const dateServiceSpy = jasmine.createSpyObj(['getWeekDay']);
-  it('create an instance', () => {
-    const pipe = new FilterClassSchedulePipe(dateServiceSpy);
-    expect(pipe).toBeTruthy();
-  });
-});

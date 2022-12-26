@@ -1,0 +1,14 @@
+@use "./../../../../../assets/styles/mixins/title-font-size.scss" as *;
+
+p {
+  margin: 0;
+  &.margin-bottom {
+    margin-bottom: 10px;
+  }
+  &.item-line {
+    @include title-font-size();
+  }
+}
+.duration {
+  color: red;
+}

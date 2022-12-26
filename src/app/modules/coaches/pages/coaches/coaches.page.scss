@@ -1,0 +1,13 @@
+@use "./../../../../../assets/styles/mixins/title-font-size.scss" as *;
+@use "./../../../../../assets/styles/mixins/card-content.scss" as *;
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+ion-card-title {
+  @include title-font-size();
+}
+ion-card-content {
+  @include card-content();
+}

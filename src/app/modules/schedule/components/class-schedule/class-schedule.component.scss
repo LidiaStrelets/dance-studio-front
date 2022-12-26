@@ -1,0 +1,23 @@
+@use "./../../../../../assets/styles/mixins/title-font-size.scss" as *;
+
+p {
+  &.basic-text {
+    text-align: center;
+
+    margin-top: 10px;
+
+    @include title-font-size();
+  }
+  &.item-line {
+    @include title-font-size();
+
+    margin-bottom: 0;
+
+    &:last-child {
+      margin-bottom: 10px;
+    }
+  }
+}
+ion-list {
+  padding: 0;
+}

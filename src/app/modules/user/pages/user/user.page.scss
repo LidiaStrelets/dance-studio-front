@@ -1,0 +1,83 @@
+@use "./../../../../../assets/styles/mixins//button.scss" as *;
+@use "./../../../../../assets/styles/mixins//textarea.scss" as *;
+
+ion-datetime {
+  --background: #e4e6e7;
+  --background-rgb: 228, 230, 231;
+}
+.date {
+  font-size: 25px;
+  text-transform: capitalize;
+  opacity: 0;
+  transition: opacity 250ms ease;
+  &.hidden {
+    opacity: 1;
+  }
+}
+.datePicker-container {
+  position: absolute;
+  left: 3px;
+
+  & > div {
+    position: absolute;
+    top: -290px;
+
+    transform: scale(0);
+    opacity: 0;
+
+    transition: transform 250ms ease, opacity 250ms ease;
+    &.shown {
+      z-index: 2;
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}
+.edit-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &.end {
+    @media screen and (min-width: 300px) {
+      align-items: end;
+    }
+  }
+}
+textarea {
+  @include textarea();
+
+  &.bordered {
+    border-color: var(--ion-color-profile);
+  }
+}
+ion-card-title {
+  @media screen and (max-width: 300px) {
+    font-size: 20px;
+  }
+  @media screen and (max-width: 260px) {
+    font-size: 15px;
+  }
+}
+p {
+  margin: 0;
+  font-size: 25px;
+  @media screen and (max-width: 300px) {
+    font-size: 20px;
+  }
+  @media screen and (max-width: 260px) {
+    font-size: 15px;
+  }
+}
+span {
+  font-size: 20px;
+  @media screen and (max-width: 300px) {
+    font-size: 15px;
+  }
+  @media screen and (max-width: 260px) {
+    font-size: 10px;
+  }
+}
+ion-button {
+  @include auth-button();
+}

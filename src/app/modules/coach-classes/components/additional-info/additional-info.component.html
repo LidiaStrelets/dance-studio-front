@@ -1,0 +1,35 @@
+<app-info-header [backTo]="rootPath"></app-info-header>
+<ion-content *ngIf="item">
+  <ion-item color="light">
+    <div class="main-container">
+      <div class="item-container">
+        <app-notes [item]="item"></app-notes>
+      </div>
+
+      <div class="item-container">
+        <p class="item-line">{{ "infoModal.enrolled" | translate }}:</p>
+
+        <ion-list *ngIf="item.clients">
+          <app-user-card
+            *ngFor="let id of item.clients"
+            [userId]="id"
+          ></app-user-card>
+        </ion-list>
+      </div>
+
+      <p [ngClass]="status">{{ statusText }}</p>
+      <app-pick-hall
+        *ngIf="item.status === statuses.created"
+        (onPickHall)="setHall($event)"
+      ></app-pick-hall>
+
+      <app-status-created
+        [hallId]="pickedHall"
+        [item]="item"
+        *ngIf="item.status === statuses.created"
+      ></app-status-created>
+
+      <app-messages [personal_id]="item['id']"></app-messages>
+    </div>
+  </ion-item>
+</ion-content>

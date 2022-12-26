@@ -1,0 +1,41 @@
+<ion-content [scrollEvents]="true" (ionScroll)="calendar.closeDate()">
+  <h1 *ngIf="archive; then archiveTitle; else currentTitle"></h1>
+  <ng-template #archiveTitle
+    ><h1>{{ "enrollments.archiveHeader" | translate }}</h1></ng-template
+  >
+  <ng-template #currentTitle
+    ><h1>{{ "enrollments.header" | translate }}</h1></ng-template
+  >
+  <app-calendar
+    (onSetDate)="handleDate($event)"
+    [archive]="archive"
+    #calendar
+  ></app-calendar>
+
+  <div>
+    <ion-list>
+      <ion-item
+        color="light"
+        *ngFor="let item of items; trackBy: trackEnrollments"
+      >
+        <app-schedule-item
+          [item]="item"
+          [cancell]="cancell"
+          [archive]="archive"
+        >
+          <div>
+            <p class="left" *ngIf="item | classIsComing">
+              {{ item | getTimeLeft }}
+              {{ "enrollments.timeLeft" | translate }}
+            </p>
+            <app-cancell-button
+              *ngIf="!archive"
+              [item]="item"
+              (cancellEnrollment)="cancell($event)"
+            ></app-cancell-button>
+          </div>
+        </app-schedule-item>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

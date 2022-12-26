@@ -1,0 +1,12 @@
+<app-info-header [backTo]="rootPath"></app-info-header>
+<ion-content
+  ><ion-item [ngClass]="item.status" color="light" *ngIf="item">
+    <div>
+      <p [ngClass]="item.status">{{ statusMessage }}</p>
+      <app-messages [personal_id]="item['id']"></app-messages>
+      <app-payment
+        [item]="item"
+        *ngIf="item.status === statuses.approved"
+      ></app-payment>
+    </div> </ion-item
+></ion-content>

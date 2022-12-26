@@ -1,0 +1,19 @@
+<ion-content [scrollEvents]="true" (ionScroll)="calendar.closeDate()">
+  <app-calendar (onSetDate)="handleDate($event)" #calendar></app-calendar>
+  <div>
+    <ion-list>
+      <ion-item
+        color="light"
+        *ngFor="let item of items; trackBy: trackSchedules"
+        ><app-info-button [navigateTo]="[rootPath, item.id]"></app-info-button>
+        <app-schedule-item style="width: 100%" [item]="item">
+          <app-item-buttons
+            buttons
+            [item]="item"
+            (newEnrollment)="enroll($event)"
+          ></app-item-buttons>
+        </app-schedule-item>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>

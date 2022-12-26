@@ -1,0 +1,20 @@
+.info {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border: 2px solid var(--ion-color-contrast);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-weight: bold;
+}
+/*# sourceMappingURL=info-button.component.css.map */

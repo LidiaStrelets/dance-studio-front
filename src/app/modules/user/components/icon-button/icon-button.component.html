@@ -1,0 +1,34 @@
+<div class="container">
+  <div *ngIf="show; then done; else edit"></div>
+
+  <ng-template #edit
+    ><ion-button
+      class="icon-button"
+      color="primary"
+      fill="clear"
+      (click)="toggle()"
+    >
+      <ion-icon slot="icon-only" name="pencil-outline"></ion-icon> </ion-button
+  ></ng-template>
+
+  <ng-template #done
+    ><div class="buttons-container">
+      <ion-button
+        *ngIf="cleanAllowed"
+        class="icon-button red"
+        color="primary"
+        fill="clear"
+        (click)="onClean()"
+      >
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon> </ion-button
+      ><ion-button
+        class="icon-button"
+        color="primary"
+        fill="clear"
+        (click)="toggle()"
+      >
+        <ion-icon slot="icon-only" name="checkmark"></ion-icon>
+      </ion-button>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,15 @@
+<div *ngIf="item" class="item-container">
+  <p class="item-line">{{ item.coach }} {{ item.class }}</p>
+  <p class="item-line">
+    {{
+      item.date_time | formatDate : (showPersonalsPart ? "date-time" : "time")
+    }}
+    {{ item.hall }}
+  </p>
+  <span *ngIf="item.duration !== 60" class="duration"
+    >{{ item.duration }} {{ "schedule.minutes" | translate }}</span
+  >
+  <ng-content *ngIf="!isCoach" select="[buttons]"></ng-content>
+
+  <ng-content></ng-content>
+</div>

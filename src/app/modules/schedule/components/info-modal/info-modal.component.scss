@@ -1,0 +1,43 @@
+@use "./../../../../../assets/styles/mixins//title-font-size.scss" as *;
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: revert;
+  padding: 10px;
+}
+ion-title {
+  position: initial;
+  text-align: start;
+  padding: 0;
+
+  @include title-font-size();
+}
+ion-buttons {
+  position: initial;
+}
+ion-modal {
+  --ion-background-color: #faf2e2;
+  --ion-toolbar-background: #e6b629;
+  --ion-toolbar-border-color: #ffeaac;
+}
+.item-container {
+  padding: 20px;
+
+  p {
+    margin: 0;
+
+    @include title-font-size();
+
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+
+    & span {
+      font-size: inherit;
+    }
+  }
+}
+ion-list {
+  padding: 0;
+}

@@ -1,0 +1,98 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="backToPersonals()">
+        <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <h1>{{ "personals.enroll.header" | translate }}</h1>
+
+  <form (ngSubmit)="handleSubmit()" [formGroup]="personalForm">
+    <app-calendar (onSetDate)="handleDate($event)" #calendar></app-calendar>
+    <ion-item
+      [ngStyle]="
+        coachField?.invalid && coachField?.untouched ? inputStyles : {}
+      "
+    >
+      <ion-label position="floating">{{
+        "personals.enroll.coachLabel" | translate
+      }}</ion-label>
+
+      <ion-select
+        [formControlName]="personalFormFields.coach"
+        interface="popover"
+        [placeholder]="'personals.enroll.chooseCoach' | translate"
+      >
+        <ion-select-option *ngFor="let coach of coaches" [value]="coach.id">
+          {{ coach.firstname }}
+          {{ coach.lastname }}
+        </ion-select-option>
+      </ion-select>
+      <app-errors
+        *ngIf="coachField?.invalid && coachField?.touched"
+        [errors]="coachField?.errors"
+      ></app-errors>
+    </ion-item>
+    <ion-item
+      [ngStyle]="
+        classField?.invalid && classField?.untouched ? inputStyles : {}
+      "
+    >
+      <ion-label position="floating">{{
+        "personals.enroll.classLabel" | translate
+      }}</ion-label>
+      <ion-select
+        [formControlName]="personalFormFields.class"
+        interface="popover"
+        [placeholder]="'personals.enroll.chooseClass' | translate"
+      >
+        <ion-select-option
+          *ngFor="let classItem of translatedClasses"
+          [value]="classItem.id"
+          >{{ classItem.name }}</ion-select-option
+        >
+      </ion-select>
+      <app-errors
+        *ngIf="classField?.invalid && classField?.touched"
+        [errors]="classField?.errors"
+      ></app-errors>
+    </ion-item>
+    <ion-item
+      [ngStyle]="
+        durationField?.invalid && durationField?.untouched ? inputStyles : {}
+      "
+    >
+      <ion-label position="floating">{{
+        "personals.enroll.durationLabel" | translate
+      }}</ion-label>
+      <ion-input
+        [formControlName]="personalFormFields.duration"
+        type="number"
+        [placeholder]="'personals.enroll.chooseDuration' | translate"
+      ></ion-input>
+
+      <app-errors
+        *ngIf="durationField?.invalid && durationField?.touched"
+        [errors]="durationField?.errors"
+      ></app-errors>
+    </ion-item>
+
+    <textarea
+      [formControlName]="personalFormFields.message"
+      [placeholder]="'personals.enroll.messagePlaceholder' | translate"
+    ></textarea>
+
+    <ion-button
+      class="submit"
+      expand="block"
+      size="large"
+      fill="outline"
+      [disabled]="!personalForm.valid"
+      type="submit"
+      >{{ "personals.enroll.submit" | translate }}</ion-button
+    >
+  </form>
+</ion-content>

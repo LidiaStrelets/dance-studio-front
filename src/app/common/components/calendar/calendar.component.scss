@@ -1,0 +1,82 @@
+@use "./../../../../assets/styles/mixins/title-font-size.scss" as *;
+@use "./../../../../assets/styles/mixins/border.scss" as *;
+
+.container {
+  padding: 10px;
+}
+.date-container {
+  color: var(--ion-color-step-400);
+
+  position: absolute;
+  z-index: 10;
+
+  transform: scale(1) translateY(-380px);
+  transition: transform 250ms ease;
+  &.shown {
+    transform: scale(1) translateY(15px);
+
+    @media screen and (max-width: 370px) {
+      left: -10px;
+      transform: scale(0.9) translateY(0);
+    }
+    @media screen and (max-width: 330px) {
+      left: -20px;
+      transform: scale(0.8) translateY(-15px);
+    }
+    @media screen and (max-width: 300px) {
+      left: -30px;
+
+      transform: scale(0.7) translateY(-30px);
+    }
+    @media screen and (max-width: 270px) {
+      left: -70px;
+
+      transform: scale(0.6) translateY(-60px);
+    }
+    @media screen and (max-width: 240px) {
+      left: -80px;
+
+      transform: scale(0.5) translateY(-90px);
+    }
+    @media screen and (max-width: 210px) {
+      left: -100px;
+
+      transform: scale(0.4) translateY(-140px);
+    }
+  }
+
+  @media screen and (max-width: 370px) {
+    transform: scale(0.9) translateY(-380px);
+  }
+  @media screen and (max-width: 330px) {
+    transform: scale(0.8) translateY(-380px);
+  }
+  @media screen and (max-width: 300px) {
+    transform: scale(0.7) translateY(-380px);
+  }
+  @media screen and (max-width: 270px) {
+    left: -70px;
+
+    transform: scale(0.6) translateY(-380px);
+  }
+  @media screen and (max-width: 240px) {
+    left: -80px;
+
+    transform: scale(0.5) translateY(-400px);
+  }
+  @media screen and (max-width: 210px) {
+    left: -100px;
+
+    transform: scale(0.4) translateY(-480px);
+  }
+}
+ion-datetime {
+  @include border(white);
+}
+ion-icon {
+  position: relative;
+  top: 3px;
+}
+ion-label {
+  @include title-font-size();
+}

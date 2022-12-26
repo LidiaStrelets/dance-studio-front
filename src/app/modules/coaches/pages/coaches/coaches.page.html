@@ -1,0 +1,17 @@
+<app-header [header]="'coaches.header'|translate"></app-header>
+
+<ion-content>
+  <swiper [config]="config" #slides>
+    <ng-template *ngFor="let coach of coaches" swiperSlide
+      ><ion-card>
+        <img alt="Silhouette of mountains" [src]="coach.photo??avatar" />
+        <ion-card-header>
+          <ion-card-title
+            >{{coach.firstname}} {{coach.lastname}}</ion-card-title
+          >
+        </ion-card-header>
+        <ion-card-content> {{coach.information}} </ion-card-content>
+      </ion-card></ng-template
+    >
+  </swiper>
+</ion-content>

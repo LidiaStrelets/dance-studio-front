@@ -12,7 +12,11 @@ import {
   HTTP_INTERCEPTORS,
 } from '@angular/common/http';
 import { TokenInterceptorService } from '@services/token-interceptor.service';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateLoader,
+  TranslateService,
+} from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ErrorCatchingInterceptor } from '@interceptors/httpError.interceptor';
 import { AlertService } from '@services/alert.service';
@@ -20,9 +24,9 @@ import { ErrorService } from '@services/error.service';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AuthService } from '@authModule/services/auth.service';
-import { FilterMenuPipe } from './pipes/filter-menu.pipe';
-import { ZoneTimePipe } from './pipes/zone-time.pipe';
-import { FormatDatePipe } from './pipes/format-date.pipe';
+import { FilterMenuPipe } from '@pipes/filter-menu.pipe';
+import { ZoneTimePipe } from '@pipes/zone-time.pipe';
+import { FormatDatePipe } from '@pipes/format-date.pipe';
 import { GetExpirationDatePipe } from '@paymentsModule/pipes/get-expiration-date.pipe';
 
 export const httpLoaderFactory = (httpClient: HttpClient) =>
@@ -61,6 +65,7 @@ export const httpLoaderFactory = (httpClient: HttpClient) =>
       multi: true,
       deps: [AlertService, ErrorService, AuthService],
     },
+    TranslateService,
   ],
   bootstrap: [AppComponent],
 })
