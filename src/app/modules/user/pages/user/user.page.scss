@@ -1,9 +1,15 @@
-@use "./../../../../../assets/styles/mixins//button.scss" as *;
-@use "./../../../../../assets/styles/mixins//textarea.scss" as *;
+@use "./../../../../../assets/styles/mixins/button.scss" as *;
+@use "./../../../../../assets/styles/mixins/textarea.scss" as *;
+@use "./../../../../../assets/styles/mixins/border.scss" as *;
 
 ion-datetime {
-  --background: #e4e6e7;
-  --background-rgb: 228, 230, 231;
+  @include border(rgb(82, 82, 82));
+
+  --background: #dbdbdb;
+  --background-rgb: rgb(219, 219, 219);
+
+  border-radius: 16px;
+  color: #a79ca2;
 }
 .date {
   font-size: 25px;

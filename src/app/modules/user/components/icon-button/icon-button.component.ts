@@ -1,5 +1,7 @@
+import { Location } from '@angular/common';
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -22,7 +24,13 @@ export class IconButtonComponent implements OnInit {
   cleanItem = new EventEmitter<UserDeletedFields>();
 
   public show = false;
-  constructor() {}
+
+  constructor(private location: Location, private changes: ChangeDetectorRef) {
+    this.location.onUrlChange(() => {
+      this.show = false;
+      changes.markForCheck();
+    });
+  }
 
   ngOnInit() {}
 
