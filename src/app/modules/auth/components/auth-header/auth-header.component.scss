@@ -1,9 +1,11 @@
 div {
   display: flex;
   justify-content: flex-end;
-  padding-right: 30px;
+  padding-right: 15px;
 }
 ion-button.padding-custom {
   --padding-top: 20px;
   --padding-bottom: 20px;
+
+  text-transform: uppercase;
 }
