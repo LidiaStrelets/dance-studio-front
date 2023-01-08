@@ -54,14 +54,12 @@ export class PersonalsService {
       return null;
     }
 
-    return this.http
-      .post<Personal>(this.coreUrl + 'update/' + id, personal)
-      .pipe(
-        catchError((err) => {
-          throw err;
-        }),
-        take(1)
-      );
+    return this.http.patch<Personal>(this.coreUrl + id, personal).pipe(
+      catchError((err) => {
+        throw err;
+      }),
+      take(1)
+    );
   }
 
   public get(id: string): Observable<Personal[]> | null {
