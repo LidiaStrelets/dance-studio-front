@@ -3,6 +3,8 @@
 @mixin textarea {
   @include border(--ion-color-profile);
 
+  resize: none;
+
   background: inherit;
   width: 100%;
   margin-top: 20px;
