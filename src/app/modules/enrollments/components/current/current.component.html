@@ -13,7 +13,7 @@
   ></app-calendar>
 
   <div>
-    <ion-list>
+    <ion-list *ngIf="items.length > 0">
       <ion-item
         color="light"
         *ngFor="let item of items; trackBy: trackEnrollments"

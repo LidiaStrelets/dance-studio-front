@@ -1,5 +1,7 @@
 import { Location } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -19,6 +21,7 @@ import { DateFormat } from '@app/common/types/types';
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CalendarComponent implements OnInit, OnChanges {
   @Input()
@@ -40,7 +43,8 @@ export class CalendarComponent implements OnInit, OnChanges {
     private dateService: DateService,
     private location: Location,
     private formatDate: FormatDatePipe,
-    private builder: FormBuilder
+    private builder: FormBuilder,
+    private changes: ChangeDetectorRef
   ) {
     this.dateForm = this.builder.group({
       date: [this.dateService.baseScheduleDate],
@@ -51,6 +55,14 @@ export class CalendarComponent implements OnInit, OnChanges {
       this.format = 'date-time';
     }
     this.date = formatDate.transform(dateService.baseScheduleDate, this.format);
+
+    window.addEventListener('click', (event) => {
+      const target = event.target as HTMLDivElement;
+
+      if (target.id !== 'calendar' && target.id !== 'label' && this.showDate) {
+        this.toggleDate();
+      }
+    });
   }
 
   ngOnInit() {}
@@ -63,6 +75,7 @@ export class CalendarComponent implements OnInit, OnChanges {
       }
     }
   }
+
   private getMinDate() {
     if (this.location.path().includes(routesPaths.schedule) || this.archive) {
       return this.dateService.getMinScheduleDate();
@@ -99,6 +112,7 @@ export class CalendarComponent implements OnInit, OnChanges {
       this.onSetDate.emit(this.getDate());
       this.date = this.getDate();
     }
+    this.changes.markForCheck()
   }
 
   public getDate() {

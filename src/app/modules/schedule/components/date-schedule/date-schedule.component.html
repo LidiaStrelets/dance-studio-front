@@ -1,7 +1,7 @@
 <ion-content [scrollEvents]="true" (ionScroll)="calendar.closeDate()">
   <app-calendar (onSetDate)="handleDate($event)" #calendar></app-calendar>
   <div>
-    <ion-list>
+    <ion-list *ngIf="items.length>0">
       <ion-item
         color="light"
         *ngFor="let item of items; trackBy: trackSchedules"
