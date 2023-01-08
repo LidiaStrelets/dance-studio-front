@@ -71,7 +71,13 @@
   }
 }
 ion-datetime {
-  @include border(white);
+  @include border(rgb(82, 82, 82));
+
+  --background: #dbdbdb;
+  --background-rgb: rgb(219, 219, 219);
+
+  border-radius: 16px;
+  color: #a79ca2;
 }
 ion-icon {
   position: relative;
