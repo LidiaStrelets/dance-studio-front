@@ -1,10 +1,12 @@
 <ion-content>
-  <ion-item color="light">
+  <ion-item lines="none" color="light">
+    <ion-label *ngIf="!filters.value.coach">{{
+      "schedule.coachText" | translate
+    }}</ion-label>
     <ion-select
       [(ngModel)]="filters.value.coach"
       (ngModelChange)="selectCoach($event)"
       interface="popover"
-      [placeholder]="'schedule.coachText' | translate"
     >
       <ion-select-option *ngFor="let coach of names" [value]="coach.id">{{
         coach.name
@@ -13,13 +15,15 @@
   </ion-item>
 
   <ion-list>
-    <ion-item color="light">
+    <ion-item lines="none" color="light">
+      <ion-label *ngIf="filters.value.days.length === 0">{{
+        "schedule.selectDays" | translate
+      }}</ion-label>
       <ion-select
         [okText]="'buttons.ok' | translate"
         [cancelText]="'buttons.cancel' | translate"
         (ngModelChange)="setSelectedDays($event)"
         [(ngModel)]="selectValue"
-        [placeholder]="'schedule.selectDays' | translate"
         [multiple]="true"
       >
         <ion-select-option *ngFor="let item of radioItems" [value]="item.id">{{
@@ -33,6 +37,7 @@
   <ng-template #list>
     <ion-list>
       <ion-item
+        lines="none"
         color="light"
         *ngFor="
           let item of items

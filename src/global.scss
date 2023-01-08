@@ -9,7 +9,9 @@
  * https://ionicframework.com/docs/layout/global-stylesheets
  */
 @use "./assets/styles/mixins/smaller-text.scss" as *;
+@use "./assets/styles/mixins/select-buttons.scss" as *;
 @use "./assets/styles/mixins/title-font-size.scss" as *;
+@use "./assets/styles/mixins/border.scss" as *;
 
 /* Core CSS required for Ionic components to work properly */
 @import "~@ionic/angular/css/core.css";
@@ -71,9 +73,6 @@ ion-alert div.alert-wrapper.ion-overlay-wrapper.sc-ion-alert-md {
     min-width: 80vw;
 
     margin-left: 10vw;
-    // position: relative;
-    // align-self: center;
-    // align-content: center;
   }
 }
 ion-alert.sc-ion-alert-md-h.sc-ion-alert-md-s.select-alert.multiple-select-alert,
@@ -86,5 +85,44 @@ ion-alert.sc-ion-alert-md-h.sc-ion-alert-md-s {
 div.alert-checkbox-label.sc-ion-alert-md {
   @media screen and (max-width: 250px) {
     font-size: 12px;
+  }
+}
+
+.select-popover ion-select-popover ion-list {
+  padding: 0;
+
+  --ion-item-background: #d0d0d0;
+  --ion-item-color: #5b5b5b;
+}
+
+div.alert-wrapper {
+  --background: #d0d0d0;
+  --ion-color-step-850: #7d7b7b;
+  --ion-color-step-550: #5b5b5b;
+  --ion-text-color: #7d7b7b;
+  --ion-color-primary: #5b5b5b;
+  --ion-item-background: #d0d0d0;
+  --ion-background-color: white;
+
+  & div > button.alert-button {
+    width: 40% !important;
+
+    & > span {
+      @include select-buttons();
+      justify-content: center;
+      text-transform: uppercase;
+    }
+  }
+
+  & div.alert-button-group {
+    flex-direction: row !important;
+    justify-content: space-evenly;
+  }
+}
+
+.alert-title.sc-ion-alert-ios {
+  font-size: 25px;
+  @media screen and (max-width: 300px) {
+    font-size: 17px;
   }
 }

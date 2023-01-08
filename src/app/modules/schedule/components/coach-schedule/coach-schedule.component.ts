@@ -65,26 +65,24 @@ export class CoachScheduleComponent implements OnInit, OnDestroy, OnChanges {
           },
           error: (err) => {
             catchError(err);
-            this.loader.hideSpinner();
           },
-          complete: () => this.loader.hideSpinner(),
-        });
+          complete: () => {
+            this.usersService.getCoaches()?.subscribe({
+              next: (res) => {
+                this.names = res.map((coach) => ({
+                  name: this.usersService.getUserName(coach),
+                  id: coach.id,
+                }));
 
-        this.loader.showSpinner();
-        this.usersService.getCoaches()?.subscribe({
-          next: (res) => {
-            this.names = res.map((coach) => ({
-              name: this.usersService.getUserName(coach),
-              id: coach.id,
-            }));
-
-            this.changes.markForCheck();
+                this.changes.markForCheck();
+              },
+              error: (err) => {
+                catchError(err);
+                this.loader.hideSpinner();
+              },
+              complete: () => this.loader.hideSpinner(),
+            });
           },
-          error: (err) => {
-            catchError(err);
-            this.loader.hideSpinner();
-          },
-          complete: () => this.loader.hideSpinner(),
         });
 
         this.subscription = this.filters.subscribe((res) => {

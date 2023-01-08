@@ -1,0 +1,11 @@
+@mixin select-buttons {
+  @media screen and (min-width: 300px) {
+    font-size: 15px;
+  }
+  @media screen and (max-width: 299px) {
+    font-size: 10px;
+  }
+  @media screen and (max-width: 200px) {
+    font-size: 8px;
+  }
+}
