@@ -7,6 +7,10 @@ const routes: Routes = [
     path: '',
     component: PaymentsPage,
   },
+  {
+    path: ':priceId',
+    component: PaymentsPage,
+  },
 ];
 
 @NgModule({

@@ -2,9 +2,10 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
-import { catchError } from 'rxjs';
+import { catchError, Subscription } from 'rxjs';
 import { AlertService } from '@services/alert.service';
 import { DateService } from '@services/date.service';
 import { LoaderService } from '@services/loader.service';
@@ -16,6 +17,7 @@ import { PricesService } from '@pricesModule/services/prices.service';
 import { PaymentsService } from '@paymentsModule/services/payments.service';
 import { LanguageService } from '@services/language.service';
 import { GetExpirationDatePipe } from '@paymentsModule/pipes/get-expiration-date.pipe';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-payments',
@@ -23,7 +25,9 @@ import { GetExpirationDatePipe } from '@paymentsModule/pipes/get-expiration-date
   styleUrls: ['./payments.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PaymentsPage implements OnInit {
+export class PaymentsPage implements OnInit, OnDestroy {
+  private subscription?: Subscription;
+
   public prices: SubscriptionOption[] = [];
   public payments: PaymentWithExiring[] = [];
   public selectedSubscription = '';
@@ -37,7 +41,8 @@ export class PaymentsPage implements OnInit {
     private dateService: DateService,
     private languageService: LanguageService,
     private toExpirationDtae: GetExpirationDatePipe,
-    private changes: ChangeDetectorRef
+    private changes: ChangeDetectorRef,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -64,6 +69,13 @@ export class PaymentsPage implements OnInit {
         this.prices = res.map((price) =>
           this.languageService.translateClassesAmount(price)
         );
+
+        this.subscription = this.route.paramMap.subscribe((res) => {
+          const priceId = res.get('priceId');
+          if (priceId) {
+            this.selectedPrice = this.prices.find(({ id }) => id === priceId)!;
+          }
+        });
         this.changes.markForCheck();
       },
       error: (err) => {
@@ -72,6 +84,10 @@ export class PaymentsPage implements OnInit {
       },
       complete: () => this.loader.hideSpinner(),
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 
   private isExpiring(createdAt: string) {

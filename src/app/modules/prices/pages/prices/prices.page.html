@@ -1,7 +1,10 @@
 <app-header [header]="'prices.header'|translate"></app-header>
 
 <ion-content>
-  <ion-item *ngFor="let price of prices">
+  <ion-item
+    [routerLink]="['../','payments',price.id]"
+    *ngFor="let price of prices"
+  >
     <div>
       <p *ngIf="price.classes_amount===1000; then unlimited; else amount"></p>
       <ng-template #amount
