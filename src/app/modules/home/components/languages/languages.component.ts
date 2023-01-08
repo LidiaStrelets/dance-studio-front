@@ -38,6 +38,8 @@ export class LanguagesComponent implements OnInit {
     this.languageService.setLanguage(language);
     this.toggleLanguages();
     this.onSetLanguage.emit(language);
+
+    this.currentLanguage = language;
   }
 
   public toggleLanguages() {
