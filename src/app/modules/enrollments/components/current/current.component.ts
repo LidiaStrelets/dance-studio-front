@@ -4,6 +4,7 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnDestroy,
   OnInit,
   Output,
   SimpleChanges,
@@ -19,7 +20,7 @@ import { CalendarComponent } from '@commonComponents/calendar/calendar.component
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./current.component.scss'],
 })
-export class CurrentComponent implements OnInit, OnChanges {
+export class CurrentComponent implements OnInit, OnChanges, OnDestroy {
   @ViewChild('calendar')
   calendar!: CalendarComponent;
 
@@ -33,6 +34,8 @@ export class CurrentComponent implements OnInit, OnChanges {
   @Input()
   current = 0;
 
+  private timeoutId?: NodeJS.Timeout;
+
   constructor() {}
 
   ngOnInit() {}
@@ -45,12 +48,16 @@ export class CurrentComponent implements OnInit, OnChanges {
 
       if (propName === 'current') {
         if ((value === 0 && !this.archive) || (value === 1 && this.archive)) {
-          setTimeout(() => {
+          this.timeoutId = setTimeout(() => {
             this.setDate.emit(this.calendar.getDate());
           }, 1000);
         }
       }
     }
+  }
+
+  ngOnDestroy(): void {
+    clearTimeout(this.timeoutId);
   }
 
   public handleDate(date: string) {

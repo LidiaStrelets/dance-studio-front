@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  OnDestroy,
   OnInit,
 } from '@angular/core';
 import { catchError } from 'rxjs/operators';
@@ -18,12 +19,13 @@ import { PlatformService } from '@services/platform.service';
   styleUrls: ['./home.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit, OnDestroy {
   private halls: Hall[] = [];
+  private timeoutId;
 
   public translatedHalls: TranslatedHall[] = [];
   public mainImage = `${environment.basicUrl}main.png`;
-  public titleStyle;
+  public titleStyle = {};
 
   constructor(
     private hallService: HallService,
@@ -32,12 +34,14 @@ export class HomePage implements OnInit {
     private platformService: PlatformService,
     private changes: ChangeDetectorRef
   ) {
-    this.titleStyle = this.platformService.isPlatformIos()
-      ? {
-          position: 'relative',
-          paddingTop: 0,
-        }
-      : {};
+    this.timeoutId = setTimeout(() => {
+      this.titleStyle = this.platformService.isPlatformIos()
+        ? {
+            position: 'relative',
+            paddingTop: 0,
+          }
+        : {};
+    }, 1000);
   }
 
   ngOnInit() {
@@ -58,11 +62,15 @@ export class HomePage implements OnInit {
     }, 1000);
   }
 
-  handleSetLanguage  (language: Languages)  {
+  ngOnDestroy(): void {
+    clearTimeout(this.timeoutId);
+  }
+
+  public handleSetLanguage(language: Languages) {
     this.translatedHalls = this.languageService.translateHalls(
       this.halls,
       language
     );
     this.changes.markForCheck();
-  };
+  }
 }

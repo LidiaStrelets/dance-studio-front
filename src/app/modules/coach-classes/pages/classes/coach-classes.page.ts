@@ -35,6 +35,7 @@ export class CoachClassesPage implements OnInit, OnDestroy {
   private personals: CoachClass[] = [];
   private selectedDate = new BehaviorSubject('');
   private subscription: Subscription = {} as Subscription;
+  private timeoutId?: NodeJS.Timeout;
 
   public items: CoachClass[] = [];
   public config: SwiperOptions = {
@@ -51,10 +52,8 @@ export class CoachClassesPage implements OnInit, OnDestroy {
     private authService: AuthService,
     private loader: LoaderService,
     private changes: ChangeDetectorRef
-  ) {}
-
-  ngOnInit() {
-    setTimeout(() => {
+  ) {
+    this.timeoutId = setTimeout(() => {
       this.subscription = this.selectedDate.subscribe((res) => {
         if (!res) {
           return;
@@ -113,8 +112,11 @@ export class CoachClassesPage implements OnInit, OnDestroy {
     }, 1500);
   }
 
+  ngOnInit() {}
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    clearTimeout(this.timeoutId);
   }
 
   public setDate(date: string) {

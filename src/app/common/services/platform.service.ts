@@ -8,10 +8,9 @@ export class PlatformService {
   private isIos = false;
 
   constructor() {
-    Device.getInfo().then(
-      (info) =>
-        (this.isIos = info.platform === 'ios' || info.operatingSystem === 'ios')
-    );
+    Device.getInfo().then((info) => {
+      this.isIos = info.platform === 'ios' || info.operatingSystem === 'ios';
+    });
   }
 
   public isPlatformIos() {

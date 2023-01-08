@@ -3,6 +3,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
   Output,
   SimpleChanges,
@@ -18,7 +19,7 @@ import { CoachClass } from '@coachClassesModule/types/types';
   styleUrls: ['./classes.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ClassesComponent implements OnInit {
+export class ClassesComponent implements OnInit, OnDestroy {
   @ViewChild('calendar')
   calendar!: CalendarComponent;
 
@@ -31,6 +32,8 @@ export class ClassesComponent implements OnInit {
   archive?: boolean;
   @Input()
   current = 0;
+
+  private timeoutId?: NodeJS.Timeout;
 
   public rootPath = routesPaths.coachClasses;
 
@@ -46,12 +49,16 @@ export class ClassesComponent implements OnInit {
 
       if (propName === 'current') {
         if ((value === 0 && !this.archive) || (value === 1 && this.archive)) {
-          setTimeout(() => {
+          this.timeoutId = setTimeout(() => {
             this.setDate.emit(this.calendar.getDate());
           }, 1000);
         }
       }
     }
+  }
+
+  ngOnDestroy(): void {
+    clearTimeout(this.timeoutId);
   }
 
   public handleDate(date: string) {
